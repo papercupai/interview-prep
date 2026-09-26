@@ -1,0 +1,1250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Kaseya — CodeSignal ML Engineering Core</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1410; --surface: #131E18; --surface-alt: #1A2921;
+    --ink: #E5EEE9; --ink-muted: #9DADA4; --ink-faint: #708077;
+    --accent: #66C69C; --accent-strong: #8BDCB8; --accent-soft: #17372A;
+    --caution: #D9A43A; --caution-soft: #33290F;
+    --critical: #E0736C; --critical-soft: #3A1E1C;
+    --info: #78B7DE; --info-soft: #172D3B;
+    --rule: #26372E; --rule-strong: #3B5145;
+  }
+  .tag.gap { background: var(--critical-soft); color: var(--critical); }
+  .question-list .rank { display: inline-block; margin-bottom: 0.15rem; }
+  .script .say code { font-size: 0.8em; }
+</style>
+
+<style>
+  pre.code {
+    margin: 0;
+    padding: 0.9rem 1rem;
+    background: var(--surface-alt);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow-x: auto;
+    font-family: var(--f-mono);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    tab-size: 4;
+  }
+  pre.code code { background: transparent; padding: 0; font-size: inherit; }
+  .code-pair { align-items: start; }
+  details.solution { border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  details.solution summary { padding: 0.7rem 0.9rem; cursor: pointer; font-family: var(--f-display); font-weight: 650; font-size: 0.9rem; background: var(--caution-soft); color: var(--caution); }
+  details.solution[open] summary { border-bottom: 1px solid var(--rule); }
+  details.solution pre.code { border: 0; border-radius: 0 0 3px 3px; }
+  .flash-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+  details.flash { background: var(--surface); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+  details.flash summary { padding: 0.75rem 0.95rem; cursor: pointer; font-family: var(--f-display); font-weight: 650; font-size: 0.93rem; line-height: 1.35; }
+  details.flash summary::before { content: attr(data-topic); display: block; margin-bottom: 0.2rem; color: var(--accent); font: 600 0.62rem var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+  details.flash[open] summary { border-bottom: 1px solid var(--rule); background: var(--surface-alt); }
+  details.flash .answer { padding: 0.8rem 0.95rem 0.95rem; font-size: 0.93rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  details.flash .answer ul { margin: 0; padding-left: 1.1rem; }
+  details.flash .answer li { margin: 0.25rem 0; }
+  table.matrix td:nth-child(2) { color: var(--ink); }
+  .kbd { font-family: var(--f-mono); font-size: 0.8em; padding: 0.05em 0.35em; border: 1px solid var(--rule-strong); border-radius: 3px; background: var(--surface); }
+  @media (max-width: 48rem) { .flash-grid { grid-template-columns: 1fr; } }
+  @media print { details.solution > *, details.flash > * { display: block; } }
+</style>
+
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Kaseya · CodeSignal “Machine Learning Engineering Core Assessment” · prepared 8 Sep 2026</p>
+      <h1>Seventy minutes, nine questions, no libraries.</h1>
+      <p class="standfirst">This is CodeSignal's certified <em>ML Engineering Core</em> framework, not the general coding assessment Kaseya uses for software engineers. Three modules: six theory questions, one string-and-array warm-up, two from-scratch algorithm implementations. Everything on this page is derived from CodeSignal's own technical brief for the framework; every skeleton below runs against tests, and the reference solutions are the file that passed them.</p>
+    </div>
+    <aside class="join-card" aria-label="Assessment details">
+      <p class="eyebrow">Owner-supplied format</p>
+      <p><strong>CodeSignal invite from Kaseya.</strong><br><span class="muted">Deadline, role title and recruiter were not supplied. Add them here when you have them.</span></p>
+      <p><strong class="hot">Plain Python, from scratch.</strong><br><span class="muted">Module 3 forbids sklearn, PyTorch, TensorFlow and Keras. Write list comprehensions and loops; <code>math</code> and <code>random</code> are the whole toolbox.</span></p>
+      <a class="button" href="https://codesignal.com/practice/" target="_blank" rel="noreferrer">Open CodeSignal's IDE to practise ↗</a>
+      <p class="small muted">The practice file for timed runs: <code>codesignal-mle-core-practice.py</code> in this folder.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Assessment facts">
+    <div class="fact"><dt>Length</dt><dd>70 minutes</dd></div>
+    <div class="fact"><dt>Questions</dt><dd>9 · in 3 modules</dd></div>
+    <div class="fact"><dt>Score range</dt><dd>200 – 600</dd></div>
+    <div class="fact"><dt>Module 1</dt><dd>6 quiz · 5–10 min each</dd></div>
+    <div class="fact"><dt>Module 2</dt><dd>1 coding · 10–15 min</dd></div>
+    <div class="fact"><dt>Module 3</dt><dd class="hot">2 coding · 20–25 min each</dd></div>
+    <div class="fact"><dt>Libraries</dt><dd class="hot">None allowed</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Read this first</a></li>
+      <li><span class="n">02</span><a href="#cards">Module 1 flash cards</a></li>
+      <li><span class="n">03</span><a href="#arith">Module 1 by hand</a></li>
+      <li><span class="n">04</span><a href="#m2">Module 2 drills</a></li>
+      <li><span class="n">05</span><a href="#m3">Module 3 skeletons</a></li>
+      <li><span class="n">06</span><a href="#extras">Cheap extras</a></li>
+      <li><span class="n">07</span><a href="#plan">Four-evening plan + mock</a></li>
+      <li><span class="n">08</span><a href="#mechanics">Mechanics and traps</a></li>
+      <li><span class="n">09</span><a href="#sources">Sources + confidence</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Read this first</p>
+        <h2>What the brief says the test is — and the two ways people lose points</h2>
+      </div>
+      <div class="priority-grid">
+        <article class="priority">
+          <span class="num">MODULE 1 / ~40 MIN OF BUDGET</span>
+          <h3>Six scenario quizzes</h3>
+          <p>Multiple choice, <strong>multi-select</strong>, and fill-in-the-blank. The brief names its own topics: L1 vs L2, reasons for overfitting, limits of Bayes' rule, choosing k in kNN, GBM vs Random Forest, neural-network fundamentals. Arithmetic is “paper and a simple calculator”.</p>
+        </article>
+        <article class="priority">
+          <span class="num">MODULE 2 / ~12 MIN</span>
+          <h3>One warm-up coding task</h3>
+          <p>15–20 lines. Strings, digits, arrays: split, compare, modify, reverse, build two arrays from one. Solvable with one or two nested loops; the brief <em>excludes</em> anything needing patterns, optimization, or classic algorithms.</p>
+        </article>
+        <article class="priority">
+          <span class="num">MODULE 3 / ~45 MIN</span>
+          <h3>Two algorithms from a skeleton</h3>
+          <p>15–25 lines each, from a description of how the algorithm works. Named candidates: <strong>kNN, k-Means, decision trees, Gaussian mixtures, matrix normalization, bagging, forward propagation.</strong> Hyperparameter tuning and library calls are excluded.</p>
+        </article>
+        <article class="priority">
+          <span class="num">SCORING</span>
+          <h3>200–600, auto-graded</h3>
+          <p>Coding tasks run hidden tests; partial credit exists per test case. The quiz is where “many questions have multiple correct answers” bites — a multi-select is scored on the whole set you tick.</p>
+        </article>
+      </div>
+      <div class="two-col">
+        <div class="note warn">
+          <p class="eyebrow">Loss 1 — the clock</p>
+          <p>Nine questions in seventy minutes is <strong>under eight minutes each on average</strong>, but the two Module 3 tasks deserve twenty each. Do Module 1 fast and first (it is the first module anyway), bank Module 2 in ten, and protect forty minutes for Module 3. If a quiz question needs more than three minutes, pick, flag mentally, move on — the brief's own solve-time budget is 5–10 minutes and the arithmetic is deliberately small.</p>
+        </div>
+        <div class="note crit">
+          <p class="eyebrow">Loss 2 — the skeleton contract</p>
+          <p>Module 3 hands you a skeleton with <code># implement this</code> markers and says <em>“do not edit”</em> the rest. The pre-written code assumes your return types: the kNN sample's <code>get_label</code> reads <code>row[-1]</code> off what <code>k_neighbors</code> returns, so <code>k_neighbors</code> must return <strong>whole training rows</strong>, not distances or indices. Read the un-editable parts first; they are the spec.</p>
+        </div>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">Not the GCA</p>
+        <p>Kaseya's software-engineering loop uses CodeSignal's <em>General Coding Assessment</em> — four DSA problems (arrays, rotated-array binary search, string parsing, matrix/DP) in 70 minutes, per Glassdoor reports from August 2026. Your invite names the <strong>Machine Learning Engineering Core</strong> assessment, a different certified instrument. Do not spend the week on LeetCode. If the assessment opens with four algorithm problems and no ML quiz, you were sent the GCA after all — the array/string patterns in section 04 still transfer, and the rest is standard DSA.</p>
+      </div>
+    </section>
+
+    <section id="cards">
+      <div class="sec-head">
+        <p class="eyebrow">02 · Module 1 flash cards</p>
+        <h2>Twenty-four cards. The first six are the brief's own topic list.</h2>
+      </div>
+      <p class="muted">Click a card to open it. Say the answer out loud before you open it; the quiz is multi-select, so aim to list <em>everything</em> that is true, and know the distractors.</p>
+      <div class="flash-grid">
+<details class="flash"><summary data-topic="Named in the brief">L1 vs L2 regularization — what does each do to the weights, and when do you pick which?</summary><div class="answer"><ul><li><strong>L1 (Lasso)</strong> adds λ·Σ|w|; the penalty has a constant gradient, so weights are driven exactly to <strong>zero</strong> → sparse models, built-in feature selection.</li><li><strong>L2 (Ridge)</strong> adds λ·Σw²; gradient shrinks with the weight, so weights get <strong>small but non-zero</strong> → smooth shrinkage, handles correlated features better (spreads weight across them; L1 picks one arbitrarily).</li><li>Elastic Net = both. L2 has a closed form; L1 does not (needs coordinate descent / subgradients). Both reduce variance at the cost of bias.</li></ul></div></details>
+<details class="flash"><summary data-topic="Named in the brief">Overfitting — list the causes and the fixes.</summary><div class="answer"><ul><li><strong>Symptoms:</strong> train error ≪ validation error; the gap grows with training.</li><li><strong>Causes:</strong> model too complex for the data, too little data, too many epochs, noisy labels/features, leakage from the validation set, no regularization.</li><li><strong>Fixes:</strong> more data / augmentation, regularization (L1/L2, dropout, weight decay), early stopping, simpler model or fewer features, cross-validation for selection, ensembling (bagging), pruning (trees).</li><li>Multi-select trap: “increase the learning rate” and “add more features” are <em>not</em> fixes.</li></ul></div></details>
+<details class="flash"><summary data-topic="Named in the brief">Bayes' rule and Naive Bayes — what are the limitations?</summary><div class="answer"><ul><li>P(A|B) = P(B|A)·P(A) / P(B). You need the <strong>prior</strong> P(A), which is often unknown or subjective; the result is only as good as the prior.</li><li><strong>Naive</strong> Bayes assumes features are <strong>conditionally independent</strong> given the class — rarely true, so probabilities are badly calibrated even when the argmax is right.</li><li><strong>Zero-frequency problem:</strong> an unseen feature value zeroes the whole product → Laplace (add-one) smoothing.</li><li>Continuous features need a distribution assumption (Gaussian NB). Cannot learn feature interactions.</li></ul></div></details>
+<details class="flash"><summary data-topic="Named in the brief">Choosing k in kNN — what happens at small and large k, and how do you pick?</summary><div class="answer"><ul><li><strong>Small k</strong> (k=1): low bias, high variance — jagged boundary, sensitive to noise and outliers.</li><li><strong>Large k</strong>: smooth boundary, high bias — majority class dominates; at k=n every prediction is the majority class.</li><li>Pick by <strong>cross-validation</strong> on the validation error. Heuristic √n. Use an <strong>odd</strong> k for binary classes to avoid ties. Scale features first — distance is meaningless across mismatched units.</li><li>kNN has no training step; prediction is O(n·d) per query.</li></ul></div></details>
+<details class="flash"><summary data-topic="Named in the brief">Gradient Boosting vs Random Forest.</summary><div class="answer"><ul><li><strong>Random Forest:</strong> bagging — many deep trees trained <strong>in parallel</strong> on bootstrap samples with random feature subsets; average/vote. Reduces <strong>variance</strong>. Hard to overfit, few hyperparameters, robust to noise.</li><li><strong>GBM:</strong> boosting — shallow trees trained <strong>sequentially</strong>, each fitting the residuals (negative gradient) of the ensemble so far, added with a learning rate. Reduces <strong>bias</strong>. Usually more accurate, but can overfit with too many rounds and is sensitive to noisy labels; key knobs are n_estimators, learning rate, max_depth, subsample.</li><li>RF trains in parallel; GBM cannot. XGBoost/LightGBM = regularized, histogram-based GBMs.</li></ul></div></details>
+<details class="flash"><summary data-topic="Named in the brief">Neural network fundamentals — the forward pass, activations, and what the brief's sample asks.</summary><div class="answer"><ul><li>Each neuron: z = Σ wᵢxᵢ + b, a = f(z). Layers chain: output of one is input to the next.</li><li><strong>Sigmoid</strong> σ(z)=1/(1+e⁻ᶻ) ∈ (0,1); σ(0)=0.5, σ(1)≈0.731, σ(2)≈0.881, σ(−1)≈0.269, σ(0.5)≈0.622. <strong>ReLU</strong> = max(0,z). <strong>tanh</strong> ∈ (−1,1). <strong>Softmax</strong> for multi-class output. <strong>Linear</strong> = identity.</li><li>The brief's sample: a small diagram, linear hidden units, sigmoid output, biases 0 — compute the output to <strong>three decimals</strong> by hand. Worked example in section 03.</li><li>Backprop = chain rule; the learning rate scales the gradient step; vanishing gradients come from saturating activations (sigmoid/tanh) in deep stacks.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Bias–variance tradeoff — define both and name a high-bias and a high-variance model.</summary><div class="answer"><ul><li><strong>Bias:</strong> error from wrong assumptions — the model cannot represent the truth (underfitting). High-bias: linear regression on a curved relation, large-k kNN, shallow trees.</li><li><strong>Variance:</strong> error from sensitivity to the particular training sample (overfitting). High-variance: deep unpruned trees, k=1 kNN, high-degree polynomials.</li><li>Expected error = bias² + variance + irreducible noise. Regularization and bagging trade variance for bias; boosting trades bias for variance.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Confusion matrix → accuracy, precision, recall, F1, specificity. When does accuracy mislead?</summary><div class="answer"><ul><li>Accuracy = (TP+TN)/all. <strong>Precision</strong> = TP/(TP+FP) — of what I flagged, how much was right. <strong>Recall</strong> (sensitivity, TPR) = TP/(TP+FN) — of what was real, how much I caught. <strong>Specificity</strong> = TN/(TN+FP). <strong>F1</strong> = 2PR/(P+R), the harmonic mean — punishes imbalance between P and R.</li><li>Accuracy misleads under <strong>class imbalance</strong>: 99% negatives → “always negative” scores 99%.</li><li>Raising the threshold raises precision and lowers recall. Worked numbers in section 03.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">ROC-AUC vs log loss vs PR-AUC — what does each measure?</summary><div class="answer"><ul><li><strong>ROC curve:</strong> TPR vs FPR across thresholds; <strong>AUC</strong> = probability a random positive is ranked above a random negative. 0.5 = random, 1.0 = perfect. Threshold-free, insensitive to class balance — which is why it can look fine on rare-positive data.</li><li><strong>PR-AUC:</strong> precision vs recall; the honest metric under heavy imbalance.</li><li><strong>Log loss</strong> = −mean[y·log p + (1−y)·log(1−p)]; punishes confident wrong probabilities; measures <strong>calibration</strong>, not just ranking. A model can have high AUC and bad log loss.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Train / validation / test — what is each for, and what is data leakage?</summary><div class="answer"><ul><li><strong>Train</strong> fits parameters; <strong>validation</strong> selects hyperparameters / early-stopping point / model; <strong>test</strong> is touched once, at the end, for the reported number.</li><li><strong>k-fold cross-validation:</strong> k rotations of train/validate, average the score — better use of small data, k=5 or 10. <strong>Stratified</strong> keeps class ratios per fold. Time series → forward-chaining splits, never shuffled.</li><li><strong>Leakage:</strong> information from validation/test (or the future) reaches training — scaling/imputing/feature-selecting on the full data before splitting, target-derived features, duplicate rows across splits. Symptom: too-good validation, bad production.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Gradient descent — batch vs SGD vs mini-batch, and what the learning rate does.</summary><div class="answer"><ul><li>w ← w − η·∇L(w). <strong>Batch</strong>: exact gradient over all data per step, slow per step, smooth. <strong>SGD</strong>: one sample per step, noisy but cheap, can escape shallow minima. <strong>Mini-batch</strong>: the practical default (32–512).</li><li><strong>η too large</strong>: divergence / oscillation; <strong>too small</strong>: crawls, stuck in plateaus. Schedules and Adam (per-parameter adaptive rates + momentum) fix most of it.</li><li>Feature scaling matters: unscaled features make the loss surface elongated and GD zig-zags.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Linear regression vs logistic regression — loss, output, assumptions.</summary><div class="answer"><ul><li><strong>Linear:</strong> ŷ = wᵀx + b, minimizes <strong>MSE</strong>; closed form (normal equation) or GD. Assumes linearity, independent errors, homoscedasticity; sensitive to outliers and multicollinearity.</li><li><strong>Logistic:</strong> p = σ(wᵀx + b), minimizes <strong>log loss</strong> (cross-entropy); no closed form. Output is a probability; decision boundary is linear in x. Coefficients are log-odds.</li><li>Regression metrics: MSE, RMSE (same units as y), MAE (robust to outliers), R² = 1 − SS_res/SS_tot.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Decision trees — how a split is chosen, and why they overfit.</summary><div class="answer"><ul><li>Greedy: at each node pick the (feature, threshold) that most reduces impurity — <strong>Gini</strong> = 1 − Σpᵢ², <strong>entropy</strong> = −Σpᵢ·log₂pᵢ, information gain = parent − weighted children. Regression trees use variance / MSE.</li><li>Grown to purity they memorize noise → control with max_depth, min_samples_leaf, pruning, or ensembling.</li><li>No scaling needed; handles mixed types; axis-aligned boundaries; unstable (small data change → different tree), which is exactly what bagging exploits.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Bagging vs boosting vs stacking.</summary><div class="answer"><ul><li><strong>Bagging:</strong> bootstrap samples → independent models → average/vote. Cuts variance. Random Forest = bagging + random feature subsets.</li><li><strong>Boosting:</strong> sequential weak learners, each correcting the last (AdaBoost reweights samples; gradient boosting fits residuals). Cuts bias; more overfit-prone.</li><li><strong>Stacking:</strong> heterogeneous models whose predictions feed a meta-learner, trained on out-of-fold predictions to avoid leakage.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">k-Means — algorithm, how to pick k, failure modes.</summary><div class="answer"><ul><li>Init k centroids → assign each point to nearest → recompute centroids as means → repeat until assignments stop changing. Minimizes within-cluster sum of squares. Converges to a <strong>local</strong> optimum → run several inits (k-means++ picks spread-out starts).</li><li>Pick k with the <strong>elbow</strong> (inertia vs k) or <strong>silhouette</strong> score.</li><li>Assumes spherical, similar-size clusters; sensitive to scale and outliers; needs k up front. GMM is the soft, elliptical generalization; DBSCAN finds arbitrary shapes without k.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Gaussian Mixture Models and EM — what are the two steps?</summary><div class="answer"><ul><li>Data modeled as a weighted sum of k Gaussians (πⱼ, μⱼ, Σⱼ). <strong>E-step:</strong> responsibilities rᵢⱼ = πⱼ·N(xᵢ|μⱼ,Σⱼ) / Σₖ πₖ·N(xᵢ|μₖ,Σₖ). <strong>M-step:</strong> πⱼ = mean of rᵢⱼ; μⱼ = weighted mean; Σⱼ = weighted covariance. Repeat until log-likelihood stops improving.</li><li>Soft assignments (vs k-Means hard); each iteration is guaranteed not to decrease the likelihood; local optima and singular covariances (a component collapsing onto one point) are the failure modes.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Class imbalance — what do you do?</summary><div class="answer"><ul><li>Metrics first: precision/recall/F1/PR-AUC, never plain accuracy.</li><li>Resampling: oversample minority (SMOTE synthesizes), undersample majority. <strong>Class weights</strong> in the loss. Threshold tuning on the validation set. Anomaly-detection framing when positives are extremely rare.</li><li>Resample only the <em>training</em> fold, never the validation data.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Feature scaling and encoding — which models need it, and which encodings exist?</summary><div class="answer"><ul><li><strong>Need scaling:</strong> anything distance- or gradient-based — kNN, k-Means, SVM, logistic/linear regression with regularization, neural nets, PCA. <strong>Don't:</strong> trees and tree ensembles.</li><li>Min-max → [0,1]; z-score → mean 0, std 1 (use for Gaussian-ish, outlier-sensitive); robust scaling uses median/IQR.</li><li>Categorical: one-hot (nominal), ordinal codes (ordered), target encoding (high cardinality — leak-prone, do it out-of-fold). Fit the scaler on train only.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">PCA — what it does and what it assumes.</summary><div class="answer"><ul><li>Finds orthogonal directions of maximum variance (eigenvectors of the covariance matrix); project onto the top m to reduce dimension. Explained-variance ratio tells you how many to keep.</li><li>Standardize first or the largest-scale feature dominates. Linear, unsupervised, loses interpretability; captures variance, not necessarily class separation (LDA does that).</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Dropout, batch norm, early stopping — what does each do?</summary><div class="answer"><ul><li><strong>Dropout:</strong> randomly zero a fraction of activations during training; an implicit ensemble; turned off (scaled) at inference. Regularizes.</li><li><strong>Batch norm:</strong> normalizes each layer's inputs per mini-batch; stabilizes and speeds training, allows larger learning rates, mild regularization.</li><li><strong>Early stopping:</strong> stop when validation loss stops improving; the cheapest regularizer.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Precision vs recall — which do you optimize for fraud detection, spam, cancer screening?</summary><div class="answer"><ul><li>Ask what each error costs. <strong>Cancer screening / fraud triage:</strong> a miss is expensive → maximize <strong>recall</strong>, accept false positives that a second stage filters.</li><li><strong>Spam / auto-blocking a customer:</strong> a false positive is expensive → maximize <strong>precision</strong>.</li><li>Move the threshold, don't retrain: lower threshold → recall ↑ precision ↓.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Train accuracy high, validation low — what's wrong and what are the fixes? (the classic multi-select)</summary><div class="answer"><ul><li>Diagnosis: <strong>overfitting</strong> (high variance). Also check for a distribution shift between train and validation, and for leakage <em>into</em> train that the validation set lacks.</li><li>Correct answers on a multi-select: more training data · regularization · early stopping · reduce model complexity / features · dropout · cross-validation · ensembling (bagging).</li><li>Wrong distractors: raise learning rate · add layers · train longer · remove regularization.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Curse of dimensionality — why does it hurt kNN, and what helps?</summary><div class="answer"><ul><li>In high dimensions all pairwise distances concentrate toward the same value, so “nearest” loses meaning; data becomes sparse; the volume needed for a fixed density grows exponentially.</li><li>Helps: feature selection, PCA/embeddings, regularization, distance metrics that ignore irrelevant dimensions, more data.</li></ul></div></details>
+<details class="flash"><summary data-topic="Core">Parametric vs non-parametric; supervised vs unsupervised — quick classification of the usual models.</summary><div class="answer"><ul><li><strong>Parametric</strong> (fixed number of parameters): linear/logistic regression, Naive Bayes, neural nets. <strong>Non-parametric</strong> (grows with data): kNN, decision trees, kernel SVM, GMM with unknown k.</li><li><strong>Supervised:</strong> regression, classification. <strong>Unsupervised:</strong> k-Means, GMM, PCA, DBSCAN. <strong>Semi-/self-supervised</strong> and RL are the other two families a multi-select might list.</li></ul></div></details>
+</div>
+    </section>
+
+    <section id="arith">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Module 1 by hand</p>
+        <h2>The arithmetic the quiz actually asks — worked, so you can time yourself</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">The brief's sample <span class="badge fact">Neural network</span></p>
+          <h3>Forward pass to three decimals</h3>
+          <p>Inputs x = (1.0, 2.0). Hidden layer, two linear neurons, biases 0: h₁ has weights (0.5, −0.2), h₂ has weights (0.1, 0.4). Output neuron, sigmoid, weights (0.3, 0.7) on (h₁, h₂). What is the output?</p>
+          <ul>
+            <li>h₁ = 0.5·1.0 + (−0.2)·2.0 = 0.5 − 0.4 = <strong>0.1</strong></li>
+            <li>h₂ = 0.1·1.0 + 0.4·2.0 = 0.1 + 0.8 = <strong>0.9</strong></li>
+            <li>z = 0.3·0.1 + 0.7·0.9 = 0.03 + 0.63 = <strong>0.66</strong></li>
+            <li>σ(0.66) = 1 / (1 + e⁻⁰·⁶⁶) = 1 / (1 + 0.5169) = <strong>0.659</strong></li>
+          </ul>
+          <p class="small muted">The <code>forward</code> skeleton in section 05 reproduces exactly this and asserts 0.659. Memorize e⁻¹ ≈ 0.368, e⁻⁰·⁵ ≈ 0.607, e⁻² ≈ 0.135; interpolate the rest or use the calculator.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Worked <span class="badge fact">Metrics</span></p>
+          <h3>Confusion matrix → the five numbers</h3>
+          <p>100 samples, 20 positive. Model predicts 25 positive, of which 15 are truly positive.</p>
+          <ul>
+            <li>TP = 15 · FP = 10 · FN = 5 · TN = 70</li>
+            <li>Precision = 15/25 = <strong>0.60</strong> · Recall = 15/20 = <strong>0.75</strong></li>
+            <li>F1 = 2·0.6·0.75 / 1.35 = <strong>0.667</strong> · Accuracy = 85/100 = <strong>0.85</strong> · Specificity = 70/80 = <strong>0.875</strong></li>
+            <li>“Always negative” would score accuracy 0.80 — that is the imbalance point the quiz wants you to make.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Worked <span class="badge fact">Bayes</span></p>
+          <h3>The disease-test question</h3>
+          <p>Prevalence 1%. Test sensitivity 90%, specificity 95%. Positive result — probability of disease?</p>
+          <ul>
+            <li>P(+|D) = 0.90, P(+|¬D) = 0.05, P(D) = 0.01</li>
+            <li>P(+) = 0.90·0.01 + 0.05·0.99 = 0.009 + 0.0495 = 0.0585</li>
+            <li>P(D|+) = 0.009 / 0.0585 = <strong>0.154</strong></li>
+            <li>The “limitation” framing: the answer is dominated by the prior; with a 10% prior it becomes 0.667.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Worked <span class="badge fact">Impurity</span></p>
+          <h3>Gini and entropy of a node</h3>
+          <p>Node with 6 positives, 2 negatives.</p>
+          <ul>
+            <li>p = 0.75, q = 0.25. Gini = 1 − (0.5625 + 0.0625) = <strong>0.375</strong></li>
+            <li>Entropy = −(0.75·log₂0.75 + 0.25·log₂0.25) = −(0.75·(−0.415) + 0.25·(−2)) = 0.311 + 0.5 = <strong>0.811</strong> bits</li>
+            <li>Split into (6,0) and (0,2): both children pure, weighted impurity 0, information gain = 0.811.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="m2">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Module 2 drills</p>
+        <h2>The brief's sample plus four variations in the same mould — ten minutes each</h2>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">The shape of every Module 2 task</p>
+        <p>The brief lists the primitives: basic number ops, splitting a number into digits, splitting a string, comparing and modifying substrings, concatenating, reversing, iterating and modifying arrays, building two arrays from one under a condition. Have <code>str.split()</code>, <code>.lower()</code>, slicing, <code>[::-1]</code>, <code>collections.Counter</code> (or <code>str.count</code>), <code>enumerate</code>, <code>zip</code> and <code>sorted</code> in muscle memory. Read the statement <strong>twice</strong>; every reported failure on these is a misread edge case, not the algorithm.</p>
+      </div>
+      <details class="drill" open>
+        <summary>Sample from the brief — count words with a letter appearing at least three times (case-insensitive)</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr">
+          <div class="stack">
+            <p>For <code>sentence = "Dooddle moodle Pepper unsuccessfully"</code> the answer is <strong>3</strong>: Dooddle (d×3), Pepper (p×3), unsuccessfully (u×3 and s×3 — still one word). “moodle” has no triple.</p>
+            <div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 10 min</p><pre class="code"><code># Module 2 sample (from CodeSignal's technical brief): count the words that contain
+# some letter at least three times, case-insensitive.
+def triple_duplicate_words(sentence):
+    # implement this
+    pass</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Module 2 sample (from CodeSignal's technical brief): count the words that contain
+# some letter at least three times, case-insensitive.
+def triple_duplicate_words(sentence):
+    count = 0
+    for word in sentence.split():
+        w = word.lower()
+        if any(w.count(ch) &gt;= 3 for ch in set(w)):
+            count += 1
+    return count</code></pre></details></div></div>
+          </div>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>Variation — digits: sum of even digits minus sum of odd digits</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack"><div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 6 min</p><pre class="code"><code># Variation: split a number into digits; return the sum of the even digits minus
+# the sum of the odd digits. digit_balance(31724) -&gt; (2 + 4) - (3 + 1 + 7) = -5
+def digit_balance(n):
+    # implement this
+    pass</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Variation: split a number into digits; return the sum of the even digits minus
+# the sum of the odd digits. digit_balance(31724) -&gt; (2 + 4) - (3 + 1 + 7) = -5
+def digit_balance(n):
+    even = odd = 0
+    for ch in str(abs(n)):
+        d = int(ch)
+        if d % 2 == 0:
+            even += d
+        else:
+            odd += d
+    return even - odd</code></pre></details></div></div></div></div>
+      </details>
+      <details class="drill">
+        <summary>Variation — two arrays from one: negatives reversed, then the rest</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack"><div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 6 min</p><pre class="code"><code># Variation (brief wording): from `a`, build `neg` (values &lt; 0) and `pos` (values &gt;= 0);
+# reverse `neg`, then return neg + pos.   split_and_prepend([3, -1, 4, -5, 0]) -&gt; [-5, -1, 3, 4, 0]
+def split_and_prepend(a):
+    # implement this
+    pass</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Variation (brief wording): from `a`, build `neg` (values &lt; 0) and `pos` (values &gt;= 0);
+# reverse `neg`, then return neg + pos.   split_and_prepend([3, -1, 4, -5, 0]) -&gt; [-5, -1, 3, 4, 0]
+def split_and_prepend(a):
+    neg = [x for x in a if x &lt; 0]
+    pos = [x for x in a if x &gt;= 0]
+    neg.reverse()
+    return neg + pos</code></pre></details></div></div></div></div>
+      </details>
+      <details class="drill">
+        <summary>Variation — strings: reverse every word of length ≥ k, keep order and spacing</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack"><div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 8 min</p><pre class="code"><code># Variation: reverse every word of length &gt;= k in place, keep word order and spacing.
+# reverse_long_words("the quick brown fox", 4) -&gt; "the kciuq nworb fox"
+def reverse_long_words(sentence, k):
+    # implement this
+    pass</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Variation: reverse every word of length &gt;= k in place, keep word order and spacing.
+# reverse_long_words("the quick brown fox", 4) -&gt; "the kciuq nworb fox"
+def reverse_long_words(sentence, k):
+    out = []
+    for word in sentence.split(" "):
+        out.append(word[::-1] if len(word) &gt;= k else word)
+    return " ".join(out)</code></pre></details></div></div></div></div>
+      </details>
+      <details class="drill">
+        <summary>Variation — compare substrings: count anagram pairs among the words</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack"><div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 10 min</p><pre class="code"><code># Variation: count pairs of words (i &lt; j) that are anagrams of each other, case-insensitive.
+# anagram_pairs("Listen silent enlist tinsel banana") -&gt; 6  (4 anagrams -&gt; C(4,2))
+def anagram_pairs(sentence):
+    # implement this
+    pass</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Variation: count pairs of words (i &lt; j) that are anagrams of each other, case-insensitive.
+# anagram_pairs("Listen silent enlist tinsel banana") -&gt; 6  (4 anagrams -&gt; C(4,2))
+def anagram_pairs(sentence):
+    keys = ["".join(sorted(w.lower())) for w in sentence.split()]
+    pairs = 0
+    for i in range(len(keys)):
+        for j in range(i + 1, len(keys)):
+            if keys[i] == keys[j]:
+                pairs += 1
+    return pairs</code></pre></details></div></div></div></div>
+      </details>
+    </section>
+
+    <section id="m3">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Module 3 skeletons</p>
+        <h2>The seven algorithms the brief names, each as a CodeSignal-style skeleton</h2>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">How to use these</p>
+        <p>Open <code>codesignal-mle-core-practice.py</code>, start a 20-minute timer, fill one algorithm's <code># implement this</code> regions, run the file — it reports PASS/FAIL per section. Only then open the reference here. The first cycle, expect kNN and normalization in ten minutes and GMM in thirty; by the third cycle all seven should sit under fifteen. The skeleton and solution below are generated from the same tested file, so what you see is what passed.</p>
+      </div>
+
+      <details class="drill" open>
+        <summary>1 · k-Nearest Neighbors — the brief's own sample; you implement <code>euc_dist</code> and <code>k_neighbors</code></summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack">
+          <p>Three steps: Euclidean distance, pick the k nearest training rows, majority vote (already written). Return whole rows from <code>k_neighbors</code>; the test is the brief's 14-row example with k = 3, expected <code>[1.0, 0.0, 0.0, 1.0, 0.0]</code>.</p>
+          <div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 12 min</p><pre class="code"><code># Module 3 sample (verbatim shape from the brief). Only euc_dist and k_neighbors are yours.
+def euc_dist(value1, value2):
+    # implement this
+    pass
+
+def k_neighbors(train_data, test_case, k):
+    # implement this
+    pass
+
+def get_label(train_data, test_case, k):
+    neighbors = k_neighbors(train_data, test_case, k)
+    labels = [row[-1] for row in neighbors]
+    max_label = max(set(labels), key=labels.count)
+    return max_label
+
+def knn_solution(train_data, test_data, k):
+    final_labels = list()
+    for row in test_data:
+        label = get_label(train_data, row, k)
+        final_labels.append(label)
+    return final_labels</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Module 3 sample (verbatim shape from the brief). Only euc_dist and k_neighbors are yours.
+def euc_dist(value1, value2):
+    return sum((a - b) ** 2 for a, b in zip(value1, value2)) ** 0.5
+
+def k_neighbors(train_data, test_case, k):
+    scored = [(euc_dist(row[:-1], test_case), row) for row in train_data]
+    scored.sort(key=lambda pair: pair[0])
+    return [row for _, row in scored[:k]]
+
+def get_label(train_data, test_case, k):
+    neighbors = k_neighbors(train_data, test_case, k)
+    labels = [row[-1] for row in neighbors]
+    max_label = max(set(labels), key=labels.count)
+    return max_label
+
+def knn_solution(train_data, test_data, k):
+    final_labels = list()
+    for row in test_data:
+        label = get_label(train_data, row, k)
+        final_labels.append(label)
+    return final_labels</code></pre></details></div></div>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>2 · k-Means — assign, recompute, repeat until stable</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack">
+          <p>Two functions: assign each point to its nearest centroid (index of the minimum distance), then recompute each centroid as the coordinate-wise mean of its members. Empty cluster → keep the old centroid. The driver loop is given.</p>
+          <div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 18 min</p><pre class="code"><code># k-Means: assign each point to its nearest centroid, recompute centroids as the
+# coordinate-wise mean, stop when nothing moves. An empty cluster keeps its old centroid.
+def assign_clusters(points, centroids):
+    # implement this
+    pass
+
+def update_centroids(points, labels, old_centroids):
+    # implement this
+    pass
+
+def kmeans(points, init_centroids, max_iter=100):
+    centroids = [list(c) for c in init_centroids]
+    labels = assign_clusters(points, centroids)
+    for _ in range(max_iter):
+        new_centroids = update_centroids(points, labels, centroids)
+        new_labels = assign_clusters(points, new_centroids)
+        centroids = new_centroids
+        if new_labels == labels:
+            break
+        labels = new_labels
+    return labels, centroids</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># k-Means: assign each point to its nearest centroid, recompute centroids as the
+# coordinate-wise mean, stop when nothing moves. An empty cluster keeps its old centroid.
+def assign_clusters(points, centroids):
+    labels = []
+    for p in points:
+        dists = [euc_dist(p, c) for c in centroids]
+        labels.append(dists.index(min(dists)))
+    return labels
+
+def update_centroids(points, labels, old_centroids):
+    new_centroids = []
+    for j, old in enumerate(old_centroids):
+        members = [p for p, lab in zip(points, labels) if lab == j]
+        if not members:
+            new_centroids.append(list(old))
+            continue
+        dim = len(members[0])
+        new_centroids.append([sum(m[d] for m in members) / len(members) for d in range(dim)])
+    return new_centroids
+
+def kmeans(points, init_centroids, max_iter=100):
+    centroids = [list(c) for c in init_centroids]
+    labels = assign_clusters(points, centroids)
+    for _ in range(max_iter):
+        new_centroids = update_centroids(points, labels, centroids)
+        new_labels = assign_clusters(points, new_centroids)
+        centroids = new_centroids
+        if new_labels == labels:
+            break
+        labels = new_labels
+    return labels, centroids</code></pre></details></div></div>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>3 · Matrix normalization — min-max and z-score per column, L2 per row</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack">
+          <p><code>zip(*matrix)</code> gives you columns. Guard the zero-range / zero-std / zero-norm cases. Use the population standard deviation (divide by n) unless told otherwise — CodeSignal's expected outputs are usually computed that way; if a hidden test disagrees, try n − 1.</p>
+          <div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 12 min</p><pre class="code"><code># Matrix normalization, three flavours. Column-wise for min-max and z-score; row-wise for L2.
+# Use the POPULATION standard deviation (divide by n) unless the task says otherwise.
+def minmax_normalize(matrix):
+    # implement this
+    pass
+
+def zscore_normalize(matrix):
+    # implement this
+    pass
+
+def l2_normalize_rows(matrix):
+    # implement this
+    pass</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Matrix normalization, three flavours. Column-wise for min-max and z-score; row-wise for L2.
+# Use the POPULATION standard deviation (divide by n) unless the task says otherwise.
+def minmax_normalize(matrix):
+    cols = list(zip(*matrix))
+    lows = [min(c) for c in cols]
+    highs = [max(c) for c in cols]
+    out = []
+    for row in matrix:
+        out.append([(v - lo) / (hi - lo) if hi != lo else 0.0
+                    for v, lo, hi in zip(row, lows, highs)])
+    return out
+
+def zscore_normalize(matrix):
+    cols = list(zip(*matrix))
+    means = [sum(c) / len(c) for c in cols]
+    stds = [(sum((v - m) ** 2 for v in c) / len(c)) ** 0.5 for c, m in zip(cols, means)]
+    return [[(v - m) / s if s else 0.0 for v, m, s in zip(row, means, stds)] for row in matrix]
+
+def l2_normalize_rows(matrix):
+    out = []
+    for row in matrix:
+        norm = sum(v * v for v in row) ** 0.5
+        out.append([v / norm if norm else 0.0 for v in row])
+    return out</code></pre></details></div></div>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>4 · Forward propagation — one dense layer, then chain them</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack">
+          <p>weights[j][i] is the weight from input i to neuron j. z = Σ w·x + b, then the activation. The test is the section-03 worked example and asserts 0.659.</p>
+          <div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 12 min</p><pre class="code"><code># Forward propagation. weights[j][i] is the weight from input i to neuron j.
+# layers is a list of (weights, biases, activation) tuples applied in order.
+def sigmoid(x):
+    return 1.0 / (1.0 + math.exp(-x))
+
+def relu(x):
+    return x if x &gt; 0 else 0.0
+
+def linear(x):
+    return x
+
+def dense(inputs, weights, biases, activation):
+    # implement this
+    pass
+
+def forward(inputs, layers):
+    # implement this
+    pass</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Forward propagation. weights[j][i] is the weight from input i to neuron j.
+# layers is a list of (weights, biases, activation) tuples applied in order.
+def sigmoid(x):
+    return 1.0 / (1.0 + math.exp(-x))
+
+def relu(x):
+    return x if x &gt; 0 else 0.0
+
+def linear(x):
+    return x
+
+def dense(inputs, weights, biases, activation):
+    outputs = []
+    for j, w_row in enumerate(weights):
+        z = sum(w * x for w, x in zip(w_row, inputs)) + biases[j]
+        outputs.append(activation(z))
+    return outputs
+
+def forward(inputs, layers):
+    activations = list(inputs)
+    for weights, biases, activation in layers:
+        activations = dense(activations, weights, biases, activation)
+    return activations</code></pre></details></div></div>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>5 · Decision tree pieces — Gini, entropy, best split</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack">
+          <p>Rows carry the label last. Scan every feature and every distinct value as a threshold (≤ goes left), score by weighted Gini of the children, keep the minimum. Skip splits that leave a side empty.</p>
+          <div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 20 min</p><pre class="code"><code># Decision-tree pieces: impurity, a threshold split, and the best (feature, threshold)
+# by weighted Gini. rows carry features first and the class label LAST.
+def gini(labels):
+    # implement this
+    pass
+
+def entropy(labels):
+    # implement this
+    pass
+
+def split_rows(rows, feature, threshold):
+    left = [r for r in rows if r[feature] &lt;= threshold]
+    right = [r for r in rows if r[feature] &gt; threshold]
+    return left, right
+
+def best_split(rows):
+    # implement this
+    pass</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Decision-tree pieces: impurity, a threshold split, and the best (feature, threshold)
+# by weighted Gini. rows carry features first and the class label LAST.
+def gini(labels):
+    n = len(labels)
+    if n == 0:
+        return 0.0
+    return 1.0 - sum((labels.count(c) / n) ** 2 for c in set(labels))
+
+def entropy(labels):
+    n = len(labels)
+    if n == 0:
+        return 0.0
+    total = 0.0
+    for c in set(labels):
+        p = labels.count(c) / n
+        total -= p * math.log2(p)
+    return total
+
+def split_rows(rows, feature, threshold):
+    left = [r for r in rows if r[feature] &lt;= threshold]
+    right = [r for r in rows if r[feature] &gt; threshold]
+    return left, right
+
+def best_split(rows):
+    best_feature, best_threshold, best_score = None, None, float("inf")
+    n = len(rows)
+    for feature in range(len(rows[0]) - 1):
+        for threshold in sorted(set(r[feature] for r in rows)):
+            left, right = split_rows(rows, feature, threshold)
+            if not left or not right:
+                continue
+            score = (len(left) / n) * gini([r[-1] for r in left]) \
+                  + (len(right) / n) * gini([r[-1] for r in right])
+            if score &lt; best_score:
+                best_feature, best_threshold, best_score = feature, threshold, score
+    return best_feature, best_threshold, best_score</code></pre></details></div></div>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>6 · Bagging — bootstrap, fit many, vote</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack">
+          <p>A bootstrap sample is n draws <em>with replacement</em>. The base learner is injected as <code>fit</code>/<code>predict</code> callables, so the test uses 1-NN. Seed the RNG so results are reproducible.</p>
+          <div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 12 min</p><pre class="code"><code># Bagging: n bootstrap samples (with replacement, same size as the data), one base
+# model each, majority vote at prediction. `fit(rows) -&gt; model`, `predict(model, row) -&gt; label`.
+def bootstrap_sample(rows, rng):
+    # implement this
+    pass
+
+def majority_vote(predictions):
+    return max(set(predictions), key=predictions.count)
+
+def bagging_predict(train_data, test_data, n_models, fit, predict, seed=0):
+    # implement this
+    pass</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Bagging: n bootstrap samples (with replacement, same size as the data), one base
+# model each, majority vote at prediction. `fit(rows) -&gt; model`, `predict(model, row) -&gt; label`.
+def bootstrap_sample(rows, rng):
+    return [rng.choice(rows) for _ in range(len(rows))]
+
+def majority_vote(predictions):
+    return max(set(predictions), key=predictions.count)
+
+def bagging_predict(train_data, test_data, n_models, fit, predict, seed=0):
+    rng = random.Random(seed)
+    models = [fit(bootstrap_sample(train_data, rng)) for _ in range(n_models)]
+    results = []
+    for row in test_data:
+        votes = [predict(model, row) for model in models]
+        results.append(majority_vote(votes))
+    return results</code></pre></details></div></div>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>7 · Gaussian mixture (1-D) — the E-step and the M-step</summary>
+        <div class="drill-body" style="grid-template-columns: 1fr"><div class="stack">
+          <p>E-step: responsibility of component j for point x is its weighted density divided by the sum over components. M-step: weight = mean responsibility, mean = responsibility-weighted mean, variance = responsibility-weighted squared deviation. Floor the variance so a component cannot collapse.</p>
+          <div class="two-col code-pair"><div class="stack"><p class="eyebrow">Skeleton · target 25 min</p><pre class="code"><code># 1-D Gaussian mixture by EM. E-step: responsibilities. M-step: weighted mean/variance/weight.
+def gaussian_pdf(x, mean, var):
+    return math.exp(-((x - mean) ** 2) / (2.0 * var)) / math.sqrt(2.0 * math.pi * var)
+
+def e_step(xs, weights, means, variances):
+    # implement this
+    pass
+
+def m_step(xs, resp):
+    # implement this
+    pass
+
+def gmm_1d(xs, init_means, iters=50):
+    k = len(init_means)
+    weights = [1.0 / k] * k
+    means = list(init_means)
+    variances = [1.0] * k
+    for _ in range(iters):
+        resp = e_step(xs, weights, means, variances)
+        weights, means, variances = m_step(xs, resp)
+    return weights, means, variances</code></pre></div><div class="stack"><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># 1-D Gaussian mixture by EM. E-step: responsibilities. M-step: weighted mean/variance/weight.
+def gaussian_pdf(x, mean, var):
+    return math.exp(-((x - mean) ** 2) / (2.0 * var)) / math.sqrt(2.0 * math.pi * var)
+
+def e_step(xs, weights, means, variances):
+    resp = []
+    for x in xs:
+        numer = [w * gaussian_pdf(x, m, v) for w, m, v in zip(weights, means, variances)]
+        total = sum(numer)
+        resp.append([n / total for n in numer])
+    return resp
+
+def m_step(xs, resp):
+    k = len(resp[0])
+    n = len(xs)
+    weights, means, variances = [], [], []
+    for j in range(k):
+        r_j = [r[j] for r in resp]
+        n_j = sum(r_j)
+        mean = sum(r * x for r, x in zip(r_j, xs)) / n_j
+        var = sum(r * (x - mean) ** 2 for r, x in zip(r_j, xs)) / n_j
+        weights.append(n_j / n)
+        means.append(mean)
+        variances.append(max(var, 1e-6))
+    return weights, means, variances
+
+def gmm_1d(xs, init_means, iters=50):
+    k = len(init_means)
+    weights = [1.0 / k] * k
+    means = list(init_means)
+    variances = [1.0] * k
+    for _ in range(iters):
+        resp = e_step(xs, weights, means, variances)
+        weights, means, variances = m_step(xs, resp)
+    return weights, means, variances</code></pre></details></div></div>
+        </div></div>
+      </details>
+    </section>
+
+    <section id="extras">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Cheap extras</p>
+        <h2>Eight more functions that fit the same mould — read once, they are reference</h2>
+      </div>
+      <p class="muted">Manhattan and cosine distance, softmax, one-variable linear regression by gradient descent, one logistic-regression step, and precision/recall/F1 from label lists. Any of these could be a Module 3 “component of a model” task or a Module 1 fill-in-the-blank.</p>
+      <pre class="code"><code># Cheap extras that fit the same "implement from a description" mould.
+def manhattan_dist(a, b):
+    return sum(abs(x - y) for x, y in zip(a, b))
+
+def cosine_similarity(a, b):
+    dot = sum(x * y for x, y in zip(a, b))
+    na = sum(x * x for x in a) ** 0.5
+    nb = sum(y * y for y in b) ** 0.5
+    return dot / (na * nb) if na and nb else 0.0
+
+def softmax(zs):
+    m = max(zs)
+    exps = [math.exp(z - m) for z in zs]
+    s = sum(exps)
+    return [e / s for e in exps]
+
+def linear_regression_gd(xs, ys, lr=0.01, epochs=1000):
+    # y = w * x + b, batch gradient descent on MSE
+    w = b = 0.0
+    n = len(xs)
+    for _ in range(epochs):
+        preds = [w * x + b for x in xs]
+        dw = (2.0 / n) * sum((p - y) * x for p, y, x in zip(preds, ys, xs))
+        db = (2.0 / n) * sum(p - y for p, y in zip(preds, ys))
+        w -= lr * dw
+        b -= lr * db
+    return w, b
+
+def logistic_step(weights, bias, xs, ys, lr):
+    # one batch gradient-descent step on log loss; xs is a list of feature rows
+    n = len(xs)
+    grads = [0.0] * len(weights)
+    grad_b = 0.0
+    for row, y in zip(xs, ys):
+        p = sigmoid(sum(w * x for w, x in zip(weights, row)) + bias)
+        err = p - y
+        for i, x in enumerate(row):
+            grads[i] += err * x / n
+        grad_b += err / n
+    return [w - lr * g for w, g in zip(weights, grads)], bias - lr * grad_b
+
+def precision_recall_f1(y_true, y_pred, positive=1):
+    tp = sum(1 for t, p in zip(y_true, y_pred) if t == positive and p == positive)
+    fp = sum(1 for t, p in zip(y_true, y_pred) if t != positive and p == positive)
+    fn = sum(1 for t, p in zip(y_true, y_pred) if t == positive and p != positive)
+    precision = tp / (tp + fp) if tp + fp else 0.0
+    recall = tp / (tp + fn) if tp + fn else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    return precision, recall, f1</code></pre>
+    </section>
+
+    <section id="plan">
+      <div class="sec-head">
+        <p class="eyebrow">07 · Four-evening plan + mock</p>
+        <h2>Four sessions of about an hour, then one timed mock</h2>
+      </div>
+      <ol class="timeline">
+        <li><div><h3>Evening 1 · Module 3, first pass</h3><p>kNN, normalization, forward propagation from the practice file, untimed, then read the solutions and note where you diverged. Fifteen minutes on the section-03 arithmetic by hand.</p></div></li>
+        <li><div><h3>Evening 2 · Module 3, the harder four</h3><p>k-Means, tree split, bagging, GMM. Timed at 20 minutes each; write down which ones ran over. Re-do those from a blank skeleton the same evening.</p></div></li>
+        <li><div><h3>Evening 3 · Module 1 + Module 2</h3><p>All 24 flash cards, twice, answering aloud before opening. Then the five Module 2 drills at 10 minutes each in CodeSignal's practice IDE, not your editor — the point is the interface.</p></div></li>
+        <li><div><h3>Evening 4 · Full mock, 70 minutes</h3><p>Six random cards as quiz (write the answers), one Module 2 variant, two Module 3 skeletons you found hardest. Stop at 70 minutes regardless. Score yourself; whatever you did not finish is tomorrow's warm-up.</p></div></li>
+        <li><div><h3>The morning of</h3><p>Re-run the practice file once (all PASS), re-read section 08, open CodeSignal's IDE to confirm the keyboard shortcuts, close everything else.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="mechanics">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Mechanics and traps</p>
+        <h2>Things that cost points and have nothing to do with machine learning</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>The IDE and the run</h3>
+          <ul>
+            <li>Practise in CodeSignal's own editor beforehand; several candidate reports say the interface cost more than the problems. Know the run / submit buttons and that <span class="kbd">Ctrl</span>+<span class="kbd">Enter</span> runs tests.</li>
+            <li>Run the provided examples before submitting. Hidden tests exist; passing the visible ones is not a pass.</li>
+            <li>Return floats when the example shows floats (<code>1.0</code>, not <code>1</code>); match the list/tuple type the skeleton's caller expects.</li>
+            <li>No <code>import numpy</code>; <code>import math</code> and <code>import random</code> are fine unless the task says “no imports at all” — the kNN sample says exactly that, so use <code>** 0.5</code> for square roots.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>The quiz</h3>
+          <ul>
+            <li>Read every option. A multi-select is scored on the whole selection; one wrong tick can zero the question.</li>
+            <li>“Which of the following would help with overfitting” — answer from the card, do not reason from scratch under the clock.</li>
+            <li>Numeric fill-ins: round as instructed (the sample says three decimals). Compute on paper, then type.</li>
+            <li>You cannot go back after submitting a module in most configurations; do not leave a quiz blank — a guess scores better than nothing.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="note crit">
+        <p class="eyebrow">Ties and determinism</p>
+        <p>The given <code>get_label</code> uses <code>max(set(labels), key=labels.count)</code>, which breaks ties by set iteration order — arbitrary. The brief's example has no ties, but your <code>k_neighbors</code> must return rows in <strong>ascending distance</strong> order so the k chosen are the right k. Sort with <code>key=lambda pair: pair[0]</code>; do not sort tuples that contain the rows themselves, because a tie on distance would then compare lists element-wise and can still work but hides the intent.</p>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Sources + confidence</p>
+        <h2>What is from CodeSignal, what is from candidates, what is inferred</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Confidence by claim</h3>
+          <ul>
+            <li><span class="badge fact">Fact</span> Module structure, counts, per-question time budgets, 70-minute length, 200–600 score range, the named topic lists, the exclusions, and the three sample tasks — CodeSignal's technical brief, fetched and text-extracted 8 Sep 2026.</li>
+            <li><span class="badge fact">Fact</span> Every skeleton and solution on this page passed <code>codesignal-mle-core-solutions.py</code> on 8 Sep 2026; the kNN test is the brief's own example.</li>
+            <li><span class="badge inference">Inference</span> That Kaseya's configuration matches the default framework (companies can adjust time and mix). The invite's title matches the certified assessment name exactly.</li>
+            <li><span class="badge inference">Inference</span> “Nine questions, just over an hour, many multi-select” — one candidate's Optum write-up (Jan 2026) for the same assessment.</li>
+            <li><span class="badge inference">Inference</span> The 24 flash-card topics beyond the brief's six — standard ML-fundamentals coverage; the brief promises “breadth of fundamental machine learning knowledge” without listing more.</li>
+            <li><span class="badge unknown">Unknown</span> Kaseya's role title, the deadline, whether a GCA follows, and how the score is thresholded.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Sources</h3>
+          <ul class="source-list">
+            <li><a href="https://discover.codesignal.com/rs/659-AFH-023/images/Machine-Learning-Engineering-Core-Skills-Evaluation-Framework-CodeSignal-Skills-Evaluation-Lab.pdf" target="_blank" rel="noreferrer">CodeSignal — Machine Learning Engineering Core Skills Evaluation Framework, technical brief (PDF)</a></li>
+            <li><a href="https://support.codesignal.com/hc/en-us/articles/4413651969431-What-are-Frameworks" target="_blank" rel="noreferrer">CodeSignal — certified assessments list (“Machine Learning Core Assessment”)</a></li>
+            <li><a href="https://medium.com/@sq.sania/my-experience-with-optums-machine-learning-core-assessment-for-a-senior-ai-ml-engineer-role-33c25d111175" target="_blank" rel="noreferrer">Candidate write-up — Optum's ML Core assessment, Jan 2026 (nine questions, 1h10)</a></li>
+            <li><a href="https://www.glassdoor.com/Interview/Kaseya-Software-Engineer-Interview-Questions-EI_IE262966.0,6_KO7,24.htm" target="_blank" rel="noreferrer">Glassdoor — Kaseya software-engineer reports (the GCA, four DSA problems, Aug 2026)</a></li>
+            <li><a href="https://datalemur.com/blog/codesignal-data-science-framework-questions" target="_blank" rel="noreferrer">DataLemur — CodeSignal Data Science Framework breakdown (the sibling instrument)</a></li>
+            <li><a href="codesignal-mle-core-solutions.py">codesignal-mle-core-solutions.py</a> — the tested source this page is generated from · <a href="codesignal-mle-core-practice.py">codesignal-mle-core-practice.py</a> — the blanked practice file</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared 8 Sep 2026 for Kaseya's CodeSignal ML Engineering Core assessment. Generated by <code>build-codesignal-page.py</code> from a solutions file that must pass its own tests before this page is written; re-run it after any edit.</p>
+    <p><a href="#top">Back to top ↑</a></p>
+  </footer>
+</div>
+</body>
+</html>

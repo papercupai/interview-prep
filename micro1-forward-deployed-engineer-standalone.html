@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>micro1 · Forward Deployed Engineer — AI Interview Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1410; --surface: #131E18; --surface-alt: #1A2921;
+    --ink: #E5EEE9; --ink-muted: #9DADA4; --ink-faint: #708077;
+    --accent: #66C69C; --accent-strong: #8BDCB8; --accent-soft: #17372A;
+    --caution: #D9A43A; --caution-soft: #33290F;
+    --critical: #E0736C; --critical-soft: #3A1E1C;
+    --info: #78B7DE; --info-soft: #172D3B;
+    --rule: #26372E; --rule-strong: #3B5145;
+  }
+  .tag.gap { background: var(--critical-soft); color: var(--critical); }
+  .question-list .rank { display: inline-block; margin-bottom: 0.15rem; }
+  .script .say code { font-size: 0.8em; }
+</style>
+
+<style>
+  pre.code { margin: 0; padding: 0.85rem 1rem; background: var(--surface-alt); border: 1px solid var(--rule); border-radius: 3px; overflow-x: auto; font-family: var(--f-mono); font-size: 0.77rem; line-height: 1.5; tab-size: 4; max-width: 100%; }
+  pre.code code { background: transparent; padding: 0; font-size: inherit; }
+  details.solution { border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); min-width: 0; }
+  details.solution summary { padding: 0.65rem 0.9rem; cursor: pointer; font-family: var(--f-display); font-weight: 650; font-size: 0.9rem; background: var(--caution-soft); color: var(--caution); }
+  details.solution[open] summary { border-bottom: 1px solid var(--rule); }
+  details.solution > pre.code { border: 0; border-radius: 0 0 3px 3px; }
+  .flash-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; align-items: start; }
+  details.flash { background: var(--surface); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+  details.flash summary { padding: 0.75rem 0.95rem; cursor: pointer; font-family: var(--f-display); font-weight: 650; font-size: 0.95rem; line-height: 1.35; }
+  details.flash summary::before { content: attr(data-topic); display: block; margin-bottom: 0.25rem; color: var(--accent); font: 600 0.62rem var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; }
+  details.flash[open] summary { border-bottom: 1px solid var(--rule); background: var(--surface-alt); }
+  details.flash .answer { padding: 0.8rem 0.95rem 0.95rem; font-size: 0.95rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .say-plain { margin: 0; line-height: 1.66; }
+  .drill-body.single { grid-template-columns: 1fr; }
+  table.matrix.compact { min-width: 36rem; }
+  table.matrix.compact td:nth-child(3) { width: auto; }
+  table.matrix code { font-size: 0.82em; overflow-wrap: anywhere; }
+  .skill-head { display: flex; flex-direction: column; gap: 0.3rem; }
+  .skill-head .rule { color: var(--ink-muted); }
+  section > *, .two-col > *, .card, .stack, .drill-body > * { min-width: 0; }
+  .badge.fact { min-height: 0; padding: 0.13rem 0.42rem; border: 0; display: inline-block; }
+  html { scroll-padding-top: 8rem; }
+  section { scroll-margin-top: 1rem; }
+  @media (max-width: 48rem) { .flash-grid { grid-template-columns: 1fr; } }
+  @media print { details.solution > *, details.flash > *, details.drill > * { display: block; } }
+</style>
+
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Forward Deployed Engineer · micro1 core team · AI interview with Zara · prepared 17 Sep 2026</p>
+      <h1>Four skills, scored one at a time. Make every answer prove one.</h1>
+      <p class="standfirst">micro1's AI recruiter, Zara, interviews you on demand and scores this role's four required skills separately: Python, LLM systems, ML infrastructure, and RAG and AI automation. You can clear some skills even if you aren't picked for the job, and cleared skills go on your micro1 profile for project matching. This page gives you an opener, spoken answers for each skill built only from your verified work, five tested coding drills, and the partner scenarios a forward-deployed role adds.</p>
+    </div>
+    <aside class="join-card" aria-label="Interview access">
+      <p class="eyebrow">Recruiter email · 17 Sep 2026</p>
+      <p><strong>Complete the application first.</strong><br><span class="muted">The interview link then arrives by email and is valid for 48 hours.</span></p>
+      <p><strong class="hot">Take a free practice interview before the real one.</strong><br><span class="muted">micro1 offers AI practice interviews, listed at 18 minutes each.</span></p>
+      <a class="button" href="https://www.micro1.ai/interview-prep" target="_blank" rel="noreferrer">micro1 practice interviews ↗</a>
+      <p class="small muted">The email came from Xperteez Technology, a staffing agency. Enter your details only on a micro1.ai address.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Role and interview facts">
+    <div class="fact"><dt>Role</dt><dd>Forward Deployed Engineer</dd></div>
+    <div class="fact"><dt>Type</dt><dd>Full-time · remote, travel</dd></div>
+    <div class="fact"><dt>Base</dt><dd>$180k–$250k + equity</dd></div>
+    <div class="fact"><dt>Interview</dt><dd>Zara AI · on demand</dd></div>
+    <div class="fact"><dt>Scored</dt><dd>4 skills, separately</dd></div>
+    <div class="fact"><dt>Link valid</dt><dd class="hot">48 hours</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Read this first</a></li>
+      <li><span class="n">02</span><a href="#format">The AI interview</a></li>
+      <li><span class="n">03</span><a href="#opener">Your opener</a></li>
+      <li><span class="n">04</span><a href="#python">Skill 1 · Python</a></li>
+      <li><span class="n">05</span><a href="#llm">Skill 2 · LLM systems</a></li>
+      <li><span class="n">06</span><a href="#infra">Skill 3 · ML infrastructure</a></li>
+      <li><span class="n">07</span><a href="#rag">Skill 4 · RAG and AI automation</a></li>
+      <li><span class="n">08</span><a href="#scenarios">Forward-deployed scenarios</a></li>
+      <li><span class="n">09</span><a href="#coding">Coding drills</a></li>
+      <li><span class="n">10</span><a href="#role">The role and your fit</a></li>
+      <li><span class="n">11</span><a href="#checklist">Checklist</a></li>
+      <li><span class="n">12</span><a href="#sources">Sources + confidence</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Read this first</p>
+        <h2>One sitting, four skills, and probably one attempt</h2>
+      </div>
+      <div class="priority-grid">
+        <article class="priority">
+          <span class="num">01 / PRACTISE FIRST</span>
+          <h3>micro1's free practice interview</h3>
+          <p>The same AI, the same format, no stakes. Do one before your link arrives so the real sitting isn't your first conversation with Zara.</p>
+        </article>
+        <article class="priority">
+          <span class="num">02 / FOUR SKILLS</span>
+          <h3>Scored separately</h3>
+          <p>Python, LLM systems, ML infrastructure, RAG and AI automation. Name the skill's concepts explicitly in each answer, backed by something you built. See <a href="#python">sections 04–07</a>.</p>
+        </article>
+        <article class="priority">
+          <span class="num">03 / CODING</span>
+          <h3>Type it from memory</h3>
+          <p>micro1 says technical roles get a coding challenge. Third-party guides report copy and paste disabled and focus monitored. See <a href="#coding">section 09</a>.</p>
+        </article>
+        <article class="priority">
+          <span class="num">04 / DELIVERY</span>
+          <h3>Structured and spoken</h3>
+          <p>Answer in your first sentence, give one concrete example, stop at about ninety seconds, and keep thinking out loud while you code.</p>
+        </article>
+      </div>
+      <div class="two-col">
+        <div class="note warn">
+          <p class="eyebrow">Who sent the email</p>
+          <p>The message came from Xperteez Technology, a staffing agency, not from micro1. micro1's posting has a referral programme, which is the likely connection, and that is normal. Before entering anything, check that the application link goes to a micro1.ai address, such as jobs.micro1.ai or talent.micro1.ai. The posting requires your resume, LinkedIn, phone number and location.</p>
+        </div>
+        <div class="note crit">
+          <p class="eyebrow">Integrity</p>
+          <p>Treat the interview as monitored and unaided. Third-party guides report camera and screen-share requirements, tab-switch tracking and disabled paste in the coding round. micro1 doesn't publish a retake policy, so plan for one attempt. Close this page, AI assistants and browser extensions before you start.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="format">
+      <div class="sec-head">
+        <p class="eyebrow">02 · The AI interview</p>
+        <h2>What micro1 says, what others report, and what nobody says</h2>
+      </div>
+      <div class="matrix-wrap">
+        <table class="matrix compact">
+          <thead><tr><th>Claim</th><th>Source</th><th>Confidence</th></tr></thead>
+          <tbody>
+            <tr><td>A conversational interview with Zara, available on demand</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Open-ended technical questions, scenario questions, and a coding challenge for technical roles</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>A real-time result against micro1's certification criteria, with feedback on request if you don't pass</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Free AI practice interviews, listed at 18 minutes each</td><td>micro1's interview-prep page</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Each required skill is scored separately; cleared skills join your profile; the link lasts 48 hours; project mapping can take 30 days</td><td>Recruiter email, 17 Sep 2026</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td>Zara generates practice interviews, runs conversational assessments and gives structured feedback, built on GPT-4o</td><td>Paper by micro1's CEO and colleagues, April 2025</td><td><span class="badge fact">Fact</span> as of 2025</td></tr>
+            <tr><td>About 20–30 minutes; voice activity detection can move on if you pause too long</td><td>aitrainer.work guide, Sep 2026, cites no sources</td><td><span class="badge inference">Low</span></td></tr>
+            <tr><td>A proctored coding round in a VS Code-like editor: copy and paste disabled, tab switching and gaze monitored, camera and screen share throughout</td><td>aitrainer.work guide, Sep 2026, cites no sources</td><td><span class="badge inference">Low</span></td></tr>
+            <tr><td>Interview length for this role, coding language, problem difficulty, retake policy, how skills are scored</td><td>Not published</td><td><span class="badge unknown">Unknown</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Setup</h3>
+          <ul class="checklist" style="grid-template-columns: 1fr">
+            <li>A quiet room, a working webcam and microphone, one screen.</li>
+            <li>Headphones, so Zara's voice isn't picked up and read as you talking.</li>
+            <li>A stable connection, and notifications off on the computer and phone.</li>
+            <li>Browser extensions disabled, especially AI assistants and copilots.</li>
+            <li>Water, and nothing on the desk you'd be tempted to look at.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>How to talk to Zara <span class="badge inference">Inference</span></h3>
+          <ul>
+            <li>Answer the question in your first sentence, then support it.</li>
+            <li>Use the skill's own vocabulary where it's true: recall at k, chunking, training-serving skew, backoff.</li>
+            <li>One concrete example per answer, with a real detail from something you built.</li>
+            <li>Aim for 60 to 90 seconds. A short pause is fine; long silence may be taken as your answer being finished.</li>
+            <li>If a question is ambiguous, say how you're reading it, then answer that.</li>
+            <li>In the coding round, narrate as you type: what you're handling, and why.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="opener">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Your opener</p>
+        <h2>About ninety seconds that set up all four skills</h2>
+      </div>
+      <div class="script short">
+        <p class="eyebrow">Draft · keep only what you can defend</p>
+        <p class="say">I'm a software engineer who builds AI systems end to end and then makes them trustworthy in production. Most recently I built a platform that runs many AI coding agents on one codebase at once — Claude Code, Codex and an in-house agent — with the coordination, the tool layer and the evaluation rails that make their work verifiable. Rules you'd normally enforce in code review are enforced by the system, so done has to come with evidence. I've also built data systems for a product-matching and pricing business: an entity-resolution engine that turns messy marketplace listings into canonical product records, and a gradient-boosted pricing model served from a long-lived Python process. The forward-deployed side appeals to me because the hard problems I've solved were rarely the model. They were defining what good means, structuring the data, and building the evaluation that proves it.</p>
+        <p class="small muted">Every claim is on the <a href="papercusp-answer-bank-standalone.html#n-overview">Answer Bank</a> or the <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">ServiceNow page's Storewolf inventory</a>. The entity-resolution engine was JavaScript and the pricing service was Python; don't blur that if asked.</p>
+      </div>
+    </section>
+
+    <section id="python">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Skill 1 of 4 · Python</p>
+        <h2>Production Python, concurrency, performance, and the pitfalls you catch in review</h2>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">Your weakest-evidenced skill — prepare it most</p>
+        <p>Your verified Python production evidence is one system, the Storewolf scoring service; Papercusp is TypeScript. Lean on depth for that one system, answer concept questions precisely, and don't imply Papercusp is Python. The <a href="citi-karat-python-interview-standalone.html#knowledge">Citi page's Python drills</a> cover the language fundamentals.</p>
+      </div>
+      <div class="flash-grid">
+<details class="flash"><summary data-topic="Probing: Ownership and real production detail.">Describe a production Python system you built end to end.</summary><div class="answer"><p class="say-plain">The scoring service behind a gradient-boosted pricing model. The main application was Node, so the model ran as a long-lived Python process rather than an HTTP service: the Node side writes one JSON command per line, train or predict, and reads one JSON line back. It loads the trained XGBoost model once, so ten-thousand-row prediction batches don't pay that cost. The hard part was the feature schema. pandas get_dummies builds one-hot columns from whatever batch it sees, so training persists the exact column list, inference re-adds missing columns as zeros, and then reorders to the booster's own feature names — two guards against one failure. If I rebuilt it, I'd persist a fitted scikit-learn Pipeline as the artifact, stop the imputer re-fitting at prediction time, and keep evaluation metrics instead of printing a single R-squared.</p><p class="small muted">Verified source: <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">stack</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Concurrency fundamentals applied to an AI workload.">asyncio, threads or processes for a service that calls LLM APIs and also parses large documents?</summary><div class="answer"><p class="say-plain">Split the workload by what it waits on. LLM calls are I/O-bound, so asyncio fits: one event loop, many in-flight requests, with a semaphore to bound concurrency, a timeout on every call, and retries with backoff for rate limits. Document parsing is CPU-bound, and the GIL means threads won't parallelise pure-Python work, so that goes to a process pool. Threads are for blocking libraries that have no async client. The one mistake to avoid is a blocking call inside async code: it stalls every request on that loop. Free-threaded CPython builds exist from 3.13, but they're optional, so I wouldn't design around them yet.</p></div></details>
+<details class="flash"><summary data-topic="Probing: Measure-first discipline.">A Python data pipeline has become too slow. How do you find and fix the bottleneck?</summary><div class="answer"><p class="say-plain">Measure before changing anything: cProfile for a reproducible run, or py-spy against the live process, so I know whether time goes to I/O, parsing or Python-level loops. The usual fixes, in order of payoff: remove repeated work, such as loading a model or re-parsing the same file per record; batch I/O; replace per-row Python loops with vectorised pandas, Polars or NumPy operations; stream so memory stays flat; and only then parallelise. In my scoring service the key design choice was structural: load the model once in a long-lived process, so large batches amortise it.</p><p class="small muted">Verified source: <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">stack</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Engineering hygiene, beyond 'write tests'.">How do you keep a Python codebase reliable as it grows?</summary><div class="answer"><p class="say-plain">Four habits. Validate data at the boundaries, with dataclasses or pydantic, so bad input fails where it enters. Type-check in CI. Pin dependencies with a lockfile so builds are reproducible. And make tests prove they can fail: a test that has never failed is a guard nobody has tested. In my own platform a probe deliberately breaks the code under test and asserts the guard notices, and the runner refuses a run that selected zero tests instead of reporting it green.</p><p class="small muted">Verified source: <a href="papercusp-answer-bank-standalone.html#q-testing">q-testing</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Language depth.">What Python pitfalls do you watch for in code review?</summary><div class="answer"><p class="say-plain">A handful cause most of the subtle bugs I look for. Mutable default arguments, because the default is built once when def runs and shared by every call. is used where == was meant, which works by accident for small integers and interned strings. Late-binding closures in loops. Generators and file objects consumed twice, where the second pass silently sees nothing. Broad except clauses that turn a crash into silent wrong output. And floats for money. Each one passes a casual test and fails in production.</p><p class="small muted">Verified source: <a href="citi-karat-python-interview-standalone.html#knowledge">knowledge</a></p></div></details>
+</div>
+    </section>
+
+    <section id="llm">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Skill 2 of 4 · LLM systems</p>
+        <h2>Agent tooling, evaluation, context, capacity, and safety</h2>
+      </div>
+      <p class="muted">Your strongest skill. Every number in these answers is from the Answer Bank; cite the incident, not the category.</p>
+      <div class="flash-grid">
+<details class="flash"><summary data-topic="Probing: Hands-on agent tooling experience.">How do you design tools and interfaces for LLM agents?</summary><div class="answer"><p class="say-plain">Four things differ from a normal API. The description is a cost paid on every call, because every tool definition sits in the model's context; in my platform each tool has a 1,500-character budget with a 1,600 hard cap, checked at registration and again on every hot reload. Results are bounded at the source: a result is capped around 1,500 tokens, so every tool accepts a projection of the fields you need. A refusal has to teach, because the model can't read docs mid-call, so every refusal names its own repair. And empty is not the same as didn't run: a tool must distinguish 'found nothing' from 'couldn't look'.</p><p class="small muted">Verified source: <a href="papercusp-answer-bank-standalone.html#n-tool-design">n-tool-design</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Evaluation rigour.">How do you evaluate an LLM or agent system before and after launch?</summary><div class="answer"><p class="say-plain">Before launch: an evaluation set built from real tasks, scored per stage so retrieval or tool errors aren't blamed on generation, and graded against a rubric whose criteria are observable and cite evidence. In my platform there are two layers: 141 scenario tests across ten agent roles run the actual prompts against a model, and a random subset of the 731-task SWE-bench Pro set, 50 and 150 tasks with seed 42, with predictions registered before the run. Completion requires evidence, and the grader can't be the author. After launch, I'd keep the same set as a regression gate and add online signals: task success, escalations, and human corrections.</p><p class="small muted">Verified source: <a href="papercusp-answer-bank-standalone.html#q-ai-eval">q-ai-eval</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Multi-turn reliability.">How do you manage context in long-running, multi-turn agent sessions?</summary><div class="answer"><p class="say-plain">Three principles and one bug. Write through: a conclusion goes to durable state the moment it forms, not in a flush at the end. A summary is an index into live sources to re-verify, not a self-contained dump. And the full transcript survives on disk and is searchable, so a successor retrieves what summarisation dropped instead of re-deriving it. The bug is that attribution rots first: we traced an agent's own note-to-self that, seven compactions later, read as an instruction from the owner. So every carried directive now records its source.</p><p class="small muted">Verified source: <a href="papercusp-answer-bank-standalone.html#n-context">n-context</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Operating LLM systems at scale.">How do you handle rate limits, cost and latency across many agents?</summary><div class="answer"><p class="say-plain">A pool of provider accounts behind an inference gateway, with an AIMD controller — additive increase, multiplicative decrease — admitting work against measured headroom. Before launching a fleet, one canary has to complete a turn, because a fleet started into an exhausted pool dies silently. The lesson that cost the most: utilisation was only measured from live traffic, so a walled account received no traffic and never got a fresh reading. Now a probe sends one minimal request per account and reads the authoritative limit headers.</p><p class="small muted">Verified source: <a href="papercusp-answer-bank-standalone.html#n-capacity">n-capacity</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Security judgement.">How do you defend an agent against prompt injection and unsafe tool use?</summary><div class="answer"><p class="say-plain">Treat everything retrieved or returned by a tool as data, never as instructions, and put the enforcement outside the model. In my platform the tool dispatcher runs a default-deny step, so a tool that declares no permission gate is refused rather than allowed by omission, with a per-role allowlist and per-principal capability checks above it. For irreversible actions I'd add human approval and an audit trail. I'd be candid that the mechanism is stronger than the policy authored on it so far: when I checked, only three roles carried explicit deny entries.</p><p class="small muted">Verified source: <a href="papercusp-answer-bank-standalone.html#g-permissions">g-permissions</a></p></div></details>
+</div>
+    </section>
+
+    <section id="infra">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Skill 3 of 4 · ML infrastructure</p>
+        <h2>Pipelines, skew, data quality, reproducibility, and serving</h2>
+      </div>
+      <div class="flash-grid">
+<details class="flash"><summary data-topic="Probing: End-to-end ML systems thinking.">Design a pipeline from data curation through training, evaluation and deployment.</summary><div class="answer"><p class="say-plain">Seven stages, each with an artifact the next one can trust. Ingest and validate against a schema. Deduplicate, and decontaminate against evaluation sets so benchmark items never leak into training. Label or curate with quality control. Freeze a versioned dataset snapshot. Train from a pinned config, seed, code commit and snapshot id. Evaluate on held-out and regression sets as a gate, with predictions recorded before the run so the bar can't move afterwards. Then promote through staged rollout with monitoring that feeds failures back into curation. The principle from my own release gate applies: certify a candidate before promoting it, and fall back to the full check when a narrowed one can't be positively verified.</p><p class="small muted">Verified source: <a href="papercusp-answer-bank-standalone.html#q-cicd">q-cicd</a> · <a href="papercusp-answer-bank-standalone.html#q-ai-eval">q-ai-eval</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Production ML failure modes.">What is training-serving skew, and have you dealt with it?</summary><div class="answer"><p class="say-plain">It's when the features a model sees at inference differ from what it was trained on, and it produces confident nonsense rather than errors. I hit the classic version: pandas get_dummies derives one-hot columns from whatever batch is in front of it, so a prediction batch missing a category, or carrying a new one, yields a different column set. The fix was two independent guards: training persists the exact post-encoding column list and inference re-adds missing columns as zeros, and then inference reorders to the booster's own feature names. Today I'd persist a fitted Pipeline, so the transform and the model ship as one artifact.</p><p class="small muted">Verified source: <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">stack</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: The JD's data-quality emphasis.">How would you design a data taxonomy and a labeling workflow with quality control?</summary><div class="answer"><p class="say-plain">Start from the decisions the data has to drive, and make each level of the taxonomy mutually exclusive, with an explicit unclear bucket that routes to review instead of forcing a guess. Write guidelines with examples and counter-examples for every label. Seed a gold set, measure inter-annotator agreement with a chance-corrected statistic such as Cohen's kappa rather than raw agreement, adjudicate disagreements, and feed them back into the guidelines. Then audit a sample continuously and watch for drift. My closest real experience is a product-matching system where the feedback loop was human: manual overrides by product group and an operations-curated blocklist. The honest gap is that it never had a labelled benchmark, and the first thing I'd build again is a labelled pair set so I could state precision at a threshold.</p><p class="small muted">Verified source: <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">stack</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Scientific discipline.">How do you make experiments reproducible and results trustworthy?</summary><div class="answer"><p class="say-plain">Pin everything that can change the answer: the dataset snapshot id, the config, the seed, the code commit and the environment. Record the prediction before the run: our SWE-bench Pro subset was drawn with seed 42, nested at 50 and 150 tasks, and pre-registered, so nobody could quietly move the goalposts. Keep a metric history rather than a printed number; that's a gap I'd fix in my own scoring service, whose only metric was a single printed R-squared. And be suspicious of a result that's too clean: a suspiciously round number is usually a definitional artifact, which I learned by reporting one wrongly and retracting it.</p><p class="small muted">Verified source: <a href="papercusp-answer-bank-standalone.html#q-ai-eval">q-ai-eval</a> · <a href="papercusp-answer-bank-standalone.html#q-wrong">q-wrong</a> · <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">stack</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Serving knowledge, and honesty about depth.">How would you serve models reliably at scale?</summary><div class="answer"><p class="say-plain">My verified production experience is a CPU tabular model served from a long-lived process, so I'll separate what I've built from what I know. What carries over: load once and keep the process warm, batch requests, set timeouts and bounded queues, autoscale on queue depth rather than CPU alone, and version the model and its feature schema together. For large-model serving on GPUs, the levers are continuous batching, KV-cache management, quantisation, and routing requests to cheaper models when quality allows. I know those as design options rather than systems I've operated, and I'd say so to a partner.</p><p class="small muted">Verified source: <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">stack</a></p></div></details>
+</div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">Worked example · computed by the build</p>
+          <h3>Why raw agreement misleads</h3>
+          <p>Two annotators label 50 agent transcripts pass or fail. Both say pass on 20, both say fail on 15, and they disagree on 15.</p>
+          <ul>
+            <li>Observed agreement = 0.70.</li>
+            <li>Annotator A says pass 0.50 of the time; annotator B, 0.60.</li>
+            <li>Agreement expected by chance = 0.50 × 0.60 + 0.50 × 0.40 = 0.50.</li>
+            <li>Cohen's kappa = (0.70 − 0.50) ÷ (1 − 0.50) = <strong>0.40</strong>.</li>
+          </ul>
+          <p>Seventy percent agreement sounds fine, but half of it is chance. A kappa of 0.40 sits at the top of the “fair” band on the commonly cited Landis–Koch scale, which means the guidelines need work before the labels are worth scaling.</p>
+        </article>
+        <article class="card">
+          <h3>Data-quality vocabulary to use precisely</h3>
+          <ul>
+            <li><strong>Gold set:</strong> items with adjudicated answers, used to score annotators and calibrate judges.</li>
+            <li><strong>Adjudication:</strong> resolving disagreements, then feeding the decision back into the guidelines.</li>
+            <li><strong>Decontamination:</strong> removing evaluation items, or near-duplicates of them, from training data.</li>
+            <li><strong>Stratification:</strong> sampling so rare but important task types are represented.</li>
+            <li><strong>Drift:</strong> label distributions or annotator behaviour changing over time; catch it with continuous audits.</li>
+            <li><strong>Lineage:</strong> being able to say which data, config and code produced a model or a score.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="rag">
+      <div class="sec-head">
+        <p class="eyebrow">07 · Skill 4 of 4 · RAG and AI automation</p>
+        <h2>Retrieval architecture, debugging, judgement, and human-in-the-loop design</h2>
+      </div>
+      <div class="flash-grid">
+<details class="flash"><summary data-topic="Probing: Architecture breadth and security awareness.">Design a RAG system over an enterprise's internal documents.</summary><div class="answer"><p class="say-plain">Ingest with metadata, including who is allowed to see each document. Chunk along the document's own structure, with modest overlap. Retrieve with both keyword and embedding search and fuse the rankings, because each catches what the other misses; I use reciprocal rank fusion, and my platform has an RRF ranker as a standalone library. Rerank the top candidates, and apply permission filters before anything enters the model's context, not after generation. Answer with citations, and refuse when retrieval doesn't support an answer. Evaluate retrieval and generation separately: recall at k on a labelled query set, then faithfulness to the retrieved text. In my own documentation search the result says when the semantic leg didn't run, so a keyword-only answer is never mistaken for a full one.</p><p class="small muted">Verified source: <a href="papercusp-answer-bank-standalone.html#n-docs">n-docs</a> · <a href="papercusp-answer-bank-standalone.html#g-tenancy">g-tenancy</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Diagnostic method for RAG.">Retrieval quality is poor. How do you debug it?</summary><div class="answer"><p class="say-plain">First separate retrieval from generation: if the right passage isn't in the top k, prompt changes won't help. Build a small labelled query set from real questions and measure recall at k. Then read the misses. The usual causes are chunk boundaries that split the answer, vocabulary mismatch that a keyword leg would catch, missing metadata filters, or an embedding model that doesn't know the domain. Change one variable at a time against the same query set, and add a reranker once recall is good enough that ordering is the problem.</p></div></details>
+<details class="flash"><summary data-topic="Probing: Judgement over fashion.">When would you not use embeddings?</summary><div class="answer"><p class="say-plain">When the discriminating signal is a few discrete attributes. I built cross-marketplace product matching, which looks like text similarity and isn't: the same laptop with 256 GB versus 512 GB is near-identical in embedding space and economically completely different. A false match meant buying or listing the wrong item. So we extracted typed attributes and built an auditable partial order over them, where I could point to the attribute that drove a match. Where fuzzy matching was right, aligning the same listing across regional sites, we used Jaro-Winkler on titles.</p><p class="small muted">Verified source: <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">stack</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: Human-in-the-loop design.">Which steps of a workflow would you automate with AI, and which would you keep human?</summary><div class="answer"><p class="say-plain">Decide by the cost of a wrong answer and whether it can be undone. Automate fully where errors are cheap and reversible. Use confidence thresholds to route uncertain cases to people. Keep humans on decisions that are expensive or irreversible, and audit a sample of the automated ones so drift shows up. In the matching system, a false positive cost real money and account health, while a false negative was only a missed opportunity, so the design favoured precision and kept operators able to override any product group.</p><p class="small muted">Verified source: <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">stack</a></p></div></details>
+<details class="flash"><summary data-topic="Probing: The core forward-deployed outcome.">A partner has many one-off AI experiments. How do you make one repeatable in production?</summary><div class="answer"><p class="say-plain">Pick the experiment tied to a business decision, then turn its success into something measurable: an evaluation set drawn from real cases, with a pass bar agreed before building. Version prompts, configs and data together. Instrument every run so a failure can be traced. Put the evaluation in front of every change as a gate. Roll out to a slice of traffic first. And give it an owner and a runbook. The pattern mirrors how my own platform treats agent work: done has to come with evidence, and a candidate is certified before it's promoted.</p><p class="small muted">Verified source: <a href="papercusp-answer-bank-standalone.html#q-ai-eval">q-ai-eval</a> · <a href="papercusp-answer-bank-standalone.html#q-cicd">q-cicd</a></p></div></details>
+</div>
+    </section>
+
+    <section id="scenarios">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Forward-deployed scenarios</p>
+        <h2>micro1 says Zara asks scenario questions. These are the forward-deployed ones.</h2>
+      </div>
+      <p class="muted">Answer each in the order discovery, a measurable goal, the smallest useful step, and how you'd report back. <span class="badge inference">Inference</span> These are likely shapes, not leaked questions.</p>
+      <div class="flash-grid">
+<details class="flash"><summary data-topic="Scenario">A frontier lab says it needs better coding-agent training data. What do you do in the first two weeks?</summary><div class="answer"><p class="say-plain">Start with the capability, not the data. Agree which skill the lab wants to move and how it will be measured, then look at current model failures to see what's missing. Build a taxonomy of task types and failure modes from those failures. Run a pilot of about fifty tasks with a rubric, measure annotator agreement, and fix the guidelines where people disagree. Only then scale. Deliver a short written readout at the end of each week: what we measured, what changed, what we couldn't determine.</p></div></details>
+<details class="flash"><summary data-topic="Scenario">A partner insists on an approach you believe won't work.</summary><div class="answer"><p class="say-plain">Say so once, with evidence and a concrete failure case, then propose the cheapest experiment that would settle it and agree the success criterion before running it. If they still choose their approach, commit to executing it well and write the decision down with its assumptions, so it's easy to revisit when the data comes in.</p></div></details>
+<details class="flash"><summary data-topic="Scenario">The requirements are ambiguous and the partner is hard to reach.</summary><div class="answer"><p class="say-plain">Write the assumptions down explicitly, build the smallest reversible slice, and send it back with a short list of what I assumed and what I couldn't determine. A concrete artifact gets a faster and more precise answer than an open question, and it keeps the work moving.</p></div></details>
+<details class="flash"><summary data-topic="Scenario">An agent workflow you deployed starts failing intermittently at a partner.</summary><div class="answer"><p class="say-plain">Stabilise first: limit the blast radius, roll back or route around if possible, and tell the partner what's affected. Then check the instruments before trusting them: in my experience the hardest incidents come from a check that returns a clean-looking wrong answer, like a liveness probe that reported a live process as gone. Find the root cause, add a guard that would have caught it, and share a short written postmortem.</p></div></details>
+</div>
+    </section>
+
+    <section id="coding">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Coding drills</p>
+        <h2>Five building blocks of LLM and RAG systems, typed from memory</h2>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">How to use these</p>
+        <p>Open <code>micro1-fde-practice.py</code>, start a timer, and fill one drill's blank regions by typing, not pasting, while talking out loud. Run the file; each check prints PASS or FAIL with the failing line. Only then open the reference. Every reference solution passed <code>micro1-fde-solutions.py</code> on Python 3.14 and 3.12. micro1's coding challenge may be a general algorithm problem rather than one of these, so keep the <a href="citi-karat-python-interview-standalone.html#method">Citi page's coding method</a> in mind too.</p>
+      </div>
+      
+<details class="drill" open>
+  <summary>Drill 1 · chunk_words — split text into overlapping chunks</summary>
+  <div class="drill-body single"><div class="stack">
+    <p>The building block of every RAG ingestion step. The subtle part is the tail: stop once a chunk reaches the end, or you emit a final chunk wholly contained in the previous one.</p>
+    <details class="solution"><summary>Skeleton · target 8 min</summary><pre class="code"><code>def chunk_words(text, size, overlap):
+    """Split text into chunks of at most `size` words. Each chunk starts `size - overlap` words after the
+    previous one, so neighbours share `overlap` words. Every word lands in at least one chunk, there are no
+    empty chunks, and no chunk is wholly contained in the one before it. Empty text gives [].
+    Raises ValueError unless size &gt; 0 and 0 &lt;= overlap &lt; size."""
+    # implement this
+    pass</code></pre></details><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code>def chunk_words(text, size, overlap):
+    """Split text into chunks of at most `size` words. Each chunk starts `size - overlap` words after the
+    previous one, so neighbours share `overlap` words. Every word lands in at least one chunk, there are no
+    empty chunks, and no chunk is wholly contained in the one before it. Empty text gives [].
+    Raises ValueError unless size &gt; 0 and 0 &lt;= overlap &lt; size."""
+    if size &lt;= 0 or not 0 &lt;= overlap &lt; size:
+        raise ValueError("need size &gt; 0 and 0 &lt;= overlap &lt; size")
+    words = text.split()
+    step = size - overlap
+    chunks = []
+    for start in range(0, len(words), step):
+        chunks.append(" ".join(words[start:start + size]))
+        if start + size &gt;= len(words):
+            break  # this chunk reached the end; another would only repeat its tail
+    return chunks</code></pre></details>
+  </div></div>
+</details>
+
+<details class="drill">
+  <summary>Drill 2 · top_k — rank documents by cosine similarity</summary>
+  <div class="drill-body single"><div class="stack">
+    <p>Guard zero vectors, which have no direction. Use a (negative score, id) key so ties are deterministic, and heapq.nsmallest for O(n log k) instead of sorting everything.</p>
+    <details class="solution"><summary>Skeleton · target 10 min</summary><pre class="code"><code>def top_k(query, documents, k):
+    """Rank documents by cosine similarity to `query` and return the ids of the best k, highest first.
+    `documents` maps id -&gt; vector of the same length as query. A zero vector has similarity 0.
+    Ties go to the id that sorts first. k larger than the collection returns every id; k &lt;= 0 returns []."""
+    # implement this
+    pass</code></pre></details><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code>def top_k(query, documents, k):
+    """Rank documents by cosine similarity to `query` and return the ids of the best k, highest first.
+    `documents` maps id -&gt; vector of the same length as query. A zero vector has similarity 0.
+    Ties go to the id that sorts first. k larger than the collection returns every id; k &lt;= 0 returns []."""
+    def norm(vector):
+        return math.sqrt(sum(x * x for x in vector))
+
+    query_norm = norm(query)
+
+    def cosine(vector):
+        vector_norm = norm(vector)
+        if query_norm == 0 or vector_norm == 0:
+            return 0.0
+        return sum(a * b for a, b in zip(query, vector)) / (query_norm * vector_norm)
+
+    scored = [(-cosine(vector), doc_id) for doc_id, vector in documents.items()]
+    return [doc_id for _, doc_id in heapq.nsmallest(max(k, 0), scored)]  # O(n log k)</code></pre></details>
+  </div></div>
+</details>
+
+<details class="drill">
+  <summary>Drill 3 · reciprocal_rank_fusion — merge keyword and embedding rankings</summary>
+  <div class="drill-body single"><div class="stack">
+    <p>Hybrid search in a dozen lines. RRF ignores the raw scores, which live on incompatible scales, and uses only rank: each list adds 1 / (k + rank). k = 60 is the conventional default.</p>
+    <details class="solution"><summary>Skeleton · target 8 min</summary><pre class="code"><code>def reciprocal_rank_fusion(rankings, k=60):
+    """Fuse ranked lists of ids (best first) with reciprocal rank fusion:
+    score(id) = sum over the lists containing it of 1 / (k + rank), with rank starting at 1.
+    Return every id by fused score, highest first; ties go to the id that sorts first."""
+    # implement this
+    pass</code></pre></details><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code>def reciprocal_rank_fusion(rankings, k=60):
+    """Fuse ranked lists of ids (best first) with reciprocal rank fusion:
+    score(id) = sum over the lists containing it of 1 / (k + rank), with rank starting at 1.
+    Return every id by fused score, highest first; ties go to the id that sorts first."""
+    scores = {}
+    for ranking in rankings:
+        for rank, doc_id in enumerate(ranking, start=1):
+            scores[doc_id] = scores.get(doc_id, 0.0) + 1.0 / (k + rank)
+    return sorted(scores, key=lambda doc_id: (-scores[doc_id], doc_id))</code></pre></details>
+  </div></div>
+</details>
+
+<details class="drill">
+  <summary>Drill 4 · call_with_retry — exponential backoff with full jitter</summary>
+  <div class="drill-body single"><div class="stack">
+    <p>Every LLM client needs this. Retry only errors worth retrying, cap the delay before applying jitter, never sleep after the final failure, and inject sleep and random so the test runs instantly.</p>
+    <details class="solution"><summary>Skeleton · target 12 min</summary><pre class="code"><code>class TransientError(Exception):
+    """Raised by a call worth retrying: a 429, a timeout, a dropped connection."""
+
+
+def call_with_retry(fn, attempts=4, base_delay=0.5, max_delay=8.0, sleep=time.sleep, rand=random.random):
+    """Call fn() and return its result. On TransientError, wait and call again, up to `attempts` calls in total.
+    The wait after failed call n (n = 1, 2, ...) uses full jitter: rand() * min(max_delay, base_delay * 2 ** (n - 1)).
+    Any other exception propagates at once, without retrying. If every call fails, re-raise the last
+    TransientError. Raises ValueError if attempts &lt; 1. `sleep` and `rand` are injectable for testing."""
+    # implement this
+    pass</code></pre></details><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code>class TransientError(Exception):
+    """Raised by a call worth retrying: a 429, a timeout, a dropped connection."""
+
+
+def call_with_retry(fn, attempts=4, base_delay=0.5, max_delay=8.0, sleep=time.sleep, rand=random.random):
+    """Call fn() and return its result. On TransientError, wait and call again, up to `attempts` calls in total.
+    The wait after failed call n (n = 1, 2, ...) uses full jitter: rand() * min(max_delay, base_delay * 2 ** (n - 1)).
+    Any other exception propagates at once, without retrying. If every call fails, re-raise the last
+    TransientError. Raises ValueError if attempts &lt; 1. `sleep` and `rand` are injectable for testing."""
+    if attempts &lt; 1:
+        raise ValueError("attempts must be at least 1")
+    for attempt in range(1, attempts + 1):
+        try:
+            return fn()
+        except TransientError:
+            if attempt == attempts:
+                raise
+            sleep(rand() * min(max_delay, base_delay * 2 ** (attempt - 1)))</code></pre></details>
+  </div></div>
+</details>
+
+<details class="drill">
+  <summary>Drill 5 · LRUCache — O(1) get and put</summary>
+  <div class="drill-body single"><div class="stack">
+    <p>OrderedDict gives O(1) move_to_end and popitem(last=False). Say the alternative out loud: a dict plus a doubly linked list, which is what OrderedDict implements for you.</p>
+    <details class="solution"><summary>Skeleton · target 10 min</summary><pre class="code"><code>class LRUCache:
+    """Least-recently-used cache with O(1) get and put.
+    get(key) returns the value, or None on a miss, and a hit makes the key most recent.
+    put(key, value) inserts or updates and makes the key most recent; going over capacity evicts the least
+    recent key. len(cache) is the number of keys held. Raises ValueError if capacity &lt; 1."""
+
+    def __init__(self, capacity):
+        # implement this
+        pass
+
+    def get(self, key):
+        # implement this
+        pass
+
+    def put(self, key, value):
+        # implement this
+        pass
+
+    def __len__(self):
+        # implement this
+        pass</code></pre></details><details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code>class LRUCache:
+    """Least-recently-used cache with O(1) get and put.
+    get(key) returns the value, or None on a miss, and a hit makes the key most recent.
+    put(key, value) inserts or updates and makes the key most recent; going over capacity evicts the least
+    recent key. len(cache) is the number of keys held. Raises ValueError if capacity &lt; 1."""
+
+    def __init__(self, capacity):
+        if capacity &lt; 1:
+            raise ValueError("capacity must be at least 1")
+        self.capacity = capacity
+        self._items = OrderedDict()
+
+    def get(self, key):
+        if key not in self._items:
+            return None
+        self._items.move_to_end(key)
+        return self._items[key]
+
+    def put(self, key, value):
+        if key in self._items:
+            self._items.move_to_end(key)
+        self._items[key] = value
+        if len(self._items) &gt; self.capacity:
+            self._items.popitem(last=False)
+
+    def __len__(self):
+        return len(self._items)</code></pre></details>
+  </div></div>
+</details>
+    </section>
+
+    <section id="role">
+      <div class="sec-head">
+        <p class="eyebrow">10 · The role and your fit</p>
+        <h2>What passing the AI interview leads to, and how you map to it</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">From the posting <span class="badge fact">micro1</span></p>
+          <h3>Forward Deployed Engineer, core team</h3>
+          <ul>
+            <li>Work directly with leading AI labs and enterprises as a technical research and implementation partner.</li>
+            <li>Build data-intelligence systems, ML pipelines for curation, training and evaluation, and data taxonomies, labeling systems and quality frameworks.</li>
+            <li>Develop LLM applications: multi-agent and tool-using agents, RAG workflows, evaluation harnesses, human-in-the-loop systems.</li>
+            <li>Move partners from one-off experiments to reliable, repeatable multi-turn agent workflows, and own the full lifecycle.</li>
+            <li>Full-time, remote with travel. Base $180,000–$250,000, equity for all employees, possible performance bonuses, and benefits including up to 100% of health-insurance premiums and a matched 401(k).</li>
+            <li>The posting states that micro1's hiring process uses AI tools in screening and assessment, alongside human decisions.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="eyebrow">The company <span class="badge fact">micro1</span></p>
+          <h3>“The AI platform for human intelligence”</h3>
+          <ul>
+            <li>micro1 announced a $35M Series A at a $500M valuation on 12 September 2025.</li>
+            <li>It describes three pillars: vetting human intelligence through AI interviews, talent performance management, and a data platform for training frontier AI models.</li>
+            <li>It says the platform is used by leading AI labs and Fortune 10 companies, without naming them.</li>
+            <li>Press coverage names 01 Advisors as the round's lead and Ali Ansari as CEO. <span class="badge inference">Secondary</span></li>
+          </ul>
+          <p class="small muted">A forward-deployed engineer here sits on the data-platform side: the systems that turn expert human work into training and evaluation data.</p>
+        </article>
+      </div>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>The posting asks for</th><th>Your verified evidence</th><th>Strength</th></tr></thead>
+          <tbody>
+            <tr><td>LLMs, agentic systems, multi-turn workflows, tool use</td><td>Papercusp: agents over MCP, tool design budgets, context management, capacity gateway. <a href="papercusp-answer-bank-standalone.html#n-tool-design">N6</a>, <a href="papercusp-answer-bank-standalone.html#n-context">N7</a>, <a href="papercusp-answer-bank-standalone.html#n-capacity">N8</a></td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>Evaluation systems and research workflows</td><td>Evidence-gated completion, rubric grading, independent graders, 141 scenario tests, a pre-registered SWE-bench Pro subset. <a href="papercusp-answer-bank-standalone.html#q-ai-eval">Q8</a></td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>Data pipelines and ML infrastructure</td><td>Storewolf's pricing model and feature-schema guards; Papercusp's release gate. <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf</a>, <a href="papercusp-answer-bank-standalone.html#q-cicd">Q1</a></td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Strong Python, shipping production systems end to end</td><td>One verified Python production service. Papercusp is TypeScript.</td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Data quality, taxonomy design, labeling, dataset curation</td><td>Storewolf's attribute extraction, canonical product groups and operator overrides. No labelled benchmark or annotation system. <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf</a></td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>RAG and AI automation</td><td>Fused keyword and embedding search over the platform's documentation; an RRF ranker library; the case against embeddings for product matching. <a href="papercusp-answer-bank-standalone.html#n-docs">N12</a></td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Partner-facing work with labs, founders and enterprises</td><td>Not on your verified prep pages. Fill this from your own history, honestly.</td><td><span class="tag lead">Unknown</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">If a human round follows · questions worth asking</p>
+        <p>Which partners would I work with first, labs or enterprises? How much travel is typical? How do forward-deployed engineers split time between partner work and core platform work? What does success look like at ninety days? Which evaluation and labeling tooling is already in place, and what's missing?</p>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">11 · Checklist</p>
+        <h2>Before, during and after</h2>
+      </div>
+      <ul class="checklist">
+        <li>Check the application link points to a micro1.ai address, then complete it with your resume, LinkedIn, phone and location.</li>
+        <li>Take one free micro1 practice interview for a similar engineering role.</li>
+        <li>Rehearse the opener, and two cards per skill, out loud.</li>
+        <li>Type the five coding drills from blank regions and get the practice file green.</li>
+        <li>When the link arrives, book a rested slot within its 48 hours.</li>
+        <li>Quiet room, webcam, microphone, headphones, one screen, extensions off.</li>
+        <li>Close this page and every AI assistant before starting.</li>
+        <li>Afterwards, request feedback if a skill isn't cleared, and check talent.micro1.ai; project mapping can take up to 30 days.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">12 · Sources + confidence</p>
+        <h2>What came from micro1, from the recruiter, and from third parties</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Confidence by claim</h3>
+          <ul>
+            <li><span class="badge fact">Fact</span> Title, duties, requirements, compensation, remote with travel, required application fields, and the AI-tools notice: micro1's posting, read from the page's embedded data on 17 Sep 2026.</li>
+            <li><span class="badge fact">Fact</span> Zara's format, question types, results and feedback, and the 18-minute practice interviews: micro1's AI interview guide and interview-prep page, fetched 17 Sep 2026.</li>
+            <li><span class="badge fact">Fact</span> Series A amount, valuation, date and the three pillars: micro1's Series A page.</li>
+            <li><span class="badge owner">Owner</span> Skills scored separately, profile matching, 48-hour link, 30-day mapping: the recruiter email from Xperteez Technology, 17 Sep 2026.</li>
+            <li><span class="badge fact">Fact</span> Every coding reference solution and the kappa example: executed by the build.</li>
+            <li><span class="badge fact">Fact</span> Every experience claim: the Answer Bank and the ServiceNow page's Storewolf inventory, as linked.</li>
+            <li><span class="badge inference">Low</span> Interview length, voice activity detection, and the proctored coding round's details: one third-party guide with no sources.</li>
+            <li><span class="badge unknown">Unknown</span> This role's interview length, coding language and difficulty, scoring, and retake policy.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Sources</h3>
+          <ul class="source-list">
+            <li><a href="https://jobs.micro1.ai/post/44668e06-3191-4b5f-a41c-b19e05f46eb7" target="_blank" rel="noreferrer">micro1 — Forward Deployed Engineer posting</a></li>
+            <li><a href="https://www.micro1.ai/ai-interview-guide" target="_blank" rel="noreferrer">micro1 — AI interview guide</a></li>
+            <li><a href="https://www.micro1.ai/interview-prep" target="_blank" rel="noreferrer">micro1 — Free AI practice interviews</a></li>
+            <li><a href="https://www.micro1.ai/series-a" target="_blank" rel="noreferrer">micro1 — $35M Series A announcement</a></li>
+            <li><a href="https://arxiv.org/abs/2507.02869" target="_blank" rel="noreferrer">Yazdani, Mahajan and Ansari — Zara: An LLM-based Candidate Interview Feedback System (arXiv, 2025)</a></li>
+            <li><a href="https://pulse2.com/micro1-35-million-series-a-raised-at-500-million-valuation-for-talent-and-data-platform/" target="_blank" rel="noreferrer">Pulse 2.0 — micro1 Series A coverage (secondary)</a></li>
+            <li><a href="https://aitrainer.work/guides/micro1-ai-interview-guide/" target="_blank" rel="noreferrer">aitrainer.work — third-party micro1 interview guide (low reliability)</a></li>
+            <li><a href="micro1-fde-solutions.py">micro1-fde-solutions.py</a> — the tested source · <a href="micro1-fde-practice.py">micro1-fde-practice.py</a> — the practice file · <a href="build-micro1-page.py">build-micro1-page.py</a> — the generator</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared 17 Sep 2026 for micro1's Forward Deployed Engineer AI interview. Generated by <code>build-micro1-page.py</code>, which refuses to write this page unless the coding solutions pass and the worked example computes.</p>
+    <p><a href="#top">Back to top ↑</a></p>
+  </footer>
+</div>
+</body>
+</html>

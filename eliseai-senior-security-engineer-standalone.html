@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="EliseAI Senior Security Engineer interview prep: security automation, secure application primitives, AWS, AI agent risks, vulnerability decisions, and developer partnership.">
+<title>EliseAI · Senior Security Engineer | Interview Prep</title>
+<style>
+  :root { color-scheme:light dark; --ground:#f5f7f9; --surface:#fff; --soft:#e8eef3; --ink:#14212d; --muted:#526471; --accent:#185d87; --rule:#d6e0e6; --display:Archivo,"Helvetica Neue",Arial,sans-serif; --body:"Source Serif 4",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace; }
+  @media(prefers-color-scheme:dark) { :root { --ground:#101820; --surface:#19242d; --soft:#243440; --ink:#e9f0f4; --muted:#afc0ca; --accent:#93d1f1; --rule:#344752; } }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--ground); color:var(--ink); font:17px/1.62 var(--body); }
+  a { color:var(--accent); text-underline-offset:3px; }
+  a:focus-visible,summary:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+  h1,h2,h3 { margin:0; font-family:var(--display); line-height:1.2; text-wrap:balance; }
+  h1 { font-size:clamp(2.2rem,5vw,3.45rem); letter-spacing:-.03em; }
+  h2 { font-size:1.55rem; }
+  h3 { font-size:1.06rem; }
+  p { margin:0; }
+  ul,ol { margin:0; padding-left:1.3rem; }
+  li+li { margin-top:.45rem; }
+  .wrap { width:min(100% - 2.5rem,72rem); margin:auto; padding:0 0 5rem; }
+  .skip-link { position:absolute; left:1rem; top:-5rem; z-index:30; padding:.6rem 1rem; background:var(--ink); color:var(--ground); }
+  .skip-link:focus { top:1rem; }
+  nav.sitenav { position:sticky; top:0; z-index:20; display:flex; gap:.25rem; overflow-x:auto; padding:.65rem .2rem; background:var(--ground); border-bottom:1px solid var(--rule); font:600 .8rem/1.5 var(--display); }
+  nav.sitenav a { flex:none; padding:.35rem .65rem; border:1px solid transparent; border-radius:3px; color:var(--muted); text-decoration:none; white-space:nowrap; }
+  nav.sitenav a:hover,nav.sitenav a[aria-current="page"] { color:var(--accent); background:var(--surface); border-color:var(--rule); }
+  nav.sitenav .sep { flex:1; }
+  .hero { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(17rem,.8fr); gap:2rem; padding:3rem 0 2rem; }
+  .hero h1 { margin:.6rem 0 1rem; }
+  .eyebrow,.tag { font:600 .72rem/1.5 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+  .lead { font-size:1.15rem; max-width:45rem; }
+  .hero-card,.card,details { background:var(--surface); border:1px solid var(--rule); border-radius:4px; }
+  .hero-card { padding:1.2rem; align-self:start; }
+  .hero-card dl { margin:.7rem 0 0; }
+  .hero-card dl>div+div { margin-top:.55rem; padding-top:.55rem; border-top:1px solid var(--rule); }
+  dt { font:600 .72rem/1.5 var(--mono); color:var(--muted); text-transform:uppercase; }
+  dd { margin:0; }
+  .toc { display:flex; flex-wrap:wrap; gap:.5rem; padding:1rem 0 2.5rem; }
+  .toc a { padding:.4rem .7rem; border-radius:3px; background:var(--soft); font:600 .82rem/1.4 var(--display); text-decoration:none; }
+  main { display:grid; gap:3rem; }
+  section { display:grid; gap:1rem; scroll-margin-top:5rem; }
+  .section-lead { max-width:54rem; color:var(--muted); }
+  .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+  .card { padding:1.2rem; display:grid; gap:.65rem; align-content:start; }
+  .note { background:var(--soft); border-left:3px solid var(--accent); padding:1rem 1.2rem; }
+  .steps { display:grid; gap:.8rem; }
+  .steps li { padding-left:.25rem; }
+  details { padding:0 1.2rem; }
+  details+details { margin-top:.7rem; }
+  summary { cursor:pointer; padding:1rem 0; font:600 1rem/1.4 var(--display); }
+  details>div { display:grid; gap:.7rem; padding-bottom:1.2rem; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--rule); border-radius:4px; }
+  table { width:100%; border-collapse:collapse; background:var(--surface); font-size:.94rem; }
+  caption { text-align:left; padding:1rem; font:600 .85rem/1.5 var(--display); }
+  th,td { text-align:left; vertical-align:top; padding:.8rem 1rem; border-top:1px solid var(--rule); }
+  th { font-family:var(--display); }
+  .flow { display:flex; flex-wrap:wrap; gap:.4rem; align-items:center; font:600 .82rem/1.5 var(--display); }
+  .flow span { padding:.55rem .8rem; border:1px solid var(--rule); border-radius:3px; background:var(--surface); }
+  .flow b { color:var(--muted); }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--rule); color:var(--muted); font-size:.9rem; }
+  @media(max-width:760px) { .wrap { width:calc(100% - 1.5rem); } .hero,.grid { grid-template-columns:1fr; } .hero { padding-top:2rem; gap:1.2rem; } th,td { padding:.65rem; } }
+  @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  @media print { nav.sitenav,.skip-link { display:none; } .hero,.grid { display:block; } .card { break-inside:avoid; margin-bottom:1rem; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to prep</a>
+<div class="wrap">
+  <div id="sitenav"></div><script src="sitenav.js"></script>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">EliseAI · Interview preparation</p>
+      <h1>Senior Security Engineer</h1>
+      <p class="lead">Prepare to protect AI workflows that affect housing and healthcare. Show how you write secure application code, make AWS and vulnerability work repeatable, and help developers move quickly with clear security boundaries.</p>
+    </div>
+    <aside class="hero-card" aria-label="Facts from the supplied job posting">
+      <h2>The posting at a glance</h2>
+      <dl>
+        <div><dt>Mission</dt><dd>AI agents integrated into housing and healthcare workflows.</dd></div>
+        <div><dt>Security scope</dt><dd>Application code, developer tooling, AWS, asset and vulnerability management, patching, and risk communication.</dd></div>
+        <div><dt>Working style</dt><dd>High ownership and urgency; in-person office work 4–5 days each week.</dd></div>
+        <div><dt>Compensation</dt><dd>$210,000–$270,000 salary range in the posting, plus equity and benefits.</dd></div>
+      </dl>
+    </aside>
+  </header>
+  <nav class="toc" aria-label="On this page">
+    <a href="#quick">Five-minute prep</a><a href="#pitch">Opening</a><a href="#map">Role map</a><a href="#design">Security design</a><a href="#aws">AWS</a><a href="#triage">Vulnerability triage</a><a href="#stories">Proof stories</a><a href="#questions">Practice answers</a><a href="#ask">Ask EliseAI</a><a href="#rehearse">Rehearse</a>
+  </nav>
+  <main id="main">
+    <section id="quick">
+      <h2>If you have five minutes</h2>
+      <div class="note"><strong>Core message:</strong> “I turn security requirements into tools and application controls that developers can use, then measure whether they reduce real risk without slowing delivery.”</div>
+      <div class="grid">
+        <article class="card"><h3>Prepare three proof points</h3><ol><li>Security automation you shipped: inventory, vulnerability response, or patching, with an observable result.</li><li>Application code you changed to enforce an authorization or data boundary.</li><li>An AWS risk you diagnosed, fixed, and guarded against recurrence.</li></ol></article>
+        <article class="card"><h3>Say what the posting actually values</h3><ul><li>Own the code and the operating process, not just a scanner finding.</li><li>Prioritize by exposed data and real attack path, then give the engineering owner an actionable fix.</li><li>Build a fast default path for developers and a visible exception process.</li><li>Make product safety work at the speed of a scaling company.</li></ul></article>
+      </div>
+      <p><strong>Keep the evidence straight:</strong> the posting names Python, Go, Ruby, and JavaScript as useful languages. Use the ones you have actually written in production. It does not describe EliseAI's current cloud architecture, model provider, or compliance boundary.</p>
+    </section>
+
+    <section id="pitch">
+      <h2>A 60-second opening</h2>
+      <p class="section-lead">Replace every bracket with a real example. This is an answer structure, not a claim about your experience.</p>
+      <div class="card"><p>“I'm an engineer who likes putting security into the system people build and operate every day. In [real project], I owned [specific application or cloud security change]. The risk was [who or what could be harmed], so I changed [control or workflow], worked with [teams], and verified it through [test, measurement, or incident result].</p><p>I also know that a finding only matters if it reaches the right owner with a fix they can ship. I use automation to keep asset ownership, vulnerability evidence, and exceptions current. What interests me about EliseAI is the chance to do that inside products where access, tenant boundaries, and dependable workflows matter to people trying to find a home or get care.”</p></div>
+      <div class="note"><strong>Do not overclaim:</strong> Papercusp can provide concrete examples of agent permissions, tool boundaries, audit trails, and failure recovery if you can name your personal contribution and show evidence. Describe commercial deployment, AWS ownership, or regulated healthcare experience only when you can substantiate it.</div>
+    </section>
+
+    <section id="map">
+      <h2>Translate the job into four kinds of work</h2>
+      <div class="grid">
+        <article class="card"><p class="tag">Operate</p><h3>Know what exists and who owns it</h3><p>Build a usable asset inventory from cloud accounts, deployments, repositories, and runtime signals. Normalize identity and ownership; tag data sensitivity and external exposure. Join findings to those assets, set remediation dates, and verify that patches landed on the running version.</p><p><strong>Interview proof:</strong> one automation that reduced unknown assets, time to assign a finding, or patch lag.</p></article>
+        <article class="card"><p class="tag">Enable</p><h3>Make secure development the easy path</h3><p>Put linters, static analysis, dependency checks, posture scans, and query inspection where developers get fast feedback. Reduce false positives, explain a fix, keep a narrow exception process, and measure adoption and escapes. Enforce high-impact rules in CI and runtime as appropriate.</p><p><strong>Interview proof:</strong> a developer tool you rolled out and the feedback that changed its design.</p></article>
+        <article class="card"><p class="tag">Build</p><h3>Embed secure application primitives</h3><p>Provide tested authentication, tenant-scoped authorization, secrets handling, audit logging, rate limits, and safe action patterns through shared libraries or product code. Make the boundary enforceable by the server even when a caller or AI agent behaves unexpectedly.</p><p><strong>Interview proof:</strong> code you personally changed and a negative test that proves the boundary.</p></article>
+        <article class="card"><p class="tag">Partner</p><h3>Turn risk into an engineering decision</h3><p>Explain exploitability, affected users, sensitive data, and a practical remediation path in business language. Work with product, infrastructure, IT, and legal/compliance owners on deadlines, exceptions, and acceptance evidence. Revisit the decision after deployment or an incident.</p><p><strong>Interview proof:</strong> a hard tradeoff you resolved without losing developer trust.</p></article>
+      </div>
+      <p><strong>Security speed:</strong> give teams reusable controls and targeted feedback, then use real risk to decide what must block a release. A fast pipeline with a long unowned exception queue is not a fast security program.</p>
+    </section>
+
+    <section id="design">
+      <h2>Practice design: protect a multi-tenant AI agent</h2>
+      <p class="section-lead">Hypothetical exercise, not a claim about EliseAI's product architecture: a customer-facing agent handles apartment maintenance requests and appointment scheduling for separate organizations. It can read records and propose changes. Design the security boundary before granting a write action.</p>
+      <div class="flow" aria-label="Practice security flow"><span>User &amp; tenant identity</span><b aria-hidden="true">→</b><span>Authorized data</span><b aria-hidden="true">→</b><span>Bounded agent tools</span><b aria-hidden="true">→</b><span>Policy check</span><b aria-hidden="true">→</b><span>Audit &amp; recovery</span></div>
+      <ol class="steps">
+        <li><strong>Map the actors and data.</strong> Identify renter, property staff, patient, provider, administrator, and service agent roles. Mark which records are sensitive, which organization owns them, and what a user can read or change. Confirm which healthcare workflows handle regulated data; do not assume every workflow has identical requirements.</li>
+        <li><strong>Enforce identity and tenant scope outside the model.</strong> Resolve the caller on the server. Derive tenant and record access from trusted identity and policy, not a model-generated parameter. Require least-privilege credentials for downstream APIs. Test a cross-tenant request, an object-ID swap, and a staff role that lacks a specific permission.</li>
+        <li><strong>Constrain tools and untrusted content.</strong> Expose narrow, typed operations with input validation, scoped authority, budgets, idempotency keys, and a stop condition. Treat retrieved messages and documents as data. Test prompt injection that asks the agent to reveal another tenant's record or bypass an approval step.</li>
+        <li><strong>Choose action boundaries.</strong> Low-risk read or draft actions can be automated after evaluation. Require explicit confirmation for consequential changes, external messages, or actions that affect access or care. Keep the authoritative policy check at execution time; a good-sounding model explanation is not approval.</li>
+        <li><strong>Instrument and recover.</strong> Record who requested an action, what tool ran, policy verdict, version, trace ID, and outcome without leaking sensitive content into logs. Detect denied cross-tenant calls, unexpected tool sequences, and unusual volume. Make retries idempotent and define rollback or manual resolution for partial writes.</li>
+        <li><strong>Prove the release.</strong> Combine ordinary application tests with adversarial cases, authorization negatives, tool misuse, data retention checks, and human review. Agree on a measurable release bar with product and security owners; canary by cohort and preserve a fast disable path.</li>
+      </ol>
+      <div class="note"><strong>What to say aloud:</strong> “I'd start with identity, tenant data boundaries, and the exact actions the agent may take. Those are application controls. I would test the model's behavior too, but the server must reject a forbidden action even if the model asks for it.”</div>
+      <a href="papercusp-answer-bank-standalone.html#g-permissions">Answer Bank: permission and approval boundaries</a>
+    </section>
+
+    <section id="aws">
+      <h2>Talk through AWS security as an operating system</h2>
+      <p class="section-lead">These are example AWS controls to discuss, not a statement that EliseAI uses each service. Start by asking about their actual account, workload, and data model.</p>
+      <div class="grid">
+        <div class="card"><h3>Identity and organization</h3><p>Map accounts and ownership; use role-based access, short-lived credentials, least privilege, and a break-glass path. Review IAM policies and trust relationships, cross-account roles, service principals, and unused access. Mention IAM Access Analyzer and Organizations/SCPs where they fit.</p></div>
+        <div class="card"><h3>Data and secrets</h3><p>Classify stores; set resource policies, tenant isolation, encryption and key ownership, retention, backup, and restore tests. Check S3 public access, KMS key policies, and secret rotation. Avoid logging tokens or sensitive conversation content.</p></div>
+        <div class="card"><h3>Detection and response</h3><p>Keep CloudTrail and relevant service logs complete and tamper-resistant. Use Config, GuardDuty, Security Hub, Inspector, and workload telemetry as inputs to a prioritized response queue. Assign an owner, validate the signal, preserve evidence, and rehearse containment and recovery.</p></div>
+        <div class="card"><h3>Infrastructure changes</h3><p>Review infrastructure as code, image and dependency posture, network exposure, and deployment identity. Scan before merge, watch for runtime drift, and test the deployed configuration. Track exceptions with an owner and expiry rather than hiding them in a dashboard.</p></div>
+      </div>
+      <p><strong>A strong answer:</strong> “I would first discover accounts, workloads, owners, exposed paths, and sensitive data. Then I'd compare the intended policy with running reality, fix the highest-impact gaps, and make those checks repeatable in deployment and detection.”</p>
+    </section>
+
+    <section id="triage">
+      <h2>Practice vulnerability triage and risk language</h2>
+      <p class="section-lead">Hypothetical case: a scanner flags a critical dependency on an internal service, while a lower-scored finding may let one tenant read another tenant's maintenance record. You have limited engineering capacity today.</p>
+      <div class="table-wrap">
+        <table>
+          <caption>A decision record that an engineering lead can act on</caption>
+          <thead><tr><th scope="col">Question</th><th scope="col">What to establish</th><th scope="col">Action</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Is there a real path?</th><td>Reachability, permissions, user entry point, exploit prerequisites, and deployed version.</td><td>Reproduce safely or inspect the exact control path; do not decide from CVSS alone.</td></tr>
+            <tr><th scope="row">Who is affected?</th><td>Tenant boundary, sensitive records, blast radius, and plausible attacker.</td><td>Escalate cross-tenant exposure quickly; narrow any access path that can be contained now.</td></tr>
+            <tr><th scope="row">What is the fix?</th><td>Owner, code/config change, deployment route, rollback, and validation test.</td><td>Give a concrete remediation and a deadline tied to risk, not a scanner screenshot.</td></tr>
+            <tr><th scope="row">What remains?</th><td>Internal dependency reachability, compensating controls, exploit intelligence, and exception expiry.</td><td>Time-box the second finding and verify the controls while the first fix ships.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><strong>Business-language update:</strong> “We found a possible path for one customer's records to appear in another customer's session. We have restricted that path, are checking the affected requests, and are preparing a tested authorization fix. I'll give you the next confirmed update by [time]. The separate library alert is being checked for reachability and has an owner and deadline.”</div>
+      <p><strong>Close it correctly:</strong> verify the deployed behavior with a cross-tenant negative test, review logs for exposure, document the decision, and add a guard that fails if the class returns. Label temporary containment as such.</p>
+    </section>
+
+    <section id="stories">
+      <h2>Five real stories to prepare</h2>
+      <p class="section-lead">Use situation → your decision → implementation → result → recurrence guard. Fill in the figures and ownership from your own record. An internal Papercusp example is useful when it proves the behavior you describe; be explicit when it is not a customer deployment.</p>
+      <div class="grid">
+        <article class="card"><h3>Automation with an owner</h3><p>Show one asset, vulnerability, or patch workflow you automated. Explain discovery, false positives, assignment, escalation, and how you measured a real improvement.</p></article>
+        <article class="card"><h3>Security code in a product</h3><p>Show the application boundary you changed, including a failing negative test before the fix and how the deployed control was verified. Talk about identity and tenant scope if applicable.</p><a href="papercusp-answer-bank-standalone.html#g-permissions">Answer Bank: permission boundary</a></article>
+        <article class="card"><h3>AWS or infrastructure decision</h3><p>Name the workload, access or data risk, your exact change, deployment constraints, and evidence that the running environment matches the intended policy. State your actual AWS experience accurately.</p></article>
+        <article class="card"><h3>Risk tradeoff with engineering</h3><p>Describe a vulnerability or deadline conflict, the options you presented, who decided, and what you monitored afterward. Show how you explained the risk to a nonsecurity stakeholder.</p><a href="papercusp-answer-bank-standalone.html#n-leading">Answer Bank: influence and tradeoffs</a></article>
+        <article class="card"><h3>AI agent or tooling boundary</h3><p>Use a concrete agent tool permission, untrusted-input, approval, or audit example you actually built or investigated. Separate observed behavior from a design you would propose for EliseAI.</p><a href="papercusp-answer-bank-standalone.html#q-ai-eval">Answer Bank: evaluation evidence</a></article>
+      </div>
+    </section>
+
+    <section id="questions">
+      <h2>Practice the questions aloud</h2>
+      <p class="section-lead">Likely prompts inferred from the posting, not a known interview script. Try a 60–90 second answer before opening each panel. Add personal proof when the question asks what you have done.</p>
+      <div>
+        <details id="q-priority"><summary>1. You join tomorrow. What security work do you prioritize first?</summary><div><p>“I'd learn the product's critical workflows and data boundaries, inventory deployed assets and owners, and review current incidents, exposed paths, identity controls, and the team's biggest friction. I would choose one urgent risk reduction and one repeatable developer control, then agree on evidence and ownership with engineering. I would avoid promising a broad compliance program before I understand the actual system.”</p></div></details>
+        <details><summary>2. How have you automated asset, vulnerability, or patch management?</summary><div><p>Describe a real implementation: inputs, identity matching, owner attribution, prioritization, patch rollout, exceptions, and deployed-state validation. State a measured before/after result. If one of these areas is new to you, say which adjacent workflow you have owned and describe the first measurable slice you would build here.</p></div></details>
+        <details><summary>3. How would you add static analysis without slowing developers?</summary><div><p>“I would choose high-value rules, run fast checks locally and in CI, and give each result a code location and fix. I would baseline existing debt rather than block every PR on day one, then gate newly introduced critical paths. I'd review false positives with developers, track exceptions with owner and expiry, and measure fix time and escapes.”</p></div></details>
+        <details><summary>4. What security primitive would you build into a product first?</summary><div><p>“I would start with the boundary most likely to fail for this product, such as tenant-scoped authorization. I would put the policy at the server action boundary, expose a small tested API, and add cross-tenant negative tests. Then I would make it the standard path for teams and instrument denied attempts and exceptions.”</p></div></details>
+        <details><summary>5. How do you keep an AI agent from reading or changing another customer's data?</summary><div><p>“Bind the request to a trusted caller and tenant on the server, constrain retrieval and tool credentials to that scope, and recheck authorization on every action. Keep retrieved text as data, validate typed tool inputs, and require approval for consequential actions. Test cross-tenant prompts, object-ID swaps, prompt injection, and partial-write recovery.”</p></div></details>
+        <details><summary>6. Which AWS controls would you review for a fast-growing AI product?</summary><div><p>“First I'd identify the accounts, workloads, owners, internet-facing paths, and data stores. I would review IAM and trust policies, secrets and keys, storage access, network exposure, audit coverage, and backup/restore. I'd use AWS findings as evidence to prioritize fixes, then validate the deployed state. The exact services depend on the architecture EliseAI actually runs.”</p></div></details>
+        <details><summary>7. A critical CVE and a cross-tenant bug arrive together. What do you do?</summary><div><p>“I'd assess both quickly, including the deployed version and reachability. A plausible cross-tenant data path gets immediate containment and an owner; the CVE receives an explicit reachability check and deadline. I would communicate impact and uncertainty in plain language, verify the deployed fixes, and add tests or detection for the failure class.”</p></div></details>
+        <details><summary>8. A product team says your new scanner blocks a launch. How do you respond?</summary><div><p>“I'd inspect the exact finding with the team, confirm whether it is reachable and exploitable in their path, and offer a narrow fix or compensating control. If an exception is justified, I'd record scope, owner, expiry, and a follow-up. Then I'd improve the scanner rule if it produced noise. I want a release decision grounded in risk and a tool developers trust.”</p></div></details>
+        <details><summary>9. What do you do during a suspected sensitive-data exposure?</summary><div><p>“Contain the access path, preserve relevant evidence, establish what data and users may be affected, and pull in the incident and legal/privacy owners. I would keep facts, assumptions, and next update times distinct. After a tested fix, I'd verify the deployed boundary and improve the detector, logging, or test that missed it.”</p></div></details>
+        <details><summary>10. How do you balance speed and quality at a startup?</summary><div><p>“I look for controls that remove repeated work: shared authorization primitives, good CI feedback, clear owners, and tested rollback. I distinguish a narrow, measured exception from silently accepting an unknown risk. I ship the highest-value safety improvement first and make the next decision visible rather than asking every team to wait for a perfect program.”</p></div></details>
+        <details><summary>11. What security work have you personally coded?</summary><div><p>Use an actual project: “I changed [file or service] to enforce [specific rule] at [execution boundary]. The negative case was [test], and the deployed check showed [evidence]. I handled [migration/rollout/exception] with [team].” Be ready to discuss the code and failure mode without treating a policy document as enforcement.</p></div></details>
+        <details><summary>12. Why EliseAI, and what would you ask us?</summary><div><p>“Housing and healthcare workflows carry real consequences for access, privacy, and reliability. The role appeals to me because I can write product security code, improve cloud and developer controls, and own the operational result.” Then ask about the team's current highest-risk workflow, how security shares ownership with product engineering, and what first-quarter success looks like.</p></div></details>
+      </div>
+    </section>
+
+    <section id="ask">
+      <h2>Questions to ask EliseAI</h2>
+      <div class="grid">
+        <div class="card"><h3>Product boundaries</h3><ul><li>Which housing and healthcare agent actions can change records or contact people without staff review?</li><li>How is tenant isolation enforced in retrieval, tool calls, and downstream systems?</li><li>Which workflows handle regulated or especially sensitive data, and what controls are contractual versus product-wide?</li></ul></div>
+        <div class="card"><h3>Engineering partnership</h3><ul><li>What security primitives already live in shared application code?</li><li>Which developer tool currently helps most, and which produces the most noise?</li><li>Who owns a finding from detection through deployed validation?</li></ul></div>
+        <div class="card"><h3>AWS and operations</h3><ul><li>How are AWS accounts, workload identities, keys, and asset owners organized?</li><li>What are the biggest current incident-response or patch-management bottlenecks?</li><li>How do you measure whether security work improves delivery and risk?</li></ul></div>
+        <div class="card"><h3>Scope and working arrangement</h3><ul><li>What would this engineer own in the first 90 days?</li><li>Which office location and schedule does 4–5 days in person mean for this team?</li><li>How are base, equity, on-call expectations, and relocation discussed during the process?</li></ul></div>
+      </div>
+      <p><strong>Fit check:</strong> the posting requires 4–5 office days each week. Get the exact office, commute or relocation expectation, and the security team's operating schedule before treating the arrangement as settled.</p>
+    </section>
+
+    <section id="rehearse">
+      <h2>A 30-minute rehearsal</h2>
+      <ol class="steps"><li><strong>3 minutes:</strong> deliver the opening with one real security-code result.</li><li><strong>7 minutes:</strong> draw the multi-tenant agent design; identify where policy executes.</li><li><strong>5 minutes:</strong> prioritize the two vulnerability findings and explain the decision to a product lead.</li><li><strong>7 minutes:</strong> show an asset-to-fix automation workflow and the AWS controls you would inspect.</li><li><strong>5 minutes:</strong> answer two behavioral questions with your actual code and measured outcomes.</li><li><strong>3 minutes:</strong> ask about the team's risk, first-quarter scope, and in-office expectations.</li></ol>
+      <div class="note"><strong>Score yourself:</strong> Did you name the protected user or data? Did you place enforcement outside the model? Did you show code and an operating owner? Did you prioritize from a real attack path? Did you distinguish a posting fact, a hypothetical design, and a personal achievement?</div>
+    </section>
+  </main>
+  <footer>Prepared from the EliseAI Senior Security Engineer description supplied by Avraham on 25 September 2026. Company and role facts come from that posting. The architecture exercise, vulnerability case, AWS examples, and likely interview questions are practice material; confirm EliseAI-specific systems and interview format with the team.</footer>
+</div>
+</body>
+</html>

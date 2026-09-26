@@ -1,0 +1,1169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>micro1 · Fullstack role (title not supplied) — AI Interview Prep</title>
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1410; --surface: #131E18; --surface-alt: #1A2921;
+    --ink: #E5EEE9; --ink-muted: #9DADA4; --ink-faint: #708077;
+    --accent: #66C69C; --accent-strong: #8BDCB8; --accent-soft: #17372A;
+    --caution: #D9A43A; --caution-soft: #33290F;
+    --critical: #E0736C; --critical-soft: #3A1E1C;
+    --info: #78B7DE; --info-soft: #172D3B;
+    --rule: #26372E; --rule-strong: #3B5145;
+  }
+  .tag.gap { background: var(--critical-soft); color: var(--critical); }
+  .question-list .rank { display: inline-block; margin-bottom: 0.15rem; }
+  .script .say code { font-size: 0.8em; }
+</style>
+<style>
+  pre.code { margin: 0; padding: 0.85rem 1rem; background: var(--surface-alt); border: 1px solid var(--rule); border-radius: 3px; overflow-x: auto; font-family: var(--f-mono); font-size: 0.77rem; line-height: 1.5; tab-size: 4; max-width: 100%; }
+  pre.code code { background: transparent; padding: 0; font-size: inherit; }
+  details.solution { border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); min-width: 0; }
+  details.solution summary { padding: 0.65rem 0.9rem; cursor: pointer; font-family: var(--f-display); font-weight: 650; font-size: 0.9rem; background: var(--caution-soft); color: var(--caution); }
+  details.solution[open] summary { border-bottom: 1px solid var(--rule); }
+  details.solution > pre.code { border: 0; border-radius: 0 0 3px 3px; }
+  .flash-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; align-items: start; }
+  details.flash { background: var(--surface); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+  details.flash summary { padding: 0.75rem 0.95rem; cursor: pointer; font-family: var(--f-display); font-weight: 650; font-size: 0.95rem; line-height: 1.35; }
+  details.flash summary::before { content: attr(data-topic); display: block; margin-bottom: 0.25rem; color: var(--accent); font: 600 0.62rem var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; }
+  details.flash[open] summary { border-bottom: 1px solid var(--rule); background: var(--surface-alt); }
+  details.flash .answer { padding: 0.8rem 0.95rem 0.95rem; font-size: 0.95rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .say-plain { margin: 0; line-height: 1.66; }
+  .drill-body.single { grid-template-columns: 1fr; }
+  table.matrix.compact { min-width: 36rem; }
+  table.matrix.compact td:nth-child(3) { width: auto; }
+  table.matrix code { font-size: 0.82em; overflow-wrap: anywhere; }
+  .skill-head { display: flex; flex-direction: column; gap: 0.3rem; }
+  .skill-head .rule { color: var(--ink-muted); }
+  section > *, .two-col > *, .card, .stack, .drill-body > * { min-width: 0; }
+  .badge.fact { min-height: 0; padding: 0.13rem 0.42rem; border: 0; display: inline-block; }
+  html { scroll-padding-top: 8rem; }
+  section { scroll-margin-top: 1rem; }
+  @media (max-width: 48rem) { .flash-grid { grid-template-columns: 1fr; } }
+  @media print { details.solution > *, details.flash > *, details.drill > * { display: block; } }
+</style>
+<style>
+  .src { margin-top: .6rem; font-size: .82rem; line-height: 1.5; opacity: .72; }
+  .src b { font-weight: 600; letter-spacing: .02em; text-transform: uppercase;
+           font-size: .74rem; margin-right: .4rem; }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">micro1 · 18 Sep 2026</p>
+      <h1>Fundamentals, spoken well, plus an exercise you can actually rehearse.</h1>
+      <p class="standfirst">The email you forwarded for this one begins at &ldquo;Here's what to expect&rdquo;, so the role title and the posting link are not in it — find them in the original email before you start, because the four focus areas fit anything from a junior fullstack post to a senior one and that changes your register. The areas themselves are the most straightforward of your four: fundamentals, language proficiency, debugging method, and two behavioural signals.</p>
+    </div>
+    <aside class="join-card" aria-label="Interview access">
+      <p class="eyebrow">Recruiter email · 18 Sep 2026</p>
+      <p><strong>Complete by Sep 20, 2026 05:22 am.</strong></p>
+      <p><strong class="hot">Take the free practice interview first.</strong><br><span class="muted">Eighteen minutes, free, same interviewer. It is the only way to see the format before it counts.</span></p>
+      <a class="button" href="https://www.micro1.ai/interview-prep" target="_blank" rel="noreferrer">micro1 practice interviews ↗</a>
+      <p class="small muted">Start the real interview only from the link in your own email, on a micro1.ai address.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Role and interview facts">
+    <div class="fact"><dt>Role</dt><dd>Not supplied in the email <span class="badge unknown">Unknown</span></dd></div>
+    <div class="fact"><dt>Company</dt><dd>micro1</dd></div>
+    <div class="fact"><dt>Format</dt><dd>AI Interview + Coding Exercise</dd></div>
+    <div class="fact"><dt>Duration</dt><dd>up to 48 minutes</dd></div>
+    <div class="fact"><dt>Deadline</dt><dd class="hot">Sep 20, 2026 05:22 am</dd></div>
+    <div class="fact"><dt>Focus areas</dt><dd>Fullstack Fundamentals · JS/TS Proficiency · Problem Solving &amp; Debugging · Ownership &amp; Learning Velocity</dd></div>
+    <div class="fact"><dt>Interviewer</dt><dd>Zara, micro1's AI recruiter</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Start here</a></li>
+      <li><span class="n">02</span><a href="#format">The format</a></li>
+      <li><span class="n">03</span><a href="#opener">Your opener</a></li>
+      <li><span class="n">04</span><a href="#fullstack">Full stack experience</a></li>
+      <li><span class="n">05</span><a href="#jsts">JavaScript and TypeScript proficiency</a></li>
+      <li><span class="n">06</span><a href="#debug">Problem solving and debugging</a></li>
+      <li><span class="n">07</span><a href="#ownership">Ownership and learning velocity</a></li>
+      <li><span class="n">08</span><a href="#exercise">The exercise</a></li>
+      <li><span class="n">09</span><a href="#questions">Questions to ask</a></li>
+      <li><span class="n">10</span><a href="#checklist">Before you start</a></li>
+      <li><span class="n">11</span><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Start here</p>
+        <h2>What to do with the time you have</h2>
+      </div>
+      <p>The focus areas below are ranked by how much they will move your score, given what you can actually evidence. If you only have one evening, do them in this order and stop when you run out of time.</p>
+      <div class="priority-grid">
+        <div class="priority">
+          <span class="num">01</span>
+          <p><a href="#fullstack"><b>Full stack experience</b></a> — One story that crosses every layer.</p>
+        </div>
+        <div class="priority">
+          <span class="num">02</span>
+          <p><a href="#jsts"><b>JavaScript and TypeScript proficiency</b></a> — Types as a design tool, not decoration.</p>
+        </div>
+        <div class="priority">
+          <span class="num">03</span>
+          <p><a href="#debug"><b>Problem solving and debugging</b></a> — Make it reproducible, then make it small.</p>
+        </div>
+        <div class="priority">
+          <span class="num">04</span>
+          <p><a href="#ownership"><b>Ownership and learning velocity</b></a> — Evidence that you finish, and that you pick things up fast.</p>
+        </div>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">Find the role title first</p>
+        <p>Your email for this one starts at &ldquo;Here's what to expect&rdquo;, so the title and the posting link are genuinely not in it. The four focus areas fit anything from a junior fullstack post to a senior one, and that changes your register. Check the original email, or ask the recruiter — it is a reasonable question and worth the message.</p>
+      </div>
+    </section>
+
+    <section id="format">
+      <div class="sec-head">
+        <p class="eyebrow">02 · The format</p>
+        <h2>What the email commits to, and what is only reported</h2>
+      </div>
+      <p>Everything graded <span class="badge owner">Owner</span> is from your own email and is reliable. Everything below it is third-party reporting — useful for preparation, not worth treating as a rule.</p>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>What to expect</th><th>Source</th><th>Confidence</th></tr></thead>
+          <tbody>
+            <tr><td><b>Format</b>: AI Interview + Coding Exercise</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td><b>Duration</b>: up to 48 minutes</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td><b>Deadline</b>: Sep 20, 2026 05:22 am</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td><b>Focus areas</b>: Fullstack Fundamentals · JS/TS Proficiency · Problem Solving &amp; Debugging · Ownership &amp; Learning Velocity</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td>A conversational interview with an AI recruiter, Zara, taken on demand</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Open-ended technical questions, scenario questions, and a coding challenge for technical roles</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>A real-time result against micro1's certification criteria, with feedback on request if you do not pass</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Free AI practice interviews, listed at 18 minutes each</td><td>micro1's interview-prep page</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Zara generates practice interviews, runs conversational assessments and gives structured feedback</td><td>Paper by micro1's CEO and colleagues, April 2025</td><td><span class="badge fact">Fact</span> as of 2025</td></tr>
+            <tr><td>Voice activity detection can move on if you pause too long</td><td>aitrainer.work guide, Sep 2026, cites no sources</td><td><span class="badge inference">Low</span></td></tr>
+            <tr><td>Proctored coding in a VS Code-like editor: paste disabled, tab switching and gaze monitored</td><td>aitrainer.work guide, Sep 2026, cites no sources</td><td><span class="badge inference">Low</span></td></tr>
+            <tr><td>Problem difficulty, the scoring bar per focus area, and the retake policy</td><td>Not published</td><td><span class="badge unknown">Unknown</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="two-col">
+      <article class="card">
+        <h3>Setup</h3>
+        <ul class="checklist" style="grid-template-columns: 1fr">
+          <li>A laptop or desktop, not a phone — micro1 says so explicitly.</li>
+          <li>A quiet room, a working webcam and microphone, a stable connection.</li>
+          <li>Headphones, so Zara's voice is not picked up and read as you talking.</li>
+          <li>Screen share ready — the email says to be ready to share it.</li>
+          <li>Notifications off on the computer and the phone; extensions disabled.</li>
+          <li>Water, and nothing on the desk you would be tempted to look at.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>How to talk to Zara <span class="badge inference">Inference</span></h3>
+        <ul>
+          <li>Answer in your first sentence, then support it. No preamble.</li>
+          <li>Use the focus area's own vocabulary where it is true: main process, context isolation, backpressure, coalescing, p99.</li>
+          <li>One concrete example per answer, with a real number or a real failure in it.</li>
+          <li>Aim for 60 to 90 seconds. A short pause is fine; long silence may be read as you being finished.</li>
+          <li>If a question is ambiguous, say how you are reading it, then answer that reading.</li>
+          <li>Name the limit of your own claim before it is probed. It reads as seniority, not weakness.</li>
+        </ul>
+      </article>
+      </div>
+        <div class="note crit">
+          <p class="eyebrow">Integrity</p>
+          <p>Treat the interview as monitored and unaided. The email requires camera, microphone and screen share; third-party guides report tab-switch tracking and disabled paste in the coding round. micro1 does not publish a retake policy, so plan for one attempt. Close this page, every AI assistant and every browser extension before you start.</p>
+        </div>
+    </section>
+
+    <section id="opener">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Your opener</p>
+        <h2>The first ninety seconds, written out</h2>
+      </div>
+      <p>Zara opens conversationally. This is the one answer worth having word-perfect, because it seeds every focus area so later answers become callbacks rather than fresh stories.</p>
+      <div class="script">
+        <p class="eyebrow">Say this in the first minute</p>
+        <p class="say">I'm a fullstack engineer, most recently building a platform that coordinates many AI coding agents working on one codebase at once. On the front end that's React with the user-meaningful state in the URL rather than component state, reading through a single typed sync layer so every query in the app has one cache and one invalidation path. On the back end it's Node over Postgres — a typed HTTP API, a durable workflow layer for work that has to survive a restart, and a schema of around 975 migrations with no runtime DDL. I also built the desktop shell it ships in, which is where I learned the most: a privileged host process, a webview, a Node sidecar, and the class of bug you only meet in a long-lived process. What I'd say about how I work is that I try to turn a lesson into something executable — a guard, a test, a contract — rather than a note, because a convention nobody can enforce decays.</p>
+        <p class="small muted">Find the role title before you start. If it turns out to be a junior or mid post, keep the same content and drop the platform-ownership framing a notch.</p>
+      </div>
+    </section>
+
+    <section id="fullstack">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Full stack experience</p>
+        <h2>One story that crosses every layer</h2>
+      </div>
+      <p>&ldquo;Full stack&rdquo; is scored on whether you own a feature end to end, not on naming frameworks. Pick one feature and walk it from click to row and back.</p>
+      <details class="drill">
+        <summary>&ldquo;Walk me through a feature you built end to end.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>I will take live data sync, because it touches every layer. In the UI, a React view reads through one hook — not a hand-rolled fetch with an interval — so every query in the app has one cache, one invalidation path and one loading contract. State that a user would expect to share or reload into lives in the URL rather than component state, which also makes the whole UI scriptable by anything that can set a URL.</p>
+      <p>The API is a typed HTTP layer where each query name resolves to one resolver, so a query cannot exist without a server-side definition. Writes commit to Postgres and then publish an invalidation for the query names they touched; the stream pushes those names to connected clients, which refetch through the same audited path. Tests sit at both ends — unit tests for the resolvers, a headless browser run for the real UI.</p>
+      <p>The thing I would call out is that the boring part is the contract, not the code: one read path, one write path, one invalidation vocabulary. Every performance and correctness problem I have had at this layer came from a second path someone added because it was quicker.</p>
+        <p class="src"><b>Evidence</b>Vite + React with URL-first state, a Hono API with a resolver registry, Postgres, and SSE invalidation; <code>notifySyncInvalidate</code> in 338 files (measured).</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;How do you decide what goes in the URL versus component state?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>If it is meaningful to a person — which tab, which record, a filter, a search, a sort, pagination, whether a panel is open — it goes in the URL, typed and validated. If it is mechanical — in-flight loading, a half-typed draft, hover, a toast — it stays in component state. Two payoffs: a user can reload, bookmark and share exactly what they are looking at, and anything automating the app can read and drive the real state instead of guessing at the DOM. I enforce it as a convention with a bias — when in doubt, the URL — because the failure is always the same direction: state that should have been shareable and is not.</p>
+        </div></div>
+      </details>
+    </section>
+
+    <section id="jsts">
+      <div class="sec-head">
+        <p class="eyebrow">05 · JavaScript and TypeScript proficiency</p>
+        <h2>Types as a design tool, not decoration</h2>
+      </div>
+      <p>Expect language mechanics and expect a type-modelling question. The senior answer to both is about making wrong states impossible rather than about syntax.</p>
+      <details class="drill">
+        <summary>&ldquo;How do you use TypeScript beyond annotating parameters?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>I use it to make illegal states unrepresentable. A discriminated union instead of an object with four optional fields and a comment about which combinations are valid — then the compiler enforces the state machine and an exhaustive switch tells me every place that needs updating when I add a case. Narrow types at the boundary: parse and validate untrusted input once, at the edge, into a type the rest of the code can trust, instead of sprinkling optional chaining everywhere downstream.</p>
+      <p>And I treat <code>any</code> and a non-null assertion as debts I am taking on deliberately, usually at a boundary I have not modelled yet. The mistake I have made and would warn about: satisfying the compiler by loosening a type — making a new required field optional to clear the errors — which silences the exact signal that was telling me where the change had not landed.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;Explain something people get wrong in JavaScript.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>Equality and coercion are the usual answer; the one I would give is that <code>await</code> in a loop looks like ordering and is often just slowness, while <code>Promise.all</code> over a big array looks like speed and is often a resource exhaustion bug. Both are the same misunderstanding — that concurrency is a syntax choice rather than a capacity decision. The other one I see constantly is a floating promise: an async call with no <code>await</code> and no <code>.catch</code>, which does not fail loudly, it fails in an unhandled rejection handler far from the cause, usually after the request it belonged to has already returned a success.</p>
+        </div></div>
+      </details>
+    </section>
+
+    <section id="debug">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Problem solving and debugging</p>
+        <h2>Make it reproducible, then make it small</h2>
+      </div>
+      <p>This is the focus area where a real story beats any framework. The method matters more than the bug: what you measured, what you ruled out, and how you knew you were right.</p>
+      <details class="drill">
+        <summary>&ldquo;Walk me through debugging something hard.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>My order is: reproduce it, shrink it, then explain it — and I do not fix anything before the explanation, because a change that makes a symptom disappear without a mechanism is how you ship the same bug twice. Shrinking is the step that does the work: remove variables until the smallest thing that still fails, and every removal either eliminates a hypothesis or reproduces without it.</p>
+      <p>The specific discipline I have learned is to distrust my instrument before my hypothesis. I have had a tool answer that a process was gone while it was very much running, because the flag I passed did not exist on that system and the usage error exited with the same code as a clean negative. A well-formed wrong answer is far more expensive than an error, so when a result surprises me, my first move is to prove the measurement can show the opposite.</p>
+      <p>And when a number is the surprise, I find the code that writes it before I believe it. I have reported a metric as a catastrophic regression when the column mixed two different scales — a clean-looking 99.9&nbsp;per&nbsp;cent that was a definitional artefact, not a distribution. The tell is that the more alarming a number looks, the likelier I am misreading its units.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;You cannot reproduce it. Now what?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>Then I stop trying to reproduce it and start narrowing it with evidence from where it happens. I add the measurement that would distinguish the two or three candidate mechanisms — not more logging, a specific discriminator — and I say in advance what each hypothesis predicts, so the data can actually choose between them rather than being read to confirm whichever I prefer. Meanwhile I bound the damage: a timeout, a guard, a circuit breaker, so the failure is survivable while I work. I label that explicitly as a mitigation, not a fix, with the durable fix tracked — the mitigation that gets mistaken for a fix is the one that leaves the trap armed for the next person.</p>
+        </div></div>
+      </details>
+    </section>
+
+    <section id="ownership">
+      <div class="sec-head">
+        <p class="eyebrow">07 · Ownership and learning velocity</p>
+        <h2>Evidence that you finish, and that you pick things up fast</h2>
+      </div>
+      <p>These two are behavioural and they are scored. Have one story about owning something unglamorous to completion, and one about learning something you did not know on a deadline. Concrete, first person, with an outcome.</p>
+      <details class="drill">
+        <summary>&ldquo;Tell me about something you owned end to end.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>I built and now run a platform that coordinates many AI coding agents on one codebase at once — the coordination layer, the tool surface, the scheduler, the release gate and the evaluation rails. Ownership in practice has meant the parts nobody asks for: the release gate that refuses to promote a red build, the guards that make conventions executable instead of aspirational, the headless verification path so UI work is actually checked rather than claimed. The measure I would give is that rules which used to live in review comments are now enforced by the system, so &lsquo;done&rsquo; has to arrive with evidence attached. That was not one feature, it was deciding the class of bug was mine to remove.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;Tell me about learning something quickly.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>The desktop shell. I needed a native host — a privileged process managing a webview, a Node sidecar, an embedded database and a custom protocol handler — in a language and framework I had not shipped before. What made it fast was not reading everything; it was picking the smallest end-to-end slice that had to work, getting it running, and then letting each real failure teach me the next thing. The file-descriptor limit, the write-ahead log that grew to 127&nbsp;GiB, the framing bug across the process boundary — I did not know any of those existed when I started, and each one taught me more about the platform than a chapter would have. I would rather be the person who ships the slice and then reads the manual about the specific thing that broke.</p>
+        </div></div>
+      </details>
+      <div class="note info">
+        <p class="eyebrow">What to do with a gap</p>
+        <p>Both of these focus areas are partly about how you handle not knowing something. The pattern that scores well is the same one you should use for Electron: name the gap precisely, say what the nearest thing you have done is, and say how you would close it. Vague confidence invites a probe; a precise gap ends the line of questioning.</p>
+      </div>
+    </section>
+
+    <section id="exercise">
+      <div class="sec-head">
+        <p class="eyebrow">08 · The exercise round</p>
+        <h2>Four runnable drills, narrated the way the round is scored</h2>
+      </div>
+      <p>The exercise round is live coding, watched. What is scored is not only whether it runs — it is whether you state the contract before you type, name the edge case before it bites you, and say what you would measure. Run these four until the narration is automatic:</p>
+      <div class="note info">
+        <p class="eyebrow">How to use these</p>
+        <p>Generated from a tested source. <code>micro1-electron-practice.js</code> holds the same
+        functions with every marked body replaced by a throwing stub; the checks are identical to the
+        ones the reference solutions pass. Implement, then run
+        <code>node micro1-electron-practice.js</code> until it is green. Open a reference solution
+        only after your own attempt.</p>
+      </div>
+      <details class="drill">
+        <summary>Drill 1 · Length-prefixed frame codec</summary>
+        <div class="drill-body single"><div class="stack">
+          <p>A socket hands you arbitrary chunks. Reassemble whole messages from <code>[4-byte length BE][1-byte type][payload]</code>, cap them at 16&nbsp;MiB, and handle the three cases that actually break codecs: a frame split across chunks, several frames inside one chunk, and a declared length that is a lie. This is the exact shape of the IPC layer in your own desktop app, so narrate it from that.</p>
+          <details class="solution"><summary>Skeleton · target ≈15 min</summary><pre class="code"><code>// Electron&#x27;s ipcMain/ipcRenderer hands you whole structured-cloned messages, so you
+// never see framing there. You see it the moment a second process is involved — a
+// utilityProcess, a spawned sidecar, a socket — because a stream gives you BYTES,
+// not messages. TCP will hand you half a frame, or two and a half frames, and a
+// decoder that assumes message boundaries works in dev and corrupts under load.
+//
+// Wire format (the one in libs/generic/ipc-framing, mirrored byte-for-byte in Rust):
+//   [4B payload length, big-endian][1B type][payload]
+// Big-endian because every other wire protocol is, and a mismatched endianness bug
+// is invisible until a length crosses 256. 16 MiB cap so a corrupt length field
+// cannot make the peer allocate a gigabyte.
+
+const HEADER_BYTES = 5;
+const MAX_PAYLOAD = 16 * 1024 * 1024;
+
+const FrameType = { REQUEST: 1, RESPONSE: 2, ERROR: 3, CANCEL: 4 };
+
+function encodeFrame(type, payload) {
+  // implement this — the contract is in the comment above
+  throw new Error(&#x27;not implemented&#x27;);
+}
+
+class FrameDecoder {
+  constructor({ maxPayload = MAX_PAYLOAD } = {}) {
+    this.maxPayload = maxPayload;
+    this.buffered = Buffer.alloc(0);
+  }
+
+  // Returns every COMPLETE frame in the bytes so far and keeps the remainder.
+  // Never returns a partial frame; never blocks waiting for one.
+  push(chunk) {
+    // implement this — the contract is in the comment above
+    throw new Error(&#x27;not implemented&#x27;);
+  }
+
+  get pendingBytes() {
+    return this.buffered.length;
+  }
+}
+</code></pre></details>
+          <details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code>// Electron&#x27;s ipcMain/ipcRenderer hands you whole structured-cloned messages, so you
+// never see framing there. You see it the moment a second process is involved — a
+// utilityProcess, a spawned sidecar, a socket — because a stream gives you BYTES,
+// not messages. TCP will hand you half a frame, or two and a half frames, and a
+// decoder that assumes message boundaries works in dev and corrupts under load.
+//
+// Wire format (the one in libs/generic/ipc-framing, mirrored byte-for-byte in Rust):
+//   [4B payload length, big-endian][1B type][payload]
+// Big-endian because every other wire protocol is, and a mismatched endianness bug
+// is invisible until a length crosses 256. 16 MiB cap so a corrupt length field
+// cannot make the peer allocate a gigabyte.
+
+const HEADER_BYTES = 5;
+const MAX_PAYLOAD = 16 * 1024 * 1024;
+
+const FrameType = { REQUEST: 1, RESPONSE: 2, ERROR: 3, CANCEL: 4 };
+
+function encodeFrame(type, payload) {
+  const body = Buffer.isBuffer(payload) ? payload : Buffer.from(String(payload), &#x27;utf8&#x27;);
+  if (!Number.isInteger(type) || type &lt; 0 || type &gt; 255) {
+    throw new RangeError(`frame type must be a byte, got ${type}`);
+  }
+  if (body.length &gt; MAX_PAYLOAD) {
+    throw new RangeError(`frame payload ${body.length}B exceeds ${MAX_PAYLOAD}B cap`);
+  }
+  const frame = Buffer.allocUnsafe(HEADER_BYTES + body.length);
+  frame.writeUInt32BE(body.length, 0);
+  frame.writeUInt8(type, 4);
+  body.copy(frame, HEADER_BYTES);
+  return frame;
+}
+
+class FrameDecoder {
+  constructor({ maxPayload = MAX_PAYLOAD } = {}) {
+    this.maxPayload = maxPayload;
+    this.buffered = Buffer.alloc(0);
+  }
+
+  // Returns every COMPLETE frame in the bytes so far and keeps the remainder.
+  // Never returns a partial frame; never blocks waiting for one.
+  push(chunk) {
+    this.buffered = this.buffered.length === 0
+      ? Buffer.from(chunk)
+      : Buffer.concat([this.buffered, chunk]);
+    const frames = [];
+    for (;;) {
+      if (this.buffered.length &lt; HEADER_BYTES) break;
+      const length = this.buffered.readUInt32BE(0);
+      if (length &gt; this.maxPayload) {
+        // Unrecoverable: the stream is desynchronised or the peer is hostile.
+        // Throwing is correct — resync-by-scanning invents message boundaries.
+        throw new RangeError(`declared frame payload ${length}B exceeds ${this.maxPayload}B cap`);
+      }
+      const total = HEADER_BYTES + length;
+      if (this.buffered.length &lt; total) break; // partial frame, wait for more bytes
+      frames.push({
+        type: this.buffered.readUInt8(4),
+        payload: this.buffered.subarray(HEADER_BYTES, total),
+      });
+      this.buffered = this.buffered.subarray(total);
+    }
+    return frames;
+  }
+
+  get pendingBytes() {
+    return this.buffered.length;
+  }
+}
+</code></pre></details>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>Drill 2 · Bounded concurrency with real backpressure</summary>
+        <div class="drill-body single"><div class="stack">
+          <p>Run at most N tasks at once <i>and</i> reject work once the queue is full — an unbounded queue is not backpressure, it is a slower memory leak. Then <code>mapLimit</code>, which must preserve input order while completing out of order. Say the rejection decision out loud; it is the senior half of the answer.</p>
+          <details class="solution"><summary>Skeleton · target ≈12 min</summary><pre class="code"><code>// &quot;Node is single-threaded&quot; is not why this matters. Async work is cheap to START
+// and that is the trap: `await Promise.all(items.map(work))` on 10,000 items opens
+// 10,000 sockets / file handles / database connections at once. The sidecar answer
+// is a bounded pool whose queue is also bounded — an unbounded queue just moves the
+// failure from the socket table into the heap, which is worse because it is invisible.
+//
+// Backpressure means the producer LEARNS it is too fast. A pool that silently
+// buffers is not applying backpressure; it is hiding the need for it.
+
+class QueueFullError extends Error {
+  constructor(limit) {
+    super(`pool queue is full (${limit} waiting)`);
+    this.name = &#x27;QueueFullError&#x27;;
+  }
+}
+
+function createPool({ limit, maxQueue = Infinity }) {
+  if (!Number.isInteger(limit) || limit &lt; 1) throw new RangeError(&#x27;limit must be &gt;= 1&#x27;);
+  // implement this — the contract is in the comment above
+  throw new Error(&#x27;not implemented&#x27;);
+}
+
+// Ordered fan-out over a bounded pool: results keep INPUT order even though
+// completion order is arbitrary. The bug this avoids is pushing results as they
+// land and quietly returning them shuffled.
+async function mapLimit(items, limit, worker) {
+  // implement this — the contract is in the comment above
+  throw new Error(&#x27;not implemented&#x27;);
+}
+</code></pre></details>
+          <details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code>// &quot;Node is single-threaded&quot; is not why this matters. Async work is cheap to START
+// and that is the trap: `await Promise.all(items.map(work))` on 10,000 items opens
+// 10,000 sockets / file handles / database connections at once. The sidecar answer
+// is a bounded pool whose queue is also bounded — an unbounded queue just moves the
+// failure from the socket table into the heap, which is worse because it is invisible.
+//
+// Backpressure means the producer LEARNS it is too fast. A pool that silently
+// buffers is not applying backpressure; it is hiding the need for it.
+
+class QueueFullError extends Error {
+  constructor(limit) {
+    super(`pool queue is full (${limit} waiting)`);
+    this.name = &#x27;QueueFullError&#x27;;
+  }
+}
+
+function createPool({ limit, maxQueue = Infinity }) {
+  if (!Number.isInteger(limit) || limit &lt; 1) throw new RangeError(&#x27;limit must be &gt;= 1&#x27;);
+  let active = 0;
+  const waiting = [];
+
+  const pump = () =&gt; {
+    while (active &lt; limit &amp;&amp; waiting.length &gt; 0) {
+      const job = waiting.shift();
+      active += 1;
+      // Run outside the loop&#x27;s control flow so a synchronous throw inside fn
+      // rejects that job&#x27;s promise instead of killing the pump.
+      Promise.resolve()
+        .then(job.fn)
+        .then(job.resolve, job.reject)
+        .finally(() =&gt; {
+          active -= 1;
+          pump();
+        });
+    }
+  };
+
+  return {
+    run(fn) {
+      if (waiting.length &gt;= maxQueue &amp;&amp; active &gt;= limit) {
+        return Promise.reject(new QueueFullError(maxQueue));
+      }
+      return new Promise((resolve, reject) =&gt; {
+        waiting.push({ fn, resolve, reject });
+        pump();
+      });
+    },
+    get active() { return active; },
+    get queued() { return waiting.length; },
+  };
+}
+
+// Ordered fan-out over a bounded pool: results keep INPUT order even though
+// completion order is arbitrary. The bug this avoids is pushing results as they
+// land and quietly returning them shuffled.
+async function mapLimit(items, limit, worker) {
+  const pool = createPool({ limit });
+  const results = new Array(items.length);
+  await Promise.all(items.map((item, index) =&gt;
+    pool.run(() =&gt; worker(item, index)).then(value =&gt; { results[index] = value; })));
+  return results;
+}
+</code></pre></details>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>Drill 3 · Invalidation coalescing</summary>
+        <div class="drill-body single"><div class="stack">
+          <p>Many writes, one notification. Measure the window <b>from the first dirty key</b>, not from the most recent one, or a hot key starves forever — that starvation case is asserted in the tests. Add an early flush at <code>maxDirty</code> and expose <code>nextDueMs</code> so exactly one timer is ever armed.</p>
+          <details class="solution"><summary>Skeleton · target ≈12 min</summary><pre class="code"><code>// A real-time UI does not need every event; it needs the LATEST state, soon. When a
+// migration touches 4,000 rows, 4,000 invalidations for the same query are 3,999
+// wasted refetches — and on a browser&#x27;s 6-connection-per-host cap they are a
+// self-inflicted outage, because the 4,000th refetch queues behind the first.
+//
+// Policy, pulled apart from the clock so it is testable:
+//   - per key, remember the newest event and when the key first went dirty
+//   - emit a key once it has been dirty for windowMs (debounce), OR
+//   - emit immediately once maxDirty keys are waiting (a burst should not also be slow)
+// Time is an ARGUMENT here. That is the whole trick: no fake timers, no flaky test.
+
+function createCoalescer({ windowMs, maxDirty = Infinity }) {
+  if (!(windowMs &gt;= 0)) throw new RangeError(&#x27;windowMs must be &gt;= 0&#x27;);
+  // implement this — the contract is in the comment above
+  throw new Error(&#x27;not implemented&#x27;);
+}
+</code></pre></details>
+          <details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code>// A real-time UI does not need every event; it needs the LATEST state, soon. When a
+// migration touches 4,000 rows, 4,000 invalidations for the same query are 3,999
+// wasted refetches — and on a browser&#x27;s 6-connection-per-host cap they are a
+// self-inflicted outage, because the 4,000th refetch queues behind the first.
+//
+// Policy, pulled apart from the clock so it is testable:
+//   - per key, remember the newest event and when the key first went dirty
+//   - emit a key once it has been dirty for windowMs (debounce), OR
+//   - emit immediately once maxDirty keys are waiting (a burst should not also be slow)
+// Time is an ARGUMENT here. That is the whole trick: no fake timers, no flaky test.
+
+function createCoalescer({ windowMs, maxDirty = Infinity }) {
+  if (!(windowMs &gt;= 0)) throw new RangeError(&#x27;windowMs must be &gt;= 0&#x27;);
+  const dirty = new Map(); // key -&gt; { firstSeenMs, lastSeenMs, value, hits }
+
+  return {
+    mark(key, nowMs, value = undefined) {
+      const existing = dirty.get(key);
+      if (existing) {
+        existing.lastSeenMs = nowMs;
+        existing.value = value;
+        existing.hits += 1;
+      } else {
+        dirty.set(key, { firstSeenMs: nowMs, lastSeenMs: nowMs, value, hits: 1 });
+      }
+      return dirty.size;
+    },
+
+    // Everything due at nowMs, oldest-dirty first. Draining REMOVES it: a key
+    // marked again after draining starts a fresh window rather than re-emitting.
+    drain(nowMs) {
+      const overCap = dirty.size &gt;= maxDirty;
+      const due = [];
+      for (const [key, entry] of dirty) {
+        if (overCap || nowMs - entry.firstSeenMs &gt;= windowMs) {
+          due.push({ key, value: entry.value, hits: entry.hits, dirtyForMs: nowMs - entry.firstSeenMs });
+        }
+      }
+      for (const { key } of due) dirty.delete(key);
+      return due;
+    },
+
+    // When the next key comes due, so a caller can arm ONE timer instead of polling.
+    nextDueMs(nowMs) {
+      if (dirty.size === 0) return null;
+      if (dirty.size &gt;= maxDirty) return 0;
+      let soonest = Infinity;
+      for (const entry of dirty.values()) {
+        soonest = Math.min(soonest, Math.max(0, entry.firstSeenMs + windowMs - nowMs));
+      }
+      return soonest;
+    },
+
+    get dirtyCount() { return dirty.size; },
+  };
+}
+</code></pre></details>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>Drill 4 · Event-loop lag and an honest verdict</summary>
+        <div class="drill-body single"><div class="stack">
+          <p>Percentiles, then a saturation verdict. The finding worth narrating: nearest-rank p99 over 100 samples is structurally blind to a single 900&nbsp;ms freeze — it read 2&nbsp;ms — so the verdict carries a max/freeze leg too, and zero samples returns <code>unknown</code> rather than <code>healthy</code>. Never let an instrument report healthy when it measured nothing.</p>
+          <details class="solution"><summary>Skeleton · target ≈10 min</summary><pre class="code"><code>// In Electron this is the difference between &quot;the app is slow&quot; and &quot;the app is
+// frozen&quot;: a saturated main/renderer thread stops the event loop, so every timer,
+// every IPC reply and every repaint stops with it. The cruel part is that a
+// heartbeat emitted BY the blocked thread cannot report the block — it is not
+// running either. Measure from outside, or measure the loop&#x27;s own late-ness.
+//
+// Pure core: given scheduled-vs-actual sample pairs, return the lag distribution
+// and a verdict. Percentile convention: nearest-rank on the sorted sample.
+
+function lagFromSamples(samples) {
+  // implement this — the contract is in the comment above
+  throw new Error(&#x27;not implemented&#x27;);
+}
+
+// Two legs, deliberately. A percentile answers &quot;is it sustained&quot;; it CANNOT answer
+// &quot;did we freeze once&quot;, because nearest-rank p99 over 100 samples is the 99th
+// smallest — the single worst sample is exactly the one it drops. A 900ms freeze is
+// user-visible on its first occurrence, so max gets its own threshold.
+function saturationVerdict(stats, { warnMs = 50, critMs = 250, freezeMs = 500 } = {}) {
+  // implement this — the contract is in the comment above
+  throw new Error(&#x27;not implemented&#x27;);
+}
+
+// Thin shell over the pure core: the only part that touches real time.
+async function measureLag({ intervalMs = 10, samples = 5 } = {}) {
+  const collected = [];
+  let scheduledMs = Date.now();
+  for (let i = 0; i &lt; samples; i += 1) {
+    scheduledMs += intervalMs;
+    await delay(intervalMs);
+    collected.push({ scheduledMs, actualMs: Date.now() });
+  }
+  return lagFromSamples(collected);
+}
+</code></pre></details>
+          <details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code>// In Electron this is the difference between &quot;the app is slow&quot; and &quot;the app is
+// frozen&quot;: a saturated main/renderer thread stops the event loop, so every timer,
+// every IPC reply and every repaint stops with it. The cruel part is that a
+// heartbeat emitted BY the blocked thread cannot report the block — it is not
+// running either. Measure from outside, or measure the loop&#x27;s own late-ness.
+//
+// Pure core: given scheduled-vs-actual sample pairs, return the lag distribution
+// and a verdict. Percentile convention: nearest-rank on the sorted sample.
+
+function lagFromSamples(samples) {
+  if (!Array.isArray(samples) || samples.length === 0) {
+    return { count: 0, p50Ms: null, p99Ms: null, maxMs: null };
+  }
+  const lags = samples
+    .map(({ scheduledMs, actualMs }) =&gt; Math.max(0, actualMs - scheduledMs))
+    .sort((a, b) =&gt; a - b);
+  const at = fraction =&gt; lags[Math.min(lags.length - 1, Math.ceil(fraction * lags.length) - 1)];
+  return {
+    count: lags.length,
+    p50Ms: at(0.5),
+    p99Ms: at(0.99),
+    maxMs: lags[lags.length - 1],
+  };
+}
+
+// Two legs, deliberately. A percentile answers &quot;is it sustained&quot;; it CANNOT answer
+// &quot;did we freeze once&quot;, because nearest-rank p99 over 100 samples is the 99th
+// smallest — the single worst sample is exactly the one it drops. A 900ms freeze is
+// user-visible on its first occurrence, so max gets its own threshold.
+function saturationVerdict(stats, { warnMs = 50, critMs = 250, freezeMs = 500 } = {}) {
+  if (stats.count === 0) return &#x27;unknown&#x27;; // never report &quot;healthy&quot; from no measurement
+  if (stats.p99Ms &gt;= critMs || stats.maxMs &gt;= freezeMs) return &#x27;saturated&#x27;;
+  if (stats.p99Ms &gt;= warnMs) return &#x27;degraded&#x27;;
+  return &#x27;healthy&#x27;;
+}
+
+// Thin shell over the pure core: the only part that touches real time.
+async function measureLag({ intervalMs = 10, samples = 5 } = {}) {
+  const collected = [];
+  let scheduledMs = Date.now();
+  for (let i = 0; i &lt; samples; i += 1) {
+    scheduledMs += intervalMs;
+    await delay(intervalMs);
+    collected.push({ scheduledMs, actualMs: Date.now() });
+  }
+  return lagFromSamples(collected);
+}
+</code></pre></details>
+        </div></div>
+      </details>
+      <p>All four are backed by <b>18 passing checks</b>. The page refuses to build if any of them is red, so nothing here is code you have not seen run.</p>
+    </section>
+
+    <section id="questions">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Questions to ask</p>
+        <h2>What to ask when Zara turns it around</h2>
+      </div>
+      <p>An AI interviewer will ask if you have questions, and the answer is scored. These are ordered — ask the first two if you only get two.</p>
+      <ol class="question-list">
+        <li><span class="rank">01</span><div><p class="say">What is the role title and level? The email I received started at the format section, so I want to make sure I am pitching at the right level.</p><p class="small muted">Ask this of the recruiter by email <i>before</i> the interview if you can — it is a reasonable question and it changes how you present.</p></div></li>
+        <li><span class="rank">02</span><div><p class="say">What does the stack look like, and how much of it would I own?</p><p class="small muted">&lsquo;Fullstack&rsquo; ranges from &lsquo;React plus an API route&rsquo; to owning schema, services and deploys.</p></div></li>
+        <li><span class="rank">03</span><div><p class="say">What does the coding exercise cover — is it algorithmic, or building something small in the stack?</p><p class="small muted">Worth asking. Either way the drills on this page rehearse the narration, which is what is actually scored.</p></div></li>
+        <li><span class="rank">04</span><div><p class="say">What would the first ninety days look like, and what would make them a success?</p><p class="small muted">Directly feeds the ownership focus area, and the answer tells you whether they have thought about onboarding at all.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">10 · Before you start</p>
+        <h2>The last ten minutes</h2>
+      </div>
+      <ul class="checklist">
+          <li>Laptop, headphones, webcam and microphone tested — not a phone.</li>
+          <li>Screen share ready; notifications off on computer and phone.</li>
+          <li>The free micro1 practice interview taken at least once.</li>
+          <li>Opener said out loud, timed, at ninety seconds or under.</li>
+          <li>Exercise drills run to green at least once, narrating as you type.</li>
+          <li>One concrete system with a real number ready for every focus area.</li>
+          <li>Your own questions written down where you can see them.</li>
+          <li>This page, every AI assistant and every extension closed before you start.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">11 · Sources</p>
+        <h2>Where every claim on this page comes from</h2>
+      </div>
+      <ul>
+        <li>Your micro1 recruiter email, 18 Sep 2026 — format, duration, focus areas and deadline.
+          Graded <span class="badge owner">Owner</span> throughout.</li>
+        <li>micro1's own AI interview guide and interview-prep page — the Zara format, the free
+          practice interviews. Graded <span class="badge fact">Fact</span>.</li>
+        <li>&ldquo;Conversational AI interviewing&rdquo;, paper by micro1's CEO and colleagues,
+          April 2025 — what Zara is built to do. <span class="badge fact">Fact</span> as of 2025.</li>
+        <li>aitrainer.work's micro1 guide, Sep 2026 — cites no sources, so tab-tracking, paste
+          blocking and voice-activity cutoff are carried as
+          <span class="badge inference">Low confidence</span>, not fact.</li>
+        <li>Your own work, on the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>. Every number
+          quoted on this page was recounted in the codebase on 18 Sep 2026.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared 18 Sep 2026. Every claim is graded: <span class="badge fact">Fact</span> from a published source, <span class="badge owner">Owner</span> from your recruiter email, <span class="badge inference">Inference</span> reasoned from the role, <span class="badge unknown">Unknown</span> not published. Say nothing in the interview you cannot defend.</p>
+  </footer>
+</div>
+</body>
+</html>

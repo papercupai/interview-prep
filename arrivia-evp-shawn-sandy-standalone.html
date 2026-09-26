@@ -1,0 +1,1190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>arrivia &amp; Mercor Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --paper:      #F6F5F1;
+    --surface:    #FCFBF8;
+    --ink:        #14201E;
+    --ink-soft:   #374744;
+    --muted:      #6B7873;
+    --rule:       #E0DED6;
+    --rule-firm:  #C8C5BA;
+    --accent:     #0B5F57;
+    --accent-ink: #084A44;
+    --accent-soft:#E5EFEC;
+    --on-accent:  #F6F5F1;
+    --flag:       #8F2E3C;
+    --flag-soft:  #F7E8E9;
+
+    --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+    --sans:  "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono:  "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    --measure: 68ch;
+    --pad: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #0F1817;
+      --surface:    #16211F;
+      --ink:        #E9EAE5;
+      --ink-soft:   #BFC7C4;
+      --muted:      #8A9793;
+      --rule:       #26332F;
+      --rule-firm:  #3A4A46;
+      --accent:     #56C4B4;
+      --accent-ink: #7FD6C9;
+      --accent-soft:#12302C;
+      --on-accent:  #08120F;
+      --flag:       #E4919C;
+      --flag-soft:  #331A1E;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:      #0F1817;
+    --surface:    #16211F;
+    --ink:        #E9EAE5;
+    --ink-soft:   #BFC7C4;
+    --muted:      #8A9793;
+    --rule:       #26332F;
+    --rule-firm:  #3A4A46;
+    --accent:     #56C4B4;
+    --accent-ink: #7FD6C9;
+    --accent-soft:#12302C;
+    --on-accent:  #08120F;
+    --flag:       #E4919C;
+    --flag-soft:  #331A1E;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 1.0625rem;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: var(--pad) var(--pad) 5rem;
+  }
+
+  /* ---------- shared type ---------- */
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+
+  p { margin: 0; }
+
+  a {
+    color: var(--accent-ink);
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  strong { font-weight: 600; color: var(--ink); }
+
+  em.term {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 0.88em;
+    color: var(--accent-ink);
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .masthead-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+  }
+
+  .name {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(2.6rem, 7vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    margin-top: 0.35rem;
+  }
+
+  .role {
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .chip {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    border: 1px solid var(--rule-firm);
+    padding: 0.3rem 0.6rem;
+    white-space: nowrap;
+  }
+
+  .chip.hot {
+    color: var(--accent-ink);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .standfirst {
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 2.6vw, 1.5rem);
+    line-height: 1.42;
+    color: var(--ink);
+    max-width: 42ch;
+  }
+
+  /* ---------- sections ---------- */
+
+  section { margin-top: 4.5rem; }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--rule-firm);
+    margin-bottom: 2rem;
+  }
+
+  .sec-head h2 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3.4vw, 1.95rem);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  .sec-head .eyebrow { margin-left: auto; white-space: nowrap; }
+
+  .lede {
+    max-width: var(--measure);
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+  }
+
+  /* ---------- signal / implication rows ---------- */
+
+  .reads {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .read {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: 0.5rem 2.5rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .read:first-child { border-top: none; padding-top: 0; }
+
+  .read .signal {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.02rem;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+
+  .read .signal cite {
+    display: block;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.6rem;
+  }
+
+  .read .means { color: var(--ink-soft); }
+  .read .means strong { color: var(--ink); }
+
+  @media (max-width: 46rem) {
+    .read { grid-template-columns: 1fr; gap: 0.75rem; }
+  }
+
+  /* ---------- the 30-minute shape ---------- */
+
+  .shape {
+    margin: 0 0 2.25rem;
+  }
+
+  .shape-bar {
+    display: flex;
+    gap: 3px;
+    height: 2.9rem;
+  }
+
+  .seg {
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    background: var(--rule);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .seg.yours {
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 500;
+  }
+
+  .shape-legend {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.7rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- script block ---------- */
+
+  .script {
+    background: var(--surface);
+    border: 1px solid var(--rule-firm);
+    border-left: 3px solid var(--accent);
+    padding: clamp(1.25rem, 3vw, 1.9rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.05rem;
+  }
+
+  .script p {
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    line-height: 1.55;
+    max-width: 60ch;
+  }
+
+  .script .attrib {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- say / don't ---------- */
+
+  .contrast {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1px;
+    background: var(--rule-firm);
+    border: 1px solid var(--rule-firm);
+    margin-top: 2rem;
+  }
+
+  .contrast > div {
+    background: var(--paper);
+    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .contrast h4 {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .contrast .no h4 { color: var(--flag); }
+  .contrast .yes h4 { color: var(--accent-ink); }
+  .contrast p { color: var(--ink-soft); font-size: 0.97rem; }
+
+  .contrast.pair > div { gap: 0.35rem; }
+
+  .contrast.pair h4 {
+    font-family: var(--serif);
+    font-size: 1.18rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .contrast.pair .tag {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .contrast.pair ul {
+    margin: 0.35rem 0 0;
+    padding-left: 1.05rem;
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .contrast.pair li::marker { color: var(--accent); }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 1px;
+    background: var(--rule-firm);
+    border: 1px solid var(--rule-firm);
+    margin: 2rem 0;
+  }
+
+  .stat {
+    background: var(--paper);
+    padding: 1.1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .stat .num {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.05;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-ink);
+  }
+
+  .stat .cap {
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* ---------- questions ---------- */
+
+  .qgroup { margin-bottom: 2.25rem; }
+
+  .qgroup > .eyebrow {
+    display: block;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 1.1rem;
+  }
+
+  .q {
+    display: grid;
+    grid-template-columns: 1.6rem minmax(0, 1fr);
+    gap: 0.9rem;
+    padding: 0.75rem 0;
+    max-width: 56rem;
+  }
+
+  .q .mark {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    padding-top: 0.28rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .q .ask {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    line-height: 1.44;
+  }
+
+  .q .why {
+    grid-column: 2;
+    font-size: 0.94rem;
+    color: var(--muted);
+    margin-top: 0.35rem;
+  }
+
+  /* ---------- flag ---------- */
+
+  .flagbox {
+    background: var(--flag-soft);
+    border: 1px solid var(--flag);
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    max-width: 54rem;
+  }
+
+  .flagbox h3 {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--flag);
+  }
+
+  .flagbox p { color: var(--ink-soft); }
+  .flagbox p strong { color: var(--ink); }
+
+  /* ---------- domain grid ---------- */
+
+  .domain {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+    gap: 1.75rem 2.5rem;
+  }
+
+  .domain h4 {
+    margin: 0 0 0.45rem;
+    font-family: var(--serif);
+    font-size: 1.08rem;
+    font-weight: 600;
+  }
+
+  .domain p { color: var(--ink-soft); font-size: 0.97rem; }
+
+  /* ---------- checklist ---------- */
+
+  .checks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    max-width: var(--measure);
+  }
+
+  .checks li {
+    padding: 0.9rem 0 0.9rem 1.6rem;
+    border-top: 1px solid var(--rule);
+    position: relative;
+    color: var(--ink-soft);
+  }
+
+  .checks li:first-child { border-top: none; }
+
+  .checks li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1.35rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid var(--accent);
+  }
+
+  .checks li strong { color: var(--ink); }
+
+  /* ---------- footnote ---------- */
+
+  .endnote {
+    margin-top: 4.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 0.92rem;
+    max-width: var(--measure);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin: calc(var(--pad) * -1) -0.4rem 2.25rem;
+    padding: 0.55rem 0.4rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 0.83rem;
+    font-weight: 600;
+  }
+
+  nav.sitenav a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.3rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  nav.sitenav a:hover { color: var(--accent-ink); background: var(--accent-soft); }
+
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent-ink);
+    background: var(--accent-soft);
+  }
+
+  nav.sitenav .sep { flex: 1; }
+</style>
+
+<div class="wrap">
+
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div>
+      <div class="masthead-top">
+        <span class="eyebrow">Interview brief &middot; prepared 10 Sep 2026</span>
+      </div>
+      <h1 class="name">Shawn Sandy</h1>
+      <div class="role">EVP of Software Engineering &middot; arrivia</div>
+      <div class="chips">
+        <span class="chip hot">30 minutes</span>
+        <span class="chip">Third of three &middot; last</span>
+        <span class="chip">Senior / staff IC loop</span>
+        <span class="chip">All times Eastern</span>
+        <span class="chip">Scottsdale, AZ &middot; hybrid</span>
+        <span class="chip">Reports to the CPTO</span>
+      </div>
+    </div>
+    <p class="standfirst">
+      He is not screening your code &mdash; the earlier rounds did that. He is deciding whether you
+      would be steady, and whether you would help him do the thing he keeps telling people he is
+      going to do.
+    </p>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <h2>How the thirty minutes actually goes</h2>
+      <span class="eyebrow">Shape</span>
+    </div>
+    <p class="lede">
+      The invitation says he will &ldquo;give you a broader view of the organization, where
+      engineering is headed, and how this team fits into the larger picture.&rdquo; For a senior or
+      staff IC, an EVP in the last slot is usually two things at once: a judgment-and-fit read, and
+      a sell. <strong>That is good news &mdash; they do not spend an EVP&rsquo;s half-hour on
+      candidates they have already decided against</strong> &mdash; but it also means the last third
+      of the call is where it is actually decided. Have three questions loaded before you dial in.
+      Do not save them for minute twenty-eight.
+    </p>
+    <div class="shape">
+      <div class="shape-bar">
+        <div class="seg" style="flex: 5">~5 min &middot; his framing</div>
+        <div class="seg" style="flex: 15">~15 min &middot; he probes you</div>
+        <div class="seg yours" style="flex: 10">~10 min &middot; yours</div>
+      </div>
+      <div class="shape-legend">
+        <span>Minute 0</span>
+        <span>Minute 30</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>The read on him</h2>
+      <span class="eyebrow">Signal &rarr; meaning</span>
+    </div>
+    <p class="lede">
+      Everything on the left is his own public phrasing. The profile is unusually revealing &mdash;
+      he writes about engineering in financial language, which most engineering leaders never do.
+    </p>
+
+    <div class="reads">
+
+      <div class="read">
+        <div class="signal">
+          &ldquo;Improved engineering CapEx capitalization from 40% to 60%, driving direct EBITDA impact.&rdquo;
+          <cite>Listed twice, across two roles</cite>
+        </div>
+        <div class="means">
+          The single most revealing line on the profile. Capitalizing engineering labor rather than
+          expensing it is a private-equity value-creation lever &mdash; it moves EBITDA on paper.
+          Getting from 40% to 60% means he restructured how work is <strong>classified and tracked</strong>
+          so more of it qualifies as new-product development rather than undifferentiated maintenance.
+          Practical read: he responds to delivery described as plannable, project-shaped increments,
+          and he is allergic to work that cannot be accounted for.
+        </div>
+      </div>
+
+      <div class="read">
+        <div class="signal">
+          &ldquo;$13M P&amp;L&rdquo; &middot; &ldquo;aligning spend with PE financial expectations&rdquo;
+          <cite>Current role</cite>
+        </div>
+        <div class="means">
+          arrivia is PE-backed and is being run toward an exit or a recap. Cost discipline is real and
+          headcount is defended, not assumed. <strong>Do not pitch open-ended R&amp;D.</strong> Frame
+          anything ambitious as something that pays for itself inside a fiscal year.
+        </div>
+      </div>
+
+      <div class="read">
+        <div class="signal">
+          &ldquo;Consolidated two legacy engineering organizations into a unified team and platform architecture.&rdquo;
+          <cite>Aug 2024 &ndash; present</cite>
+        </div>
+        <div class="means">
+          arrivia acquired ICE, where he had already spent fourteen years. He has been merging those two
+          worlds since 2020. Assume <strong>two stacks are still partly alive</strong> under the
+          &ldquo;unified&rdquo; description &mdash; that is normal and it is the most useful thing you can
+          ask about, because his answer tells you what the codebase is actually like.
+        </div>
+      </div>
+
+      <div class="read">
+        <div class="signal">
+          &ldquo;Rebuilt partner relationships through consistent delivery execution.&rdquo;
+          <cite>Current role, first listed outcome</cite>
+        </div>
+        <div class="means">
+          You rebuild what was broken. Delivery credibility with Amex, T-Mobile, Synchrony and Hilton
+          Grand Vacations is his scar tissue, and it is the thing he was promoted twice to fix. He will
+          take <strong>an honest estimate over an optimistic one</strong> every time. If you get a
+          &ldquo;tell me about a time&rdquo; question, pick the story where you called a slip early rather
+          than the one where you heroically shipped at 3am.
+        </div>
+      </div>
+
+      <div class="read">
+        <div class="signal">
+          &ldquo;AI adoption across product and SDLC to fundamentally change how engineering organizations operate.&rdquo;
+          <cite>Said three separate ways in the summary alone</cite>
+        </div>
+        <div class="means">
+          This is the thing he wants to be known for, and it is stated more emphatically than anything
+          else he has written. It is the highest-leverage subject in the room &mdash; see the next section.
+          Note that he splits it in two: <em class="term">product</em> (AI features inside the travel
+          products) and <em class="term">SDLC</em> (AI changing how his engineers work). They are very
+          different problems and asking which is further along is a sharp question.
+        </div>
+      </div>
+
+      <div class="read">
+        <div class="signal">
+          &ldquo;99.9% uptime with latency, resiliency, and quality aligned to OTA standards&rdquo; across nine travel products.
+          <cite>Summary</cite>
+        </div>
+        <div class="means">
+          <em class="term">OTA</em> means Expedia and Booking.com. He is explicitly benchmarking a
+          white-label partner platform against consumer online-travel-agency expectations &mdash; a
+          genuinely hard bar, because it means consumer-grade latency and availability under enterprise
+          contract terms. Reliability talk lands well here.
+        </div>
+      </div>
+
+      <div class="read">
+        <div class="signal">
+          Java developer &rarr; C, SQL, UNIX &rarr; built a firewall appliance &rarr; built a cruise booking engine doing $400M+ a year.
+          <cite>1998 &ndash; 2020</cite>
+        </div>
+        <div class="means">
+          He is a real engineer who wrote production code for two decades, and he personally built
+          REST and SOAP partner integrations. <strong>Do not hand-wave technically.</strong> He will
+          follow you as deep as you want to go, and he will notice if you go shallow to sound polished.
+        </div>
+      </div>
+
+      <div class="read">
+        <div class="signal">
+          Fourteen years at ICE, six-plus at arrivia. Executive Director &rarr; VP &rarr; SVP &rarr; EVP.
+          <cite>Full history</cite>
+        </div>
+        <div class="means">
+          He stays, and he promotes from within. Longevity reads as a virtue to him, not as a lack of
+          ambition. Be ready for a version of <strong>&ldquo;where do you want to be in three years&rdquo;</strong>
+          and have an answer that involves still being there.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Your strongest card</h2>
+      <span class="eyebrow">Play it early</span>
+    </div>
+    <p class="lede">
+      He has told the world three times that AI in the SDLC is his next transformation. Almost every
+      candidate he meets will answer that topic with some version of &ldquo;Copilot makes me faster.&rdquo;
+      You have actually run agentic engineering systems, including the parts that break. That is a rare
+      credential for exactly this conversation, and it is worth spending real airtime on.
+    </p>
+    <p class="lede">
+      One posture note, because it is the main way this goes wrong for an IC candidate:
+      <strong>answer as a practitioner with opinions, not as a consultant with a transformation
+      plan.</strong> He owns the strategy; what he cannot get from his own leadership team is a
+      credible first-hand account of what actually changes on the ground. Say &ldquo;here is what I
+      watched happen&rdquo; rather than &ldquo;here is what an organization should do.&rdquo; The
+      first is the rarest thing you can offer him. The second sounds like you are interviewing for
+      his job.
+    </p>
+
+    <div class="script">
+      <p>
+        &ldquo;The naive version of AI in the SDLC is that engineers write code faster. That&rsquo;s real,
+        but it&rsquo;s the small half. What actually changes is <em>where the constraint sits</em>.
+        Generation gets cheap, so the bottleneck moves downstream &mdash; to review, to test coverage,
+        to whether you can prove a change is correct before it ships. A team that adds AI without moving
+        investment downstream just gets faster at producing unverified change.
+      </p>
+      <p>
+        And the failure mode isn&rsquo;t code that obviously breaks. It&rsquo;s <em>confident wrongness</em> &mdash;
+        a change, or a status report, that reads clean and isn&rsquo;t. So the thing you end up having
+        to build is evidence-carrying completion: what ran, against which commit, with what output.
+        &lsquo;Done&rsquo; stops being an assertion and becomes a record.
+      </p>
+      <p>
+        The part I didn&rsquo;t expect is how little of it was tooling. Access wasn&rsquo;t the hard
+        problem &mdash; agreeing on what counts as evidence was. And the number that turned out to
+        matter wasn&rsquo;t anything about code generated; it was how much work got redone.&rdquo;
+      </p>
+      <p class="attrib">Roughly ninety seconds. Then stop and let him react.</p>
+    </div>
+
+    <div class="contrast">
+      <div class="no">
+        <h4>Don&rsquo;t say</h4>
+        <p>
+          &ldquo;AI makes me about thirty percent more productive.&rdquo; Everyone says it, nobody can
+          substantiate it, and with a P&amp;L owner it invites the one follow-up you can&rsquo;t answer:
+          measured how?
+        </p>
+      </div>
+      <div class="yes">
+        <h4>Say instead</h4>
+        <p>
+          Name one specific thing you changed about <em>how work gets verified</em>, and what went wrong
+          before you changed it. Concrete failure stories are the only credible evidence anyone has in
+          this area right now, and he will know that.
+        </p>
+      </div>
+    </div>
+
+    <p class="lede" style="margin-top: 2rem;">
+      Hold one connection <em>in reserve</em> and do not volunteer it: AI in the SDLC shifts the mix
+      between maintenance and new development, which is the exact lever behind his 40%-to-60%
+      capitalization number. If <strong>he</strong> takes the conversation toward how the investment
+      gets justified upward, having already seen that link is impressive. Raising it unprompted, as a
+      candidate for an IC role, is the consultant move above.
+    </p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>What to ask him</h2>
+      <span class="eyebrow">The last ten minutes</span>
+    </div>
+    <p class="lede">
+      Pick four &mdash; two from the first group, one from each of the others. Every one is answerable
+      by him specifically, which is the point: a generic question signals you would have asked the same
+      thing of anyone. Note that the first group is deliberately about the <em>work</em> rather than the
+      strategy. For an IC, asking what the day actually looks like reads as seriousness; asking about
+      the P&amp;L reads as auditioning.
+    </p>
+
+    <div class="qgroup">
+      <span class="eyebrow">What the work is actually like</span>
+      <div class="q">
+        <span class="mark">&mdash;</span>
+        <div class="ask">
+          You consolidated two engineering organizations after the acquisition. Where has that actually
+          landed &mdash; is the platform genuinely unified now, or are there still two stacks under the hood?
+        </div>
+        <div class="why">The single most informative question on this page. His answer tells you what your first year would be made of, and he will respect that you asked it plainly.</div>
+      </div>
+      <div class="q">
+        <span class="mark">&mdash;</span>
+        <div class="ask">
+          What does a senior engineer here actually own end to end &mdash; a service, a product surface,
+          a partner integration?
+        </div>
+        <div class="why">Ownership scope is the thing that most determines whether a staff-level role is real or nominal, and it is rarely in the job description.</div>
+      </div>
+      <div class="q">
+        <span class="mark">&mdash;</span>
+        <div class="ask">
+          Right now, how much of engineering&rsquo;s time goes to modernization and consolidation versus
+          building new things?
+        </div>
+        <div class="why">The honest answer is usually uncomfortable, which makes it worth hearing. It also tells you whether the &ldquo;unified platform&rdquo; claim has shipped or is still in progress.</div>
+      </div>
+      <div class="q">
+        <span class="mark">&mdash;</span>
+        <div class="ask">
+          With partners at the scale of Amex and Hilton Grand Vacations, how much of what gets built is
+          set by contractual commitment versus what the product team wants?
+        </div>
+        <div class="why">Shows you understand that enterprise partner platforms are not run like consumer products &mdash; and it is the single biggest predictor of what your backlog feels like.</div>
+      </div>
+    </div>
+
+    <div class="qgroup">
+      <span class="eyebrow">To engage his agenda</span>
+      <div class="q">
+        <span class="mark">&mdash;</span>
+        <div class="ask">
+          You talk about AI across both product and the SDLC. Which one is further along here, and which
+          one is turning out to be harder?
+        </div>
+        <div class="why">Splits his own framing back at him and makes a generic answer difficult. Ask this one if you ask nothing else in this group.</div>
+      </div>
+      <div class="q">
+        <span class="mark">&mdash;</span>
+        <div class="ask">
+          For AI in the SDLC &mdash; what is your measure that it is working?
+        </div>
+        <div class="why">Signals that you know measurement is the hard part, not adoption. Almost no candidate asks this, and it pairs directly with the answer on the previous section.</div>
+      </div>
+    </div>
+
+    <div class="qgroup">
+      <span class="eyebrow">How you would be judged</span>
+      <div class="q">
+        <span class="mark">&mdash;</span>
+        <div class="ask">
+          A year from now, what would make you say this hire was clearly the right one?
+        </div>
+        <div class="why">Gets you the actual success criteria, and executives enjoy answering it. Write the answer down &mdash; it is the rubric.</div>
+      </div>
+      <div class="q">
+        <span class="mark">&mdash;</span>
+        <div class="ask">
+          Who would I be working for day to day, and how much has that layer moved during the consolidation?
+        </div>
+        <div class="why">Legitimate, neutral, and it quietly surfaces the risk in the next section without going near it.</div>
+      </div>
+    </div>
+
+    <p class="lede" style="margin-top: 2.5rem;">
+      One to be ready <em>for</em>, rather than to ask: he has been at the same company for over twenty
+      years and was promoted four times inside it. Some version of <strong>&ldquo;where do you want to
+      be in three years&rdquo;</strong> is likely, and to him a good answer involves still being there.
+      Depth over title &mdash; owning something significant, going further into the domain &mdash; lands
+      better here than a fast climb would.
+    </p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>One thing to weigh</h2>
+      <span class="eyebrow">Do not raise it</span>
+    </div>
+    <div class="flagbox">
+      <h3>His public profile says he is looking to leave</h3>
+      <p>
+        The summary you sent ends: <em>&ldquo;I&rsquo;m exploring CTO opportunities where I can lead engineering
+        organizations through AI-native transformation.&rdquo;</em> That is on his public profile, so it is fair
+        information &mdash; but never mention that you read it.
+      </p>
+      <p>
+        Two consequences. First, <strong>the person interviewing you may not be there in a year</strong>, which
+        is a real thing to weigh if you would be joining partly because of him. The reporting-line question
+        above is how you probe it without ever going near the subject.
+      </p>
+      <p>
+        Second, and more usefully: it tells you exactly what story he is trying to be able to tell about
+        himself. <strong>He wants to have led an engineering organization through an AI-native
+        transformation.</strong> A candidate who visibly helps make that true is more interesting to him than
+        a candidate who is merely competent. That is not cynical &mdash; it is just knowing what he is
+        optimizing for.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Domain ground to cover</h2>
+      <span class="eyebrow">arrivia&rsquo;s actual business</span>
+    </div>
+    <p class="lede">
+      arrivia builds white-label travel booking for other brands&rsquo; loyalty and membership programs &mdash;
+      an Amex or T-Mobile member books travel and redeems points, and arrivia is the platform underneath.
+      You do not need to be a travel expert, but being able to name the hard parts of this domain unprompted
+      is a strong signal. These are the ones worth having a sentence about.
+    </p>
+    <div class="domain">
+      <div>
+        <h4>Points as a currency</h4>
+        <p>
+          Redemption pricing means dual-currency display, points-plus-cash splits, and a conversion rate that
+          is a business decision rather than a technical one. It touches pricing, accounting and the partner
+          contract at the same time.
+        </p>
+      </div>
+      <div>
+        <h4>Supplier integration</h4>
+        <p>
+          Inventory, rates and availability come from third parties over interfaces of wildly varying quality.
+          He personally built REST and SOAP partner integrations, so this is home ground for him.
+        </p>
+      </div>
+      <div>
+        <h4>Stale rates and availability</h4>
+        <p>
+          The classic travel-platform problem: cache aggressively enough to hit OTA-grade search latency, and
+          you will quote prices that no longer exist at booking time. Everything downstream is a consequence
+          of that trade.
+        </p>
+      </div>
+      <div>
+        <h4>Booking idempotency</h4>
+        <p>
+          A retried booking that double-charges a member, or burns their points twice, is the failure that
+          reaches the partner&rsquo;s executive team. Worth being able to talk about in terms of correctness
+          rather than just error handling.
+        </p>
+      </div>
+      <div>
+        <h4>Cancellations and refunds</h4>
+        <p>
+          Almost always harder than the booking path and almost always built second. If you want a question
+          that shows domain instinct, ask which of the two is in worse shape.
+        </p>
+      </div>
+      <div>
+        <h4>The partner is the customer</h4>
+        <p>
+          The member books the trip, but Amex or T-Mobile signs the contract and defines the SLA. That split
+          explains most of what looks strange about roadmaps at companies like this.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Before you reply to the scheduler</h2>
+      <span class="eyebrow">Logistics</span>
+    </div>
+    <ul class="checks">
+      <li>
+        <strong>They asked for the three in order.</strong> Pick times that keep the stated sequence
+        intact &mdash; offering a slot that puts Shawn before the earlier two creates work for a
+        coordinator and reads as inattentive.
+      </li>
+      <li>
+        <strong>All times quoted are Eastern.</strong> State your own timezone explicitly in the reply
+        even if it is also Eastern. It costs one clause and removes the entire class of mis-booking.
+      </li>
+      <li>
+        <strong>Give more than the minimum.</strong> Two or three options per stage gets the loop booked
+        in one round trip instead of three.
+      </li>
+      <li>
+        <strong>Ask what steps one and two are</strong> if you have not been told. At senior or staff
+        level they are most likely a hiring-manager conversation and a technical round, which is where
+        the actual evaluation happens &mdash; Shawn is the last slot, not the hard one. Knowing the
+        order changes what you prepare first, and asking a coordinator is completely normal.
+      </li>
+      <li>
+        <strong>Thirty minutes means thirty minutes</strong> at EVP level. Have your questions in front of
+        you and start asking around the eighteen-minute mark rather than waiting to be invited.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Mercor, full-time</h2>
+      <span class="eyebrow">Second track</span>
+    </div>
+    <p class="lede">
+      Mercor describes itself as &ldquo;organizing human intelligence to power the AI economy.&rdquo; In
+      practice: they recruit and vet domain experts &mdash; physicians, lawyers, engineers, consultants
+      &mdash; and put that expertise to work for frontier AI labs, across four stated lines of business:
+      find work, <em class="term">measure AI</em>, <em class="term">build evals</em>, and
+      <em class="term">deploy agents</em>. They also publish the APEX benchmark family, which tests
+      &ldquo;whether frontier AI models can perform economically valuable tasks&rdquo; in professional
+      services, medicine, and software engineering.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><span class="num">$10B</span><span class="cap">Valuation, $350M round</span></div>
+      <div class="stat"><span class="num">30k+</span><span class="cap">Vetted experts</span></div>
+      <div class="stat"><span class="num">$4M+</span><span class="cap">Paid out daily</span></div>
+      <div class="stat"><span class="num">440k</span><span class="cap">Roles created</span></div>
+      <div class="stat"><span class="num">$112</span><span class="cap">Avg contracted rate / hr</span></div>
+    </div>
+
+    <p class="lede">
+      Two months ago they announced they are acquiring <strong>Deeptune</strong>, for &ldquo;realistic
+      training environments across more industries and roles.&rdquo; That integration is live right now
+      &mdash; Deeptune already appears as its own engineering team on their careers page, with dedicated
+      recruiting for it in New York. If you want one piece of current-events awareness to bring, that is
+      the one.
+    </p>
+
+    <div class="sec-head" style="margin-top: 3rem;">
+      <h2>Why you fit this one unusually well</h2>
+      <span class="eyebrow">The angle</span>
+    </div>
+    <p class="lede">
+      Here is the thing worth noticing: <strong>one of Mercor&rsquo;s three published benchmarks is
+      APEX-SWE</strong> &mdash; measuring whether frontier models can do software engineering. Their
+      business is not adjacent to the question of how you verify AI-produced work. It <em>is</em> that
+      question, sold as a product.
+    </p>
+    <p class="lede">
+      So the argument written out in the arrivia section &mdash; that generation was never the bottleneck,
+      that the failure mode is confident wrongness, that &ldquo;done&rdquo; has to become a record rather
+      than an assertion &mdash; is not a transferable talking point here. It is a position on their core
+      problem, arrived at from the practitioner&rsquo;s side rather than the vendor&rsquo;s. Two of their
+      four business lines are <em class="term">build evals</em> and <em class="term">deploy agents</em>.
+      If you have run agents against real repositories and watched where the evaluation breaks down,
+      you have first-hand data on something they sell. Lead with that rather than saving it.
+    </p>
+
+    <div class="sec-head" style="margin-top: 3rem;">
+      <h2>The same answers will not work in both</h2>
+      <span class="eyebrow">Do not cross the wires</span>
+    </div>
+    <p class="lede">
+      These two companies are close to opposites, and prepping them as one interview is the main risk in
+      running both loops at once. What reads as maturity at one reads as the wrong instinct at the other.
+    </p>
+
+    <div class="contrast pair">
+      <div>
+        <span class="tag">arrivia</span>
+        <h4>Restore and consolidate</h4>
+        <ul>
+          <li>PE-backed, $13M engineering P&amp;L, cost discipline is real.</li>
+          <li>Two decades of platform, two merged organizations, partner trust being rebuilt.</li>
+          <li>Value: predictability, honest estimates, 99.9% uptime, not breaking things.</li>
+          <li>They want to know you are <strong>steady</strong>.</li>
+        </ul>
+      </div>
+      <div>
+        <span class="tag">Mercor</span>
+        <h4>Build the category</h4>
+        <ul>
+          <li>$10B valuation on a fresh $350M round, acquiring companies, hiring hard.</li>
+          <li>New product surfaces, ambiguous problems, very little legacy to protect.</li>
+          <li>Value: speed, range, operating without a spec, appetite for unsolved problems.</li>
+          <li>They want to know you are <strong>fast and unbothered by ambiguity</strong>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="lede" style="margin-top: 2rem;">
+      Same story, different emphasis. The delivery example that lands at arrivia is the one where you
+      called a slip early and protected the partner relationship. The one that lands at Mercor is the
+      one where you shipped something underspecified and corrected it in flight. Both can be true of
+      the same project &mdash; decide which half you are telling before you walk in.
+    </p>
+
+    <div class="sec-head" style="margin-top: 3rem;">
+      <h2>On-site logistics</h2>
+      <span class="eyebrow">Settle these first</span>
+    </div>
+    <ul class="checks">
+      <li>
+        <strong>Travel, before you prepare anything else.</strong> Ask the coordinator to book the flight
+        and hotel directly rather than reimbursing you &mdash; before you book anything yourself, and as a
+        logistics question rather than a financial disclosure. A company that just closed $350M and pays
+        out $4M a day can book a flight.
+      </li>
+      <li>
+        <strong>Ask for the agenda in advance.</strong> An on-site is a full loop, not a conversation:
+        expect several back-to-back sessions and at least one working or technical block. Asking what the
+        day contains is completely standard and it is the difference between preparing for the right
+        thing and preparing for all of it.
+      </li>
+      <li>
+        <strong>Ask which office and what onsite means.</strong> They work in person from San Francisco,
+        New York and London, and essentially every posting is tagged full-time onsite. Their benefits
+        include a &ldquo;proximity bonus&rdquo; &mdash; annual housing support &mdash; which tells you they
+        expect people to live near the office. If relocation is implied, find that out now rather than at
+        offer stage.
+      </li>
+      <li>
+        <strong>Read one APEX writeup before you go.</strong> Their own benchmark for your own discipline
+        is the cheapest possible preparation, and having an opinion on how they constructed it &mdash;
+        especially where a benchmark like that would be misleading &mdash; is a far better conversation
+        than anything you could say about their funding round.
+      </li>
+      <li>
+        <strong>Expect the day to be long.</strong> A full loop plus travel is a physical event, not just
+        an intellectual one. Build in a buffer rather than flying in the same morning.
+      </li>
+    </ul>
+  </section>
+
+  <p class="endnote">
+    Sourcing, so you know what to trust. The arrivia sections come entirely from Shawn Sandy&rsquo;s
+    public profile and the scheduling note you sent &mdash; no inside information about the team, the
+    role, or the band is reflected here, and the read on what he values is inference from his own
+    phrasing rather than anything anyone told me. The Mercor figures and quoted descriptions are from
+    mercor.com as of 10 September 2026. What I do <em>not</em> know in either case is the interview
+    format: the shape of Shawn&rsquo;s thirty minutes is the usual shape of that slot rather than
+    something arrivia published, and Mercor does not publish its loop at all, which is why the advice
+    there is to ask for the agenda rather than to prepare for a format I would be guessing at.
+  </p>
+
+</div>
+</body>
+</html>

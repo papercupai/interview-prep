@@ -1,0 +1,1107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>TWG Global Recruiter Screen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+  :root {
+    --ground:      #F6F8F9;
+    --surface:     #FFFFFF;
+    --surface-alt: #EEF2F3;
+    --ink:         #10181C;
+    --ink-muted:   #55646C;
+    --ink-faint:   #8A979E;
+    --accent:      #14666E;
+    --accent-soft: #DCEAEB;
+    --caution:     #8A5D05;
+    --caution-soft:#F7EDD6;
+    --critical:    #A3322C;
+    --critical-soft:#F7E2E0;
+    --rule:        #DDE4E7;
+    --rule-strong: #C3CFD3;
+
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body:    "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #0D1417;
+      --surface:     #141E22;
+      --surface-alt: #1A262B;
+      --ink:         #E6EDEF;
+      --ink-muted:   #93A3AA;
+      --ink-faint:   #6C7C84;
+      --accent:      #4FB3BC;
+      --accent-soft: #16333A;
+      --caution:     #D9A43A;
+      --caution-soft:#33290F;
+      --critical:    #E0736C;
+      --critical-soft:#3A1E1C;
+      --rule:        #24333A;
+      --rule-strong: #35474F;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:      #0D1417;
+    --surface:     #141E22;
+    --surface-alt: #1A262B;
+    --ink:         #E6EDEF;
+    --ink-muted:   #93A3AA;
+    --ink-faint:   #6C7C84;
+    --accent:      #4FB3BC;
+    --accent-soft: #16333A;
+    --caution:     #D9A43A;
+    --caution-soft:#33290F;
+    --critical:    #E0736C;
+    --critical-soft:#3A1E1C;
+    --rule:        #24333A;
+    --rule-strong: #35474F;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--f-display);
+    text-wrap: balance;
+    margin: 0;
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+  }
+  h1 { font-size: 2.3rem; font-weight: 700; }
+  h2 { font-size: 1.4rem; font-weight: 600; }
+  h3 { font-size: 1.06rem; font-weight: 600; }
+
+  p { margin: 0; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:focus-visible,
+  details > summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---- site menubar (shared across the prep set) ---- */
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin: -3rem -0.4rem 0;
+    padding: 0.55rem 0.4rem;
+    background: var(--ground);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.83rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    text-decoration: none;
+    color: var(--ink-muted);
+    padding: 0.3rem 0.62rem;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+  nav.sitenav a.ext { color: var(--ink-faint); font-weight: 500; }
+
+  /* ---- masthead ---- */
+  .masthead { display: flex; flex-direction: column; gap: 1.1rem; }
+  .masthead p.standfirst {
+    font-size: 1.09rem;
+    color: var(--ink-muted);
+    max-width: 34rem;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+    margin: 0;
+  }
+  .fact {
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd {
+    margin: 0;
+    font-family: var(--f-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .fact dd.hot { color: var(--critical); }
+
+  /* ---- table of contents ---- */
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1rem 1.15rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: 0.3rem 1.2rem;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc ol li { display: flex; gap: 0.5rem; align-items: baseline; }
+  nav.toc ol li span.n {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    min-width: 2.4rem;
+    font-variant-numeric: tabular-nums;
+  }
+  nav.toc a { text-decoration: none; color: var(--ink); }
+  nav.toc a:hover { text-decoration: underline; color: var(--accent); }
+
+  /* ---- sections ---- */
+  section { display: flex; flex-direction: column; gap: 1.15rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.4rem; }
+  .sec-head::after {
+    content: "";
+    height: 2px;
+    background: var(--ink);
+    width: 2.2rem;
+    margin-top: 0.35rem;
+  }
+
+  .stack { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* ---- callout ---- */
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 2px;
+    padding: 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+
+  /* ---- question cards ---- */
+  .qcard {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    scroll-margin-top: 3.5rem;
+  }
+  .qbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.15rem;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .qbar .idx { color: var(--accent); }
+  .qbar .timing {
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
+    color: var(--caution);
+  }
+  .qbar .new {
+    background: var(--critical-soft);
+    color: var(--critical);
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+  }
+  .qbody { padding: 1.15rem; display: flex; flex-direction: column; gap: 1rem; }
+  .prompt {
+    font-family: var(--f-display);
+    font-size: 1.12rem;
+    font-weight: 600;
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+  .odds {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+
+  .beats { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .beat {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.28rem 0.6rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 2px;
+    letter-spacing: 0.02em;
+  }
+
+  .draft {
+    border-top: 1px solid var(--rule);
+    padding-top: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .draft p { font-size: 1rem; }
+  .slot {
+    font-family: var(--f-mono);
+    font-size: 0.85rem;
+    background: var(--caution-soft);
+    color: var(--caution);
+    padding: 0.06rem 0.34rem;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+  .kicker {
+    font-family: var(--f-display);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ---- where it lives in the code ---- */
+  .src {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    line-height: 1.6;
+    color: var(--ink-faint);
+    overflow-wrap: anywhere;
+    padding-top: 0.2rem;
+  }
+  .src b { color: var(--ink-muted); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 0.4rem; }
+
+  /* ---- checklist ---- */
+  ul.check { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  ul.check > li {
+    display: grid;
+    grid-template-columns: 1.35rem 1fr;
+    gap: 0.55rem;
+    align-items: start;
+  }
+  ul.check > li::before {
+    content: "";
+    width: 0.85rem; height: 0.85rem;
+    margin-top: 0.42rem;
+    border: 1.5px solid var(--rule-strong);
+    border-radius: 2px;
+  }
+
+  ol.seq { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.1rem; counter-reset: seq; }
+  ol.seq > li {
+    counter-increment: seq;
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.85rem;
+  }
+  ol.seq > li::before {
+    content: counter(seq, decimal-leading-zero);
+    font-family: var(--f-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    padding-top: 0.22rem;
+    font-variant-numeric: tabular-nums;
+  }
+  ol.seq h3 { margin-bottom: 0.25rem; }
+  .when {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .pair { display: flex; flex-direction: column; gap: 0.3rem; }
+  .pair .lbl {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .pair .lbl.no  { color: var(--critical); }
+  .pair .lbl.yes { color: var(--accent); }
+
+  hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.25rem;
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  footer .eyebrow { color: var(--ink-faint); }
+
+  /* ---- probe list ---- */
+  dl.probes { margin: 0; display: flex; flex-direction: column; gap: 0.8rem; }
+  dl.probes dt {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 0.97rem;
+    line-height: 1.35;
+  }
+  dl.probes dd {
+    margin: 0.2rem 0 0;
+    color: var(--ink-muted);
+    font-size: 0.97rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule);
+  }
+
+  .short {
+    background: var(--surface-alt);
+    border-radius: 2px;
+    padding: 0.9rem 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .short p:not(.eyebrow) { font-size: 0.98rem; }
+
+  /* ---- JD coverage matrix ---- */
+  .matrix {
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .mrow {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr 5.5rem;
+    gap: 0 0.9rem;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .mrow:last-child { border-bottom: 0; }
+  .mrow.head {
+    background: var(--surface-alt);
+    font-family: var(--f-mono);
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .mrow .req {
+    font-family: var(--f-display);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .mrow .ev {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+  .mrow .ev a { color: var(--accent); }
+  .tag {
+    font-family: var(--f-mono);
+    font-size: 0.61rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.42rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .tag.strong  { background: var(--accent-soft);   color: var(--accent); }
+  .tag.partial { background: var(--caution-soft);  color: var(--caution); }
+  .tag.gap     { background: var(--critical-soft); color: var(--critical); }
+  .tag.confirm { background: var(--surface-alt);   color: var(--ink-faint); }
+
+  @media (max-width: 40rem) {
+    .mrow { grid-template-columns: 1fr 4.6rem; gap: 0.35rem 0.7rem; }
+    .mrow .ev { grid-column: 1 / 2; }
+    .mrow .tag { grid-row: 1; grid-column: 2; }
+    .mrow.head { display: none; }
+  }
+
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    h1 { font-size: 1.85rem; }
+    .wrap { padding: 2rem 1.1rem 4rem; gap: 2.75rem; }
+    nav.sitenav { margin: -2rem -0.4rem 0; }
+  }
+</style>
+
+<div class="wrap">
+
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <p class="eyebrow">Recruiter screen · TWG Global · req B659B8B6BC · prepared 3 Sep 2026</p>
+    <h1>TWG Global — Recruiter Screen</h1>
+    <p class="standfirst">A recruiter screen is a <em>filter</em>, not an evaluation. Five things decide it, and only one of them is technical. Clear those in the first eight minutes and spend the rest making a single story land: you have built the thing this job is asking for.</p>
+  </header>
+
+  <dl class="facts" aria-label="Role facts from the posting">
+    <div class="fact"><dt>Title</dt><dd>Staff Full-Stack Eng</dd></div>
+    <div class="fact"><dt>Department</dt><dd>AI Engineering</dd></div>
+    <div class="fact"><dt>Base band</dt><dd>$290k–$300k</dd></div>
+    <div class="fact"><dt>Bonus</dt><dd>Yes, on top</dd></div>
+    <div class="fact"><dt>Location</dt><dd>Santa Monica / NYC</dd></div>
+    <div class="fact"><dt>Workplace</dt><dd class="hot">On-site</dd></div>
+    <div class="fact"><dt>Relocation</dt><dd>Offered</dd></div>
+    <div class="fact"><dt>Posted</dt><dd>25 Aug 2026</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Contents</p>
+    <ol>
+      <li><span class="n">1</span><a href="#filters">The five filters</a></li>
+      <li><span class="n">2</span><a href="#opener">The opener</a></li>
+      <li><span class="n">3</span><a href="#matrix">JD coverage map</a></li>
+      <li><span class="n">4</span><a href="#java">The Java problem</a></li>
+      <li><span class="n">5</span><a href="#why">Why TWG</a></li>
+      <li><span class="n">6</span><a href="#only-you">Only-you sentences</a></li>
+      <li><span class="n">7</span><a href="#comp">Comp &amp; logistics</a></li>
+      <li><span class="n">8</span><a href="#ask">What to ask them</a></li>
+      <li><span class="n">9</span><a href="#dont">Don't say / do say</a></li>
+      <li><span class="n">10</span><a href="#after">Before &amp; after</a></li>
+    </ol>
+  </nav>
+
+  <div class="note">
+    <p class="eyebrow">How this file relates to the answer bank</p>
+    <p>The <a href="papercusp-answer-bank-standalone.html">Answer Bank</a> holds the employer-neutral material — twenty-eight questions answered from Papercusp, with the file paths behind every claim. <strong>This page is the TWG overlay only:</strong> what their posting asks for, where your evidence sits, and the four conversations that are specific to this company. Where a card in the bank already answers something, this page links to it rather than restating it.</p>
+  </div>
+
+  <section id="filters">
+    <div class="sec-head">
+      <p class="eyebrow">Part 1 · what the call is actually for</p>
+      <h2>The five filters</h2>
+    </div>
+
+    <div class="stack">
+      <p>The recruiter almost certainly cannot assess LangGraph, trajectory scoring, or your React architecture. They are working from a checklist written by the hiring manager, and their job is to pass along five or six people who are worth an engineer's hour. Treat every one of these as something to <strong>volunteer</strong>, not to wait to be asked.</p>
+
+      <div class="note crit">
+        <p class="eyebrow">The order matters</p>
+        <p>Filters 1–3 are logistics and they are <em>binary</em>. If one of them is a no, nothing else you say changes the outcome — so get them answered early, while you still have the goodwill to ask what flexibility exists. Candidates who save the location conversation for the end lose the whole loop over it.</p>
+      </div>
+
+      <ol class="seq">
+        <li>
+          <div>
+            <span class="when">Filter 01 · the silent killer</span>
+            <h3>On-site in Santa Monica or New York</h3>
+            <p>The posting is unambiguous: <code>workplace: on_site</code>, two cities, relocation offered to the right candidate. This is the single most common reason a strong résumé gets a rejection with no feedback — the recruiter assumes you didn't read it.</p>
+            <p>Say it in your first ninety seconds, unprompted: <span class="slot">"I'm in [where you are] — I've read that this is on-site in Santa Monica or New York, and [I'm ready to relocate / I'm already local to X / here's what I'd need]."</span> If you want hybrid, ask what the actual in-office cadence is <em>after</em> you've said you're willing, never instead of.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <span class="when">Filter 02 · level</span>
+            <h3>Eight-plus years building production software at scale</h3>
+            <p>This is a Staff req at a $290–300k base. The recruiter needs a number and a title trajectory. Have both ready as one sentence: <span class="slot">"[N] years, most recently [title] at [place], where I [one-line scope]."</span></p>
+            <p>Staff level is about <em>blast radius</em>, not tenure. The posting names it directly — mentoring, code review, design feedback, engineering standards. Card <a href="papercusp-answer-bank-standalone.html#n-leading">N13 · Leading</a> in the bank is your evidence; have one sentence of it here, not the whole answer.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <span class="when">Filter 03 · money</span>
+            <h3>Compensation expectations</h3>
+            <p>You have an unusual advantage: the band is published. There is no reason to guess and no reason to go first with a number of your own. See <a href="#comp">§7</a> for the script.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <span class="when">Filter 04 · the one real gap</span>
+            <h3>"Strong Java with Spring Boot"</h3>
+            <p>This sits in the required list, not the preferred list. It is the only line in the posting where your evidence is genuinely empty. <a href="#java">§4</a> is the whole plan — read it twice; it is the most important page here.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <span class="when">Filter 05 · the one you win</span>
+            <h3>"Real LLM and agent applications, not demos"</h3>
+            <p>That is the posting's own phrasing, and it is a screening question in disguise. Most applicants for an AI role in 2026 have a RAG side project and a LangChain tutorial. You run roughly a hundred agents committing into a shared tree, behind a ~650-tool MCP server, with an evaluation layer that can refuse a grader.</p>
+            <p>Give the recruiter one concrete, repeatable sentence they can carry into the hiring manager's inbox verbatim. That sentence is the entire point of the call — see <a href="#only-you">§6</a>.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="opener">
+    <div class="sec-head">
+      <p class="eyebrow">Part 2 · the first two minutes</p>
+      <h2>The opener</h2>
+    </div>
+
+    <div class="qcard">
+      <div class="qbar">
+        <span class="idx">Open · universal</span>
+        <span>Always first</span>
+        <span class="timing">~90 sec</span>
+      </div>
+      <div class="qbody">
+        <p class="prompt">"Tell me a bit about yourself and what you're looking for."</p>
+        <p class="odds">Not an invitation to narrate your CV. It is the recruiter deciding, in the first thirty seconds, which pile you go in. Structure: where you are now → the one thing that makes you unusual for <em>this</em> posting → the logistics they need → what you want next.</p>
+        <div class="beats">
+          <span class="beat">now →</span>
+          <span class="beat">the unusual thing →</span>
+          <span class="beat">logistics volunteered →</span>
+          <span class="beat">what you want</span>
+        </div>
+
+        <div class="draft">
+          <p>"I'm <span class="slot">[N]</span> years into building production systems — most recently <span class="slot">[current role / context]</span>. For the last <span class="slot">[period]</span> essentially all of my work has been agent infrastructure, which is why this posting caught me.</p>
+
+          <p>The short version: I build and operate a multi-agent engineering platform — on the order of a hundred agents working a shared codebase, coordinated through an MCP server exposing about six hundred and fifty tools, in a TypeScript and Postgres monorepo with a React operator console on the front. The part I'd most want to talk to your team about is the evaluation layer, because that's the thing in your posting that I think most people applying won't have actually built. We grade agent work against rubrics that require cited evidence, and the system structurally refuses to let an agent grade work in its own lineage.</p>
+
+          <p>On logistics, so it's not a surprise later — I've read this is on-site in Santa Monica or New York, and <span class="slot">[your position on relocation / locality]</span>.</p>
+
+          <p>What I'm looking for is exactly the scope in the posting: owning agent design through the UI, and owning the evals that keep quality from regressing. I've been doing that for one system and I'd like to do it for a product with real users."</p>
+        </div>
+
+        <div class="short">
+          <p class="eyebrow">If they only want thirty seconds</p>
+          <p>"<span class="slot">[N]</span> years in production engineering, the last <span class="slot">[period]</span> building multi-agent infrastructure — about a hundred agents on a shared codebase, a 650-tool MCP server, TypeScript, Postgres and React. I care most about agent evaluation, which is the part of your posting I'd be strongest on. And yes, I've read it's on-site — <span class="slot">[position]</span>."</p>
+        </div>
+
+        <hr class="rule">
+        <div class="pair">
+          <span class="lbl no">Don't</span>
+          <p>Start chronologically. "I graduated in… then I joined…" spends your best thirty seconds on your weakest material.</p>
+        </div>
+        <div class="pair">
+          <span class="lbl yes">Do</span>
+          <p>Put a number in the second sentence. "About a hundred agents" and "six hundred and fifty tools" are what get repeated to the hiring manager. Vague scale gets dropped in the retelling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="matrix">
+    <div class="sec-head">
+      <p class="eyebrow">Part 3 · requirement by requirement</p>
+      <h2>JD coverage map</h2>
+    </div>
+
+    <div class="stack">
+      <p>Every line from the posting, against what actually exists in your tree — checked on 3 September 2026, not remembered. <span class="tag confirm" style="display:inline-block">confirm</span> means the evidence is real but I don't hold the fact; fill it before the call.</p>
+    </div>
+
+    <div class="matrix">
+      <div class="mrow head">
+        <div>Posting says</div><div>Your evidence</div><div>Verdict</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">8+ years production software at scale</div>
+        <div class="ev">Your history — not derivable from the repos.</div>
+        <div class="tag confirm">confirm</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Real LLM &amp; agent apps — tool interfaces, multi-step orchestration, failure modes in agent loops, shipped</div>
+        <div class="ev">~100 agents on one branch; ~650 MCP tools; fleets, handoffs, wake modes, coordination bus. <a href="papercusp-answer-bank-standalone.html#n-tool-design">N6 · Tool design</a>, <a href="papercusp-answer-bank-standalone.html#n-overview">N1 · Overview</a>.</div>
+        <div class="tag strong">strong</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Agent evaluation — golden datasets, offline evals, tool-call &amp; trajectory scoring, results driving prompt/model/architecture change</div>
+        <div class="ev">Graded rubrics with cited evidence; grader-eligibility refusal by lineage; 141 scenario tests across 10 roles; SWE-bench Pro subset with pre-registered predictions; <code>libs/generic/eval-battery</code>, <code>bench-metrics</code>, <code>rubrics/</code>, gym + <code>pot-eval</code> + <code>external-bench</code> blueprints. <a href="papercusp-answer-bank-standalone.html#q-ai-eval">Q8 · AI evaluation</a>.</div>
+        <div class="tag strong">strong</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Braintrust, LangSmith, Inspect — <em>or comparable custom harness</em></div>
+        <div class="ev">Custom harness. The posting explicitly allows this; say "custom harness" in those words, then name what it does that the hosted tools don't.</div>
+        <div class="tag strong">strong</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Strong React — state management, component design, performance</div>
+        <div class="ev">React 19 + TanStack Query. 2,998 <code>.tsx</code> files; <code>apps/operator</code> (901) and <code>apps/operator-vite</code> (325). 151 live state cells. <a href="papercusp-answer-bank-standalone.html#n-ui-testing">N11 · Testing a desktop UI</a>.</div>
+        <div class="tag strong">strong</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Strong Java with Spring Boot</div>
+        <div class="ev">Zero <code>.java</code> files across both workspaces. See <a href="#java">§4</a> — do not improvise this one.</div>
+        <div class="tag gap">gap</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Working proficiency in Python</div>
+        <div class="ev">52 Python files in the platform tree plus scripting in the commerce codebase. "Working proficiency" is the bar and you clear it — don't oversell it into "strong".</div>
+        <div class="tag partial">partial</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Relational database design, PostgreSQL preferred</div>
+        <div class="ev">920 SQL migrations on trunk; canonical Postgres store; expand/migrate/contract discipline. <a href="papercusp-answer-bank-standalone.html#q-cicd">Q1 · CI/CD</a>.</div>
+        <div class="tag strong">strong</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Distributed systems, async messaging, modern service architecture</div>
+        <div class="ev">Locks and leases, a single liveness oracle behind every surface, coordination bus, scheduler with claim specs. <a href="papercusp-answer-bank-standalone.html#n-liveness">N3 · Dead vs. slow</a>, <a href="papercusp-answer-bank-standalone.html#n-system-design">N2 · System design</a>.</div>
+        <div class="tag strong">strong</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Cloud infrastructure (AWS / GCP / Azure) and CI/CD</div>
+        <div class="ev">CI/CD is your flagship — the watermark and freeze-and-converge gate, <a href="papercusp-answer-bank-standalone.html#q-cicd">Q1</a>. The <em>cloud</em> half is thinner: know which providers you've deployed to and be plain about depth.</div>
+        <div class="tag partial">partial</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Bachelor's in CS/Engineering <em>or equivalent practical experience</em></div>
+        <div class="ev">The escape hatch is in the posting. If you don't have the degree, don't raise it — "or equivalent practical experience" is doing the work.</div>
+        <div class="tag confirm">confirm</div>
+      </div>
+
+      <div class="mrow head">
+        <div>Preferred</div><div></div><div></div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">LangGraph — <em>or comparable orchestration built from scratch</em></div>
+        <div class="ev">You built the from-scratch alternative. This clause reads as though it were written for a candidate like you; quote it back to them.</div>
+        <div class="tag strong">strong</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Multi-provider LLM work (Anthropic, OpenAI, Google, xAI) and MCP servers or clients</div>
+        <div class="ev">A ~650-tool MCP server you designed the budget discipline for, plus a multi-account provider pool with a rate governor. <a href="papercusp-answer-bank-standalone.html#n-capacity">N8 · Rate limits &amp; cost</a>.</div>
+        <div class="tag strong">strong</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Redis Streams or similar async messaging at production scale</div>
+        <div class="ev">Adjacent, not identical — your event and wake machinery is Postgres-backed. Say what you built and what it guarantees; don't claim Redis Streams.</div>
+        <div class="tag partial">partial</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Multi-tenant SaaS with non-trivial RBAC and auth</div>
+        <div class="ev">Capability tiers and role grants, trust lists, membership and moderation gates. Real, but single-org — be precise that it's capability-scoped rather than tenant-isolated.</div>
+        <div class="tag partial">partial</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">iOS with Swift/SwiftUI, App Store releases, APNs</div>
+        <div class="ev">No evidence. Preferred-only, and the posting frames iOS as "support features for", not own. Say no cleanly and move on.</div>
+        <div class="tag gap">gap</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">On-device ML (CoreML, NLContextualEmbedding) or audio pipelines (Whisper, TTS)</div>
+        <div class="ev">No evidence. Preferred-only.</div>
+        <div class="tag gap">gap</div>
+      </div>
+
+      <div class="mrow">
+        <div class="req">Palantir Foundry — "a big plus"</div>
+        <div class="ev">No evidence — but the mention tells you something: expect Foundry somewhere in their client delivery stack. Worth a question, not a claim (<a href="#ask">§8</a>).</div>
+        <div class="tag gap">gap</div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p class="eyebrow">Read the shape, not the row count</p>
+      <p>Nine strong, four partial, four gaps — and the strong ones are clustered exactly where the role is hard to hire for. Agent orchestration and agent evaluation are the two things this posting is really buying; Java is trainable and iOS is optional. That is the argument you are making, and it is a legitimately good one. Make it explicitly rather than hoping they infer it.</p>
+    </div>
+  </section>
+
+  <section id="java">
+    <div class="sec-head">
+      <p class="eyebrow">Part 4 · the hard conversation</p>
+      <h2>The Java problem</h2>
+    </div>
+
+    <div class="qcard">
+      <div class="qbar">
+        <span class="idx">Gap · required line</span>
+        <span class="new">handle early</span>
+        <span class="timing">~40 sec</span>
+      </div>
+      <div class="qbody">
+        <p class="prompt">"How much of your recent work has been in Java and Spring Boot?"</p>
+        <p class="odds">There is no version of this where bluffing survives. The technical round will put you in a Spring Boot codebase and the claim collapses — with your credibility on everything else attached to it. The only winning move is to be first, brief, and specific about the plan.</p>
+
+        <div class="note crit">
+          <p class="eyebrow">Be clear-eyed about this</p>
+          <p>"Strong Java with Spring Boot" is in the <em>required</em> list. Some recruiters screen it as a hard gate and there is no answer that clears a hard gate you don't meet. What follows is designed to get you past a recruiter with any judgment, and to find out fast if this one has none — which is information worth having in week one rather than week five.</p>
+        </div>
+
+        <div class="beats">
+          <span class="beat">say it first →</span>
+          <span class="beat">name what transfers →</span>
+          <span class="beat">offer proof →</span>
+          <span class="beat">re-anchor on the rare half</span>
+        </div>
+
+        <div class="draft">
+          <p>"Straight answer: I haven't shipped Spring Boot. My backend work is TypeScript and Node services and Python, against Postgres — so I'd be learning the framework, not the ideas. Dependency injection, layered services, a repository over a relational model, REST controllers, migration discipline — that's what I do daily, just in a different syntax.</p>
+
+          <p>Two things I'd say about that. First, I'm not asking you to take it on faith — <span class="kicker">I'm happy to do a Spring Boot exercise before the technical round</span>, or to have that round be in Java on purpose. I'd rather be measured than believed.</p>
+
+          <p>Second, on the trade you'd actually be making. Your posting describes moving between a Spring Boot service, a Python agent layer and a React frontend in the same week. Of those three, one is the scarce skill. There are a lot of strong Spring Boot engineers; there are very few who've built agent orchestration from scratch and then built the evaluation harness that keeps it honest — and that's the half of the job I've already done at production scale. I'd expect to be useful in the agent and eval layers in week one and fully productive in the Java services inside a couple of months."</p>
+        </div>
+
+        <hr class="rule">
+
+        <p class="eyebrow">If they push</p>
+        <dl class="probes">
+          <dt>"Have you written <em>any</em> Java?"</dt>
+          <dd>Answer honestly with whatever the true answer is — <span class="slot">[coursework / a past role / none]</span>. If the answer is none, say none. A hedge here reads as a hedge on everything.</dd>
+
+          <dt>"How quickly could you get up to speed?"</dt>
+          <dd>Don't say "very quickly." Say what you'd do: "A Spring Boot service over Postgres with auth and tests is a weekend to build and a month of code review to build <em>well</em>. I'd want a senior Java reviewer on my PRs for the first quarter and I'd say so on day one."</dd>
+
+          <dt>"Why apply if you don't meet a requirement?"</dt>
+          <dd>"Because the two hardest lines in your posting are the two I'm strongest on, and the one I'm missing is the most teachable thing on the list. If that trade doesn't work for the team, I'd rather find that out now than at the offer stage."</dd>
+        </dl>
+
+        <hr class="rule">
+
+        <div class="note warn">
+          <p class="eyebrow">Do this before the technical round, not after</p>
+          <p>Build one small Spring Boot + Postgres service — REST controller, JPA repository, Flyway migration, a couple of integration tests, containerised. A weekend. It converts "I could learn it" into "here's the one I wrote last week", and that is a categorically different sentence in an interview. It also means the words you use for DI and bean lifecycle are yours rather than borrowed.</p>
+        </div>
+
+        <div class="pair">
+          <span class="lbl no">Don't say</span>
+          <p>"Java, Spring, sure — I've worked across a lot of stacks." Every interviewer has heard this and it means no.</p>
+        </div>
+        <div class="pair">
+          <span class="lbl yes">Do say</span>
+          <p>"I haven't shipped Spring Boot" as the first clause, in your own voice, before they ask. Volunteering a weakness buys you credibility that you then spend on the strengths.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="sec-head">
+      <p class="eyebrow">Part 5 · motivation</p>
+      <h2>Why TWG, why this role</h2>
+    </div>
+
+    <div class="qcard">
+      <div class="qbar"><span class="idx">Motivation</span><span>Near-certain</span><span class="timing">~45 sec</span></div>
+      <div class="qbody">
+        <p class="prompt">"What interests you about TWG, and about this role specifically?"</p>
+        <p class="odds">The recruiter is checking one thing: did you read the posting, or did you mass-apply? Cite two specifics from <em>their</em> text. Generic enthusiasm about AI is indistinguishable from spam.</p>
+
+        <div class="draft">
+          <p>"Two things, one about the role and one about the company.</p>
+
+          <p>The role first — it's rare to see evaluation written into the job rather than assumed. Your posting says the person owns 'the evaluation systems that keep agent quality from regressing as the platform grows', and that's the sentence that made me apply. Most agent teams treat evals as something to add once quality becomes a problem. Building the accountability layer <em>as</em> the platform is the work I've found most interesting, and I've done it the hard way.</p>
+
+          <p>On the company — the structure is unusual: decentralised business units with a central AI Solutions Group, across finance, insurance, media and sport. That means agents against genuinely different domains and real regulatory constraints, not one vertical. I've been building agent infrastructure for a single system, and the interesting next problem is what generalises when the domain changes underneath you. That's also where evaluation stops being optional — you can't eyeball quality across four industries."</p>
+        </div>
+
+        <div class="short">
+          <p class="eyebrow">One line if they cut you off</p>
+          <p>"Your posting puts evaluation in the job description rather than treating it as an afterthought — that's the half of agent work I care most about, and it's rare to see it named."</p>
+        </div>
+
+        <hr class="rule">
+        <dl class="probes">
+          <dt>"Why are you leaving your current work?"</dt>
+          <dd>Toward, never away. <span class="slot">[Your reason]</span> framed as scope: users, a team, a domain that isn't your own. Never a criticism of anyone.</dd>
+          <dt>"Are you interviewing elsewhere?"</dt>
+          <dd>Honest and brief. "A couple of processes in flight, nothing at offer stage" is enough. If there's a real deadline, say it — it's leverage only if it's true.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="only-you">
+    <div class="sec-head">
+      <p class="eyebrow">Part 6 · the differentiators</p>
+      <h2>Four sentences only you can say</h2>
+    </div>
+
+    <div class="stack">
+      <p>The recruiter will summarise you in three or four lines to the hiring manager. Decide now what those lines are. Each of these is concrete, checkable, and hard for another candidate to reproduce — that combination is what survives the retelling.</p>
+
+      <div class="note">
+        <p class="eyebrow">1 · The scale line</p>
+        <p>"About a hundred AI agents commit into one shared branch continuously — no feature branches, no pull requests — and a gate has to certify that branch before it deploys." <br><span class="src" style="padding:0"><b>Why it lands</b>It is an unusual constraint, it is obviously real, and it invites exactly one follow-up: <em>how?</em> — which is <a href="papercusp-answer-bank-standalone.html#q-cicd">Q1</a>, your strongest answer.</span></p>
+      </div>
+
+      <div class="note">
+        <p class="eyebrow">2 · The evaluation line</p>
+        <p>"The system structurally refuses to let an agent grade work in its own lineage — including an agent it spawned itself. It's enforced at the write, not by policy." <br><span class="src" style="padding:0"><b>Why it lands</b>Directly answers their trajectory-scoring requirement, and it's a design idea rather than a tool name. Tool names are cheap in 2026; this isn't.</span></p>
+      </div>
+
+      <div class="note">
+        <p class="eyebrow">3 · The agent-interface line</p>
+        <p>"With a 650-tool catalogue, every tool description is context you pay for on every call — so there's a hard character budget per tool, checked at registration and on every hot reload. Every budget breach on record came from editing a live tool, never from adding one." <br><span class="src" style="padding:0"><b>Why it lands</b>Nobody who has only built demos has this problem. It is the fastest proof of "not demos" in the whole bank.</span></p>
+      </div>
+
+      <div class="note">
+        <p class="eyebrow">4 · The honesty line</p>
+        <p>"The failure mode with AI output isn't wrong answers — it's confident, plausible ones. So 'done' has to be a claim that gets substantiated, not asserted." <br><span class="src" style="padding:0"><b>Why it lands</b>It's the thesis of the entire role, in one sentence, and it makes you sound like someone who has operated agents rather than launched them.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="comp">
+    <div class="sec-head">
+      <p class="eyebrow">Part 7 · the number</p>
+      <h2>Comp &amp; logistics</h2>
+    </div>
+
+    <div class="qcard">
+      <div class="qbar"><span class="idx">Comp</span><span>Certain — they must collect it</span></div>
+      <div class="qbody">
+        <p class="prompt">"What are your compensation expectations?"</p>
+        <p class="odds">You are in the rare position of knowing the band before the call. $290,000–$300,000 base, plus a bonus described as part of the package rather than a maybe. The only error available to you is naming a number below it.</p>
+
+        <div class="draft">
+          <p>"You've published the band, so I'll just say it works — the $290 to $300 base is in line with what I'd be looking for, and I'd want to understand the bonus structure and equity, if any, before talking about a specific total. Is the band you posted the full range for this level, or does it move for someone at the top of it?"</p>
+        </div>
+
+        <div class="note warn">
+          <p class="eyebrow">Three rules</p>
+          <p><span class="kicker">Never name a number first</span> when the band is already public — you can only anchor yourself downward.<br>
+          <span class="kicker">Never state your current salary.</span> In California it is illegal for them to ask; if it comes up, "I'd rather anchor on the market rate for the role, and your posted band works for me" ends it politely.<br>
+          <span class="kicker">Ask about relocation explicitly.</span> The posting says support "can be provided to the right candidates" — that is a negotiable, and its value is real. Ask what form it takes, not whether it exists.</p>
+        </div>
+
+        <hr class="rule">
+        <dl class="probes">
+          <dt>"What's your timeline?"</dt>
+          <dd><span class="slot">[Notice period + any competing deadline]</span>. Precise beats eager.</dd>
+          <dt>"Are you authorised to work in the US? Do you need sponsorship?"</dt>
+          <dd>Straight answer, no elaboration. <span class="slot">[Your status]</span></dd>
+          <dt>"Which office?"</dt>
+          <dd>Have a preference ready and a reason that isn't about you — proximity to the team you'd work with beats proximity to your friends. If you're genuinely open, say open; it's an advantage.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="ask">
+    <div class="sec-head">
+      <p class="eyebrow">Part 8 · your turn</p>
+      <h2>What to ask them</h2>
+    </div>
+
+    <div class="stack">
+      <p>Ask three or four. A recruiter can't answer deep technical questions, so asking them wastes your slot and makes the recruiter feel useless — which they remember. Ask what a recruiter uniquely knows: process, people, and what the hiring manager is actually worried about.</p>
+
+      <dl class="probes">
+        <dt>"What does the interview loop look like from here, and how many stages?"</dt>
+        <dd>Always first. Tells you how much Java exposure is coming and when. Follow with: <em>"Is any stage a live coding round, and in which language?"</em> — that single question is worth the whole call.</dd>
+
+        <dt>"What's the hiring manager's biggest worry about the candidates they've seen so far?"</dt>
+        <dd>The best question available to you. Recruiters answer it honestly surprisingly often, and it tells you exactly what to emphasise in round two.</dd>
+
+        <dt>"Is this a new team or an existing one, and how many engineers are on it today?"</dt>
+        <dd>Establishes whether "Staff" means founding-the-practice or slotting-into-a-ladder. Very different jobs at the same title.</dd>
+
+        <dt>"The posting mentions Palantir Foundry as a plus — is that in the delivery stack for the client work?"</dt>
+        <dd>Shows you read past the requirements list. Also genuinely useful: if Foundry is central, this role is closer to client-facing platform delivery than product engineering, and you'd want to know that before round three.</dd>
+
+        <dt>"Which business units would this team be building agents for first?"</dt>
+        <dd>Finance, insurance, media and sport have very different regulatory and latency constraints. The answer tells you what the eval work actually has to prove.</dd>
+
+        <dt>"How firm is the on-site expectation day to day — is the team all in one office?"</dt>
+        <dd>Only after you've said you're willing (<a href="#filters">Filter 01</a>). Asked in that order it's diligence; asked first it's negotiation, and you have no leverage yet.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="dont">
+    <div class="sec-head">
+      <p class="eyebrow">Part 9 · calibration</p>
+      <h2>Don't say / do say</h2>
+    </div>
+
+    <div class="stack">
+      <div class="qcard">
+        <div class="qbody">
+          <div class="pair">
+            <span class="lbl no">Don't</span>
+            <p>Claim Java, Spring Boot, LangGraph, Braintrust, LangSmith, Foundry, or Swift because they appear in the posting. Every one of these is verifiable in round two, and one caught bluff retroactively discounts every true thing you said.</p>
+          </div>
+          <hr class="rule">
+          <div class="pair">
+            <span class="lbl no">Don't</span>
+            <p>Describe Papercusp as "a side project" or "my own thing". Describe it as a system you build and operate, with the numbers attached. The scale is the argument; diminishing language throws it away.</p>
+          </div>
+          <hr class="rule">
+          <div class="pair">
+            <span class="lbl no">Don't</span>
+            <p>Round the numbers up. ~100 agents, ~650 tools, 2,998 <code>.tsx</code> files, 920 migrations, 141 scenario tests. Precision is the whole advantage — an inflated figure invites a probe, and every probe after it lands on softer ground.</p>
+          </div>
+          <hr class="rule">
+          <div class="pair">
+            <span class="lbl no">Don't</span>
+            <p>Explain the architecture to a recruiter. If you're two minutes into a technical answer on a screen, you've lost the room. Give the headline, then stop and let them ask.</p>
+          </div>
+          <hr class="rule">
+          <div class="pair">
+            <span class="lbl yes">Do</span>
+            <p>Volunteer the two logistics facts — location and level — inside the first two minutes, without being asked.</p>
+          </div>
+          <hr class="rule">
+          <div class="pair">
+            <span class="lbl yes">Do</span>
+            <p>Say "custom harness" about your evals, in those words. It's the phrase their own posting offers as the alternative to Braintrust and LangSmith, and it turns a missing tool name into a match.</p>
+          </div>
+          <hr class="rule">
+          <div class="pair">
+            <span class="lbl yes">Do</span>
+            <p>Name one thing you'd want a Java reviewer for. Volunteering the boundary of your competence is the most senior-sounding thing you can do on a screen, and it costs you nothing you weren't going to lose anyway.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="after">
+    <div class="sec-head">
+      <p class="eyebrow">Part 10 · around the call</p>
+      <h2>Before &amp; after</h2>
+    </div>
+
+    <div class="stack">
+      <div class="note">
+        <p class="eyebrow">The night before</p>
+      </div>
+      <ul class="check">
+        <li><div>Fill every <span class="slot">slot</span> on this page. An unfilled slot is a stumble on the call — they are all facts only you hold.</div></li>
+        <li><div>Re-read <a href="papercusp-answer-bank-standalone.html#q-ai-eval">Q8 · AI evaluation</a> and <a href="papercusp-answer-bank-standalone.html#n-tool-design">N6 · Tool design</a>. Those two carry this role; the rest of the bank is depth for later rounds.</div></li>
+        <li><div>Say the opener out loud twice, timed. Ninety seconds, not three minutes.</div></li>
+        <li><div>Re-check the four headline numbers against the tree so you're quoting today's figures, not August's.</div></li>
+        <li><div>Decide your relocation position before the call, not during it. Hesitating on this question reads as a no.</div></li>
+      </ul>
+
+      <div class="note">
+        <p class="eyebrow">On the call</p>
+      </div>
+      <ul class="check">
+        <li><div>Logistics volunteered in the first two minutes: location, years, and that you've read it's on-site.</div></li>
+        <li><div>Java raised by you, not by them — briefly, with the offer of an exercise attached.</div></li>
+        <li><div>At least two of the four <a href="#only-you">only-you sentences</a> said out loud, with their numbers.</div></li>
+        <li><div>Three questions asked, starting with the loop structure and the coding-round language.</div></li>
+        <li><div>Confirm next steps and timing before you hang up, and get the recruiter's email.</div></li>
+      </ul>
+
+      <div class="note">
+        <p class="eyebrow">Within twenty-four hours</p>
+      </div>
+      <ul class="check">
+        <li><div>Short thank-you email. Three sentences: one specific thing from the conversation, one line re-stating the agent-and-eval match, one confirming your logistics position in writing.</div></li>
+        <li><div>If Java came up as a concern, this is where you attach the Spring Boot repo — or say when it'll exist. Following through on a small offer is disproportionately persuasive.</div></li>
+        <li><div>Write down what the recruiter said the hiring manager worries about. That is your brief for round two.</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p class="eyebrow">Sources &amp; provenance</p>
+    <p>Role facts taken verbatim from the Workable posting for req <code>B659B8B6BC</code> (TWG Group Holdings, LLC), published 25 Aug 2026 — title, band, <code>workplace: on_site</code>, both locations, and the full requirement lists. Evidence figures re-counted against the working tree on 3 Sep 2026: 2,998 <code>.tsx</code> files, React 19 + TanStack Query, <code>apps/operator</code> 901 / <code>apps/operator-vite</code> 325, 52 Python files, zero <code>.java</code> files, 920 SQL migrations. Everything in a <span class="slot">slot</span> is a fact about you that no repository holds — fill it yourself and don't guess.</p>
+    <p>Companion documents: the <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a> for the employer-neutral question set, and <a href="mcp-cicd-study-faq-standalone.html">the MCP + CI/CD Study FAQ</a> for the theory behind Q1.</p>
+  </footer>
+
+</div>
+</body>
+</html>

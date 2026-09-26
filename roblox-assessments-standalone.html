@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Roblox — Four Assessments</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1410; --surface: #131E18; --surface-alt: #1A2921;
+    --ink: #E5EEE9; --ink-muted: #9DADA4; --ink-faint: #708077;
+    --accent: #66C69C; --accent-strong: #8BDCB8; --accent-soft: #17372A;
+    --caution: #D9A43A; --caution-soft: #33290F;
+    --critical: #E0736C; --critical-soft: #3A1E1C;
+    --info: #78B7DE; --info-soft: #172D3B;
+    --rule: #26372E; --rule-strong: #3B5145;
+  }
+  .tag.gap { background: var(--critical-soft); color: var(--critical); }
+  .question-list .rank { display: inline-block; margin-bottom: 0.15rem; }
+  .script .say code { font-size: 0.8em; }
+</style>
+
+<style>
+  .task-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
+  .task { background: var(--surface); border: 1px solid var(--rule); border-radius: 3px; padding: 0.9rem 1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+  .task .t-name { font-family: var(--f-display); font-weight: 700; font-size: 1.05rem; }
+  .task .t-min { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  .task p { margin: 0; font-size: 0.9rem; }
+  table.plain { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  table.plain th, table.plain td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  table.plain th { font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted, inherit); }
+  table.plain td:first-child { font-weight: 650; white-space: nowrap; }
+  .table-wrap { overflow-x: auto; }
+  .script { background: var(--surface-alt); border-left: 3px solid var(--accent); padding: 0.75rem 1rem; border-radius: 0 3px 3px 0; font-size: 0.92rem; }
+  .script p { margin: 0.25rem 0; }
+  @media (max-width: 60rem) { .task-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 40rem) { .task-grid { grid-template-columns: 1fr; } }
+</style>
+
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Roblox · Early Career assessments · Robots, Factories, Decision-Making, Outpost: Mars · prepared 8 Sep 2026</p>
+      <h1>Four games, 115 minutes, and the clock runs out Thursday at 2pm Pacific.</h1>
+      <p class="standfirst">Roblox replaced the résumé screen with games it built itself. Two of them are simulations you iterate on (build vehicles that survive a course; run a toy factory for profit), one is a situational-judgment quiz, and one is block coding a Mars rover. Nothing here is LeetCode. What is scored is how you experiment under a clock: a baseline, one change at a time, a working answer before an optimal one. Roblox says you may be asked to <em>explain your strategy</em> later, so play deliberately enough to narrate it.</p>
+    </div>
+    <aside class="join-card" aria-label="Assessment details">
+      <p class="eyebrow">From the invite</p>
+      <p><strong>Four separate tasks, each timed once started.</strong><br><span class="muted">Do them in any order and in separate sittings. A started task must be finished in one go.</span></p>
+      <p><strong class="hot">Expires Thursday 10 Sep 2026, 2:00pm PT.</strong><br><span class="muted">That is 5:00pm Eastern. The invite has a deadline-extension link; use it Tuesday night if Wednesday cannot hold the three long tasks, not on Thursday.</span></p>
+      <a class="button" href="https://www.roblox.com/games/13977123257/Kaiju-Cats" target="_blank" rel="noreferrer">Play Kaiju Cats, the official practice ↗</a>
+      <p class="small"><a href="https://www.roblox.com/games/79815862011851/Coding-Cookies" target="_blank" rel="noreferrer"><strong>Play Coding Cookies ↗</strong></a> · <a href="#game-links">All game, assessment, and install links ↓</a></p>
+      <p class="small muted">Block-coding practice: <a href="https://www.roblox.com/games/79815862011851/Coding-Cookies" target="_blank" rel="noreferrer">Coding Cookies</a>, linked from the Early Career page. Guides and live sessions: <a href="https://speak.careers/roblox-go" target="_blank" rel="noreferrer">Speak_</a>.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Assessment facts">
+    <div class="fact"><dt>Tasks</dt><dd>4</dd></div>
+    <div class="fact"><dt>Total time</dt><dd>115 min</dd></div>
+    <div class="fact"><dt>Longest</dt><dd>Outpost: Mars · 40 min</dd></div>
+    <div class="fact"><dt>Deadline</dt><dd class="hot">Thu 10 Sep · 2pm PT</dd></div>
+    <div class="fact"><dt>Coding</dt><dd>Block-based only</dd></div>
+    <div class="fact"><dt>Practice</dt><dd>Kaiju Cats · Coding Cookies</dd></div>
+    <div class="fact"><dt>Support</dt><dd>assessments-support@roblox.com</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Read this first</a></li>
+      <li><span class="n">02</span><a href="#robots">Robots · 25 min</a></li>
+      <li><span class="n">03</span><a href="#factories">Factories · 25 min</a></li>
+      <li><span class="n">04</span><a href="#decision">Decision-Making · 25 min</a></li>
+      <li><span class="n">05</span><a href="#mars">Outpost: Mars · 40 min</a></li>
+      <li><span class="n">06</span><a href="#practice">The practice games</a></li>
+      <li><span class="n">07</span><a href="#plan">Two-day plan</a></li>
+      <li><span class="n">08</span><a href="#checklist">Before each task</a></li>
+      <li><span class="n">09</span><a href="#sources">Sources + confidence</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Read this first</p>
+        <h2>What each task is, and the one habit that scores across all four</h2>
+      </div>
+      <div class="task-grid">
+        <article class="task">
+          <span class="t-min">Robots · 25 min</span>
+          <span class="t-name">Build vehicles that survive a course</span>
+          <p>Attach a few parts to a chassis, run it over hazards, watch the replay, change one thing, run again. Score is the number of <strong>distinct working designs</strong>. Two terrains, roughly half the time each.</p>
+        </article>
+        <article class="task">
+          <span class="t-min">Factories · 25 min</span>
+          <span class="t-name">Run a toy factory for profit</span>
+          <p>Raw materials become parts, parts become components, components become four toys with different prices. One in-game day. Find the margin, find the bottleneck, do not overfill storage.</p>
+        </article>
+        <article class="task">
+          <span class="t-min">Decision-Making · 25 min</span>
+          <span class="t-name">Workplace scenarios, best and worst</span>
+          <p>About 23 scenarios, four responses each; pick the most and least effective. Scored against Roblox's values. The passive option is almost always the worst.</p>
+        </article>
+        <article class="task">
+          <span class="t-min">Outpost: Mars · 40 min</span>
+          <span class="t-name">Block-code a rover</span>
+          <p>Scratch-style blocks drive a rover across a map through a series of levels. Repeated moves go into functions, and later levels are built from earlier functions. The interface costs first-timers ten minutes; practise it beforehand.</p>
+        </article>
+      </div>
+      <div class="two-col">
+        <div class="note crit">
+          <p class="eyebrow">The habit that scores</p>
+          <p>Every game section rewards the same loop: <strong>read the rules and the score display first</strong>, get one working configuration, keep it as a baseline, then change <strong>one variable per run</strong> with a prediction written down before you press go. Candidates who underperform describe random trial-and-error and running out of time with nothing banked. Roblox's own framing is that there is no single right answer and that it weighs the approach, so a modest, legible strategy beats a lucky one you cannot explain.</p>
+        </div>
+        <div class="note warn">
+          <p class="eyebrow">The clock is not always visible</p>
+          <p>One candidate reported a section ending abruptly with no on-screen timer. Put a phone timer beside the laptop for every task: 25, 25, 25, 40. Bank something scorable in the first third of each; in the last three minutes stop starting new things and settle what is in flight. A started task cannot be paused or resumed.</p>
+        </div>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">Why it is built this way</p>
+        <p>Roblox's people-science team built these after observing entry-level employees, to measure systems thinking, creative problem-solving and decision-making rather than recall. They describe the assessment as “your first interview”: everyone who passes gets to talk to a team, and performance is judged across all sections together, so one weak task is not fatal. The games were designed so that many different approaches succeed. Take a short break between tasks; fatigue is the most-cited reason later sections went badly.</p>
+      </div>
+    </section>
+
+    <section id="robots">
+      <div class="sec-head">
+        <p class="eyebrow">02 · Robots · 25 minutes</p>
+        <h2>Two terrains. Count of distinct designs that finish. Iterate, do not perfect.</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>What candidates describe</h3>
+          <ul>
+            <li>A vehicle-building interface with a Kerbal Space Program feel: attach parts to a body, then run it over an obstacle course to a finish marker.</li>
+            <li>Two sub-sections with different terrains, about 13 minutes each. Hazards reported: gaps and bridges, water, missiles, acid.</li>
+            <li>A <strong>limited part budget</strong>: each part costs energy and one account reports a cap of three parts per vehicle. Part descriptions are abstract; their effect depends on <strong>where</strong> you attach them.</li>
+            <li>Some parts only do anything when <strong>paired</strong> with another part. One candidate found this in the final minutes.</li>
+            <li>The objective is the count of <strong>different</strong> vehicles that reach the end unharmed. Terrains and part sets vary between candidates, so there is no recipe to memorise.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>How to run the 13 minutes</h3>
+          <ul>
+            <li><strong>Minute 0–2.</strong> Read the objective and what counts as success (finish line? unharmed? time?). Look at the whole course before touching a part. Name the hazards in order.</li>
+            <li><strong>Minute 2–5.</strong> Build the simplest plausible vehicle and run it. The point is the replay: note the <em>first</em> place it fails, not the final result.</li>
+            <li><strong>Minute 5–11.</strong> One change per run, aimed at the first failure. When it finishes, that is design one: keep it. Then make the smallest change that still counts as a different design and run again.</li>
+            <li><strong>Minute 11–13.</strong> No new ideas. Vary a working design (swap one part, move one attachment) to bank more distinct finishers.</li>
+            <li>Get terrain one working before you look at terrain two; do not split attention.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="script">
+        <p class="eyebrow">Five-field log, on paper, one line per run</p>
+        <p><strong>design label · what I predict · where it failed · what I change next · keep or revert.</strong> Ten lines of this is the whole game, and it is also the story you tell if an interviewer asks how you approached it.</p>
+      </div>
+    </section>
+
+    <section id="factories">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Factories · 25 minutes</p>
+        <h2>Margin first, bottleneck second, storage always</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>What candidates describe</h3>
+          <ul>
+            <li>Maximise profit over a <strong>24-hour in-game window</strong>. A graph of machines: raw materials → parts → components → four or five toys (cars, robots, playsets and the like) with different prices.</li>
+            <li>Stages have different production times and input counts; a component cannot start until <strong>all</strong> its inputs are present.</li>
+            <li>Output that exceeds storage and is not consumed is <strong>wasted</strong>, and that hurts profit badly.</li>
+            <li>“Capacity mismatch”: an advanced component needs many small parts whose machines cannot keep up. You keep rebalancing ratios.</li>
+            <li>Paid buffs exist (double output, fewer inputs). They cost money: a return-on-investment decision, never automatic.</li>
+            <li>The interface is not smooth. Spend the first minute learning the buttons and finding the profit readout.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>How to run the 25 minutes</h3>
+          <ul>
+            <li><strong>Minute 0–4.</strong> For each toy, write <em>price − cost of its inputs</em> on paper. Also count how many stages and how many parts each needs. Pick the best margin per unit of the scarcest input as the main line; a high price with a deep chain often loses to a cheaper toy you can finish many of.</li>
+            <li><strong>Minute 4–8.</strong> Set up only the main line, run the simulation, read the profit. That number is your baseline.</li>
+            <li><strong>Minute 8–20.</strong> Find the stage whose output is lowest relative to what downstream needs. Fix that one stage (add capacity, or reduce what feeds past it), run, compare. Repeat. Add a second product only when the first line is balanced and inputs are left over.</li>
+            <li><strong>Minute 20–23.</strong> Check storage: anything piling up is a machine to slow down, not a reason to buy more downstream capacity you cannot feed.</li>
+            <li><strong>Minute 23–25.</strong> Stop buying equipment and starting new products. Let work in progress finish and settle.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="two-col">
+        <div class="note info">
+          <p class="eyebrow">The bottleneck arithmetic</p>
+          <p>For each stage, <strong>units per hour it can make ÷ units per hour the next stage needs</strong>. The smallest ratio is the constraint; everything upstream of it beyond that ratio is waste, everything downstream is idle. Raise the smallest ratio, recompute, repeat. One candidate's speed heuristic, <em>output × 2 + input ÷ 2</em>, is a rough priority score for which machine to touch next; it is not exact, and it is meant for iterating faster, not for being right.</p>
+        </div>
+        <div class="note warn">
+          <p class="eyebrow">Two traps</p>
+          <p>Piling every raw material onto one line stalls it at a single processing step. And forgetting an intermediate stage of a multi-stage toy leaves finished components with nothing to become. Trace one unit of each product from raw material to sale before you scale anything.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="decision">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Decision-Making · 25 minutes</p>
+        <h2>Situational judgment against Roblox's four values</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Format</h3>
+          <ul>
+            <li>Around 23 workplace scenarios in 25 minutes, so about a minute each. Each gives four approaches; you mark the <strong>most</strong> and the <strong>least</strong> effective.</li>
+            <li>Reported themes: whether to flag a process problem, disagreeing with a coworker, whether to push an improvement nobody asked for, prioritising under conflicting requests.</li>
+            <li>Roblox says this measures decision-making, communication and prioritisation. It is scored, not screened for personality, and it is the section most often left too little energy for.</li>
+          </ul>
+          <h3>The values it is scored against</h3>
+          <ul>
+            <li><strong>Respect the Community.</strong> Community before company, company before team, team before individual; communicate authentically.</li>
+            <li><strong>Take the Long View.</strong> Long-term vision even in short-term decisions; solve the hard problem first and build an incremental path.</li>
+            <li><strong>We Are Responsible.</strong> Own intended and unintended consequences of your actions.</li>
+            <li><strong>Get Stuff Done.</strong> Take initiative, iterate relentlessly, start and finish on time.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>How to pick</h3>
+          <ul>
+            <li><strong>Eliminate the passive option first.</strong> Ignoring it, waiting for someone else, escalating before trying, going around a colleague, or shifting blame: that is the “least effective” in most items.</li>
+            <li><strong>Most effective usually has three parts:</strong> gather the facts, communicate directly with the person involved, and take ownership of the next step. If two options both do that, prefer the one that also protects users or the long term over the one that is merely fastest.</li>
+            <li><strong>Disagreement items.</strong> State your view with evidence, listen, then commit to the decision. “Do it their way silently” and “escalate to the manager immediately” are both losers.</li>
+            <li><strong>Process-problem items.</strong> Raise it with data, propose a fix, offer to own it. Not “mention it in passing” and not “fix it alone without telling anyone”.</li>
+            <li>Answer as the engineer you are; do not overthink. Roblox lists skip-level communication and punctuality as principles, so options that are transparent upward and respect people's time read well.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="mars">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Outpost: Mars · 40 minutes</p>
+        <h2>Block coding a rover: decompose, write functions early, and know the editor before the clock starts</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>What candidates describe</h3>
+          <ul>
+            <li>A Scratch-style block editor controlling a rover or drone on a Mars map. A series of levels; each asks the rover to reach or do something on the grid.</li>
+            <li>Repeated action sequences are meant to be wrapped in <strong>functions</strong>, and later levels are solved by <strong>combining functions</strong> you already defined. This is the skill being measured: decomposition and reuse, not clever code.</li>
+            <li>Roblox describes it as testing long-term planning, problem decomposition and trade-offs. Public sources do not list the exact block set, level count or scoring, so treat the first level's palette as the spec.</li>
+            <li>The most consistent warning: first-time users lose the opening minutes to the interface. <strong>Coding Cookies</strong> exists precisely to burn that cost beforehand.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>How to run the 40 minutes</h3>
+          <ul>
+            <li><strong>Minute 0–3.</strong> Read the palette: movement, turn, repeat/loop, if/sensor, function definition and call. Find run, stop, reset and undo. Read how the level is scored (reach the goal? fewest blocks? all targets?).</li>
+            <li><strong>Minute 3–10.</strong> Solve level one the dumb way, straight-line blocks. Run it. Then refactor that working solution into one function (“move forward N”, “turn and go”) before advancing. Working first, tidy second.</li>
+            <li><strong>Minute 10–30.</strong> Each new level: identify which existing function gets you most of the way, add the smallest new piece, run, fix. Prefer loops over pasted repetition; prefer a parameter over two near-identical functions if the editor allows one.</li>
+            <li><strong>Minute 30–37.</strong> Stop starting new levels you cannot finish. Make sure every completed level is actually submitted or marked complete in the interface.</li>
+            <li><strong>Minute 37–40.</strong> Settle. Do not leave a level half-edited if the editor scores the last saved state.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="note crit">
+        <p class="eyebrow">The mental model</p>
+        <p>You already do this daily. A level is a test case, a function is a helper, and the level sequence is a codebase that grows. The only unfamiliar part is dragging blocks, so the preparation that pays is thirty minutes in Coding Cookies dragging blocks until it is automatic, not thinking about algorithms.</p>
+      </div>
+    </section>
+
+    <section id="practice">
+      <div class="sec-head">
+        <p class="eyebrow">06 · The practice games</p>
+        <h2>Kaiju Cats for the simulation format, Coding Cookies for the block editor, Speak_ for the guides</h2>
+      </div>
+      <div class="note info" id="game-links">
+        <h3>Open the games and install Roblox</h3>
+        <ul>
+          <li><a href="https://www.roblox.com/games/13977123257/Kaiju-Cats" target="_blank" rel="noreferrer"><strong>Play Kaiju Cats — official practice</strong></a> · Robots/Factories interface and strategy practice.</li>
+          <li><a href="https://www.roblox.com/games/79815862011851/Coding-Cookies" target="_blank" rel="noreferrer"><strong>Play Coding Cookies — official practice</strong></a> · Direct game link for the Outpost: Mars block editor.</li>
+          <li><a href="https://www.roblox.com/games/6502073705/Roblox-Assessment" target="_blank" rel="noreferrer"><strong>Open Roblox Assessment — actual assessment entry</strong></a> · Listed under Assessment Tools. This is not verified as a replayable, unscored practice session; follow your invitation before starting a timed attempt.</li>
+          <li><a href="https://en.help.roblox.com/hc/en-us/articles/204473560-How-to-Install-and-Play-Roblox" target="_blank" rel="noreferrer"><strong>Install and launch Roblox Player — official instructions</strong></a> · Roblox explains how the Play button opens or installs the player on a supported computer.</li>
+          <li><a href="https://careers.roblox.com/early-career" target="_blank" rel="noreferrer">Official assessment and practice guidance</a> · <a href="https://speak.careers/roblox-go" target="_blank" rel="noreferrer">Speak_ prep guides and workshops</a>.</li>
+        </ul>
+        <p class="small"><strong>Other links found during research:</strong> <a href="https://www.rolimons.com/game/6502073705" target="_blank" rel="noreferrer">assessment game directory</a> and <a href="https://www.rolimons.com/place/8914954750" target="_blank" rel="noreferrer">Factories place listing</a> are third-party information pages, not verified practice sandboxes. Candidate accounts: <a href="https://www.reddit.com/r/InterviewDB/comments/1vp9jfm/roblox_new_gradintern_online_assessment_oa/" target="_blank" rel="noreferrer">Robots/Factories and assessment format</a>, <a href="https://www.reddit.com/r/csMajors/comments/1vq8fe9/i_only_got_2_mars_maps_done_on_the_roblox_oa_am_i/" target="_blank" rel="noreferrer">Mars functions and assessed maps</a>, and <a href="https://www.reddit.com/r/csMajors/comments/1vgp2cg/roblox_swe_oa_advicetips/" target="_blank" rel="noreferrer">recent candidate discussion</a>.</p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Kaiju Cats <span class="badge fact">Official</span></h3>
+          <ul>
+            <li>Published by Roblox's assessment team; untimed, replayable, unscored for hiring. It teaches the interface and the plan-then-run rhythm of Robots and Factories, not their content.</li>
+            <li><strong>Rules.</strong> Three cats (Catzilla, Meowza, King Claw) must reach their matching houses across a randomised city in <strong>15 turns</strong>. Before pressing play you place command hexes on building attachment points that turn a cat or power it up; then everything runs at once.</li>
+            <li><strong>Scoring.</strong> Each high-value floor destroyed gives 500 Cat Power, low-value 250; a power plant <em>doubles</em> current power; 6,000 total wins. Arrival order matters: the first cat home gets +2,000, the second multiplies by 3.</li>
+            <li><strong>Traps.</strong> Mud (lose a turn), spikes (halve power), boulders (reverse direction).</li>
+            <li><strong>What to practise.</strong> Reading a whole board before acting; sequencing so multipliers apply to the largest totals; one cat at a time; adjusting after a run rather than rebuilding from scratch. Two or three full rounds is enough.</li>
+          </ul>
+          <p class="small"><a href="https://www.roblox.com/games/13977123257/Kaiju-Cats" target="_blank" rel="noreferrer">roblox.com/games/13977123257/Kaiju-Cats ↗</a> · needs a Roblox account and the Roblox client.</p>
+        </article>
+        <article class="card">
+          <h3>Coding Cookies <span class="badge fact">Official</span></h3>
+          <ul>
+            <li>An untimed, unscored practice kitchen using the <strong>same block editor</strong> as Outpost: Mars. Nothing you do there is recorded against you.</li>
+            <li><strong>What to practise.</strong> Dragging and snapping blocks; deleting and re-ordering; loops; defining a function and calling it twice; the run and reset controls. Stop when a three-step recipe takes under a minute to build.</li>
+            <li>Linked from the Early Career page and from your Speak_ dashboard.</li>
+          </ul>
+          <h3>Speak_ <span class="badge inference">Useful, not required</span></h3>
+          <ul>
+            <li>Roblox's free prep community: a practice assessment, written guides for each task, weekly prep sessions on <strong>Thursdays</strong> and recruiter office hours on <strong>Fridays</strong>. Roblox says more than half of last year's early-career hires used it.</li>
+            <li>Your deadline is Thursday 2pm PT, so this week's Thursday session is useful only if it runs in the morning Pacific; do not plan around it. Sign up tonight for the written guides and the practice assessment.</li>
+          </ul>
+          <p class="small"><a href="https://speak.careers/roblox-go" target="_blank" rel="noreferrer">speak.careers/roblox-go ↗</a> · <a href="https://careers.roblox.com/early-career" target="_blank" rel="noreferrer">careers.roblox.com/early-career ↗</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="plan">
+      <div class="sec-head">
+        <p class="eyebrow">07 · Two-day plan</p>
+        <h2>Tuesday night to prepare, Wednesday to take three, Thursday morning as buffer</h2>
+      </div>
+      <ol class="timeline">
+        <li><div><h3>Tuesday evening · 90 min · prepare</h3><p>Sign up for Speak_ and skim its guide for each task (15 min). Kaiju Cats: tutorial plus two full rounds (30 min). Coding Cookies: until building a short recipe with one function is automatic (30 min). Read sections 02–05 of this page once (15 min). Decide now whether Wednesday can hold ninety focused minutes; if not, request the extension tonight.</p></div></li>
+        <li><div><h3>Wednesday morning · 60 min · Robots, break, Factories</h3><p>Fresh, fed, coffee before not during. Phone timer set for 25. Robots. Ten-minute walk. Timer for 25. Factories. Paper and pen beside the laptop for the log and the margin arithmetic.</p></div></li>
+        <li><div><h3>Wednesday afternoon · 55 min · Coding Cookies, then Outpost: Mars</h3><p>Fifteen minutes back in Coding Cookies to re-warm the editor, then a timer for 40 and Outpost: Mars. This is the longest task; do it after a real break, not straight after Factories.</p></div></li>
+        <li><div><h3>Thursday morning · 30 min · Decision-Making</h3><p>The task that needs the least preparation and the most calm. Re-read the four values in section 04, then a timer for 25. Finish by noon Eastern, five hours before the 5pm Eastern deadline, so a technical problem still leaves time to email assessments-support@roblox.com.</p></div></li>
+        <li><div><h3>If Wednesday collapses</h3><p>Do Decision-Making Wednesday night (low energy is fine for it), and Robots, Factories and Outpost: Mars Thursday morning starting by 8am Eastern with breaks. Do not start Outpost: Mars after 3pm Eastern.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Before each task</p>
+        <h2>Ten things, checked every time you press Start</h2>
+      </div>
+      <ul class="checklist">
+        <li>Laptop on power, wired or strong Wi-Fi, browser updated. Roblox client installed and signed in if the task launches through it (the practice games do).</li>
+        <li>Nothing else open. Notifications off. Forty uninterrupted minutes blocked even for a 25-minute task.</li>
+        <li>Phone timer set to the task length and started the moment the task starts.</li>
+        <li>Paper, pen. For Robots the five-field log; for Factories the margin table; for Mars a list of functions you have defined.</li>
+        <li>Read the objective and the score display before touching anything. Say the success condition out loud.</li>
+        <li>Bank one working result in the first third. Then iterate one variable at a time.</li>
+        <li>Last three minutes: no new starts, settle what is in flight, confirm submissions.</li>
+        <li>A started task cannot be paused. If the browser dies, do not restart the task; email assessments-support@roblox.com immediately with the task name and time.</li>
+        <li>Break between tasks. Water. Do not stack Factories straight onto Robots.</li>
+        <li>Play it yourself. Roblox says you may be asked to walk through your strategy in the interview that follows.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Sources + confidence</p>
+        <h2>What is from Roblox, what is from candidates, what is inferred</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Confidence by claim</h3>
+          <ul>
+            <li><span class="badge fact">Fact</span> The four task names and durations, the 7-day expiry at 2:00pm PT on 10 Sep 2026, the one-sitting-per-task rule, the practice games and Speak_. Your invitation email.</li>
+            <li><span class="badge fact">Fact</span> What the assessment is meant to measure, that it replaces the résumé screen, that performance is weighed across sections, that many approaches succeed, and that you may be asked to explain your strategy. Roblox's “Fair Play” newsroom post and Early Career page.</li>
+            <li><span class="badge fact">Fact</span> Kaiju Cats rules and scoring. Roblox Wiki and the game's own tutorial.</li>
+            <li><span class="badge fact">Fact</span> Roblox's four values and supporting principles. Roblox's 2024 values announcement and Builder Framework page.</li>
+            <li><span class="badge inference">Inference</span> Robots and Factories mechanics (two terrains, part budget, paired parts, 24-hour window, storage waste, buffs) and the 23-item best/worst format of Decision-Making. Candidate write-ups from 2025–2026 on Blind, Glassdoor, dev.to and a Chinese-language recap; consistent with each other but each is one person's run, and terrains and part sets vary per candidate.</li>
+            <li><span class="badge inference">Inference</span> Outpost: Mars details (rover, functions composed across levels). One candidate recap plus Roblox's description of Coding Cookies. Block set, level count and scoring are not public.</li>
+            <li><span class="badge unknown">Unknown</span> Scoring weights and thresholds, whether a CodeSignal coding round follows for this role (some candidates report one), and the exact time of Thursday's Speak_ session.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Sources</h3>
+          <ul class="source-list">
+            <li><a href="https://about.roblox.com/newsroom/2025/07/fair-play-robloxs-game-based-talent-assessment" target="_blank" rel="noreferrer">Roblox — Fair Play: Roblox's Game-Based Talent Assessment (Jul 2025)</a></li>
+            <li><a href="https://careers.roblox.com/early-career" target="_blank" rel="noreferrer">Roblox — Early Careers page (assessments, Kaiju Cats, Coding Cookies, Speak_)</a></li>
+            <li><a href="https://speak.careers/roblox-go" target="_blank" rel="noreferrer">Speak_ — Roblox prep community sign-up</a></li>
+            <li><a href="https://www.roblox.com/games/13977123257/Kaiju-Cats" target="_blank" rel="noreferrer">Kaiju Cats on Roblox</a> · <a href="https://roblox.fandom.com/wiki/Kaiju_Cats" target="_blank" rel="noreferrer">Roblox Wiki — Kaiju Cats rules</a></li>
+            <li><a href="https://about.roblox.com/newsroom/2024/04/roblox-values-principles" target="_blank" rel="noreferrer">Roblox — Values and Principles (Apr 2024)</a> · <a href="https://about.roblox.com/values" target="_blank" rel="noreferrer">Roblox — Builder Framework</a></li>
+            <li><a href="https://www.hr-brew.com/stories/2023/01/12/roblox-is-building-a-game-that-screens-applicants" target="_blank" rel="noreferrer">HR Brew — a reporter plays the factory game (Jan 2023)</a></li>
+            <li><a href="https://csvoprep.com/oa/roblox-oa-mars-bq-code/" target="_blank" rel="noreferrer">Candidate recap (Chinese) — Robots two terrains, Factories 24h, 23 SJT items, Outpost: Mars functions</a></li>
+            <li><a href="https://dev.to/net_programhelp_e160eef28/what-does-the-roblox-ds-intern-oa-really-test-a-different-kind-of-assessment-3pe6" target="_blank" rel="noreferrer">dev.to — what the Roblox OA really tests (bottleneck strategy, hazards list)</a></li>
+            <li><a href="https://www.teamblind.com/post/Roblox-Cognitive-Game-Assessments-U4eObuxN" target="_blank" rel="noreferrer">Blind — Roblox cognitive game assessments (Robots and Factories descriptions)</a></li>
+            <li><a href="https://www.glassdoor.com/Interview/One-of-the-logic-problem-games-that-I-was-asked-involved-optimizing-a-factory-to-produce-the-most-money-in-a-24hr-period-QTN_6604622.htm" target="_blank" rel="noreferrer">Glassdoor — factory game, 24-hour profit</a></li>
+            <li><a href="https://prachub.com/resources/roblox-robots-assessment-how-to-practice-problem-solving-and-iteration" target="_blank" rel="noreferrer">PracHub — Robots: iteration discipline and the five-field log</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared 8 Sep 2026 for Roblox's Early Career assessments, due Thursday 10 Sep 2026 at 2:00pm PT. Generated by <code>build-roblox-page.py</code>; re-run it after any edit, then <code>./build-standalone.sh</code>.</p>
+    <p><a href="#top">Back to top ↑</a></p>
+  </footer>
+</div>
+</body>
+</html>

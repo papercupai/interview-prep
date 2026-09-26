@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Thomson Reuters Lead Software Engineer — CoCounsel Interview Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1410; --surface: #131E18; --surface-alt: #1A2921;
+    --ink: #E5EEE9; --ink-muted: #9DADA4; --ink-faint: #708077;
+    --accent: #66C69C; --accent-strong: #8BDCB8; --accent-soft: #17372A;
+    --caution: #D9A43A; --caution-soft: #33290F;
+    --critical: #E0736C; --critical-soft: #3A1E1C;
+    --info: #78B7DE; --info-soft: #172D3B;
+    --rule: #26372E; --rule-strong: #3B5145;
+  }
+  .tag.gap { background: var(--critical-soft); color: var(--critical); }
+  .question-list .rank { display: inline-block; margin-bottom: 0.15rem; }
+  .script .say code { font-size: 0.8em; }
+</style>
+
+<style>
+  table.matrix.compare td:first-child { width: 18%; }
+  table.matrix.compare td:nth-child(2),
+  table.matrix.compare td:nth-child(3) { width: 41%; color: var(--ink); font-size: 0.92rem; }
+  .card ol.timeline h3 { font-size: 0.98rem; }
+  .card ol.timeline p { font-size: 0.93rem; margin: 0.15rem 0 0; }
+  h3 .badge, summary .badge, .note .eyebrow .badge { margin-left: 0.35rem; vertical-align: middle; }
+  main code { overflow-wrap: anywhere; }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Lead Software Engineer I · Thomson Reuters · CoCounsel Applications · prepared 16 Sep 2026</p>
+      <h1>Own the boundary where outside agents reach CoCounsel.</h1>
+      <p class="standfirst">This team builds CoCounsel’s external integration surface: MCP today, A2A next. Thomson Reuters rebuilt CoCounsel Legal on Anthropic’s Claude Agent SDK, shipped it in the United States on 20 August 2026, and already exposes it inside Claude over MCP. The Lead they describe designs that boundary — authorization, confidentiality, tool shape, cost — and ships the React, TypeScript and Python around it. Show that you have built an MCP server for model callers, and be candid where your evidence is thinner.</p>
+    </div>
+    <aside class="join-card" aria-label="Interview meeting link">
+      <p class="eyebrow">Owner-supplied meeting</p>
+      <p><strong>Tuesday 22 Sep 2026 · 12:00 PM Eastern</strong><br><span class="muted">Microsoft Teams. Scheduled by Stephen Berger, Thomson Reuters Talent Acquisition.</span></p>
+      <p><strong class="hot">Accept the calendar invitation.</strong><br><span class="muted">The email says accepting it finalizes your availability. Interviewers and format were not stated.</span></p>
+      <a class="button" href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZGUyYWRlODEtOGU3OS00ZDJhLThkODgtZmJlNDRkYzYzZTY3%40thread.v2/0?context=%7b%22Tid%22%3a%2262ccb864-6a1a-4b5d-8e1c-397dec1a8258%22%2c%22Oid%22%3a%22e375e71c-589c-4296-b063-96372cf2cd90%22%7d" target="_blank" rel="noreferrer">Open Teams meeting ↗</a>
+      <p class="small muted">Test the link and your audio in the browser the day before. Join two or three minutes early.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Interview and role facts">
+    <div class="fact"><dt>Role</dt><dd>Lead Software Engineer I</dd></div>
+    <div class="fact"><dt>Team</dt><dd>CoCounsel Applications</dd></div>
+    <div class="fact"><dt>Mandate</dt><dd>MCP + A2A integrations</dd></div>
+    <div class="fact"><dt>Stack</dt><dd>React · TypeScript · Python</dd></div>
+    <div class="fact"><dt>When</dt><dd>Tue 22 Sep · 12:00 PM ET</dd></div>
+    <div class="fact"><dt>Interviewers</dt><dd class="hot">Not stated</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Read this first</a></li>
+      <li><span class="n">02</span><a href="#thesis">Role thesis</a></li>
+      <li><span class="n">03</span><a href="#coverage">JD coverage map</a></li>
+      <li><span class="n">04</span><a href="#opener">Your opener</a></li>
+      <li><span class="n">05</span><a href="#protocols">MCP and A2A, current</a></li>
+      <li><span class="n">06</span><a href="#mcp-design">Design an external MCP server</a></li>
+      <li><span class="n">07</span><a href="#reliability">Agentic workflow reliability</a></li>
+      <li><span class="n">08</span><a href="#stack">Python, React, cost + latency</a></li>
+      <li><span class="n">09</span><a href="#leadership">Leadership questions</a></li>
+      <li><span class="n">10</span><a href="#questions">Questions for them</a></li>
+      <li><span class="n">11</span><a href="#checklist">Last-minute checklist</a></li>
+      <li><span class="n">12</span><a href="#sources">Sources + confidence</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Read this first</p>
+        <h2>Prepare for a technical conversation with a lead’s judgment in it</h2>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">What this “discussion” probably is <span class="badge inference">Inference</span></p>
+        <p>Talent Acquisition scheduled it after collecting your availability, and the email calls it a discussion without naming interviewers. Third-party reports of Thomson Reuters engineering loops describe a recruiter or hiring-manager conversation first, then live coding or system design, then a leadership round. None of that is Thomson Reuters documentation, and teams vary. Prepare for a hiring-manager style conversation that can turn into design depth on MCP and A2A at any moment. If you want certainty, a one-line reply to the recruiter asking who you will meet and the format is normal and costs nothing.</p>
+      </div>
+      <div class="priority-grid">
+        <article class="priority">
+          <span class="num">01 / THE BOUNDARY</span>
+          <h3>MCP server design, out loud</h3>
+          <p>Five minutes on exposing CoCounsel to Claude, Amazon Quick or a firm’s own agent: authorization, matter-level confidentiality, tool shape, cost, audit. See <a href="#mcp-design">section 06</a>.</p>
+        </article>
+        <article class="priority">
+          <span class="num">02 / CURRENT FACTS</span>
+          <h3>This year’s protocol changes</h3>
+          <p>MCP’s 2026-07-28 revision removed the initialize handshake and sessions. A2A reached 1.0 in March 2026. Describing last year’s MCP as current is the easy way to lose a lead’s credibility. See <a href="#protocols">section 05</a>.</p>
+        </article>
+        <article class="priority">
+          <span class="num">03 / YOUR EVIDENCE</span>
+          <h3>One MCP story, one Python story</h3>
+          <p>Papercusp is an MCP server with roughly 650 tools. Storewolf has a Python scoring service. Lead with those; the <a href="#opener">opener</a> joins them.</p>
+        </article>
+        <article class="priority">
+          <span class="num">04 / THE GAPS</span>
+          <h3>Say them before they do</h3>
+          <p>Customer-facing React, Python HTTP services, formal mentoring and A2A in production are not shown in your verified material. Have an honest bridge for each. See <a href="#coverage">section 03</a>.</p>
+        </article>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Six days: how to spend them</h3>
+          <ol class="timeline">
+            <li><div><h3>Wed–Thu · Opener + three stories</h3><p class="muted">Say the opener aloud until it lands under ninety seconds. Pick three Answer Bank cards from <a href="#leadership">section 09</a> and one weakness.</p></div></li>
+            <li><div><h3>Fri · Protocols</h3><p class="muted">Section 05 until you can draw MCP-inside, A2A-outside from memory, and state three 2026-07-28 changes without notes.</p></div></li>
+            <li><div><h3>Sat–Sun · The design, twice</h3><p class="muted">Run section 06 as a timed five-minute monologue, then again with the follow-up probes. Record it once and listen for vague nouns.</p></div></li>
+            <li><div><h3>Mon · Stack + questions</h3><p class="muted">Section 08’s Python and React spines, then choose three questions from section 10. Accept the invitation if you have not.</p></div></li>
+            <li><div><h3>Tue morning · Light review</h3><p class="muted">The checklist, the opener once, the numbers you plan to say. Nothing new.</p></div></li>
+          </ol>
+        </article>
+        <article class="card">
+          <h3>The rules for this page</h3>
+          <ul>
+            <li>Every claim about your experience links to a card in the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a> or to the <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf section</a>. If a link does not support what you are about to say, do not say it.</li>
+            <li>The design answers in sections 06–08 are proposed designs, not things you have shipped at Thomson Reuters scale. Frame them as “here is how I would build it”.</li>
+            <li>Papercusp is alpha with no external users, and it is TypeScript-heavy. Do not let either fact be discovered by the interviewer.</li>
+            <li>Badges: <span class="badge fact">Fact</span> public and checked · <span class="badge owner">Owner</span> from your email or the JD · <span class="badge inference">Inference</span> reasoned · <span class="badge unknown">Unknown</span> not established.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="thesis">
+      <div class="sec-head">
+        <p class="eyebrow">02 · Role thesis</p>
+        <h2>What they are actually hiring</h2>
+      </div>
+      <div class="note">
+        <p class="eyebrow">The one-sentence read <span class="badge inference">Inference</span></p>
+        <p><strong>A hands-on technical owner for how CoCounsel is reached from other people’s AI:</strong> someone who can decide what CoCounsel exposes through MCP and A2A, keep legal confidentiality and citation integrity intact across that boundary, and still ship the React, TypeScript and Python features on either side of it.</p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Where CoCounsel is now <span class="badge fact">Fact</span></h3>
+          <ul>
+            <li><strong>Origin.</strong> Casetext launched CoCounsel on 1 March 2023 on early GPT-4 access. Thomson Reuters agreed to buy Casetext for $650 million in cash in June 2023 and completed the deal in August 2023.</li>
+            <li><strong>CoCounsel Legal.</strong> Launched 5 August 2025 with Deep Research and guided workflows grounded in Westlaw and Practical Law. November 2025 added agentic workflows, shareable workflow plans and bulk review of up to 10,000 documents, in beta.</li>
+            <li><strong>Scale.</strong> One million users across 107 countries and territories by February 2026. Thomson Reuters described a multi-model architecture with Anthropic, OpenAI and Google models plus its own, and said it is building a proprietary legal LLM.</li>
+            <li><strong>The rebuild.</strong> On 10 March 2026 CTO Joel Hron described rebuilding CoCounsel Legal around planning, tool selection and verification, and said it now completes 76% of unconstrained, multi-step, expert-reviewed tasks end to end in the latest evaluation runs. The next generation runs on Anthropic’s Claude Agent SDK and became generally available in the US on 20 August 2026, with Canada, the UK and Australia later in 2026.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Where the integration surface is <span class="badge fact">Fact</span></h3>
+          <ul>
+            <li><strong>12 May 2026.</strong> Thomson Reuters and Anthropic expanded their partnership with an MCP integration connecting Claude to CoCounsel Legal. The release says customer data is not used to train third-party models and is not shared beyond the customer’s own environment.</li>
+            <li><strong>19 May 2026.</strong> HighQ MCP shipped: read-only access to HighQ files and iSheets from Claude Desktop, Claude Code and Copilot Studio, under HighQ’s existing permissions, and audit logged.</li>
+            <li><strong>August 2026.</strong> The CoCounsel Legal MCP connection with Claude expanded to research, analysis and drafting. Thomson Reuters also announced a forthcoming MCP connection into AWS’s Amazon Quick, a Reveal integration from October, and a drafting agent in Word.</li>
+            <li><strong>A2A.</strong> No public Thomson Reuters statement about A2A was found on 16 Sep 2026. The job description is the only source that names it <span class="badge owner">Owner</span>.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">The tension this role sits on <span class="badge inference">Inference</span></p>
+        <p>Thomson Reuters sells trust: “fiduciary-grade AI”, citation ledgers, KeyCite validity. An external agent calling CoCounsel is a model Thomson Reuters does not control, consuming legal work product it cannot supervise once returned. The interesting design question is not “can we expose a tool” but <strong>what unit of work you expose so the verification stays on your side of the boundary</strong>. Bring that framing; it shows you read the product, not just the posting.</p>
+      </div>
+    </section>
+
+    <section id="coverage">
+      <div class="sec-head">
+        <p class="eyebrow">03 · JD coverage map</p>
+        <h2>Requirement → evidence you can cite → honest rating</h2>
+      </div>
+      <div class="matrix-wrap" role="region" aria-label="Job description coverage matrix" tabindex="0">
+        <table class="matrix">
+          <thead><tr><th scope="col">The JD asks</th><th scope="col">Evidence you can cite</th><th scope="col">Rating</th></tr></thead>
+          <tbody>
+            <tr><td>MCP-based tooling for external integration</td><td>Papercusp’s agents (Claude Code, Codex, an in-house agent) reach roughly 650 tools over MCP (<a href="papercusp-answer-bank-standalone.html#n-overview">N1</a>). Designing tools for model callers: description budgets, source-bounded results, refusals that teach, empty versus did-not-run (<a href="papercusp-answer-bank-standalone.html#n-tool-design">N6</a>). Study refresher: <a href="mcp-cicd-study-faq-standalone.html#d1">FAQ D1</a> and <a href="mcp-cicd-study-faq-standalone.html#d11">D11</a>.</td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>A2A-based tooling</td><td>No A2A implementation in your verified material. The nearest real evidence is agent-to-agent messaging with required “expects back” and “could not determine” fields (<a href="papercusp-answer-bank-standalone.html#n-tool-design">N6</a>) and delegation by claim spec (<a href="papercusp-answer-bank-standalone.html#n-system-design">N2</a>). Say it is analogous, not A2A.</td><td><span class="tag gap">Gap</span></td></tr>
+            <tr><td>Agentic system design, LLM orchestration</td><td>Coordination of many agents: pull-based claims, write-time locks, declared events, one liveness oracle (<a href="papercusp-answer-bank-standalone.html#n-system-design">N2</a>, <a href="papercusp-answer-bank-standalone.html#n-liveness">N3</a>). No LangGraph-style framework in the sources; you built the orchestration and used DBOS for durable workflows (<a href="papercusp-answer-bank-standalone.html#n-overview">N1</a>).</td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>Python APIs and services as a core language</td><td>A long-lived Python scoring process driven by a Node service through JSON lines on stdin, loading the model once (<a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf</a>). It is explicitly not an HTTP service, and Papercusp’s backend is TypeScript. No production FastAPI-style service in the sources.</td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>React, TypeScript, frontend architecture</td><td>A TypeScript tree of 15,271 files with a Vite/React operator UI in a Tauri shell (<a href="papercusp-answer-bank-standalone.html#n-overview">N1</a>). Streaming instead of polling to stop ~40 queries starving ~6 connections (<a href="papercusp-answer-bank-standalone.html#q-performance">Q11</a>). UI state in the URL so agents can test it (<a href="papercusp-answer-bank-standalone.html#n-ui-testing">N11</a>). Internal operator UI, not customer-facing.</td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>6+ years shipping production web apps used by real customers</td><td>Not established by the verified pages. Papercusp is alpha with no external users (<a href="papercusp-answer-bank-standalone.html#n-overview">N1</a>). Storewolf’s output fed buying decisions. Your years and customer-facing history are for you to state from your résumé.</td><td><span class="tag gap">Confirm</span></td></tr>
+            <tr><td>Set standards: quality, performance, testing</td><td>The derived-truth ladder and 47 pin tests (<a href="papercusp-answer-bank-standalone.html#q-design">Q5</a>). Tests proven able to fail; exactly four frameworks, lint-enforced (<a href="papercusp-answer-bank-standalone.html#q-testing">Q2</a>). A performance leg in the release gate (<a href="papercusp-answer-bank-standalone.html#q-performance">Q11</a>). Accessibility: no evidence.</td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>Lead through influence; guide architecture; reduce debt</td><td>Decisions recorded where work reads them (<a href="papercusp-answer-bank-standalone.html#q-disagreement">Q9</a>). Debt policy that changes with users (<a href="papercusp-answer-bank-standalone.html#q-tradeoffs">Q12</a>). Honest weaknesses (<a href="papercusp-answer-bank-standalone.html#n-weakness">N14</a>). Most influence was over agents and your own system, not a human org.</td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Drive execution; break down work; estimates</td><td>Triage, rank, feed by spec, canary first, residue table (<a href="papercusp-answer-bank-standalone.html#n-leading">N13</a>). No evidence about estimate accuracy.</td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Mentor engineers</td><td>Not in the sources. The Answer Bank’s own advice: say so, then pivot to writing conventions others follow (<a href="papercusp-answer-bank-standalone.html#q-teamwork">Q13</a>).</td><td><span class="tag gap">Gap</span></td></tr>
+            <tr><td>Preferred: web performance, monitoring, profiling</td><td>Connection-pool starvation fixed by transport choice; admission versus compute (<a href="papercusp-answer-bank-standalone.html#q-performance">Q11</a>). CPU as a delta, observing from outside the process (<a href="papercusp-answer-bank-standalone.html#q-observability">Q7</a>).</td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>Preferred: production AI features, RAG, agentic workflows</td><td>Agentic workflows and evaluation with grader independence (<a href="papercusp-answer-bank-standalone.html#q-ai-eval">Q8</a>). Keyword plus embedding search, fused, over 787 insight docs (<a href="papercusp-answer-bank-standalone.html#n-docs">N12</a>). Real, but internal alpha rather than customer production.</td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Preferred: vector DBs, model serving, LLM cost and latency</td><td>An inference gateway over an account pool with AIMD admission and prompt-cache-aware routing (<a href="papercusp-answer-bank-standalone.html#n-capacity">N8</a>). Model loaded once in a long-lived scorer (<a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf</a>). Which vector store backs the embedding search is not stated.</td><td><span class="tag prepare">Partial</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">“Confirm” means the verified pages cannot settle it; only your résumé can. Degree requirement: not addressed by any source here.</p>
+    </section>
+
+    <section id="opener">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Your opener</p>
+        <h2>Seventy-five seconds that point straight at the integration boundary</h2>
+      </div>
+      <div class="script short">
+        <p class="eyebrow">Draft — keep only what you can defend</p>
+        <p class="say">I build the layer where AI agents meet real systems. My most recent work is a platform that lets many AI coding agents — Claude Code, Codex and an in-house agent — work on one codebase and prove what they did. The agents are MCP clients. The platform is the MCP server, with roughly 650 tools for coordination, work tracking, locks, events and release, on Postgres, with a React operator UI.</p>
+        <p class="say">Building it taught me that an MCP server for model callers is its own design discipline. Tool descriptions are context you pay for on every call, so they get budgets. Results have to be bounded at the source. A refusal has to tell the model how to repair the call. And authorization can’t live in a prompt: the dispatcher denies by default, then checks role and capability before any handler runs.</p>
+        <p class="say">On the Python side, I built a long-lived scoring service for a pricing model. The Node application sends it train and predict commands as JSON lines, and the hard part was keeping the feature schema identical between training and inference.</p>
+        <p class="say">This role stood out because CoCounsel is now reached from outside — inside Claude over MCP, with more connections announced — so the integration boundary is part of the product. I’d like to understand where A2A fits next.</p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Where each sentence comes from</h3>
+          <ul>
+            <li>Agents, MCP, roughly 650 tools, Postgres: <a href="papercusp-answer-bank-standalone.html#n-overview">N1</a>. The figures are the 3 Sep 2026 snapshot; re-check before you say them.</li>
+            <li>Description budgets, bounded results, teaching refusals: <a href="papercusp-answer-bank-standalone.html#n-tool-design">N6</a>.</li>
+            <li>Default-deny, role allowlist, capability check: <a href="papercusp-answer-bank-standalone.html#g-permissions">G1</a>. Do not extend this to “every write is forced through it”: <a href="papercusp-answer-bank-standalone.html#q-security">Q10</a> corrects exactly that overclaim.</li>
+            <li>Python scoring service, JSON lines, schema drift: <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf</a>.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Avoid</h3>
+          <ul>
+            <li>Calling Papercusp a customer product. It is alpha, run by one operator (<a href="papercusp-answer-bank-standalone.html#n-overview">N1</a>).</li>
+            <li>Saying you have “built with A2A”. You have not; say you have built the adjacent problem.</li>
+            <li>Inventing a team size, user count or title for either system.</li>
+            <li>Leading with a framework list. The posting asks for judgment at a boundary.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="protocols">
+      <div class="sec-head">
+        <p class="eyebrow">05 · MCP and A2A, current as of 16 Sep 2026</p>
+        <h2>Know what changed this year, then say how the two compose</h2>
+      </div>
+      <div class="note crit">
+        <p class="eyebrow">Your FAQ describes last year’s MCP session model</p>
+        <p>The <a href="mcp-cicd-study-faq-standalone.html#d8">FAQ’s D8</a> and <a href="mcp-cicd-study-faq-standalone.html#d9">D9</a> describe the <code>initialize</code> handshake, <code>Mcp-Session-Id</code> and resumable SSE streams. That was correct through revision 2025-11-25. <strong>The 2026-07-28 revision removed all three.</strong> Use D8 and D9 as history, and use the list below for “how does MCP work today”. <span class="badge fact">Fact</span></p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>MCP 2026-07-28 — the changes worth saying <span class="badge fact">Fact</span></h3>
+          <ul>
+            <li><strong>Stateless core.</strong> No initialize handshake and no protocol sessions. Every request carries its protocol version and client capabilities in <code>_meta</code>. <code>server/discover</code> is required on servers and optional for clients to call. State a server needs across calls becomes an explicit handle passed as a tool argument.</li>
+            <li><strong>Multi Round-Trip Requests.</strong> Servers no longer send their own requests for elicitation, sampling or roots. They return <code>resultType: "input_required"</code>, and the client retries with the answers.</li>
+            <li><strong>Routing headers.</strong> Streamable HTTP POSTs carry <code>Mcp-Method</code> and <code>Mcp-Name</code>, so gateways, rate limiters and WAFs can route and meter without parsing JSON.</li>
+            <li><strong>Cacheable lists.</strong> <code>tools/list</code> and friends return <code>ttlMs</code> and <code>cacheScope</code>. Servers should list tools in deterministic order, which the changelog ties to prompt-cache hit rates.</li>
+            <li><strong>Authorization hardening.</strong> Issuer validation per RFC 9207, credentials bound to the issuer that minted them, Client ID Metadata Documents preferred, Dynamic Client Registration deprecated. Audience validation of access tokens is a MUST.</li>
+            <li><strong>Lifecycle.</strong> Tasks moved into an extension with polling. Roots, Sampling and Logging are deprecated with at least twelve months’ notice. Resumable SSE streams are gone: a broken stream means re-issuing the request.</li>
+            <li><strong>Governance.</strong> Anthropic donated MCP to the Linux Foundation’s Agentic AI Foundation on 9 December 2025.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>A2A 1.0 — the concepts to name <span class="badge fact">Fact</span></h3>
+          <ul>
+            <li><strong>Origin and governance.</strong> Google announced A2A on 9 April 2025 and donated it to the Linux Foundation on 23 June 2025. Version 1.0, the first stable release, shipped in March 2026. The Linux Foundation reported more than 150 supporting organizations on 9 April 2026, with support in Azure AI Foundry, Copilot Studio and Amazon Bedrock AgentCore.</li>
+            <li><strong>Agent Card.</strong> JSON at <code>/.well-known/agent-card.json</code>: identity, skills, capabilities, supported interfaces, security schemes, an optional signature, and an authenticated extended card for callers who sign in.</li>
+            <li><strong>Task.</strong> The unit of delegated work, with a <code>contextId</code> grouping related tasks and messages. States: submitted, working, input-required, auth-required, completed, failed, canceled, rejected.</li>
+            <li><strong>Message, Part, Artifact.</strong> Messages carry parts (text, files, structured data). Outputs come back as artifacts made of parts.</li>
+            <li><strong>Transport.</strong> Three bindings: JSON-RPC 2.0, gRPC, and HTTP+JSON. Streaming delivers status and artifact update events. Push notifications post to a client-registered webhook for long tasks.</li>
+            <li><strong>Security.</strong> Schemes declared on the card: API key, HTTP auth, OAuth 2.0 flows, OpenID Connect and mutual TLS. An optional <code>tenant</code> field routes multi-tenant requests.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="matrix-wrap" role="region" aria-label="MCP versus A2A comparison" tabindex="0">
+        <table class="matrix compare">
+          <thead><tr><th scope="col">Question</th><th scope="col">MCP</th><th scope="col">A2A</th></tr></thead>
+          <tbody>
+            <tr><td>What is on the other side?</td><td>Tools, resources and prompts an agent uses. The caller sees schemas and drives each step.</td><td>An opaque peer agent. The caller sees a card and skills, never the internal plan or tools.</td></tr>
+            <tr><td>Unit of work</td><td>A tool call and its result. Long jobs use the tasks extension.</td><td>A task with a lifecycle, messages, artifacts and a context thread.</td></tr>
+            <tr><td>Asking the user for more</td><td><code>input_required</code> result, then a retry with answers.</td><td>Task moves to <code>input-required</code> or <code>auth-required</code>; the client sends a follow-up message.</td></tr>
+            <tr><td>Discovery</td><td><code>server/discover</code>, cacheable <code>tools/list</code>.</td><td>Agent Card at a well-known URL, extended card after authentication.</td></tr>
+            <tr><td>Who keeps the verification?</td><td>Whoever composes the tools. Fine-grained tools hand orchestration, and responsibility, to the outside model.</td><td>The agent doing the task. Citations can be checked before the artifact leaves.</td></tr>
+            <tr><td>CoCounsel fit <span class="badge inference">Inference</span></td><td>Bring CoCounsel into assistants people already use: Claude, Amazon Quick, Copilot Studio. Already shipping.</td><td>Let a firm’s or platform’s orchestrating agent delegate a whole matter-level task to CoCounsel as a peer.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <details class="drill">
+        <summary>Probe: “When would you use A2A instead of MCP — and would you ever use both?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>MCP when the caller should orchestrate and your capability is a tool: a search, a citation check, a document fetch.</li>
+              <li>A2A when the work needs your own planning, verification and human checkpoints, and the caller should only see a task, its state and the result.</li>
+              <li>Both, layered: an external agent delegates a research task to CoCounsel over A2A; inside, CoCounsel’s agent uses tools — possibly over MCP — against Westlaw, KeyCite and the firm’s documents. The A2A spec’s own appendix describes this composition.</li>
+              <li>The CoCounsel-specific point: the unit you expose decides where verification lives. A coarse, task-level surface keeps the citation ledger on Thomson Reuters’ side; a fine-grained tool surface is more flexible but lets an outside model assemble legal work product nobody verified.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Follow-up:</strong> “Then why does the Claude connection use MCP?” Because MCP is how assistants integrate today, and an MCP tool can still be task-shaped: “research this question” returning a cited artifact, with long work handled through the tasks extension. Protocol choice and granularity are separate decisions.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="mcp-design">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Design exercise</p>
+        <h2>Expose CoCounsel Legal to Claude, Amazon Quick, or a firm’s own agent</h2>
+      </div>
+      <div class="note">
+        <p class="eyebrow">How to run it</p>
+        <p>Say the frame in one breath, then take the seven concerns in order, one or two sentences each, and stop for questions. Everything here is a <strong>proposed design</strong> built from the public specs and Thomson Reuters’ public statements <span class="badge inference">Inference</span>. Where your own system did something similar, the link says so; do not claim more than it shows.</p>
+      </div>
+      <div class="script short">
+        <p class="eyebrow">The frame, first</p>
+        <p class="say">The model on the other side isn’t ours, and the data is privileged. So I’d treat the MCP server as a product boundary: authenticate the person, authorize every call against their firm and matter, return the smallest verified result that does the job, and keep a record that would satisfy the firm’s general counsel.</p>
+      </div>
+      <details class="drill" open>
+        <summary>1 · Identity and authorization</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <ul>
+              <li>The MCP server is an OAuth resource server. It publishes protected resource metadata (RFC 9728), and clients request tokens with a resource indicator naming it (RFC 8707). The 2026-07-28 spec says servers <strong>must</strong> validate that tokens were issued for them as the audience. <span class="badge fact">Fact</span></li>
+              <li>Clients register with Client ID Metadata Documents; Dynamic Client Registration is deprecated. Clients must validate the issuer (RFC 9207). <span class="badge fact">Fact</span></li>
+              <li>For firms: let the firm’s identity provider and administrators decide which AI clients may connect, rather than each lawyer consenting alone. Partners quoted in the 2026-07-28 release blog mention an Enterprise-Managed Authorization extension for this; check its current status before naming it as settled. <span class="badge inference">Inference</span></li>
+              <li>Never forward the user’s MCP token to internal Westlaw or document APIs. Exchange it for a narrowly scoped internal credential, so a token minted for the MCP server cannot be replayed elsewhere. <span class="badge inference">Inference</span></li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Your evidence:</strong> the dispatcher chain — default-deny, role allowlist, capability check, envelope — in <a href="papercusp-answer-bank-standalone.html#g-permissions">G1</a> and the precise limits in <a href="papercusp-answer-bank-standalone.html#native-execution">the native-execution breakdown</a>.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>2 · Tenancy and confidentiality of legal data</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <ul>
+              <li>Authorize at firm, matter and document level, including ethical walls: a lawyer screened from a matter must not reach it through an assistant any more than through the UI. HighQ MCP’s public model — same permissions, read-only, audit logged — is the house precedent. <span class="badge fact">Fact</span> for HighQ; <span class="badge inference">Inference</span> for walls.</li>
+              <li>Anything returned enters another vendor’s model context. Return only what this user may see and what the task needs; prefer citations and excerpts over bulk documents.</li>
+              <li>Keep the public commitment true end to end: customer data not used to train third-party models, not shared beyond the customer’s environment. That constrains logging, caching and any evaluation data. <span class="badge fact">Fact</span> for the commitment.</li>
+              <li>Residency: rollouts to Canada, the UK and Australia imply region-pinned storage and processing for data and logs. <span class="badge inference">Inference</span></li>
+              <li>Why lawyers care: ABA Formal Opinion 512 (29 July 2024) ties generative AI use to confidentiality under Model Rule 1.6 and warns about inadvertent disclosure through shared tools. <span class="badge fact">Fact</span></li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Your evidence:</strong> the tenant-isolation design and cross-tenant test plan in <a href="papercusp-answer-bank-standalone.html#g-tenancy">G3</a>. That card is explicitly a design answer, not an audited deployment — say it the same way.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>3 · Tool design for model callers</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <ul>
+              <li>Prefer task-shaped tools — “research this question in this jurisdiction”, “review these clauses” — that return a cited artifact, over raw search primitives. Verification stays inside CoCounsel.</li>
+              <li>Structured results: each claim carries source identifiers, KeyCite status and a link the lawyer can open. The model should not have to parse prose to find the citation.</li>
+              <li>Bound results at the source, page with handles, and make “no results” distinguishable from “did not run”.</li>
+              <li>Long research runs use the tasks extension; clarifications use <code>input_required</code> instead of guessing jurisdiction or date ranges.</li>
+              <li>Refusals name the fix: “this matter is walled for your account — ask the matter owner”, not a bare 403 the model will retry.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Your evidence:</strong> description budgets of 1,500 characters with a 1,600 hard cap, results capped around 1,500 tokens, projections, teaching refusals, boundedness markers (<a href="papercusp-answer-bank-standalone.html#n-tool-design">N6</a>).</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>4 · Rate limits and cost</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <ul>
+              <li>Quotas per firm, per user and per client application, with separate concurrency limits for expensive agentic runs versus cheap lookups.</li>
+              <li>Meter at the gateway using the <code>Mcp-Method</code> and <code>Mcp-Name</code> headers, before any JSON parsing. <span class="badge fact">Fact</span> for the headers.</li>
+              <li>Reserve an estimated budget before a costly run and reconcile actual usage afterward; show partial results with the reason when a run stops.</li>
+              <li>Cache list results with the spec’s <code>ttlMs</code>, keep tool order deterministic, and cache per-tenant where content permissions allow.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Your evidence:</strong> the gateway, AIMD admission and the two-stores bug in <a href="papercusp-answer-bank-standalone.html#n-capacity">N8</a>; the run-budget design in <a href="papercusp-answer-bank-standalone.html#g-limits">G5</a>.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>5 · Audit</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <ul>
+              <li>A receipt per call: firm, user, client application, tool and version, policy decision, sources returned, and outcome. Denied attempts too.</li>
+              <li>Write the durable record before executing anything with a side effect; an unknown outcome stays unknown until reconciled.</li>
+              <li>Audit logs hold privileged material by reference, with retention and access agreed with the firm. They are sensitive data themselves.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Your evidence:</strong> <a href="papercusp-answer-bank-standalone.html#g-audit">G7</a> (design) and the recorded-decision mechanism in <a href="papercusp-answer-bank-standalone.html#q-disagreement">Q9</a>.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>6 · Prompt-injection boundaries — both directions</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <ul>
+              <li><strong>Inbound:</strong> documents a firm uploads, or pulls through a connector, can carry instructions. They are data. CoCounsel’s agent must not gain new permissions or destinations because a document says so.</li>
+              <li><strong>Outbound:</strong> CoCounsel’s answer becomes untrusted input inside Claude or Quick. Return structured fields, mark quoted source text as quoted, and never return anything that would be dangerous if the outside model obeyed it.</li>
+              <li>No write, send or export tools without an explicit, version-bound human approval. Tool descriptions are part of the attack surface; version and review them like code.</li>
+              <li>Test the outcome, not the text: the export did not happen, whatever the model said.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Your evidence:</strong> <a href="papercusp-answer-bank-standalone.html#g-injection">G2</a> and <a href="papercusp-answer-bank-standalone.html#g-approval">G4</a> (designs); the layered-guardrails model in <a href="mcp-cicd-study-faq-standalone.html#rails">the FAQ’s guardrails part</a>.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>7 · Versioning</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <ul>
+              <li>Protocol: support the current dated revision and one prior during migrations. The streamable HTTP spec describes clients probing modern servers first and falling back to the legacy handshake. <span class="badge fact">Fact</span></li>
+              <li>Tools: additive changes in place; a breaking change gets a new tool name; old names deprecate with usage telemetry and a date. MCP itself uses at least twelve months for deprecations. <span class="badge fact">Fact</span> for the spec window.</li>
+              <li>Behavior: pin model, prompt and tool versions to evaluation results, so “the tool changed” and “the model changed” are separate, testable events.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Your evidence:</strong> debt policy that flips once users depend on you (<a href="papercusp-answer-bank-standalone.html#q-tradeoffs">Q12</a>). Say the flip out loud: an alpha can break freely; a million-user product with external clients cannot.</p>
+        </div>
+      </details>
+      <div class="two-col">
+        <article class="card">
+          <h3>What you would build first</h3>
+          <p>One read-only, task-shaped tool behind real OAuth, one pilot firm, full audit, called from one client. Measure citation accuracy and latency on that slice before adding breadth. That is the canary-first habit from <a href="papercusp-answer-bank-standalone.html#n-leading">N13</a> applied to an integration.</p>
+        </article>
+        <article class="card">
+          <h3>Follow-up probes to rehearse</h3>
+          <ul>
+            <li>“A partner’s agent calls you 10,000 times an hour. What breaks first?”</li>
+            <li>“How do you know an answer returned through Claude was used correctly?”</li>
+            <li>“A firm revokes a client mid-task. What happens to the running task?”</li>
+            <li>“How do you test ethical walls through the MCP path?” Use the two-tenant approach in <a href="papercusp-answer-bank-standalone.html#g-tenancy">G3</a>, applied to two matters.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="reliability">
+      <div class="sec-head">
+        <p class="eyebrow">07 · Agentic workflow reliability</p>
+        <h2>Completion you can prove, not steps that ran</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Answer spine <span class="badge inference">Inference</span></h3>
+          <ul>
+            <li><strong>Define done per task, with evidence.</strong> A research memo is complete when every cited authority resolves and passes a validity check, not when the model stops.</li>
+            <li><strong>Evaluate end to end.</strong> Thomson Reuters already moved its metric from skill-level scores to whether the system completes a natural task end to end <span class="badge fact">Fact</span>. Extend that to tasks started from Claude or Quick.</li>
+            <li><strong>Durable steps.</strong> Checkpoint long runs, make side effects idempotent, and resume rather than restart after a crash or timeout.</li>
+            <li><strong>Human checkpoints where judgment lives.</strong> Thomson Reuters describes Brief Builder as agentic with a human in the loop <span class="badge fact">Fact</span>. Map those pauses to <code>input_required</code> or A2A’s input-required state at the boundary.</li>
+            <li><strong>Honest partial results.</strong> Stopped, partial and unknown are first-class outcomes with what completed and what did not.</li>
+            <li><strong>Observe per step.</strong> Tool latency, retries, token spend and verification failures by step, so a regression points at a stage.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Your evidence</h3>
+          <ul>
+            <li>“Done” requires evidence; the grader cannot be the implementer, enforced structurally; 141 scenario tests across ten roles (<a href="papercusp-answer-bank-standalone.html#q-ai-eval">Q8</a>).</li>
+            <li>Telling a dead worker from a slow one, and not reassigning under a possibly-live write (<a href="papercusp-answer-bank-standalone.html#n-liveness">N3</a>).</li>
+            <li>A silent six-hour stall and the watchdog that no longer depends on what it watches (<a href="papercusp-answer-bank-standalone.html#n-incident">N9</a>).</li>
+            <li>Containment and reconciliation after an agent acts wrongly (<a href="papercusp-answer-bank-standalone.html#g-recovery">G8</a>, design) and the eval-before-ship plan (<a href="papercusp-answer-bank-standalone.html#g-evaluation">G6</a>, design).</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Python, React, cost + latency</p>
+        <h2>The full-stack half of the job</h2>
+      </div>
+      <details class="drill" open>
+        <summary>Python API design — “How would you build the service behind an MCP or A2A endpoint?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine <span class="badge inference">Inference</span></h3>
+            <ul>
+              <li>Async I/O end to end, because the service mostly waits on models and content APIs. Put a timeout on every outbound call and propagate cancellation when the client disconnects.</li>
+              <li>Validate at the edge with typed models, and generate the OpenAPI or JSON Schema contract from them so the TypeScript client and MCP tool schemas share one source.</li>
+              <li>Stream long work (SSE); hand anything longer than a request to a durable job with an id the client can poll or subscribe to.</li>
+              <li>Idempotency keys on anything with a side effect; one error model with retryable versus permanent codes.</li>
+              <li>Structured logs keyed by request, firm and task ids; per-step latency and token metrics.</li>
+              <li>Tests: contract tests on the public schema, and authorization tests with a negative control for every allowed path.</li>
+            </ul>
+          </div>
+          <div class="stack">
+            <div class="note warn">
+              <p class="eyebrow">Be candid here</p>
+              <p>Your verified Python is the Storewolf scoring sidecar: a long-lived process reading JSON lines on stdin, not an HTTP service (<a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf</a>). Papercusp’s server is TypeScript. Say that plainly, then show the design judgment above. Do not name a Python web framework as something you have run in production unless your résumé says so.</p>
+            </div>
+            <p class="probe"><strong>The transferable story:</strong> the feature-schema contract across a process boundary — training writes the exact column list, inference re-adds missing columns and reindexes to the booster’s feature names. Two guards on one failure mode is an API-contract story in disguise.</p>
+          </div>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>React and TypeScript — “What does the frontend for agentic work need that a normal CRUD app does not?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine <span class="badge inference">Inference</span></h3>
+            <ul>
+              <li>Render a task as a state machine the user can read: queued, working, needs your input, done, failed, cancelled. The A2A task states are a good vocabulary even inside one product.</li>
+              <li>Stream progress and partial artifacts; never show a success toast because a request was accepted.</li>
+              <li>Citations are UI, not decoration: every claim links to its source, and verification status is visible.</li>
+              <li>Keep server state in a query cache and meaningful view state in the URL, so a result is shareable and testable.</li>
+              <li>Budget connections: several streaming panels can starve the browser’s per-host connection limit.</li>
+              <li>Accessibility is part of the standard: live regions for streaming text, focus management when a task asks for input, keyboard-reachable citations.</li>
+            </ul>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>Your evidence:</strong> the polling-to-streaming fix for ~40 queries against ~6 connections, and the anti-pattern list that includes duplicate React keys (<a href="papercusp-answer-bank-standalone.html#q-performance">Q11</a>). URL-held UI state and headless UI verification (<a href="papercusp-answer-bank-standalone.html#n-ui-testing">N11</a>).</p>
+            <p class="probe"><strong>Gap to name:</strong> that UI is an internal operator desktop app. Accessibility work is not in your verified material.</p>
+          </div>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>Performance and LLM cost/latency — “A CoCounsel workflow called from Claude feels slow. Where do you look?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine <span class="badge inference">Inference</span></h3>
+            <ul>
+              <li>Split the latency: client and network, authorization, planning, each tool call, each model call, verification, and serialization back. Report p50 and p95 per step, not one number.</li>
+              <li>Time to first useful output matters more than total time for long research: stream the plan and early findings.</li>
+              <li>Cost levers: stable prompt prefixes and deterministic tool order for cache hits, routing easy steps to smaller models, parallel independent tool calls, and bounded results so nothing is paid for twice.</li>
+              <li>Thomson Reuters is multi-model with a proprietary legal LLM <span class="badge fact">Fact</span>. Ask where routing decisions live.</li>
+              <li>Set a quality floor before optimizing: a faster answer with a broken citation is a regression, not a win.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Your evidence:</strong> admission versus compute — a test run waited fourteen minutes without starting in a shared queue under load, versus 1.5 seconds on a direct path (<a href="papercusp-answer-bank-standalone.html#q-performance">Q11</a>); result caps and projections, prompt-cache-aware routing (<a href="papercusp-answer-bank-standalone.html#n-capacity">N8</a>).</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="leadership">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Leadership and behavioural</p>
+        <h2>Drafted answers, each tied to a verified card</h2>
+      </div>
+      <p class="muted">Pick three to rehearse aloud. Each draft uses only what the linked card supports; where your record is thin, the draft says so first.</p>
+      <details class="drill" open>
+        <summary>“How do you set technical standards for a team?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="say">The standard I’m proudest of is a rule rather than a component. We kept hitting the same bug in different costumes: config or documentation restating something the code already owns, and drifting. So we made a ladder — derive the value from the source; if you can’t, pin it with a test that fails when the prose and code disagree; if static analysis can’t see it, attest it at runtime; only then maintain it by hand, and say why. There are forty-seven of those pin tests now. The part that made it a standard, not a project, is that “a new config field restating the code” became a review smell people name. I apply the same idea to tests: exactly four frameworks, and a lint fails a new ad-hoc script.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>Source:</strong> <a href="papercusp-answer-bank-standalone.html#q-design">Q5</a> and <a href="papercusp-answer-bank-standalone.html#q-testing">Q2</a>.</p>
+            <p class="probe"><strong>Add for a lead role:</strong> “With a team, enforcement catches the regression, but the review is where people learn why. I’d want both.” That is a stated approach, not a past result.</p>
+          </div>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>“How do you do code review?” / “What makes you push back on a change?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="say">The most useful thing I can give a reviewer is evidence, not a conclusion: what I ran, what it returned, what I couldn’t determine. “This works” asks them to trust me; “here’s the failing case before and after” lets them check me. I review the same way. What makes me push back is a new config field that restates something the code already knows — a second copy of a truth with no owner. And I ask whether the new test has ever failed, because a guard that has never failed hasn’t been tested.</p>
+          </div>
+          <p class="probe"><strong>Source:</strong> <a href="papercusp-answer-bank-standalone.html#q-teamwork">Q13</a>, <a href="papercusp-answer-bank-standalone.html#rapid-fire">rapid-fire “review taste”</a>, <a href="papercusp-answer-bank-standalone.html#q-testing">Q2</a>.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>“Tell me about mentoring an engineer.” <span class="badge unknown">Gap</span></summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="say">I’ll be straight: my recent work hasn’t included formally mentoring engineers; the contributors I’ve directed have mostly been automated agents. What transfers is how I teach through the system. Every refusal names its own repair, so someone blocked learns the rule at the moment they hit it, and each rule carries the incident that produced it. With people I’d mentor the same way: pair on the first change in an unfamiliar area, review by asking what would make the test fail rather than rewriting their code, and write the reason next to the rule.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>Source:</strong> the Answer Bank’s advice to say so and pivot (<a href="papercusp-answer-bank-standalone.html#q-teamwork">Q13</a>); teaching refusals (<a href="papercusp-answer-bank-standalone.html#n-tool-design">N6</a>).</p>
+            <div class="note crit">
+              <p class="eyebrow">Replace if you can</p>
+              <p>If your résumé includes real mentoring from earlier roles, use that instead. The JD lists mentoring as a core duty.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>“How do you break down a large initiative and estimate it?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="say">I break down by risk, not by component. First the thinnest slice that crosses the riskiest boundary end to end — for an external MCP integration that’s one read-only tool, real authentication, one pilot customer, and audit — then breadth. When I drained a large backlog, the pattern was triage and rank before anyone starts, feed work by a written filter rather than hand-assignment, launch one canary and confirm it completes, then scale, and finish with a residue table of what didn’t get done and why. For estimates I’d give ranges and re-estimate at each checkpoint, because the first slice is where the real unknowns show up.</p>
+          </div>
+          <p class="probe"><strong>Source:</strong> <a href="papercusp-answer-bank-standalone.html#n-leading">N13</a>. The estimation sentence is an approach, not a track record; do not attach numbers to it.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>“Tell me about influencing a decision without authority.”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="say">What I learned is that most disagreements I thought were resolved came back, because the resolution lived in a chat message nobody re-reads. So rulings other people must follow get recorded as numbered decisions attached to the plan they govern, with the reasoning, and the tool that hands out the next piece of work shows the governing decisions inline. The payoff surprised me: someone re-read a recorded decision, realized their own earlier work had been wrong in most of the places they’d touched, fixed it, and then found more instances of the same mistake. Written decisions persuade after you’ve left the room.</p>
+          </div>
+          <p class="probe"><strong>Source:</strong> <a href="papercusp-answer-bank-standalone.html#q-disagreement">Q9</a>.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>“How do you decide when to pay down technical debt?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="say">It depends on whether anyone depends on you. My current system is alpha with no external users, so the expensive mistake there is caution — a compatibility shim protecting nobody — and I bias toward making the breaking fix now. CoCounsel is the opposite case: a million users and external AI clients calling it, so the default flips to versioned tools and real deprecation windows. What I’d keep either way is the line between a fix and a mitigation. Restarting or widening a timeout is fine if you say it’s a mitigation and the real fix has an owner.</p>
+          </div>
+          <p class="probe"><strong>Source:</strong> <a href="papercusp-answer-bank-standalone.html#q-tradeoffs">Q12</a>; the million-user figure is Thomson Reuters’ public February 2026 number.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>“Tell me about a mistake.” / “A hard bug.” / “An incident.”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <ul>
+              <li><strong>Mistake:</strong> reporting a metric as a regression when one column stored two scales; the rule “find the code that writes a number before reporting it”; retracting in the written record (<a href="papercusp-answer-bank-standalone.html#q-wrong">Q6</a>).</li>
+              <li><strong>Hard bug:</strong> an instrument that lied — a liveness check calling a running process “gone” — and the positive-control rule (<a href="papercusp-answer-bank-standalone.html#q-debugging">Q3</a>).</li>
+              <li><strong>Incident:</strong> auto-commit silently stalled for about six hours; watchdogs must not depend on what they watch (<a href="papercusp-answer-bank-standalone.html#n-incident">N9</a>).</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Pick one per question.</strong> For this role, the incident story lands best if they ask about operating integrations: it is about detecting silent failure at a boundary.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>“Why Thomson Reuters?” / “Why this team?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="say">Two reasons. The hard part of legal AI isn’t generating text, it’s being able to show where every claim came from — and Thomson Reuters owns the content and the validity signals to do that. And CoCounsel is now reached from outside: inside Claude over MCP, with Amazon Quick announced. That makes the integration boundary part of the product, which is exactly where I’ve spent my time — deciding what a model caller is allowed to do, what it gets back, and how you prove what happened. I’d rather do that work where the stakes are privileged client data than where nobody would notice a mistake.</p>
+          </div>
+          <p class="probe"><strong>Check before saying:</strong> “Amazon Quick announced” and “inside Claude” are from the 12 May and 20 August 2026 releases in section 12.</p>
+        </div>
+      </details>
+      <details class="drill">
+        <summary>“What is your biggest weakness?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <p>Two honest options, both sourced:</p>
+            <ul>
+              <li><strong>Recent human-team leadership.</strong> Much of your recent work coordinated automated agents, not a room of engineers (<a href="papercusp-answer-bank-standalone.html#q-teamwork">Q13</a>). Say what you are doing about it and what transfers.</li>
+              <li><strong>Process weight.</strong> Forty-seven hooks and a long playbook is a tax on every action; a prompt lagged a removed tool by a month (<a href="papercusp-answer-bank-standalone.html#n-weakness">N14</a>). This one shows lead-level self-criticism about standards.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Avoid</strong> a disguised strength. The Answer Bank’s rule applies: a real weakness with a number beats any polished non-answer.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="questions">
+      <div class="sec-head">
+        <p class="eyebrow">10 · Questions for them</p>
+        <h2>Ask what only the people building it can answer</h2>
+      </div>
+      <div class="question-grid">
+        <article class="card">
+          <p class="rank">Technical · choose 2</p>
+          <h3>The integration surface</h3>
+          <ol class="question-list">
+            <li><strong>“The Claude connection expanded to research, analysis and drafting in August. Where does A2A come in — is there a concrete partner or customer-agent scenario driving it?”</strong></li>
+            <li><strong>“What unit of work do you expose externally — task-level workflows or finer tools — and how do you keep the citation ledger meaningful when the orchestrating model isn’t yours?”</strong></li>
+            <li><strong>“How do firm administrators control which AI clients can connect, and how do ethical walls carry through an MCP call?”</strong></li>
+            <li><strong>“Does the end-to-end task evaluation cover tasks that start in Claude or Amazon Quick, or only the native product?”</strong></li>
+            <li><strong>“Which parts of MCP’s 2026-07-28 changes matter most for you — the stateless core, the authorization changes, or the tasks extension?”</strong></li>
+          </ol>
+        </article>
+        <article class="card">
+          <p class="rank">Role and team · choose 1–2</p>
+          <h3>What the Lead owns</h3>
+          <ol class="question-list">
+            <li><strong>“What does CoCounsel Applications own, versus the CoCounsel platform team?”</strong></li>
+            <li><strong>“How is the Lead’s time split between hands-on code, review, and design — and between React, TypeScript and Python?”</strong></li>
+            <li><strong>“What would make you say, six months in, that this hire went really well?”</strong></li>
+            <li><strong>“What are the next stages, and what does each one evaluate?”</strong></li>
+          </ol>
+          <div class="note warn">
+            <p class="eyebrow">Confidence boundary</p>
+            <p>You do not know who will join. Use names and titles only once people introduce themselves, and do not assume the recruiter will be on the call.</p>
+          </div>
+        </article>
+      </div>
+      <div class="note">
+        <p class="eyebrow">Best closing question</p>
+        <p><strong>“Is there any part of my background, especially for the React or Python side of this role, that you’d like me to go deeper on before we finish?”</strong> It invites the doubt you already know about while you can still answer it.</p>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">11 · Last-minute checklist</p>
+        <h2>Before Tuesday, and ten minutes before the call</h2>
+      </div>
+      <ul class="checklist">
+        <li>Accept the Teams calendar invitation. The email says that finalizes the slot.</li>
+        <li>Confirm the time in your calendar: Tuesday 22 September 2026, 12:00 PM Eastern.</li>
+        <li>Open the Teams link the day before in the browser you will use; test microphone, camera and headphones.</li>
+        <li>Say the opener aloud once. Under ninety seconds, no numbers you have not re-checked.</li>
+        <li>Recite three MCP 2026-07-28 changes and the A2A task states without looking.</li>
+        <li>Run the section 06 frame sentence and the seven concern headings from memory.</li>
+        <li>Have your honest lines ready for Python services, customer-facing React, mentoring and A2A.</li>
+        <li>Know the dates: CoCounsel launched March 2023; next generation GA 20 August 2026; Claude MCP partnership 12 May 2026.</li>
+        <li>Choose two technical questions and one role question from section 10.</li>
+        <li>Quiet room, water, notifications off. Close this page unless notes are explicitly welcome.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">12 · Sources and confidence</p>
+        <h2>Know what is fact, inference, owner-supplied, or unknown</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <span class="badge fact">Verified public fact · checked 16 Sep 2026</span>
+          <h3>Company, product and protocols</h3>
+          <ul>
+            <li>CoCounsel’s origin, the Casetext deal, CoCounsel Legal’s launch, the one-million-user milestone, the Claude Agent SDK rebuild, US general availability on 20 August 2026, the Anthropic MCP partnership, HighQ MCP, and the announced Amazon Quick and Reveal integrations.</li>
+            <li>MCP 2026-07-28 changes, read from the published changelog, authorization and Streamable HTTP pages. MCP’s move to the Agentic AI Foundation.</li>
+            <li>A2A 1.0 concepts, read from the published specification: the Agent Card path, task states, operations, bindings and security schemes. Governance and adoption from Google and the Linux Foundation.</li>
+            <li>ABA Formal Opinion 512, 29 July 2024.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="badge owner">Owner-supplied</span>
+          <h3>Meeting and role</h3>
+          <ul>
+            <li>Role: Lead Software Engineer I, CoCounsel Applications, from the job description you supplied. No posting URL or requisition number was supplied.</li>
+            <li>Meeting: Tuesday 22 September 2026, 12:00 PM America/New_York, Microsoft Teams, scheduled by Stephen Berger, Thomson Reuters Talent Acquisition.</li>
+            <li>Your experience: only what the Answer Bank and the Storewolf section already verify.</li>
+          </ul>
+          <span class="badge inference">Evidence-based inference</span>
+          <p>The round’s likely shape comes from third-party interview aggregators, not Thomson Reuters. Every design answer in sections 05–08 and the “CoCounsel fit” row are reasoned proposals.</p>
+          <span class="badge unknown">Not verified</span>
+          <p>Interviewers, format and length. Whether Thomson Reuters has any A2A work in progress. How the CoCounsel Legal MCP connection authenticates users; no public source found describes it. Your years of experience, degree and customer-facing history.</p>
+        </article>
+      </div>
+      <ol class="source-list">
+        <li><a href="https://www.thomsonreuters.com/en/press-releases/2026/may/thomson-reuters-and-anthropic-expand-partnership-to-connect-claude-with-cocounsel-legal" target="_blank" rel="noreferrer">Thomson Reuters — Thomson Reuters and Anthropic expand partnership to connect Claude with CoCounsel Legal</a> · 12 May 2026 · MCP integration, Claude Agent SDK, data-use statement.</li>
+        <li><a href="https://www.thomsonreuters.com/en/press-releases/2026/august/thomson-reuters-launches-next-generation-of-cocounsel-legal-the-ai-ecosystem-built-for-legal-professionals" target="_blank" rel="noreferrer">Thomson Reuters — Launches next generation of CoCounsel Legal</a> · 20 August 2026 · US GA, Claude MCP expansion, Amazon Quick, Reveal, Word.</li>
+        <li><a href="https://www.thomsonreuters.com/en-us/posts/innovation/cocounsel-legal-august-2026-releases/" target="_blank" rel="noreferrer">Thomson Reuters Institute — CoCounsel Legal August 2026 releases</a> · 8 September 2026 · what the Claude connection now covers.</li>
+        <li><a href="https://legal.thomsonreuters.com/blog/behind-the-build-of-the-next-generation-of-cocounsel-legal/" target="_blank" rel="noreferrer">Thomson Reuters — Behind the build of the next generation of CoCounsel Legal</a> · 24 August 2026 · human-in-the-loop Brief Builder, proprietary model.</li>
+        <li><a href="https://www.thomsonreuters.com/en-us/posts/innovation/rebuilding-for-the-agent-era-the-next-generation-of-cocounsel-legal/" target="_blank" rel="noreferrer">Joel Hron — Rebuilding for the agent era</a> · 10 March 2026 · end-to-end evaluation, 76%, model-agnostic stance.</li>
+        <li><a href="https://legal.thomsonreuters.com/blog/introducing-highq-mcp-bring-client-context-to-your-ai-agents/" target="_blank" rel="noreferrer">Thomson Reuters — Introducing HighQ MCP</a> · 19 May 2026 · read-only, permission-respecting, audit-logged MCP.</li>
+        <li><a href="https://www.lawnext.com/2026/02/three-years-after-launching-as-first-ai-legal-assistant-cocounsel-reaches-1-million-users-and-thomson-reuters-teases-whats-ahead.html" target="_blank" rel="noreferrer">LawSites — CoCounsel reaches one million users</a> · February 2026 · multi-model architecture, proprietary LLM plans.</li>
+        <li><a href="https://www.thomsonreuters.com/en/press-releases/2025/august/thomson-reuters-launches-cocounsel-legal-transforming-legal-work-with-agentic-ai-and-deep-research" target="_blank" rel="noreferrer">Thomson Reuters — Launches CoCounsel Legal with Deep Research</a> · 5 August 2025.</li>
+        <li><a href="https://www.thomsonreuters.com/en/press-releases/2025/november/thomson-reuters-reveals-new-agentic-ai-in-cocounsel-legal" target="_blank" rel="noreferrer">Thomson Reuters — Reveals new agentic AI in CoCounsel Legal</a> · November 2025 · agentic workflows, workflow plans, bulk review.</li>
+        <li><a href="https://www.thomsonreuters.com/en/press-releases/2023/june/thomson-reuters-corporation-signs-definitive-agreement-to-acquire-casetext" target="_blank" rel="noreferrer">Thomson Reuters — Agreement to acquire Casetext</a> · June 2023 · and <a href="https://www.thomsonreuters.com/en/press-releases/2023/august/thomson-reuters-completes-acquisition-of-casetext-inc" target="_blank" rel="noreferrer">completion</a> · August 2023.</li>
+        <li><a href="https://blog.modelcontextprotocol.io/posts/2026-07-28/" target="_blank" rel="noreferrer">MCP blog — The 2026-07-28 specification</a> and <a href="https://modelcontextprotocol.io/specification/2026-07-28/changelog" target="_blank" rel="noreferrer">changelog</a> · stateless core, MRTR, headers, deprecations.</li>
+        <li><a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization" target="_blank" rel="noreferrer">MCP specification 2026-07-28 — Authorization</a> and <a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http" target="_blank" rel="noreferrer">Streamable HTTP</a>.</li>
+        <li><a href="https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/" target="_blank" rel="noreferrer">MCP blog — MCP joins the Agentic AI Foundation</a> · 9 December 2025.</li>
+        <li><a href="https://a2a-protocol.org/latest/specification/" target="_blank" rel="noreferrer">A2A Protocol Specification, version 1.0.0</a> · Agent Card, tasks, bindings, security, relationship to MCP.</li>
+        <li><a href="https://opensource.googleblog.com/2026/04/a-year-of-open-collaboration-celebrating-the-anniversary-of-a2a.html" target="_blank" rel="noreferrer">Google Open Source — A year of A2A</a> · 16 April 2026 · v1.0 in March 2026, donation date.</li>
+        <li><a href="https://www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year" target="_blank" rel="noreferrer">Linux Foundation — A2A surpasses 150 organizations</a> · 9 April 2026 · cloud platform support, SDK languages.</li>
+        <li><a href="https://www.americanbar.org/content/dam/aba/administrative/professional_responsibility/ethics-opinions/aba-formal-opinion-512.pdf" target="_blank" rel="noreferrer">ABA Formal Opinion 512 — Generative Artificial Intelligence Tools (PDF)</a> · 29 July 2024.</li>
+        <li><a href="https://www.glassdoor.com/Interview/Thomson-Reuters-Senior-Software-Engineer-Interview-Questions-EI_IE100303.0,15_KO16,40.htm" target="_blank" rel="noreferrer">Glassdoor — Thomson Reuters senior software engineer interviews</a> and <a href="https://www.interviewquery.com/interview-guides/thomson-reuters-software-engineer" target="_blank" rel="noreferrer">InterviewQuery guide</a> · crowd-sourced and aggregated; low confidence for this team.</li>
+      </ol>
+      <p class="small muted">Research refreshed 16 Sep 2026. A press release announcing an integration does not describe its authentication or permission model; do not present those details as known.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p class="eyebrow">Local interview-prep collection</p>
+    <p>Use the <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a> for verified personal stories and the <a href="mcp-cicd-study-faq-standalone.html">MCP + CI/CD FAQ</a> for protocol fundamentals, noting section 05’s correction to its session model. This page supplies the Thomson Reuters overlay and deliberately avoids inventing experience, interviewers or format.</p>
+    <p><a href="#top">Back to top</a></p>
+  </footer>
+</div>
+</body>
+</html>

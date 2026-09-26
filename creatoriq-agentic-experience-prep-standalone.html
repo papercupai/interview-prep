@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Interview preparation for CreatorIQ's Senior Full-stack Engineer (Agentic Experience) role: governance, MCP, agent discovery, system design, and practice answers.">
+<title>CreatorIQ — Senior Full-stack Engineer (Agentic Experience) Prep</title>
+<style>
+  :root {
+    --ground:#F6F8F9; --surface:#FFFFFF; --surface-alt:#EEF2F3;
+    --ink:#10181C; --muted:#55646C; --accent:#14666E; --accent-soft:#DCEAEB;
+    --rule:#DDE4E7; --caution:#8A5D05; --caution-soft:#F7EDD6;
+    --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  @media(prefers-color-scheme:dark) {
+    :root {
+      --ground:#0D1417; --surface:#141E22; --surface-alt:#1A262B;
+      --ink:#E6EDEF; --muted:#A5B5BD; --accent:#6CC3CA; --accent-soft:#16333A;
+      --rule:#35474F; --caution:#E5B654; --caution-soft:#33290F;
+    }
+  }
+  * { box-sizing:border-box; }
+  html { scroll-padding-top:8rem; }
+  body { margin:0; background:var(--ground); color:var(--ink); font:17px/1.65 var(--f-body); }
+  a { color:var(--accent); text-underline-offset:3px; }
+  a:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline:3px solid var(--accent); outline-offset:4px; }
+  h1,h2,h3 { font-family:var(--f-display); line-height:1.2; letter-spacing:-.02em; text-wrap:balance; }
+  h1 { font-size:clamp(2rem,4.3vw,3.3rem); margin:.6rem 0 1rem; max-width:20ch; }
+  h2 { font-size:1.6rem; margin:.4rem 0 1.2rem; }
+  h3 { font-size:1.05rem; margin:0 0 .5rem; }
+  p { margin:0 0 .9rem; }
+  p:last-child { margin-bottom:0; }
+  ul,ol { padding-left:1.35rem; margin:.6rem 0 0; }
+  li + li { margin-top:.5rem; }
+  code { font: .84em var(--f-mono); background:var(--surface-alt); padding:.08em .3em; overflow-wrap:anywhere; }
+  .wrap { width:min(70rem,100%); margin:auto; padding:0 1.5rem 5rem; }
+  .eyebrow { margin:0; color:var(--accent); font:600 .7rem/1.6 var(--f-mono); letter-spacing:.12em; text-transform:uppercase; }
+  .muted,.small { color:var(--muted); }
+  .small { font-size:.86rem; }
+  .skip { position:absolute; top:-8rem; left:1rem; padding:.6rem 1rem; background:var(--surface); z-index:50; }
+  .skip:focus { top:.5rem; }
+  nav.sitenav { position:sticky; top:0; z-index:20; display:flex; flex-wrap:wrap; gap:.2rem; padding:.65rem 0; background:var(--ground); border-bottom:1px solid var(--rule); font:600 .81rem/1.5 var(--f-display); }
+  nav.sitenav a { text-decoration:none; color:var(--muted); padding:.35rem .6rem; border:1px solid transparent; border-radius:2px; white-space:nowrap; }
+  nav.sitenav a:hover { color:var(--accent); background:var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] { color:var(--accent); background:var(--surface); border-color:var(--rule); }
+  nav.sitenav .sep { flex:1; }
+  .hero { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:2.5rem; padding:3rem 0 2.2rem; align-items:start; }
+  .standfirst { color:var(--muted); font-size:1.13rem; max-width:52ch; }
+  .brief,.note,.card { background:var(--surface); border:1px solid var(--rule); padding:1.25rem; border-radius:3px; }
+  .brief { border-top:3px solid var(--accent); }
+  .brief dl { margin:1rem 0 0; }
+  .brief dt { font:600 .68rem var(--f-mono); text-transform:uppercase; letter-spacing:.07em; color:var(--muted); margin-top:.9rem; }
+  .brief dd { margin:.2rem 0 0; font:600 .98rem/1.5 var(--f-display); }
+  .note { border-left:3px solid var(--accent); margin:1.2rem 0; }
+  .note.warn { border-left-color:var(--caution); }
+  .note.warn .eyebrow { color:var(--caution); }
+  .note .eyebrow { margin-bottom:.5rem; }
+  .toc { border-block:1px solid var(--rule); padding:1.2rem 0; }
+  .toc ol { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.5rem 1.8rem; font:.9rem/1.5 var(--f-display); }
+  .toc li + li { margin-top:0; }
+  section { padding-top:3rem; scroll-margin-top:1rem; }
+  .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1rem 0; }
+  .card .eyebrow { margin-bottom:.55rem; }
+  .script { border-left:3px solid var(--accent); background:var(--accent-soft); padding:1.2rem 1.4rem; margin:1rem 0; }
+  blockquote { margin:0; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--rule); background:var(--surface); border-radius:3px; margin:1rem 0; }
+  table { width:100%; border-collapse:collapse; font-size:.92rem; }
+  caption { text-align:left; padding:.9rem 1rem; font:600 .78rem var(--f-display); color:var(--muted); }
+  th,td { text-align:left; vertical-align:top; padding:.85rem 1rem; border-top:1px solid var(--rule); }
+  th { font:600 .77rem/1.45 var(--f-display); background:var(--surface-alt); }
+  td { min-width:12rem; }
+  td:first-child { font-family:var(--f-display); font-weight:600; min-width:10rem; }
+  .flow { list-style:none; counter-reset:flow; padding:0; display:grid; gap:.65rem; }
+  .flow li { counter-increment:flow; display:grid; grid-template-columns:2rem minmax(0,1fr); gap:.85rem; padding:1rem; background:var(--surface); border:1px solid var(--rule); margin:0; }
+  .flow li::before { content:counter(flow,decimal-leading-zero); color:var(--accent); font:600 .85rem var(--f-mono); padding-top:.18rem; }
+  .question { background:var(--surface); border:1px solid var(--rule); border-radius:3px; margin:1rem 0; padding:1.2rem 1.3rem; scroll-margin-top:8rem; }
+  .question h3 { margin:.45rem 0 .85rem; font-size:1.1rem; }
+  details.answer { border-top:1px solid var(--rule); margin-top:1rem; }
+  summary { cursor:pointer; font:600 .9rem/1.5 var(--f-display); color:var(--accent); padding:.8rem 0; }
+  details.answer[open] summary { margin-bottom:.35rem; }
+  .probe { color:var(--muted); font-size:.94rem; border-left:2px solid var(--rule); padding-left:.85rem; margin-top:.9rem; }
+  .tag { font:600 .67rem var(--f-mono); text-transform:uppercase; letter-spacing:.07em; color:var(--accent); }
+  .checklist { list-style:none; padding:0; }
+  .checklist li { border-bottom:1px solid var(--rule); padding:.65rem 0; margin:0; }
+  .checklist li::before { content:"□"; color:var(--accent); margin-right:.65rem; }
+  .refs { overflow-wrap:anywhere; font-size:.9rem; }
+  .refs li { padding:.35rem 0; }
+  footer { border-top:1px solid var(--rule); margin-top:3rem; padding-top:1.3rem; font-size:.86rem; color:var(--muted); }
+  @media(max-width:45rem) {
+    .hero,.grid { grid-template-columns:minmax(0,1fr); gap:1rem; }
+    .hero { padding-top:2rem; }
+    .toc ol { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    nav.sitenav { flex-wrap:nowrap; overflow-x:auto; }
+    nav.sitenav .sep { display:none; }
+    html { scroll-padding-top:5rem; }
+    .question { scroll-margin-top:5rem; }
+    .wrap { padding-inline:1.1rem; }
+  }
+  @media(max-width:25rem) { .toc ol { grid-template-columns:1fr; } }
+  @media print {
+    :root { --ground:#fff; --surface:#fff; --surface-alt:#f4f4f4; --ink:#111; --muted:#444; --accent:#174d52; --accent-soft:#f1f5f5; --rule:#bbb; }
+    nav.sitenav,.skip { display:none; }
+    .wrap { width:100%; padding:0; }
+    .hero { padding-top:0; }
+    .question,.card,.note { break-inside:avoid; }
+    .table-wrap { overflow:visible; }
+    td { min-width:0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to preparation</a>
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">CreatorIQ · interview preparation · 9 September 2026</p>
+      <h1>Make intelligent automation safe to trust.</h1>
+      <p class="standfirst">Senior Full-stack Engineer <strong>(Agentic Experience)</strong> · Platform Infrastructure. Connect the agent to real workflows, constrain what it can do, and make its behavior understandable to the people using it.</p>
+      <p class="small">Start with the <a href="#pitch">opening pitch</a>, rehearse the <a href="#system-design">system design</a>, then test yourself with the <a href="#questions">16 practice questions</a>.</p>
+    </div>
+    <aside class="brief" aria-label="Role details from supplied job description">
+      <p class="eyebrow">The role in one minute</p>
+      <dl>
+        <dt>Engineering bar</dt><dd>7+ years software · 2+ years AI-powered applications</dd>
+        <dt>Core responsibility</dt><dd>Agent architecture, safety, and governance</dd>
+        <dt>Stack named in the posting</dt><dd>React / TypeScript · Node.js / Python · APIs / MCP · AWS / GCP</dd>
+        <dt>Distinctive product problem</dt><dd>Help users discover, evaluate, and select agents</dd>
+        <dt>Not supplied</dt><dd>Interview stage, format, date, interviewer, location for this opening, or salary range</dd>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Your route through the prep</p>
+    <ol>
+      <li><a href="#role">What the role is testing</a></li>
+      <li><a href="#pitch">Opening pitch &amp; motivation</a></li>
+      <li><a href="#fit">Evidence and gap map</a></li>
+      <li><a href="#system-design">Creator workflow design</a></li>
+      <li><a href="#guardrail-matrix">Guardrail failure matrix</a></li>
+      <li><a href="#discovery">Agent discovery UX</a></li>
+      <li><a href="#questions">16 interview questions</a></li>
+      <li><a href="#stories">Papercusp story shortlist</a></li>
+      <li><a href="#first-90">First 90 days</a></li>
+      <li><a href="#ask-them">Questions for the team</a></li>
+      <li><a href="#rehearsal">Rehearsal &amp; final checklist</a></li>
+      <li><a href="#references">Sources &amp; claim boundaries</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="role">
+      <p class="eyebrow">01 · Read the actual mandate</p>
+      <h2>This is a platform role with an AI product surface.</h2>
+      <p><strong>Interpretation of the supplied posting:</strong> they need someone who can take an agent beyond a demo—into authenticated enterprise workflows, operational controls, and a usable full-stack experience. Prepare to explain the boundary between the model's suggestions and the system's authority.</p>
+      <div class="grid">
+        <article class="card">
+          <p class="eyebrow">The business context</p>
+          <p>The supplied description places CreatorIQ at the center of creator relationships, campaign performance, governance, and commerce. It reports more than 1,300 organizations, more than 15 million creators, and more than 250 million social posts processed daily. <strong>These are figures from the supplied posting, not a fresh scale audit.</strong></p>
+          <p class="small">The public homepage also emphasizes intelligence, brand safety, enterprise integration, and governance. That supports leading with trustworthy workflows, not a generic chatbot pitch. <a href="#source-company">[1]</a></p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Translate scale into judgment</p>
+          <p>Do not propose an LLM call for every post simply because the posting names a large ingestion volume. First separate ingestion, indexing, deterministic filtering, ranking, and task-specific agent reasoning. Ask what already exists and reuse it.</p>
+          <p>Creator discovery and <strong>agent discovery</strong> are different: the former finds people for campaigns; the latter helps a user choose an automation that is capable, permitted, and safe for the task.</p>
+        </article>
+      </div>
+      <div class="note">
+        <p class="eyebrow">The sentence to keep returning to</p>
+        <p>“I want users to get useful work done, with permissions, evidence, and recovery built into the workflow—not bolted onto the answer afterward.”</p>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">02 · First impressions</p>
+      <h2>Lead with the connection, then one real example.</h2>
+      <p class="small">Draft wording. Keep only statements that match your own contribution; add your actual career dates and deployment context when asked.</p>
+      <div class="script">
+        <p class="eyebrow">60–90 second introduction</p>
+        <blockquote>
+          <p>“My strongest example for this role is Papercusp, an agentic software system where the hard problem is making agents reliable when they have tools, shared state, and real side effects.</p>
+          <p>That's pushed me to think across the stack: how the UI represents work and failure, how APIs expose a useful tool contract, and where permissions, coordination, verification, and recovery are enforced. One example I'd discuss is <strong>[choose a story you personally owned]</strong>: the important lesson was that a rule in a prompt isn't the same as a control in the execution path.</p>
+          <p>CreatorIQ interests me because the same problem has a clear customer outcome. A brand team should be able to select an agent, understand the data and actions it needs, review important changes, and trust the record of what happened. I'd bring that systems mindset while learning your creator workflows and building hands-on in the product.”</p>
+        </blockquote>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>Why CreatorIQ?</h3>
+          <p>“The combination of creator relationships, data, and governance is compelling. I see room for automation to remove research and coordination work while keeping people in control of brand decisions and external communication. The posting explicitly treats safety and discoverability as engineering problems, which is where I'd like to contribute.”</p>
+        </article>
+        <article class="card">
+          <h3>Why a senior full-stack role?</h3>
+          <p>“I like owning the whole path from a user need to a reliable implementation. This role connects React and TypeScript work with APIs, agent execution, and infrastructure decisions. I want to stay close enough to the code and the customer to know whether the design actually works.”</p>
+          <p class="small">Don't imply people-management experience from coordinating software agents. They are different responsibilities.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="fit">
+      <p class="eyebrow">03 · Evidence, not keyword matching</p>
+      <h2>Know what you can prove—and where to be candid.</h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Role requirements and evidence map">
+        <table>
+          <caption>Preparation map, not a scored assessment of your qualifications</caption>
+          <thead><tr><th scope="col">They ask for</th><th scope="col">Best evidence to prepare</th><th scope="col">Boundary to state</th></tr></thead>
+          <tbody>
+            <tr><td>7+ years engineering; distributed systems</td><td>Your actual career timeline plus one concurrency or failure-recovery story. <a href="papercusp-answer-bank-standalone.html#q-concurrency">Answer Bank Q4</a>.</td><td>This prep set does not establish total years. Agent count and code volume are not substitutes for career history or customer impact.</td></tr>
+            <tr><td>2+ years AI applications; a named agent framework</td><td>Dates, deployed use cases, and a precise account of what you built with a framework versus custom orchestration.</td><td>Do not claim two years of LangGraph, CrewAI, Semantic Kernel, or the OpenAI Agents SDK merely because you understand agent patterns.</td></tr>
+            <tr><td>Production agents and MCP servers</td><td>One real deployment: users, environment, auth boundary, connector contract, failure handled, monitoring, and your contribution. <a href="papercusp-answer-bank-standalone.html#n-tool-design">N6: agent tool interfaces</a>.</td><td>Distinguish internal/alpha use from external customer production. A local MCP demo does not prove production server operation.</td></tr>
+            <tr><td>Safety and enterprise governance</td><td>A guard with an actual refusal path and regression test, then explain how you would extend the principle to client-brand permissions.</td><td>Security mechanisms are not a certification. Don't claim a compliance audit or proven tenant isolation without evidence.</td></tr>
+            <tr><td>React / TypeScript and Node.js / Python</td><td>Walk one UI → API → worker → durable result path. Explain validation, state ownership, cancellation, and error recovery.</td><td>Name what you actually wrote in each language. Propose the remaining stack as design, not experience.</td></tr>
+            <tr><td>AWS / GCP and databases</td><td>A real environment you've operated, or a clearly hypothetical deployment with IAM, queues, persistence, observability, and backups.</td><td>A strong local platform story does not establish hands-on cloud operations. Do not list every cloud service as if you've run it.</td></tr>
+            <tr><td>Agent discovery and client feedback</td><td>A permission-aware agent catalog concept, plus a real stakeholder discussion in which feedback changed the implementation.</td><td>Keep the example hypothetical if no matching customer engagement exists. Do not invent a client, incident, or outcome.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">A good answer to a framework gap</p>
+        <p>“My deepest work has been on a custom agent platform, particularly its tool and execution boundaries. I don't want to overstate my use of <em>[framework]</em>. I can explain the corresponding state, tool, approval, and recovery patterns, and I'd use a focused implementation to learn your chosen framework.” Follow with a specific artifact you can show—not a claim that frameworks don't matter.</p>
+      </div>
+    </section>
+
+    <section id="system-design">
+      <p class="eyebrow">04 · A plausible design exercise, not a known interview question</p>
+      <h2>Design a governed creator-shortlisting assistant.</h2>
+      <div class="note">
+        <p class="eyebrow">Practice prompt</p>
+        <p>A brand manager gives a campaign brief. The assistant proposes relevant creators, explains the evidence and data freshness, saves a draft shortlist, and optionally drafts outreach. It must not reveal another client's data or contact creators without the required approval.</p>
+      </div>
+      <p><strong>Clarify before drawing:</strong> Who can act for which brand? Are agencies managing several brands? Which datasets and APIs are available? What counts as success? Is outreach in scope? Which actions are irreversible? What are the run-time, cost, freshness, language, and approval requirements? Don't assume CreatorIQ's internal implementation.</p>
+      <ol class="flow" aria-label="Proposed agent execution architecture">
+        <li><div><h3>React / TypeScript: select the workflow and scope</h3><p>Show the active brand, task, allowed data sources, requested actions, and expected review steps. Submit a run request to the backend. The browser never receives connector secrets and is not the policy authority.</p></div></li>
+        <li><div><h3>Node.js API: authenticate, authorize, and create durable state</h3><p>Resolve actor and tenant from trusted identity, validate the brief and resource scope, pin the agent version, and create a run record. Use an idempotency key for run creation. Enqueue through a transaction/outbox arrangement so the accepted run is not lost between database commit and queue publish.</p></div></li>
+        <li><div><h3>Durable orchestration: retrieve, reason, verify</h3><p>Run bounded steps in a worker; Python is useful if the ranking/ML stack needs it, not mandatory for every step. Persist checkpoints, deadlines, and usage. Let deterministic services perform filters and calculations; use the model for interpretation and evidence-grounded synthesis.</p></div></li>
+        <li><div><h3>MCP / API adapters: enforce the business boundary</h3><p>Expose narrow operations such as <code>search_creators</code>, <code>get_campaign_metrics</code>, and <code>save_shortlist_draft</code>. These names are illustrative. Derive tenant context server-side; enforce per-resource access and input/output contracts. Treat returned bios and posts as untrusted content.</p></div></li>
+        <li><div><h3>Review UI: show a proposal, not an unexplained verdict</h3><p>Return creator IDs, reasons, supporting records, timestamps, missing data, and suitability flags for human review. Show draft versus executed state clearly. Outreach approval names exact recipients and message content; changes invalidate the approval.</p></div></li>
+        <li><div><h3>Execution worker: reauthorize and perform one identified action</h3><p>Recheck policy, approver authority, expiry, resource version, and cancellation just before the side effect. Use a stable action ID with downstream idempotency where available. Record the external receipt. If the result is uncertain, reconcile before retrying.</p></div></li>
+        <li><div><h3>Observability: evidence from request to outcome</h3><p>Publish durable run events to the UI over SSE or another supported streaming channel, with reconnect from an event cursor. Keep audit access tenant-scoped. Track task outcome, tool failures, review burden, latency, and cost; route incidents into regression tests.</p></div></li>
+      </ol>
+      <div class="grid">
+        <article class="card">
+          <h3>State model you can write on a whiteboard</h3>
+          <p><code>queued → running → awaiting_approval → executing → succeeded</code></p>
+          <p>Also allow explicit <code>failed</code>, <code>cancelled</code>, <code>partial</code>, and <code>unknown_outcome</code> states. A policy denial is a reasoned outcome, not a generic transport error. A retry is a transition with a budget, not a new invisible run.</p>
+          <p class="small">Store the run separately from its actions. A run can contain one successful read and one uncertain send.</p>
+        </article>
+        <article class="card">
+          <h3>Choose boring infrastructure deliberately</h3>
+          <p>Start with a relational store for tenants, agent versions, runs, actions, approvals, and audit references; object storage for large artifacts; a durable queue for background work; and a search/retrieval index when needed. Treat caches and embeddings as derived data, not the authorization authority.</p>
+          <p>Pick AWS <em>or</em> GCP based on their existing environment. Use scoped service identities, managed secrets, bounded workers, backup/restore checks, and tenant-aware admission. Multi-cloud is not automatically a requirement.</p>
+        </article>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">The follow-up that reveals distributed-systems experience</p>
+        <p><strong>“The outreach API timed out. Do you retry?”</strong> Not blindly. The send may have completed. Query a receipt or status using the stable action ID; reuse a provider-supported idempotency key. If the provider cannot disambiguate, show an unknown outcome and reconcile through an operator. “Exactly once” is not a property you get by adding a queue.</p>
+      </div>
+    </section>
+
+    <section id="guardrail-matrix">
+      <p class="eyebrow">05 · Make each risk executable</p>
+      <h2>Name the bad outcome, the control, and the test.</h2>
+      <p>These are proposed acceptance tests for the practice design. For spoken answers and follow-ups, open the <a href="papercusp-answer-bank-standalone.html#guardrails">eight guardrails cards</a>.</p>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Guardrail threats, controls, and verification cases">
+        <table>
+          <caption>Use a legitimate positive control beside every refusal test</caption>
+          <thead><tr><th scope="col">Failure to prevent</th><th scope="col">Control at the right boundary</th><th scope="col">A discriminating test</th></tr></thead>
+          <tbody>
+            <tr><td>One brand sees another's campaign</td><td>Server-derived scope; resource checks; scoped retrieval, caches, and run history</td><td>Reuse identifiers and a conversation pointer from a second tenant. No unauthorized record enters the model context or response.</td></tr>
+            <tr><td>A creator bio instructs an export</td><td>Untrusted-data handling; restricted operations and outbound destinations</td><td>Plant the instruction in a retrieved field. Assert no export action or outbound payload, even if the answer text looks benign.</td></tr>
+            <tr><td>An MCP proxy misuses a token</td><td>Check intended audience and permissions; use separately authorized downstream credentials</td><td>A token for a different resource is rejected. The server does not forward the caller's bearer unchanged to an unrelated API. <a href="#source-mcp">[2]</a></td></tr>
+            <tr><td>“Approve draft” becomes “send to everyone”</td><td>Approval bound to actor, action version, parameters, and expiry</td><td>Change recipients after approval. Execution pauses for a new decision; no message is sent. <a href="#source-owasp">[3]</a></td></tr>
+            <tr><td>Timeout creates duplicate outreach</td><td>Stable action IDs, downstream idempotency, reconciliation</td><td>Let the provider accept the action, then lose the response. Redelivery does not create a second send.</td></tr>
+            <tr><td>A runaway agent consumes the budget</td><td>Shared budget reservation, deadlines, bounded retry and concurrency</td><td>Make several workers retry the same failing connector. They stop within the declared envelope and return a clear partial outcome.</td></tr>
+            <tr><td>A ranking invents evidence or overstates safety</td><td>Grounded records; deterministic metric computation; explicit missingness; review</td><td>Remove the supporting data. The answer states uncertainty instead of inventing a metric or certifying a creator as universally safe.</td></tr>
+            <tr><td>A stale approval executes after revocation</td><td>Reauthorize delayed jobs immediately before the side effect</td><td>Pause, revoke access, then resume with the old approval. The action is denied and the attempt is recorded.</td></tr>
+            <tr><td>A trace leaks sensitive material</td><td>Redacted records, scoped audit access, retention policy</td><td>Seed a canary secret and cross-tenant data; verify they do not appear in the model payload, public logs, or another tenant's trace view.</td></tr>
+            <tr><td>Suspending an agent only hides the UI</td><td>Execution-time version status check and worker cancellation</td><td>Queue an action, suspend the version, then start the worker. No new side effect occurs.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">Important distinction: content/brand suitability is a contextual business judgment; security authorization is an enforceable permission boundary. A model's suitability score must not grant access or waive human approval.</p>
+    </section>
+
+    <section id="discovery">
+      <p class="eyebrow">06 · Do not miss this requirement</p>
+      <h2>Agent discovery is a governed product experience.</h2>
+      <p><strong>Proposed catalog:</strong> a user searches by job to be done—campaign research, performance summary, shortlist drafting—then sees only eligible agents. Filter on tenant entitlement, data access, connector availability, approved version, and risk policy before ranking by task fit.</p>
+      <div class="grid">
+        <article class="card">
+          <h3>What an agent card should explain</h3>
+          <ul>
+            <li>Purpose, owner, supported tasks, and known limitations</li>
+            <li>Inputs, outputs, data freshness, and required connectors</li>
+            <li>Read/write permissions and the actions that need approval</li>
+            <li>Evaluation scope and date—not a context-free quality score</li>
+            <li>Expected latency/cost range from representative measurements</li>
+            <li>Version, availability, suspension status, and safe trial option</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>How to evaluate and choose</h3>
+          <p>Offer a sandbox or draft-only sample with the user's permitted data. Let users compare evidence quality, review effort, connector support, and task success. Explain why an agent is unavailable and what permission or configuration is missing.</p>
+          <p>A reviewed release moves from draft to pilot to approved; retirement and suspension remove it from new runs. Existing runs pin their version, but not an irrevocable right to continue after security revocation.</p>
+        </article>
+      </div>
+      <p class="small"><strong>Success metric:</strong> time from task intent to a correctly completed, policy-compliant workflow. A catalog click or agent install is only an intermediate signal.</p>
+    </section>
+
+    <section id="questions">
+      <p class="eyebrow">07 · Active recall</p>
+      <h2>Sixteen questions to rehearse aloud.</h2>
+      <p>Try each answer before opening it. These are original practice prompts inferred from the role—not leaked questions or a confirmed interview plan. Aim for 60–90 seconds, then let the interviewer choose the depth.</p>
+
+      <article class="question" id="cq-01">
+        <span class="tag">01 · Architecture</span>
+        <h3>What makes an agent production-ready rather than a demo?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Start with the useful task and permitted actions. Then cover trusted identity, durable run state, typed tools, resource-level authorization, bounded execution, approval for important side effects, observability, and a tested recovery path. Ship a small workflow with measured outcomes before generalizing to arbitrary autonomy.</p>
+          <p class="probe"><strong>Follow-up:</strong> “How do you know it worked?” Cite the action receipt and task-specific evidence. A fluent final message, HTTP 200, or queued job is not proof of successful execution.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-02">
+        <span class="tag">02 · MCP in production</span>
+        <h3>How would you expose CreatorIQ functionality through a custom MCP server?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Put a narrow adapter over existing domain APIs and reuse their permission rules. Define clear tool names, validated schemas, bounded results, typed errors, and resource checks. For a remote server, select a supported transport and compatible authorization implementation; plan for connection lifecycle, timeouts, rate limits, credential rotation, and contract tests. MCP standardizes interaction, not your entire security model. <a href="#source-mcp">[2]</a></p>
+          <p class="probe"><strong>Follow-up:</strong> “Does a session ID authenticate the caller?” No. Keep transport/session continuity separate from authenticated identity and authorization. Recheck the latter on protected operations.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-03">
+        <span class="tag">03 · Tool design</span>
+        <h3>What would a good campaign-analysis tool contract look like?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Prefer a domain operation to unrestricted SQL or an arbitrary URL fetcher. Accept a campaign identifier and a bounded date range; resolve brand access from the caller. Return structured metrics with units, period, attribution caveats, source timestamps, and pagination/truncation markers. Keep “no records,” “forbidden,” “stale data,” and “upstream unavailable” distinct.</p>
+          <p class="probe"><strong>Follow-up:</strong> “Can the model choose the tenant ID?” It may request a scope, but the server validates it against the caller's authority. A model-supplied ID must never become authority on its own.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-04">
+        <span class="tag">04 · Agent discovery</span>
+        <h3>How would you help customers choose the right agent?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Start with task intent and filter for eligibility before relevance. Show a versioned agent card with capability, permission, connector, review, and evaluation information. Let the user try a representative safe workflow and inspect the output. Measure completed workflow quality and time to value, not just selection frequency.</p>
+          <p class="probe"><strong>Follow-up:</strong> “What if the most relevant agent isn't allowed?” Explain the missing prerequisite without leaking restricted metadata. Offer an eligible alternative or a legitimate access-request path; ranking cannot override policy.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-05">
+        <span class="tag">05 · Guardrails</span>
+        <h3>Where do prompts stop being the right safety mechanism?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Use Papercusp's concrete boundary: a typed dispatcher can authorize an action before its handler; a file lock serializes a conflicting write; managed shell and PTY tools give arbitrary execution an accountable route. But a generic shell still needs OS and credential restrictions, and native execution remains available in the inspected Codex session. Do not claim universal enforcement. The <a href="papercusp-answer-bank-standalone.html#native-execution">source-checked Bash/tool breakdown</a> explains what exists, which substitutions are not equivalent, and what a complete cutover must prove.</p>
+          <p>For CreatorIQ, that translates to a narrow campaign or outreach operation whose backend checks actor, brand, resource, and approval—not a general-purpose shell with campaign credentials. Keep build/debug capabilities separate from customer-agent capabilities.</p>
+          <p class="probe"><strong>Follow-up:</strong> “Is removing a tool from the menu enough?” No. A manually constructed call still needs server authorization; an alternative runtime with the same unrestricted credentials can still defeat a high-level tool restriction.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-06">
+        <span class="tag">06 · Prompt injection</span>
+        <h3>A retrieved creator post asks the agent to export client data. What happens?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Treat the post as task data, never as a permission grant or a trusted instruction. Constrain the data passed into reasoning and keep external content out of privileged instructions. Restrict tool capabilities and egress, validate requested actions, and log the denied attempt if one is made. Test whether a forbidden side effect occurred, not whether the final answer sounded safe. <a href="#source-openai-safety">[4]</a></p>
+          <p class="probe"><strong>Follow-up:</strong> “Can you eliminate the risk?” No single filter or prompt proves that. Use multiple controls and disclose the residual risk.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-07">
+        <span class="tag">07 · Distributed systems</span>
+        <h3>How do you handle a tool timeout after a write may have succeeded?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Keep a stable action identity and separate submission from confirmation. Query downstream state or a receipt, use supported idempotency, and reconcile before retrying. Distinguish a transient connection problem from invalid input or a policy denial. A failed response is not a negative acknowledgment from the business system.</p>
+          <p class="probe"><strong>Follow-up:</strong> “What if the API has neither idempotency nor a status lookup?” Preserve an unknown outcome, stop automatic retries for risky writes, and provide a human reconciliation path. State that limitation before launch.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-08">
+        <span class="tag">08 · React / TypeScript</span>
+        <h3>How would you build the frontend for a long-running agent?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Use server-owned run state represented by a typed state machine. Show progress, evidence, pending approvals, partial results, and actionable errors. Subscribe to events, deduplicate by event ID, and reconnect with a cursor or fetch a fresh snapshot when the cursor is too old. Cancel goes to the backend. A tab refresh must not lose the job or imply it restarted.</p>
+          <p class="probe"><strong>Follow-up:</strong> “What about generated content?” Render it as untrusted text or sanitized markup, validate links, and never execute generated HTML. Support keyboard navigation, focus management, and non-noisy status announcements.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-09">
+        <span class="tag">09 · Backend boundaries</span>
+        <h3>Where would you use Node.js and where would you use Python?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Choose based on the existing team and workload. Node/TypeScript can own the API, frontend-adjacent types, streaming, and connector adapters. Python can own ranking, ML evaluation, or orchestration when its libraries justify it. Do not split a simple workflow into services just to use both languages. Across a real boundary, use versioned schemas, run IDs, timeouts, and explicit errors.</p>
+          <p class="probe"><strong>Follow-up:</strong> “How do you keep the API and worker in sync?” Contract tests and backward-compatible event/schema changes; deploy consumers that tolerate the transition before producers depend on new fields.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-10">
+        <span class="tag">10 · Cloud and scale</span>
+        <h3>How would you scale this across global enterprise customers?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Separate interactive APIs, durable orchestration, inference, and connector workers. Bound concurrency at provider and tenant boundaries; use fair queues so one brand cannot monopolize capacity. Autoscale against actionable queue and latency signals with downstream limits in mind. Plan scoped service identities, secrets, telemetry, region requirements, restore tests, and failure drills.</p>
+          <p class="probe"><strong>Follow-up:</strong> “AWS or GCP?” Start with the platform they already operate. Explain one concrete design you understand; do not assume the posting's mention of both means a multi-cloud mandate.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-11">
+        <span class="tag">11 · Databases</span>
+        <h3>What belongs in a relational database versus a vector index?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Use a relational store for authoritative identities, permissions, run transitions, approvals, and action records. Use search/vector retrieval for candidate discovery and supporting evidence, with scope filtering and freshness metadata. Store large artifacts separately. Indexes and caches need invalidation and deletion propagation; their stale copy must not decide that access is allowed.</p>
+          <p class="probe"><strong>Follow-up:</strong> “Can an embedding be treated as harmless?” No. Apply the source data's access and retention requirements to derived representations too.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-12">
+        <span class="tag">12 · Evaluation and creator relevance</span>
+        <h3>How would you know the shortlist is good?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Agree a task rubric with domain experts: relevance to the brief, evidence correctness, freshness, suitability concerns, useful coverage, and review effort. Compare against a baseline on representative campaigns, languages, and creator sizes. Keep hard permission tests separate from subjective recommendation quality. Then examine user acceptance, edits, completion time, and downstream outcomes with appropriate caveats.</p>
+          <p class="probe"><strong>Follow-up:</strong> “Does higher engagement prove the agent drove sales?” No. Metric definitions and attribution matter; do not turn correlation, estimated reach, or missing conversion data into a causal ROI claim.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-13">
+        <span class="tag">13 · Framework judgment</span>
+        <h3>Would you use LangGraph, an agent SDK, or custom orchestration?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Choose on requirements: durable state, human review, branching, replay behavior, tracing, language, and operational support. LangGraph supports interrupt-and-resume workflows; the OpenAI Agents SDK runs tool loops and supports agent handoffs and review patterns. Frameworks do not own your business authorization, tenancy model, or external side-effect guarantees. <a href="#source-langgraph">[5]</a> <a href="#source-agents">[6]</a></p>
+          <p class="probe"><strong>Follow-up:</strong> “What subtle behavior would you check?” Whether resuming repeats code before a pause. LangGraph's interrupted node restarts from its beginning, so repeated side effects require careful placement and idempotency. Be precise about the version you've actually used.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-14">
+        <span class="tag">14 · Client engagement</span>
+        <h3>A customer says the agent's recommendations are wrong. What do you do?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Ask for the business expectation and a concrete example, with permission to inspect the relevant trace. Reconstruct the brief, data freshness, agent version, tool results, and review outcome. Classify whether the issue is retrieval, permissions, metric meaning, reasoning, or unclear UX. Agree a testable improvement with the customer and turn the example into a privacy-safe regression case.</p>
+          <p class="probe"><strong>Follow-up:</strong> “Would you show the entire trace?” Only what that customer is allowed to see, with secrets and unrelated data removed. Explain the evidence and decision path without exposing hidden model reasoning.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-15">
+        <span class="tag">15 · Product trade-off</span>
+        <h3>A PM wants autonomous outreach immediately. How do you respond?</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Clarify the desired outcome and the actual risk: wrong recipients, duplicate messages, incorrect claims, or policy violations. Offer a useful first release—drafting plus a bounded, explicit approval flow—then define what evidence would justify more autonomy. Put metrics and stop conditions on the pilot. Challenge the mechanism while preserving the business goal.</p>
+          <p class="probe"><strong>Follow-up:</strong> “Does that slow innovation?” It creates a credible path to learn with limited consequences. Avoid both unrestricted automation and approval fatigue.</p>
+        </details>
+      </article>
+      <article class="question" id="cq-16">
+        <span class="tag">16 · Honest production evidence</span>
+        <h3>Tell me about an agent or MCP system you personally deployed.</h3>
+        <details class="answer"><summary>Reveal answer spine and follow-up</summary>
+          <p>Name the environment and users, your precise contribution, one end-to-end request, one failure you handled, and the test or operational evidence that supports the outcome. Use Papercusp where that is accurate, but distinguish internal dogfooding, alpha deployments, and external customer use. State what you would need to add for a global multi-tenant enterprise.</p>
+          <p class="probe"><strong>Follow-up:</strong> “What was the scale and impact?” Use a dated measurement you can explain, with units and a denominator. Do not substitute repository size, number of agents launched, or a marketing-style estimate for production reliability.</p>
+        </details>
+      </article>
+    </section>
+
+    <section id="stories">
+      <p class="eyebrow">08 · Five stories are enough</p>
+      <h2>Pick the relevant story, not the biggest one.</h2>
+      <p>These links point into your existing bank. They are preparation leads, not a new audit of every historical claim. For each, write down <strong>your action</strong>, the alternative you rejected, the verified result, and what you would change.</p>
+      <div class="grid">
+        <article class="card"><h3>Guardrails that actually execute</h3><p><a href="papercusp-answer-bank-standalone.html#q-security">Q10: security</a> + <a href="papercusp-answer-bank-standalone.html#g-permissions">G1: permission boundary</a>. Connect a pre-write or tool gate to CreatorIQ's protected campaign actions. Don't imply a configuration hook is an unbreakable sandbox.</p></article>
+        <article class="card"><h3>Concurrency and lost work</h3><p><a href="papercusp-answer-bank-standalone.html#q-concurrency">Q4: races</a>. Explain atomic claims and lock boundaries; translate the lesson into approval consumption and duplicate-action prevention.</p></article>
+        <article class="card"><h3>The test that could pass while wrong</h3><p><a href="papercusp-answer-bank-standalone.html#q-testing">Q2: testing</a> + <a href="papercusp-answer-bank-standalone.html#q-ai-eval">Q8: AI evaluation</a>. Connect positive controls and observable side effects to safe rollout.</p></article>
+        <article class="card"><h3>An interface built for agents</h3><p><a href="papercusp-answer-bank-standalone.html#n-tool-design">N6: tool design</a>. Explain bounded schemas, useful errors, and explicit truncation; map it to campaign and creator connectors.</p></article>
+        <article class="card"><h3>An incident and its detector</h3><p><a href="papercusp-answer-bank-standalone.html#n-incident">N9: incident</a>. Emphasize the difference between “the scheduler fired” and “the work completed,” then show the durable prevention.</p></article>
+        <article class="card"><h3>Values, with an actual event</h3><p>Map the supplied values to evidence: <em>intentional</em> → choosing a bounded use case; <em>excellence</em> → testing the failure path; <em>journey together</em> → a real collaboration; <em>good human</em> → admitting uncertainty or a mistake promptly. Use a genuine example.</p></article>
+      </div>
+    </section>
+
+    <section id="first-90">
+      <p class="eyebrow">09 · A proposal, not a promise</p>
+      <h2>Learn the boundary, ship a slice, then widen it.</h2>
+      <ol class="flow">
+        <li><div><h3>Days 1–30: understand the existing platform</h3><p>Map identity, tenant/brand access, APIs, MCP implementations, deployment, and incident history. Sit with a customer-facing partner and a real workflow. Agree the first use case, risk model, baseline, and measurable acceptance criteria.</p></div></li>
+        <li><div><h3>Days 31–60: deliver one governed vertical slice</h3><p>Ship a limited draft-first experience with a typed connector, durable runs, permission tests, evidence display, and approvals where needed. Pilot with an agreed audience; measure quality, latency, cost, and review burden.</p></div></li>
+        <li><div><h3>Days 61–90: make the pattern reusable</h3><p>Use pilot results to improve the agent card, evaluation suite, connector contracts, audit view, and operational runbook. Broaden scope only where the evidence supports it. Assign ownership for each version and its ongoing support.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="ask-them">
+      <p class="eyebrow">10 · Use the interview to learn</p>
+      <h2>Ask questions that expose the real design constraints.</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Hiring manager / engineering</h3>
+          <ol>
+            <li>Which agentic workflows are already in customer use, and which are still prototypes?</li>
+            <li>Does “agent discovery” mean a first-party catalog, partner agents, or both—and who approves an agent for enterprise use?</li>
+            <li>Where is authorization enforced today across the API, MCP server, and background worker paths?</li>
+            <li>Which actions may run autonomously, and which must have a human decision?</li>
+            <li>What framework and durable orchestration stack do you use? What would you want this hire to preserve or change?</li>
+            <li>What would make the first 90 days successful: a connector, a governed workflow, a catalog, or a reliability improvement?</li>
+          </ol>
+        </article>
+        <article class="card">
+          <h3>Product / recruiter / customer partner</h3>
+          <ol>
+            <li>Where do customers spend the most time reviewing or correcting AI-assisted work?</li>
+            <li>How do engineering, security, product, and client-facing teams agree launch criteria?</li>
+            <li>How much of this role is hands-on delivery versus platform governance and client engagement?</li>
+            <li>Which office or region is this opening attached to, and what does the flexible model mean for this team?</li>
+            <li>What are the interview stages and technical exercise format?</li>
+            <li>What is the budgeted base range and total-compensation structure for this level and location?</li>
+          </ol>
+        </article>
+      </div>
+      <p class="small">The supplied benefits include vacation, health coverage, parental leave, a 401(k), and a home-office stipend. No salary range was included. Ask rather than borrowing a range from an unrelated listing.</p>
+    </section>
+
+    <section id="rehearsal">
+      <p class="eyebrow">11 · A focused rehearsal</p>
+      <h2>Thirty minutes to make the answers your own.</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Suggested practice—not their interview format</h3>
+          <ul>
+            <li><strong>0–4 min:</strong> introduction, why CreatorIQ, and one evidence-backed story.</li>
+            <li><strong>4–14 min:</strong> draw the shortlist workflow; narrate scope, authority, approvals, and data flow.</li>
+            <li><strong>14–23 min:</strong> answer a prompt-injection case, a timeout-after-send case, and an agent-discovery question.</li>
+            <li><strong>23–27 min:</strong> explain one framework gap and one cloud decision honestly.</li>
+            <li><strong>27–30 min:</strong> choose two questions to ask; remove claims you cannot substantiate.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Before the call</h3>
+          <ul class="checklist">
+            <li>Confirm stage, time zone, duration, interviewer, and tooling rules.</li>
+            <li>Have your exact career and AI-project dates ready.</li>
+            <li>Know which Papercusp components you personally owned.</li>
+            <li>Choose one production failure and its recurrence test.</li>
+            <li>Explain API versus MCP versus agent runtime in plain language.</li>
+            <li>Keep proposal, approval, execution, and verified outcome distinct.</li>
+            <li>Say “I would” for design, “I did” only for real experience.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="references">
+      <p class="eyebrow">12 · Provenance</p>
+      <h2>What is known, inferred, and still open.</h2>
+      <div class="note warn">
+        <p class="eyebrow">Read this before quoting a claim</p>
+        <p><strong>Supplied:</strong> the full role description, experience requirements, company figures, values, benefits, and named technologies. <strong>Source-checked:</strong> the official pages below were retrieved on 9 September 2026. <strong>Inferred:</strong> interview emphasis, practice prompts, proposed architecture, and the first-90-days plan. <strong>Unknown:</strong> the team's actual architecture, adopted SDK versions, interview process, compensation, and your experience not established by existing materials.</p>
+        <p>The web-search tool returned no usable page content in this session; the references were retrieved directly from their official domains. No claim is made that this exact job remains open or that the proposed questions match CreatorIQ's interview process.</p>
+      </div>
+      <ol class="refs">
+        <li id="source-company"><a href="https://www.creatoriq.com/" target="_blank" rel="noreferrer">CreatorIQ official homepage</a> — public product positioning: intelligence, governance, brand safety, and enterprise workflows. Company scale figures above remain attributed to the supplied posting.</li>
+        <li id="source-mcp"><a href="https://modelcontextprotocol.io/specification/draft/basic/authorization" target="_blank" rel="noreferrer">MCP authorization (draft)</a> · <a href="https://modelcontextprotocol.io/docs/draft/tutorials/security/security_best_practices" target="_blank" rel="noreferrer">MCP security best practices (draft)</a> · <a href="https://modelcontextprotocol.io/specification/2025-11-25/basic/transports" target="_blank" rel="noreferrer">MCP transports (2025-11-25)</a>. Draft requirements can change; verify the negotiated protocol and SDK versions before implementation.</li>
+        <li id="source-owasp"><a href="https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html" target="_blank" rel="noreferrer">OWASP AI Agent Security Cheat Sheet</a> — risk-based tool access, human control, exact-action approvals, and failure handling. Guidance, not a compliance certificate.</li>
+        <li id="source-openai-safety"><a href="https://developers.openai.com/api/docs/guides/agent-builder-safety" target="_blank" rel="noreferrer">OpenAI: Safety in building agents</a> — injection and private-data risks; constrained data flow and layered mitigations. Used as safety guidance, not a recommendation to adopt a particular hosted builder.</li>
+        <li id="source-langgraph"><a href="https://docs.langchain.com/oss/python/langgraph/interrupts" target="_blank" rel="noreferrer">LangGraph: Interrupts</a> — durable pause/resume and the repeated-execution behavior that makes side-effect placement important.</li>
+        <li id="source-agents"><a href="https://developers.openai.com/api/docs/guides/agents" target="_blank" rel="noreferrer">OpenAI: Agents SDK</a> — SDK-managed agent loops, handoffs, and review patterns; the host still owns deployment, tool implementations, state storage, and approval decisions.</li>
+        <li><a href="papercusp-answer-bank-standalone.html">Local Papercusp Answer Bank</a> — candidate story drafts, dated scale figures, and code pointers; <a href="mcp-cicd-study-faq-standalone.html">CI/CD + MCP FAQ</a> for the companion technical refresher.</li>
+      </ol>
+    </section>
+  </main>
+  <footer>
+    <p><strong>CreatorIQ · Senior Full-stack Engineer (Agentic Experience)</strong> — local interview-prep document. Prepared 9 September 2026 from the supplied role and the references above. No application, assessment, or external message is submitted by this page.</p>
+    <p><a href="papercusp-answer-bank-standalone.html#guardrails">Rehearse the guardrails answers</a> · <a href="#top">Back to top</a></p>
+  </footer>
+</div>
+</body>
+</html>

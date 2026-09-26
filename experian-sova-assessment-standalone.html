@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Experian — Sova Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1410; --surface: #131E18; --surface-alt: #1A2921;
+    --ink: #E5EEE9; --ink-muted: #9DADA4; --ink-faint: #708077;
+    --accent: #66C69C; --accent-strong: #8BDCB8; --accent-soft: #17372A;
+    --caution: #D9A43A; --caution-soft: #33290F;
+    --critical: #E0736C; --critical-soft: #3A1E1C;
+    --info: #78B7DE; --info-soft: #172D3B;
+    --rule: #26372E; --rule-strong: #3B5145;
+  }
+  .tag.gap { background: var(--critical-soft); color: var(--critical); }
+  .question-list .rank { display: inline-block; margin-bottom: 0.15rem; }
+  .script .say code { font-size: 0.8em; }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Experian · Sova online assessment · prepared 8 Sep 2026</p>
+      <h1>Twenty-five minutes, no code, scored on speed and accuracy together.</h1>
+      <p class="standfirst">This is a different animal from the CodeSignal test. Experian runs its early-stage assessment on the Sova platform: a <em>behavioral</em> half (personality questionnaire, possibly a situational judgment test) and a <em>cognitive</em> half (numerical, verbal, logical items), blended into one continuous flow of about twenty to twenty-five minutes. There is nothing to memorise. There is one format to learn, one honesty rule to keep, and one pacing rule that decides the percentile.</p>
+    </div>
+    <aside class="join-card" aria-label="Assessment details">
+      <p class="eyebrow">Owner-supplied format</p>
+      <p><strong>Sova assessment invite from Experian.</strong><br><span class="muted">Role title, recruiter and the exact deadline were not supplied. Add them here when you have them.</span></p>
+      <p><strong class="hot">Do the official practice first.</strong><br><span class="muted">Sova publishes practice items in the exact formats it uses. Thirty minutes there removes most of the surprise; start at <a href="#plan">section 04</a>.</span></p>
+      <a class="button" href="https://www.sovaassessment.com/candidate-preparation-hub" target="_blank" rel="noreferrer">Open Sova's Candidate Preparation Hub ↗</a>
+      <p class="small muted">Take it on a laptop, in a quiet room, early in the window the invite gives you, never on the last evening.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Assessment facts">
+    <div class="fact"><dt>Platform</dt><dd>Sova</dd></div>
+    <div class="fact"><dt>Length</dt><dd>~20–25 minutes</dd></div>
+    <div class="fact"><dt>Coding</dt><dd class="hot">None</dd></div>
+    <div class="fact"><dt>Halves</dt><dd>Behavioral + cognitive</dd></div>
+    <div class="fact"><dt>Time limit</dt><dd class="hot">None hard · speed is scored</dd></div>
+    <div class="fact"><dt>Scoring</dt><dd>Percentile vs norm group</dd></div>
+    <div class="fact"><dt>Deadline</dt><dd class="hot">Not supplied</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Read this first</a></li>
+      <li><span class="n">02</span><a href="#behavioral">Behavioral half</a></li>
+      <li><span class="n">03</span><a href="#cognitive">Cognitive half</a></li>
+      <li><span class="n">04</span><a href="#plan">Practice plan</a></li>
+      <li><span class="n">05</span><a href="#checklist">Day-of checklist</a></li>
+      <li><span class="n">06</span><a href="#sources">Sources + confidence</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Read this first</p>
+        <h2>Three rules carry the whole assessment</h2>
+      </div>
+      <div class="priority-grid">
+        <article class="priority">
+          <span class="num">RULE 1 / HONESTY</span>
+          <h3>Answer the personality items consistently</h3>
+          <p>It is not pass/fail; it is scored as competency profiles. Sova's forced-choice format asks the same traits several ways, so an answer set tuned to “what they want” comes out inconsistent, and inconsistency reads worse than any single trait.</p>
+        </article>
+        <article class="priority">
+          <span class="num">RULE 2 / FORMAT</span>
+          <h3>Learn the item types before the clock starts</h3>
+          <p>Every cognitive item is a known shape: a table to read, a passage to judge, a shape sequence to complete. The knowledge is secondary-school level. The points are lost to unfamiliar formats, not hard content.</p>
+        </article>
+        <article class="priority">
+          <span class="num">RULE 3 / PACING</span>
+          <h3>Ninety seconds, then guess and move</h3>
+          <p>There is no hard time limit, but Sova reports speed and accuracy together as one percentile. A question you sit on for four minutes costs more than a wrong answer. Never leave one blank.</p>
+        </article>
+        <article class="priority">
+          <span class="num">HOW IT DIFFERS</span>
+          <h3>Not CodeSignal, not an interview</h3>
+          <p>No IDE, no hidden tests, no partial credit per case, nobody to talk to. The <a href="kaseya-codesignal-mle-core-standalone.html">Kaseya page</a> and the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a> do not help here; the only transferable asset is a calm, well-rested twenty-five minutes.</p>
+        </article>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">What the flow looks like</p>
+        <p>Sova blends the sections into one sitting with short instructions between them. Expect the personality questionnaire, then (if Experian's configuration includes it) a handful of workplace scenarios, then the three cognitive blocks in some order. You can usually pause between blocks but not inside one. Read each block's instructions once, carefully; they state the response format and whether the block is timed.</p>
+      </div>
+    </section>
+
+    <section id="behavioral">
+      <div class="sec-head">
+        <p class="eyebrow">02 · Behavioral half</p>
+        <h2>Personality questionnaire, and possibly a situational judgment test</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Personality questionnaire</h3>
+          <ul>
+            <li><strong>Format.</strong> Sets of four statements. Rank each 1–5 from “least like me” to “most like me”, with <strong>no ties</strong> inside a set. There are typically several dozen sets; each takes fifteen to twenty seconds.</li>
+            <li><strong>Scoring.</strong> Not pass/fail. The answers are mapped to competency profiles (drive, resilience, collaboration, analytical style) and compared to the role's target profile.</li>
+            <li><strong>How to answer.</strong> As the engineer you actually are at work, quickly, first instinct. If two statements are both true of you, rank the one you would act on first.</li>
+            <li><strong>The trap.</strong> Picking the “impressive” statement each time. The instrument asks each trait from several angles; a gamed profile disagrees with itself and is flagged as low-consistency.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Situational judgment, if present</h3>
+          <ul>
+            <li><strong>Format.</strong> A short workplace scenario and four or five responses. Pick the <strong>most</strong> and the <strong>least</strong> effective. Sometimes rank all of them.</li>
+            <li><strong>Anchor.</strong> Experian's stated values: integrity, collaboration, customer focus, and responsibility with data. Model the “most effective” answer on those, not on speed or heroics.</li>
+            <li><strong>The reliable pattern.</strong> Most effective is usually <em>gather the facts, communicate directly with the person involved, take ownership of the next step</em>. Least effective is <em>ignore it, escalate before trying, or go around a colleague</em>.</li>
+            <li><strong>Data scenarios.</strong> Anything touching customer data, access, or a shortcut around a control: the compliant option is the most effective one, even when it is slower.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">Consistency beats polish</p>
+        <p>If a personality set forces you to rank “I prefer to work alone” against “I enjoy leading a group”, answer the way you would describe yourself to a colleague who knows you. The same pair will come back in different words; the second answer has to match the first without you having to remember it, and that only happens if both were true.</p>
+      </div>
+    </section>
+
+    <section id="cognitive">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Cognitive half</p>
+        <h2>Numerical, verbal, logical: the three formats and the one trap in each</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Numerical reasoning</h3>
+          <ul>
+            <li><strong>Items.</strong> A table or chart, then a question: a percentage, a ratio, an average, a percent change, a projection from a trend.</li>
+            <li><strong>Kit.</strong> Paper, pen, and a calculator on the desk before you start. Sova does not always provide an on-screen one.</li>
+            <li><strong>Method.</strong> Read the question first, then find the two or three numbers it needs in the table. Do not read the whole table.</li>
+            <li><strong>Trap.</strong> Units and bases: “percent change from 2023 to 2024” divides by the 2023 figure; “thousands” in a column header; a chart whose axis does not start at zero.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Verbal reasoning</h3>
+          <ul>
+            <li><strong>Items.</strong> A short passage, then statements to mark <strong>true</strong>, <strong>false</strong>, or <strong>cannot say</strong>.</li>
+            <li><strong>Rule.</strong> Judge only from the passage. “Cannot say” means the passage does not state it or imply it directly, however plausible it is in the real world.</li>
+            <li><strong>Method.</strong> Read the statement, then scan the passage for its key noun. True requires an explicit match; false requires an explicit contradiction; everything else is cannot say.</li>
+            <li><strong>Trap.</strong> Using outside knowledge. Engineers lose these on topics they know well, because the passage says less than they do.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Logical reasoning</h3>
+          <ul>
+            <li><strong>Items.</strong> A sequence or grid of abstract shapes with one missing. Pick the item that completes the rule.</li>
+            <li><strong>Rules to look for.</strong> Rotation (by a fixed angle), count (of sides, dots, or shapes), shading (alternating or cycling), position (moving around a frame), and size. Sova usually applies <strong>two rules at once</strong>.</li>
+            <li><strong>Method.</strong> Name one rule out loud, eliminate the options that break it, then find the second rule among what is left.</li>
+            <li><strong>Trap.</strong> Chasing a third rule when two already leave one option. Pick it and move.</li>
+          </ul>
+        </article>
+        <div class="stack">
+          <div class="note crit">
+            <p class="eyebrow">Pacing is the score</p>
+            <p>Sova's own scoring note says the ability percentile combines the number correct <strong>and</strong> the time taken. A candidate who answers everything in fifteen minutes at 80% typically outranks one who takes thirty at 90%. Set a private budget of about ninety seconds per cognitive item; at the limit, choose the best remaining option and go on.</p>
+          </div>
+          <div class="note info">
+            <p class="eyebrow">Adaptive or fixed?</p>
+            <p>Some Sova cognitive blocks adapt difficulty to your answers, so items getting harder is a good sign, not a bad one. Do not read difficulty as a verdict on how you are doing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Practice plan</p>
+        <h2>About two hours in total, spread over two days</h2>
+      </div>
+      <ol class="timeline">
+        <li><div><h3>Session 1 · 40 min · the official practice</h3><p>Sova's Candidate Preparation Hub: one pass through every item type it offers, untimed, reading each block's instructions in full. This is the only source that uses the exact formats you will see. Note which block felt slowest.</p></div></li>
+        <li><div><h3>Session 2 · 30 min · one free timed set</h3><p>One numerical and one verbal set from Practice Aptitude Tests or AssessmentDay, timed. Mark every miss as <em>format</em>, <em>arithmetic</em>, or <em>outside knowledge</em>. The third category is the one to fix; re-read the verbal rule in section 03.</p></div></li>
+        <li><div><h3>Session 3 · 20 min · the slow block again</h3><p>Whichever block was slowest in session 1, timed, at ninety seconds per item. Stop when you can hold the pace with most items correct.</p></div></li>
+        <li><div><h3>Session 4 · 15 min · read Experian's values and the day-of checklist</h3><p>Experian's careers page states its values; read them once so the situational judgment anchors are fresh. Then section 05 below. No personality practice: there is nothing to rehearse and rehearsing makes the profile less consistent.</p></div></li>
+        <li><div><h3>The day · 25 min</h3><p>Morning, rested, laptop, wired or strong Wi-Fi, phone in another room. One block at a time; do not stop in the middle of one.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Day-of checklist</p>
+        <h2>Ten things, none of them about ability</h2>
+      </div>
+      <ul class="checklist">
+        <li>Laptop, not phone. Charger plugged in. Browser updated; pop-up blocker allowed for the Sova domain.</li>
+        <li>Quiet room, door closed, 40 uninterrupted minutes blocked even though the test is 25.</li>
+        <li>Paper, pen, and a physical calculator on the desk.</li>
+        <li>Water. No caffeine spike in the last hour; the personality half reads better calm.</li>
+        <li>Open the invite link once beforehand to confirm it loads and that the deadline shown matches what you were told.</li>
+        <li>Read each block's instructions completely. They state the format and whether the block is timed.</li>
+        <li>Personality: first instinct, no ties, answer as yourself at work.</li>
+        <li>Situational judgment: facts first, speak directly, own the next step; the compliant option wins on anything touching data.</li>
+        <li>Cognitive: question before table; passage only, never outside knowledge; two rules for shapes; ninety seconds then move.</li>
+        <li>Never leave an item blank. Never refresh the browser mid-block; use the platform's own navigation.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Sources + confidence</p>
+        <h2>What is from Sova, what is from third-party guides, what is inferred</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Confidence by claim</h3>
+          <ul>
+            <li><span class="badge fact">Fact</span> Sova scores ability items on speed and accuracy together, reported as a percentile against a norm group; Sova publishes official practice items. Sova's own help centre and preparation hub.</li>
+            <li><span class="badge fact">Fact</span> The item formats: forced-choice personality sets ranked 1–5 without ties; most/least effective situational judgment; numerical from tables and charts; verbal true/false/cannot say; logical shape sequences. Sova's hub plus three independent test-prep guides that agree.</li>
+            <li><span class="badge inference">Inference</span> That Experian's current flow is the blended 20–25 minute Sova assessment the third-party guides describe. Check the duration stated in your invite against this.</li>
+            <li><span class="badge inference">Inference</span> That Experian's values page (integrity, collaboration, customer focus, data responsibility) is the scoring anchor for any situational judgment items. Standard practice for a values-based SJT; not confirmed by Experian.</li>
+            <li><span class="badge unknown">Unknown</span> Whether the situational judgment block is included for this role, whether the cognitive blocks are adaptive in this configuration, the role title, the recruiter, and the exact deadline.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Sources</h3>
+          <ul class="source-list">
+            <li><a href="https://www.sovaassessment.com/candidate-preparation-hub" target="_blank" rel="noreferrer">Sova — Candidate Preparation Hub (official practice items)</a></li>
+            <li><a href="https://sovaassessment.zendesk.com/hc/en-gb/articles/19219736006290-Information-on-Scoring" target="_blank" rel="noreferrer">Sova — Information on Scoring (speed and accuracy, percentile norming)</a></li>
+            <li><a href="https://psychometric-success.com/aptitude-tests/test-types/sova-tests" target="_blank" rel="noreferrer">Psychometric Success — Sova tests guide</a></li>
+            <li><a href="https://www.practiceaptitudetests.com/testing-publishers/sova/" target="_blank" rel="noreferrer">Practice Aptitude Tests — Sova publisher page (free practice sets)</a></li>
+            <li><a href="https://www.assessment-training.com/blogs/experian-test-guide" target="_blank" rel="noreferrer">Assessment-Training — Experian test guide</a></li>
+            <li><a href="https://www.experian.com/careers" target="_blank" rel="noreferrer">Experian — careers and values page</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared 8 Sep 2026 for Experian's Sova online assessment. Generated by <code>build-experian-page.py</code>; re-run it after any edit, then <code>./build-standalone.sh</code>.</p>
+    <p><a href="#top">Back to top ↑</a></p>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Mercor and Deeptune Member of Technical Staff interview preparation: Papercusp technical deep dive, agent environments, rollout evaluation, and the eight-hour hackathon.">
+<title>Mercor / Deeptune — Member of Technical Staff Prep</title>
+<style>
+  :root {
+    --ground:#F6F8F9; --surface:#FFFFFF; --surface-alt:#EEF2F3;
+    --ink:#10181C; --muted:#55646C; --faint:#8A979E;
+    --accent:#14666E; --accent-soft:#DCEAEB;
+    --rule:#DDE4E7; --rule-strong:#C3CFD3;
+    --caution:#8A5D05; --caution-soft:#F7EDD6;
+    --critical:#A3322C; --critical-soft:#F7E2E0;
+    --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:#0D1417; --surface:#141E22; --surface-alt:#1A262B;
+      --ink:#E6EDEF; --muted:#A5B5BD; --faint:#6C7C84;
+      --accent:#6CC3CA; --accent-soft:#16333A;
+      --rule:#2A3B42; --rule-strong:#40545C;
+      --caution:#E5B654; --caution-soft:#33290F;
+      --critical:#E0736C; --critical-soft:#3A1E1C;
+    }
+  }
+  * { box-sizing:border-box; }
+  html { scroll-padding-top:5rem; }
+  body {
+    margin:0; background:var(--ground); color:var(--ink);
+    font:17px/1.65 var(--f-body); -webkit-font-smoothing:antialiased;
+  }
+  a { color:var(--accent); text-underline-offset:3px; }
+  a:focus-visible, summary:focus-visible {
+    outline:2px solid var(--accent); outline-offset:3px;
+  }
+  h1,h2,h3 {
+    font-family:var(--f-display); line-height:1.18;
+    letter-spacing:-.015em; text-wrap:balance; margin:0;
+  }
+  h1 { font-size:clamp(2.1rem,5vw,3.4rem); max-width:18ch; }
+  h2 { font-size:1.55rem; }
+  h3 { font-size:1.05rem; }
+  p { margin:0; }
+  ul,ol { margin:.55rem 0 0; padding-left:1.3rem; }
+  li + li { margin-top:.45rem; }
+  code {
+    font: .84em var(--f-mono); background:var(--surface-alt);
+    padding:.08em .3em; border-radius:2px;
+  }
+  .wrap { width:min(70rem,100%); margin:auto; padding:0 1.5rem 5rem; }
+  .sitenav {
+    position:sticky; top:0; z-index:10; display:flex; flex-wrap:wrap;
+    gap:.2rem; padding:.65rem 0; background:var(--ground);
+    border-bottom:1px solid var(--rule);
+    font:600 .81rem/1.5 var(--f-display);
+  }
+  .sitenav a {
+    color:var(--muted); padding:.35rem .6rem; border:1px solid transparent;
+    border-radius:2px; text-decoration:none; white-space:nowrap;
+  }
+  .sitenav a:hover { color:var(--accent); background:var(--accent-soft); }
+  .sitenav a[aria-current="page"] {
+    color:var(--accent); background:var(--surface); border-color:var(--rule);
+  }
+  .sitenav .sep { flex:1; }
+  .hero {
+    display:grid; grid-template-columns:minmax(0,1.6fr) minmax(16rem,1fr);
+    gap:2rem; align-items:start; padding:3rem 0 2.2rem;
+  }
+  .eyebrow {
+    color:var(--accent); font:600 .7rem/1.6 var(--f-mono);
+    letter-spacing:.12em; text-transform:uppercase;
+  }
+  .standfirst { color:var(--muted); font-size:1.15rem; max-width:54ch; margin-top:1rem; }
+  .brief,.note,.card {
+    background:var(--surface); border:1px solid var(--rule);
+    border-radius:3px; padding:1.2rem 1.3rem;
+  }
+  .brief { border-top:3px solid var(--accent); }
+  .brief dl { margin:1rem 0 0; }
+  .brief dt {
+    color:var(--muted); font:600 .68rem var(--f-mono);
+    letter-spacing:.08em; text-transform:uppercase; margin-top:.8rem;
+  }
+  .brief dd { margin:.15rem 0 0; font:600 .98rem/1.45 var(--f-display); }
+  .note { border-left:3px solid var(--accent); }
+  .note.warn { border-left-color:var(--caution); }
+  .note.warn .eyebrow { color:var(--caution); }
+  .note.crit { border-left-color:var(--critical); }
+  .note.crit .eyebrow { color:var(--critical); }
+  .note + .note { margin-top:1rem; }
+  .toc {
+    border-block:1px solid var(--rule); padding:1.1rem 0;
+  }
+  .toc ol {
+    display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:.45rem 1.5rem; font:.9rem/1.45 var(--f-display);
+  }
+  .toc li + li { margin-top:0; }
+  section { padding-top:3rem; scroll-margin-top:1rem; }
+  .sec-head { display:flex; flex-direction:column; gap:.4rem; }
+  .sec-head::after {
+    content:""; width:2.2rem; height:2px; background:var(--ink); margin-top:.35rem;
+  }
+  .stack { display:flex; flex-direction:column; gap:1rem; margin-top:1.1rem; }
+  .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+  .card h3 { margin-bottom:.45rem; }
+  .card .eyebrow { margin-bottom:.45rem; }
+  .qcard {
+    background:var(--surface); border:1px solid var(--rule);
+    border-radius:3px; overflow:hidden; scroll-margin-top:4rem;
+  }
+  .qbar {
+    display:flex; flex-wrap:wrap; gap:.45rem 1rem; align-items:center;
+    padding:.9rem 1.1rem; background:var(--surface-alt);
+    border-bottom:1px solid var(--rule);
+    color:var(--muted); font:.82rem/1.4 var(--f-display);
+  }
+  .qbar .idx { color:var(--accent); font:600 .74rem var(--f-mono); }
+  .qbar .timing { margin-left:auto; color:var(--faint); font:.72rem var(--f-mono); }
+  .qbody { display:flex; flex-direction:column; gap:1rem; padding:1.2rem 1.3rem; }
+  .prompt { font:600 1.12rem/1.4 var(--f-display); }
+  .odds { color:var(--muted); }
+  .script {
+    border-left:3px solid var(--accent); background:var(--accent-soft);
+    padding:1rem 1.2rem;
+  }
+  .script p + p { margin-top:.7rem; }
+  .flow { list-style:none; padding:0; display:grid; gap:.6rem; }
+  .flow li {
+    display:grid; grid-template-columns:2rem minmax(0,1fr); gap:.8rem;
+    padding:.9rem 1rem; background:var(--surface); border:1px solid var(--rule);
+    margin:0;
+  }
+  .flow li::before {
+    content:counter(flow,decimal-leading-zero); counter-increment:flow;
+    color:var(--accent); font:600 .82rem var(--f-mono); padding-top:.12rem;
+  }
+  .flow { counter-reset:flow; }
+  .flow strong { font-family:var(--f-display); }
+  .diagram {
+    overflow:auto; margin:0; padding:1.2rem;
+    background:#10181C; color:#DCEAEB; border-radius:3px;
+    font:600 .76rem/1.45 var(--f-mono); white-space:pre;
+  }
+  .table-wrap { overflow-x:auto; border:1px solid var(--rule); border-radius:3px; }
+  table { width:100%; border-collapse:collapse; font-size:.92rem; }
+  caption {
+    padding:.9rem 1rem; text-align:left; color:var(--muted);
+    font:600 .78rem var(--f-display);
+  }
+  th,td { text-align:left; vertical-align:top; padding:.8rem .95rem; border-top:1px solid var(--rule); }
+  th { background:var(--surface-alt); font:600 .74rem/1.35 var(--f-display); }
+  td:first-child { min-width:10rem; font-family:var(--f-display); font-weight:600; }
+  .pair { display:flex; flex-direction:column; gap:.25rem; }
+  .lbl {
+    font:600 .7rem var(--f-mono); letter-spacing:.1em; text-transform:uppercase;
+  }
+  .lbl.yes { color:var(--accent); }
+  .lbl.no { color:var(--critical); }
+  .src {
+    color:var(--muted); font-size:.82rem; border-top:1px solid var(--rule);
+    padding-top:.8rem;
+  }
+  .src b { color:var(--muted); font:600 .68rem var(--f-mono); letter-spacing:.08em; text-transform:uppercase; margin-right:.4rem; }
+  .checklist { list-style:none; padding:0; }
+  .checklist li { padding-left:1.5rem; position:relative; }
+  .checklist li::before { content:"□"; position:absolute; left:0; color:var(--accent); font:1.1rem var(--f-mono); }
+  footer { padding-top:3rem; color:var(--muted); font-size:.88rem; }
+  footer p + p { margin-top:.65rem; }
+  @media (max-width:48rem) {
+    .hero,.grid { grid-template-columns:1fr; }
+    .toc ol { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .qbar .timing { margin-left:0; width:100%; }
+  }
+  @media (max-width:34rem) {
+    body { font-size:16px; }
+    .wrap { padding-inline:1.1rem; }
+    .toc ol { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Mercor · Deeptune · Member of Technical Staff · India</p>
+      <h1>Build the places where agents learn real work.</h1>
+      <p class="standfirst">This interview is not asking for an AI vocabulary tour. It is asking whether you can own a realistic environment from specification through production, make it operable by agents, measure failures honestly, and explain the engineering clearly.</p>
+    </div>
+    <aside class="brief">
+      <p class="eyebrow">Role signals</p>
+      <dl>
+        <dt>Round 1</dt>
+        <dd>60-minute technical deep dive + communication</dd>
+        <dt>Round 2</dt>
+        <dd>6–8 hour take-home hackathon, maximum 8 hours</dd>
+        <dt>Core loop</dt>
+        <dd>Environment → agent rollout → evaluation → calibration</dd>
+        <dt>Your strongest demo</dt>
+        <dd>Papercusp: durable coordination and evidence for agent work</dd>
+      </dl>
+    </aside>
+  </header>
+
+  <div class="note warn">
+    <p class="eyebrow">The honest positioning</p>
+    <p>Papercusp is an operator/control plane for reliable agent work, not a claim that you already built Deeptune's reinforcement-learning training environments. Present it as the strongest system you personally know deeply, then make the translation explicit: Papercusp's agent sessions, MCP tools, shared state, locks, tests, and evidence become the reliability layer around a high-fidelity training environment.</p>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Contents</p>
+    <ol>
+      <li><a href="#role-read">01 · Read the role correctly</a></li>
+      <li><a href="#deep-dive">02 · Round 1 deep dive</a></li>
+      <li><a href="#diagram">03 · Papercusp diagram</a></li>
+      <li><a href="#demo">04 · Demo sequence</a></li>
+      <li><a href="#translation">05 · Deeptune translation</a></li>
+      <li><a href="#questions">06 · Likely questions</a></li>
+      <li><a href="#hackathon">07 · Eight-hour hackathon</a></li>
+      <li><a href="#questions-to-ask">08 · Questions to ask</a></li>
+    </ol>
+  </nav>
+
+  <section id="role-read">
+    <div class="sec-head">
+      <p class="eyebrow">01 · What they are actually hiring for</p>
+      <h2>Environment engineering, not model theater</h2>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <p class="eyebrow">Build</p>
+        <h3>High-fidelity applications</h3>
+        <p>Reproduce the behavior and workflows of professional software: realistic state, permissions, data, latency, errors, and task surfaces.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">Expose</p>
+        <h3>Agent-operable interfaces</h3>
+        <p>Give an agent a bounded tool API, MCP server, or computer-use surface with clear schemas, observable side effects, and useful failures.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">Measure</p>
+        <h3>Rollouts and task calibration</h3>
+        <p>Separate model failure, task-design failure, and environment failure. Tune difficulty from evidence instead of turning every bad rollout into a model verdict.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">Own</p>
+        <h3>Production infrastructure</h3>
+        <p>Carry a system from incomplete specification through implementation, tests, deployment, debugging, and delivery without hiding uncertainty.</p>
+      </article>
+    </div>
+    <div class="note">
+      <p class="eyebrow">One sentence to remember</p>
+      <p>“I build the environment, the interface the agent uses, and the measurement loop that tells us whether a failure belongs to the agent, the task, or the environment.”</p>
+    </div>
+  </section>
+
+  <section id="deep-dive">
+    <div class="sec-head">
+      <p class="eyebrow">02 · Round 1 · 60 minutes</p>
+      <h2>Tell one system deeply, with Papercusp as the case study</h2>
+    </div>
+    <div class="qcard">
+      <div class="qbar">
+        <span class="idx">Deep-dive narrative</span>
+        <span>problem → architecture → decisions → evidence</span>
+        <span class="timing">aim for 12–15 minutes, then discuss</span>
+      </div>
+      <div class="qbody">
+        <p class="prompt">Choose the part of Papercusp where your personal contribution is clearest: reliable multi-agent software work in a shared repository.</p>
+        <ol class="flow">
+          <li><div><strong>Problem.</strong> Agents can make useful changes, but they crash, lose context, race on files, misread empty results, and declare completion without enough evidence.</div></li>
+          <li><div><strong>Architecture.</strong> A local operator backbone stores plans, work items, locks, events, memory, tests, and release state; agent sessions connect through MCP; the UI observes the same durable state.</div></li>
+          <li><div><strong>Key decisions.</strong> Pull-based claims instead of hand assignment; locks at the write boundary; checkpoints outside the model context; evidence-gated completion; green-only promotion.</div></li>
+          <li><div><strong>Failure.</strong> Tell one concrete incident where a check, monitor, or agent believed the wrong object, then show how you measured the root cause.</div></li>
+          <li><div><strong>Testing.</strong> Explain the recurrence guard: positive controls, mutation probes, zero-match refusals, liveness checks, or a release test that would fail if the class returned.</div></li>
+          <li><div><strong>Redesign.</strong> Name what you would simplify or change today, and the cost or risk that made the original choice reasonable.</div></li>
+        </ol>
+        <div class="script">
+          <p>“The system I want to walk through is Papercusp, an operator control plane for reliable agent work. The constraint was not launching one agent; it was coordinating many ordinary agent sessions against one shared codebase while preserving ownership, context, and evidence. I’ll show the planes, trace one work item, then explain a failure and the guard that prevents it from returning.”</p>
+        </div>
+        <div class="pair">
+          <span class="lbl no">Do not lead with</span>
+          <p>“It has hundreds of tools,” “it is autonomous,” or a list of frameworks. The interview signal is your reasoning about boundaries, failure modes, and guarantees.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="diagram">
+    <div class="sec-head">
+      <p class="eyebrow">03 · Whiteboard</p>
+      <h2>Draw this architecture, then trace one work item</h2>
+    </div>
+    <div class="qcard">
+      <div class="qbody">
+        <p class="prompt">Draw four planes: operator/control, agent execution, shared state, and verification/release.</p>
+        <pre class="diagram">                         ┌────────────────────────┐
+                         │  Model providers        │
+                         │  inference gateway      │
+                         └────────────┬───────────┘
+                                      │ model calls
+┌───────────────┐      MCP      ┌─────▼──────────────────────┐
+│ Agent session │◄─────────────►│ Operator / control plane    │
+│ Codex/Claude  │               │ plans · scheduler · events  │
+└──────┬────────┘               │ locks · tools · approvals   │
+       │                        └─────┬───────────────┬──────┘
+       │ tool calls / edits             │               │
+       ▼                               ▼               ▼
+┌───────────────┐              ┌──────────────┐  ┌──────────────┐
+│ Environment / │              │ Durable      │  │ UI / sync    │
+│ task surface  │              │ Postgres     │  │ operator view │
+│ app + APIs    │              │ state        │  └──────────────┘
+└──────┬────────┘              └──────┬───────┘
+       │ rollout traces / outcomes     │ checkpoints, claims,
+       ▼                              │ decisions, evidence
+┌──────────────────────────────┐      ▼
+│ Evaluation + calibration      │◄── tests / scorecards / gates
+│ model vs task vs environment  │
+└──────────────┬───────────────┘
+               ▼
+       ┌─────────────────────┐
+       │ Release / replay /  │
+       │ rollback evidence   │
+       └─────────────────────┘</pre>
+        <div class="table-wrap">
+          <table>
+            <caption>What to say while drawing</caption>
+            <thead><tr><th>Box</th><th>Interview explanation</th></tr></thead>
+            <tbody>
+              <tr><td>Agent session</td><td>An ordinary worker. It can be restarted, lose context, or make a wrong claim; the platform cannot rely on its memory or honesty.</td></tr>
+              <tr><td>Operator plane</td><td>The durable control surface: work is claimed, tools are bounded, events wake the right session, and the UI reads canonical state.</td></tr>
+              <tr><td>Environment</td><td>The thing being operated or trained against: application state, data, APIs, permissions, and observable side effects.</td></tr>
+              <tr><td>Evaluation</td><td>A separate judge of the rollout. It asks whether the task was valid, the environment behaved correctly, and the agent achieved the intended outcome.</td></tr>
+              <tr><td>Release / replay</td><td>Only verified artifacts advance. A failed rollout can be reproduced, diagnosed, and replayed instead of becoming an anecdote.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <p class="eyebrow">Trace this path with your finger</p>
+          <p><strong>Goal → plan → work item → claim → MCP/tool call → environment side effect → test/evaluation → structured evidence → release.</strong> At every arrow, say what is durable, what can fail, and how you know what actually happened.</p>
+        </div>
+        <p class="src"><b>Use from the architecture page</b>Start with the operator backbone, execution flow, work items and scheduling, coordination, context/memory, release pipeline, and safety/verification. Keep blueprints, tool catalog breadth, and self-improvement as optional follow-ups.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="sec-head">
+      <p class="eyebrow">04 · Papercusp demo</p>
+      <h2>Demo the reliability loop, not the dashboard</h2>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <p class="eyebrow">1 · Start</p>
+        <h3>Give it a small goal</h3>
+        <p>“Add a feature to this repository and prove it works.” Show how the goal becomes a plan and a work item rather than remaining a chat request.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">2 · Claim</p>
+        <h3>Show ownership</h3>
+        <p>Let an agent pull the next eligible item. Explain why atomic claims and leases matter when workers can overlap or disappear.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">3 · Operate</p>
+        <h3>Show the agent boundary</h3>
+        <p>Open the MCP/tool surface. Point to bounded inputs, useful errors, explicit truncation, and the distinction between a tool call being accepted and its effect being verified.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">4 · Recover</p>
+        <h3>Show context outside the model</h3>
+        <p>Use a checkpoint or wake. Explain that a restarted session can recover the goal, current state, next action, and evidence without trusting the old context window.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">5 · Verify</p>
+        <h3>Show a test that could fail</h3>
+        <p>Run the focused test and, if available, a positive-control or mutation check. Emphasize that a command which matched nothing or measured the wrong object is not evidence.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">6 · Finish</p>
+        <h3>Show evidence-gated completion</h3>
+        <p>Close with files changed, tests run, result, and verification method. Then distinguish implementation from release promotion and rollback.</p>
+      </article>
+    </div>
+    <div class="script">
+      <p>“The demo is intentionally small. I want to show the control loop: an agent receives durable work, acts through an accountable interface, survives interruption, and cannot call the work complete without evidence. That is the same reliability problem Deeptune has around an environment and its rollouts.”</p>
+    </div>
+  </section>
+
+  <section id="translation">
+    <div class="sec-head">
+      <p class="eyebrow">05 · Translate Papercusp to Deeptune</p>
+      <h2>Make the relevance explicit</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption>Do not claim equivalence; explain the transferable mechanism.</caption>
+        <thead><tr><th>Deeptune need</th><th>Papercusp evidence</th><th>How to phrase the connection</th></tr></thead>
+        <tbody>
+          <tr><td>Agent-operable environment</td><td>MCP tools, typed arguments, errors, locks, and shared state</td><td>“I have worked on the interface and control boundary an agent needs to act safely and observably.”</td></tr>
+          <tr><td>Realistic task execution</td><td>Plans, work items, repository changes, tests, and release state</td><td>“A task is a contract with state transitions and evidence, not just a prompt.”</td></tr>
+          <tr><td>Rollout diagnosis</td><td>Root-cause investigations and recurrence guards</td><td>“I separate the observed failure from the layer that caused it, then add a detector for the class.”</td></tr>
+          <tr><td>Data and reproducibility</td><td>Migration ledger, checkpoints, content hashes, and test-run evidence</td><td>“A result is useful only when its inputs, version, and verification path can be reconstructed.”</td></tr>
+          <tr><td>Shared infrastructure</td><td>Scheduling, coordination, release gates, and automation</td><td>“I prefer a small durable primitive that many workflows can reuse over a new bespoke loop for each task.”</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note crit">
+      <p class="eyebrow">Avoid the overclaim</p>
+      <p>Do not say Papercusp already trains agents with reinforcement learning, simulates professional software, or proves model capability. Say it gives you concrete experience in the infrastructure around agent execution, evaluation, coordination, and evidence—and that you would learn Deeptune's environment and rollout domain quickly.</p>
+    </div>
+  </section>
+
+  <section id="questions">
+    <div class="sec-head">
+      <p class="eyebrow">06 · Likely Round 1 questions</p>
+      <h2>Rehearse answers that expose technical depth</h2>
+    </div>
+    <div class="stack">
+      <div class="qcard">
+        <div class="qbar"><span class="idx">Q1 · Architecture</span><span class="timing">draw, then trace</span></div>
+        <div class="qbody">
+          <p class="prompt">Why is Papercusp more than an agent launcher?</p>
+          <p>Because launching is the easy edge. The durable system owns work identity, scheduling, locks, context recovery, verification, and release state. An agent is a replaceable worker; the operator plane is the system of record.</p>
+        </div>
+      </div>
+      <div class="qcard">
+        <div class="qbar"><span class="idx">Q2 · Reliability</span><span class="timing">name one failure</span></div>
+        <div class="qbody">
+          <p class="prompt">Tell me about a time a monitor or test gave a confident but wrong answer.</p>
+          <p>Use the wrong-object pattern: an empty result or green exit can mean absence, a blind instrument, or a check that never ran. Explain the measurement that distinguished the hypotheses and the guard you added afterward.</p>
+        </div>
+      </div>
+      <div class="qcard">
+        <div class="qbar"><span class="idx">Q3 · Agent interface</span><span class="timing">show the contract</span></div>
+        <div class="qbody">
+          <p class="prompt">What makes a tool or MCP server good for agents?</p>
+          <p>Typed inputs, bounded output, explicit errors, clear side effects, idempotency where possible, and evidence that names the object actually changed. The contract must help an agent recover from partial failure rather than merely expose an endpoint.</p>
+        </div>
+      </div>
+      <div class="qcard">
+        <div class="qbar"><span class="idx">Q4 · Evaluation</span><span class="timing">model vs task vs environment</span></div>
+        <div class="qbody">
+          <p class="prompt">How would you tell whether a failed rollout was the model's fault?</p>
+          <p>First validate the task contract and fixture. Then verify the environment's state transitions and observability with a control or replay. Only after those are sound should the residual failure be attributed to the policy/model. The judge must be independent enough not to certify its own blind spot.</p>
+        </div>
+      </div>
+      <div class="qcard">
+        <div class="qbar"><span class="idx">Q5 · Scope</span><span class="timing">practical judgment</span></div>
+        <div class="qbody">
+          <p class="prompt">What would you build first for a new environment?</p>
+          <p>A narrow vertical slice: one realistic task, one agent interface, one seeded dataset, one observable success condition, one failure fixture, and one replayable evaluator. Expand only after that slice is reliable; otherwise you scale ambiguity and debugging cost.</p>
+        </div>
+      </div>
+      <div class="qcard">
+        <div class="qbar"><span class="idx">Q6 · Ownership</span><span class="timing">be specific</span></div>
+        <div class="qbody">
+          <p class="prompt">What did you personally build?</p>
+          <p>Separate your own design and implementation from platform capabilities, team contributions, and model-assisted work. Name the files, interfaces, tests, and decisions you can defend. If you do not know a detail, say what you would inspect rather than filling the gap with confidence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hackathon">
+    <div class="sec-head">
+      <p class="eyebrow">07 · Round 2 · maximum 8 hours</p>
+      <h2>Hackathon operating plan</h2>
+    </div>
+    <div class="note warn">
+      <p class="eyebrow">The constraint</p>
+      <p>You are being evaluated on functionality, technical decisions, code quality, testing, reliability, scope management, and understanding—not on how much surface area you can produce. Treat the eight hours as a budget with a stop condition.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption>Suggested time budget</caption>
+        <thead><tr><th>Time</th><th>Work</th><th>Exit condition</th></tr></thead>
+        <tbody>
+          <tr><td>0:00–0:30</td><td>Read the brief twice. Extract actors, state, inputs, outputs, success criteria, and explicit non-goals.</td><td>You can state the smallest useful vertical slice.</td></tr>
+          <tr><td>0:30–1:00</td><td>Write a short design note: architecture, data model, API/tool boundary, risks, and test strategy.</td><td>One diagram and one decision log exist.</td></tr>
+          <tr><td>1:00–4:45</td><td>Build the vertical slice end to end. Keep the happy path working while adding one meaningful failure path.</td><td>A reviewer can run the core workflow.</td></tr>
+          <tr><td>4:45–6:15</td><td>Add tests for the contract, boundary cases, failure recovery, and the most likely regression.</td><td>Tests fail for a deliberate broken behavior, then pass after the fix.</td></tr>
+          <tr><td>6:15–7:00</td><td>Harden: validation, error messages, idempotency, timeouts, seeded data, and a clean setup path.</td><td>Fresh setup and rerun are plausible.</td></tr>
+          <tr><td>7:00–7:30</td><td>Review the diff and remove unrelated complexity. Record tradeoffs and known limitations.</td><td>No unexplained files or accidental secrets remain.</td></tr>
+          <tr><td>7:30–8:00</td><td>Write the README and final walkthrough. Run the exact commands a reviewer will use.</td><td>The submission explains what works, how to test it, and what you would do next.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <p class="eyebrow">Build first</p>
+        <h3>One complete path</h3>
+        <p>Input → core behavior → persisted or observable result → test. A narrow complete system demonstrates more judgment than five disconnected features.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">Protect the score</p>
+        <h3>Make failure visible</h3>
+        <p>Validate early, return useful errors, keep setup deterministic, and include one test that proves the evaluator can detect a wrong result.</p>
+      </article>
+    </div>
+    <ul class="checklist">
+      <li>The README starts with the run command and a 30-second explanation.</li>
+      <li>The design names the main tradeoff and the alternative you rejected.</li>
+      <li>The test suite covers the happy path, an edge case, and a failure or recovery case.</li>
+      <li>AI-assisted code has been read, simplified, and verified by you.</li>
+      <li>Known limitations are explicit; unfinished ideas are not presented as shipped functionality.</li>
+    </ul>
+  </section>
+
+  <section id="questions-to-ask">
+    <div class="sec-head">
+      <p class="eyebrow">08 · Questions for Deeptune</p>
+      <h2>Ask questions that reveal how the work is actually done</h2>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h3>Environment contract</h3>
+        <p>What is the contract between an environment, the agent interface, and the evaluator? Which parts are standardized across environments?</p>
+      </article>
+      <article class="card">
+        <h3>Rollout diagnosis</h3>
+        <p>When a rollout fails, what instrumentation helps distinguish model, task, and environment failures?</p>
+      </article>
+      <article class="card">
+        <h3>Realism</h3>
+        <p>How do you decide which product behaviors, data distributions, latency, permissions, and failure modes must be high fidelity?</p>
+      </article>
+      <article class="card">
+        <h3>Engineering ownership</h3>
+        <p>How much of the role is building a new environment versus improving shared tooling, deployment, QA, and replay infrastructure?</p>
+      </article>
+    </div>
+    <div class="script">
+      <p>“What does a great environment engineer make easier for the next person on the team?”</p>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>Sources</b> Mercor / Deeptune Member of Technical Staff job description supplied for this prep page · <a href="https://jobs.ashbyhq.com/mercor/56f8c926-0435-4e11-941b-6b168da1e2f1">Ashby posting ↗</a> · <a href="http://papercusp.com/architecture">Papercusp architecture page ↗</a>.</p>
+    <p>Use this page as a rehearsal guide, not as evidence for claims you have not personally verified. Replace general language with the exact files, tests, incidents, and decisions you can defend in the interview.</p>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Braid Technologies founder call with Guido Cossu: AURA, neuro-symbolic engineering design, how Papercusp maps onto it, likely questions, and questions to ask.">
+<title>Braid Technologies · Guido Cossu call | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f6fa;
+    --surface: #fff;
+    --soft: #ebebf5;
+    --ink: #13131c;
+    --muted: #55566a;
+    --accent: #3d3fb0;
+    --warn: #9a4a07;
+    --warn-soft: #fbf0e3;
+    --rule: #dedfea;
+    --rule-strong: #c2c3d6;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e0e15;
+      --surface: #16161f;
+      --soft: #1f1f2c;
+      --ink: #e7e7f0;
+      --muted: #a6a7ba;
+      --accent: #a9abff;
+      --warn: #f2b877;
+      --warn-soft: #2a2116;
+      --rule: #2a2a3a;
+      --rule-strong: #41425a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .6rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  blockquote { margin: .6rem 0 0; padding: .2rem 0 .2rem 1rem; border-left: 3px solid var(--rule-strong); color: var(--muted); font-style: italic; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .step .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .8rem; margin-top: .6rem; }
+  .pair > div { padding: .7rem .8rem; background: var(--soft); border-radius: 3px; }
+  .pair .label { display: block; margin-bottom: .2rem; font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .pair { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    details { break-inside: avoid; }
+    details > div { display: block; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div><script src="sitenav.js"></script>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Braid Technologies · Tokyo · 30-minute founder call</p>
+      <h1>Guido Cossu: a physicist building correct-by-construction design software.</h1>
+      <p class="lead">Braid's product, AURA, turns an engineer's requirements into manufacturable 3D geometry, with several alternatives and a design report for each. A symbolic layer encodes physics, geometry and manufacturing rules so invalid designs can't be produced, and a learned layer makes the search fast. Your strongest pitch is that Papercusp is built the same way: <strong>LLMs propose, and a deterministic layer decides what's allowed.</strong></p>
+    </div>
+    <aside class="hero-card" aria-label="Call facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>Interviewer</dt><dd>Guido Cossu, Ph.D. Co-founder; Technology &amp; Creative Director (braid.tech lists him as “R&amp;D &amp; Founder”)</dd></div>
+        <div><dt>Format</dt><dd>30 minutes. The time isn't recorded here, so check the invite. Tokyo is 13 hours ahead of Eastern (JST = UTC+9).</dd></div>
+        <div><dt>Role you applied to</dt><dd>Senior Software Engineer – Systems (on-site in Tokyo; relocation and visa sponsored)</dd></div>
+        <div><dt>Where we found them</dt><dd><a href="https://news.ycombinator.com/item?id=44220293">HN “Who is hiring?” June 2025</a>. Posted by <code>guido_braid</code>, so Guido wrote the listing himself.</dd></div>
+        <div><dt>You emailed</dt><dd>hiring@braid.tech on 24 Sep 2026, 1:15 a.m. ET</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#decide">Decide first</a>
+    <a href="#braid">Braid in 90 seconds</a>
+    <a href="#guido">Who Guido is</a>
+    <a href="#bridge">Your bridge</a>
+    <a href="#pitch">Your pitch</a>
+    <a href="#questions">Likely questions</a>
+    <a href="#crib">Technical crib</a>
+    <a href="#ask">Questions to ask</a>
+    <a href="#plan">30-minute plan</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="decide">
+      <p class="eyebrow">01 · Before you dial</p>
+      <h2>Three answers only you can give. Settle them first.</h2>
+      <p class="section-lead">Braid is explicit that the core team works in Tokyo. Your email said relocating “would be a big step for me,” so expect Guido to ask about it.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Relocation</span>
+          <h3>Are you willing to move to Tokyo, and when?</h3>
+          <p>The careers page says work is “mostly in person” and “primary remote work is not an option for our core team.” Have an honest answer ready: yes or no, a rough timeline, and what the move depends on (family, visa timing). A vague answer uses up the call.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Which role</span>
+          <h3>Systems engineering, not R&amp;D research</h3>
+          <p>Braid hires in two tracks: <em>R&amp;D</em> (the neuro-symbolic core; “strong mathematical foundations and research experience matter most”) and <em>Software Engineering</em> (“evolving a production system… exceptionally clean, robust, and fast”). You fit the second. Confirm which track he's considering you for, since the HN post is 15 months old.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Stack claim</span>
+          <h3>Your email said “Python and Rust, most of my stack too”</h3>
+          <p>He writes HPC C++ and will probe this. Have one specific Rust example and one Python example ready, and be exact about your depth. If most of your production code is TypeScript, say so and explain how the architecture carries over.</p>
+        </div>
+      </div>
+      <div class="note"><strong>Read their Tokyo guide.</strong> The careers page recommends reading it before the first conversation: <a href="https://www.notion.so/braid-technologies/Welcome-to-Japan-1ed40e338db3806a8393c39793c337c6">Welcome to Japan (Notion)</a>. Having read it shows you're serious about relocating.</div>
+    </section>
+
+    <section id="braid">
+      <p class="eyebrow">02 · The company</p>
+      <h2>Braid in 90 seconds</h2>
+      <p class="section-lead">Founded in 2020, based in Shibuya, about 30 people from 20+ countries. Their tagline is “From intent to manufacturable geometry through automated reasoning.”</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Product</span>
+          <h3>AURA, a design “reasoning engine”</h3>
+          <p><strong>In:</strong> functional goals, physical conditions, a geometric envelope, the manufacturing process, and cost or weight targets. They call this spec “the contract AURA must satisfy.” No library of past designs is needed.</p>
+          <p><strong>Out:</strong> 3D solid CAD, several valid alternatives with different trade-offs (“including geometries engineers would not have drawn unaided”), and an auto-generated PDF report for each.</p>
+          <p><strong>Claim:</strong> “hours rather than weeks.”</p>
+        </div>
+        <div class="card">
+          <span class="tag">Architecture</span>
+          <h3>Neuro-symbolic</h3>
+          <p>A symbolic layer encodes physics laws, geometric structure and manufacturing limits into the program that generates geometry. A shape that breaks a physical law or manufacturing limit “cannot be produced.” Learned models guide the search by proposing directions and ranking partial solutions, but they don't create the geometry.</p>
+          <blockquote>“The symbolic layer makes AURA correct, the machine learning layer makes it efficient.”</blockquote>
+        </div>
+        <div class="card">
+          <span class="tag">Workflow</span>
+          <h3>Human → machine → human</h3>
+          <ol>
+            <li><strong>Define</strong> (engineer). This is where judgment “matters most.”</li>
+            <li><strong>Reason</strong> (AURA). Physics, geometry and manufacturing are “considered together,” not checked one after another.</li>
+            <li><strong>Review</strong> (engineer). See which constraints are binding and which have slack.</li>
+            <li><strong>Decide</strong> (engineer). The chosen design goes on to simulation, prototyping and production.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <span class="tag">Positioning</span>
+          <h3>What they're arguing against</h3>
+          <p>Today's tools are disconnected: “CAD knows nothing about physics. Physics knows nothing about manufacturing.” Generative design usually optimizes a seed shape, then someone makes it buildable by hand, “often negating the performance that was gained.” Braid designs <em>de novo</em>, so the geometry is “manufacturable from the first output.”</p>
+        </div>
+        <div class="card">
+          <span class="tag">Founders</span>
+          <h3>Three founders, three disciplines</h3>
+          <ul>
+            <li><strong>Ivo Timóteo</strong>, CEO. ML researcher and principal lecturer for Cambridge's AI II course at 25; later CTO of a self-driving startup with about 60 engineers.</li>
+            <li><strong>Guido Cossu</strong>, R&amp;D and technology. See below.</li>
+            <li><strong>Yuta Murakami</strong>, COO. Former McKinsey partner in manufacturing, supply chain and logistics across North Asia.</li>
+          </ul>
+          <p>Advisors include Pritzker-winning architect Kazuyo Sejima. The team says it shares her ideal of uniting “functionality, ergonomics and aesthetics,” which explains “Creative Director” in Guido's title.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Right now</span>
+          <h3>Keynote in two weeks</h3>
+          <p>Guido and Ivo give the keynote at <strong>CDFAM Tokyo, 8–9 October 2026</strong> (Tokyo International Forum): <em>“The best design is the design you can make.”</em> Braid is a major sponsor. The demo covers real parts from deployments in Japanese manufacturing. Asking about it is a good way to show you've done your homework.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="guido">
+      <p class="eyebrow">03 · The interviewer</p>
+      <h2>Guido: HPC physicist, author of Braid's technical thesis</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Background</h3>
+          <ul>
+            <li>Ph.D. in computational theoretical physics, Scuola Normale Superiore, Pisa. He simulated the first microseconds after the Big Bang (finite-temperature lattice QCD).</li>
+            <li>Postdoc at KEK in Japan; research fellow at the University of Pisa; Honorary Fellow at the Higgs Centre for Theoretical Physics.</li>
+            <li>Head of R&amp;D at Ascent Robotics in Tokyo; ML-for-physics work with the Alan Turing Institute.</li>
+            <li>About 15 years writing massively parallel C++ on supercomputers; 80+ peer-reviewed papers.</li>
+          </ul>
+          <p>Pronounced roughly <em>GWEE-doh KOHS-soo</em>.</p>
+        </div>
+        <div class="card">
+          <h3>What he has written, and what it tells you</h3>
+          <ul>
+            <li><a href="https://braid.tech/notebooks/hybrid-approach-to-ai-powered-discovery">The hybrid approach to AI-powered discovery</a> (Jun 2025, his white paper). Pure deep learning struggles in engineering because data is scarce, physics is already known, and LLMs “struggle with tasks that demand exact reasoning and constraint satisfaction” unless backed by tools such as <strong>MCPs</strong>, low-level APIs or formal languages.</li>
+            <li><a href="https://braid.tech/notebooks/composing-a-car-door">Automatically composing a car door</a> (Sep 2026, co-author). AURA co-designs a door's inner panel and anti-intrusion beams. It generates parts in a topological order over a “liaison graph” and iterates on tightly coupled pairs. It chooses one or two beams on its own.</li>
+            <li>A LinkedIn post: <a href="https://www.linkedin.com/posts/guido-cossu_my-phd-advisers-expected-weekly-progress-activity-6885467066330181632-r4ef">“My Ph.D. advisers expected weekly progress reports. I'm glad they did.”</a> He values visible, disciplined progress.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What he will screen for</h3>
+          <p>Braid's careers page lists five qualities. Expect the conversation to test them:</p>
+          <ol>
+            <li>Technical depth in one core area, plus the ability to work across others.</li>
+            <li>Comfort with formal reasoning: “If you view end-to-end deep learning as the only legitimate tool for AI, Braid is likely not the right place.”</li>
+            <li>Autonomy: “high agency and open-ended problems as an asset, not a risk.”</li>
+            <li>Honesty and rigor: “Social consensus without analytical grounding is actively discouraged.”</li>
+            <li>Fascination with the physical world. People who treat it as secondary “tend to drift.”</li>
+          </ol>
+          <p>What matters less to them: titles, seniority, prior CAD or simulation experience (“we will help you ramp”), and linear careers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="bridge">
+      <p class="eyebrow">04 · Why you</p>
+      <h2>The bridge: Papercusp already runs on Braid's principle</h2>
+      <p class="section-lead">Don't pitch Papercusp as “AI agents.” Pitch it as a deterministic system that keeps probabilistic proposers correct. Braid is built the same way.</p>
+      <div class="card">
+        <h3>1 · Proposers vs. an enforcing layer</h3>
+        <div class="pair">
+          <div><span class="label">Braid</span>ML proposes search directions and ranks partial solutions. The symbolic layer guarantees physics and manufacturability.</div>
+          <div><span class="label">Papercusp</span>LLM agents propose actions. Typed tool schemas, enforced file locks, dispatch-time authority checks and evidence-gated completion decide what actually happens. Rules are enforced in code, not left to the prompt.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>2 · One contract, compiled to many targets</h3>
+        <div class="pair">
+          <div><span class="label">Braid</span>The spec is “the contract AURA must satisfy.” Constraints become the program that generates geometry, so “the constraint set determines what the search can express.” The 2025 HN post described this as “compilers for physics problems.”</div>
+          <div><span class="label">Papercusp</span>“The tool contract is defined once and projected across MCP, HTTP and IPC” (from your email). Docs and prompts are generated from sources, so derived data can't drift from its source.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>3 · Invalid states can't be produced</h3>
+        <div class="pair">
+          <div><span class="label">Braid</span>Correct by construction instead of generate-then-repair. A shape that violates the rules is never produced.</div>
+          <div><span class="label">Papercusp</span>A green gate that only fast-forwards <code>main</code> on a passing suite, locks that block rather than warn, and ledgered work that isn't “done” without evidence. You moved checks from after the fact to up front.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>4 · Coupled parts, ordered generation</h3>
+        <div class="pair">
+          <div><span class="label">Braid</span>Topological order over a liaison graph: anchors first, and each later part treats finished neighbors as fixed. Tightly coupled pairs iterate.</div>
+          <div><span class="label">Papercusp</span>Plans with <code>blocked-by</code> dependency graphs; parallel agents serialized on shared files; a scheduler that orders work by dependencies. It's a different domain with the same scheduling problem. Offer this as an analogy, not a claim of geometry expertise.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>5 · Physical-world operations</h3>
+        <p>Twelve years running a commerce company with a warehouse: over $1M a month with two engineers and three warehouse staff, about 90% under normal operating overhead, because nearly everything was automated. This answers “fascination with the physical world” with real inventory, fulfillment and logistics, and it gives you common ground with Yuta's supply-chain background.</p>
+      </div>
+      <div class="note"><strong>Don't overclaim:</strong> you are not a computational geometry, FEM or physics expert, and Guido will know within one question. Say it before he asks: “My depth is systems architecture and making unreliable components behave reliably. Geometry and simulation I'd ramp into, and your careers page says you'll help with that.”</div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">05 · Your opener</p>
+      <h2>A 60–90-second answer to “tell me about yourself”</h2>
+      <div class="card">
+        <p>“For the past stretch I've built Papercusp, a platform where many AI agents work on one shared codebase and database at the same time. I plan to open-source it next month. The hard part wasn't the agents. It was building a deterministic layer around them. Every tool has one typed contract, projected to MCP, HTTP and the desktop app. File locks are enforced, not advisory. Nothing counts as done without evidence, and <code>main</code> only moves when the suite is green. The models propose, and the system decides what's allowed.</p>
+        <p>Before that I ran a commerce company for about 12 years. We reached over $1M a month with two engineers and three people in the warehouse, because we automated almost everything.</p>
+        <p>Reading your white paper and the car-door study, I recognized the same belief: learned components are powerful, but correctness has to come from structure. I'd like to apply that at Braid, on a problem where the output is a physical part instead of a pull request.”</p>
+      </div>
+      <p class="section-lead" style="margin-top:1rem">Your core Papercusp stories are in the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>. Pick two you can tell with numbers.</p>
+    </section>
+
+    <section id="questions">
+      <p class="eyebrow">06 · Practice</p>
+      <h2>Questions he's likely to ask</h2>
+      <p class="section-lead">These are practice prompts inferred from Braid's public pages and Guido's writing. They're not a leaked question list. Click to see an answer outline.</p>
+      <details><summary>Why Braid? Why engineering design?</summary><div>
+        <p>Be specific: “compilers for physics problems” is the kind of system you want to build, and engineering design is where hybrid AI really matters, because exact constraints are non-negotiable and data is scarce (his argument). Mention one detail from the car-door study, such as the system choosing one or two beams by itself, or the “90% complete” baseline. End with the physical-world pull from your warehouse years.</p>
+      </div></details>
+      <details><summary>Why Tokyo? Are you ready to relocate?</summary><div>
+        <p>Answer directly with the decision you made in section 01. If yes, give a timeline and what it depends on. If you're unsure, say what would decide it. Don't be vague. Mention that you've read their Tokyo guide.</p>
+      </div></details>
+      <details><summary>How do you think about LLMs and formal methods?</summary><div>
+        <p>This checks the careers page line about deep learning not being the only legitimate tool. Your honest view from building Papercusp: LLMs are excellent proposers and unreliable executors. You kept them inside typed contracts, enforced locks and evidence gates, and moved every rule you could from the prompt into code. His white paper makes the same point about LLMs needing MCPs, APIs or formal languages for exact reasoning, so say you agree and that you've built on MCP.</p>
+      </div></details>
+      <details><summary>What's the hardest systems problem you've solved?</summary><div>
+        <p>Choose one and tell it as <em>constraint → mechanism → measured result</em>. Candidates: many agents safely editing one working tree (enforced locks plus a background sync that commits and merges); a release gate that keeps <code>main</code> green while many agents push; one tool contract projected to three transports. Give a number (agents, items, time saved) and one thing you got wrong and fixed. He values honesty over a polished story.</p>
+      </div></details>
+      <details><summary>How would you design the pipeline from an engineer's spec to solver jobs?</summary><div>
+        <ol>
+          <li><strong>Typed spec / IR:</strong> units attached to quantities, load cases and manufacturing process as data, not free text.</li>
+          <li><strong>Well-posedness pass:</strong> reject specs that are over- or under-constrained, missing load cases, or have mismatched units, <em>before</em> any compute runs. His paper says problems must be “well-posed before execution.”</li>
+          <li><strong>A DAG, not a script:</strong> compile the spec into a dependency graph of solver tasks (his paper: “compiles dynamic computational graphs”).</li>
+          <li><strong>Content-addressed cache:</strong> key results on the hash of inputs plus solver version, so re-runs cost nothing and results are reproducible.</li>
+          <li><strong>Fidelity ladder:</strong> screen with surrogates, confirm finalists with high-fidelity solves, and treat non-convergence as a result, not a crash.</li>
+          <li><strong>Provenance → report:</strong> generate the PDF report from recorded provenance (which constraint bound, which solver, which version). Never hand-write it. This is Papercusp's derive-don't-hand-maintain rule.</li>
+          <li><strong>Durable execution:</strong> jobs survive restarts; Papercusp uses durable workflows for this.</li>
+        </ol>
+      </div></details>
+      <details><summary>How do you work with little supervision?</summary><div>
+        <p>Braid says meetings are “rare, deliberate, and never scheduled by default” and “deep, quiet execution is our primary operating mode.” Give an example of choosing your own direction and making progress visible: written plans, decision records, frequent checkpoints. That connects to his post about weekly progress reports.</p>
+      </div></details>
+      <details><summary>Tell me about a time you were wrong.</summary><div>
+        <p>Rigor and honesty are on their list. Pick a real case where a measurement overturned your assumption, such as a metric you misread or a cause you blamed too early, and describe the guard you added so it couldn't happen again. Keep it short and specific.</p>
+      </div></details>
+    </section>
+
+    <section id="crib">
+      <p class="eyebrow">07 · Enough to follow, not to bluff</p>
+      <h2>Technical crib sheet</h2>
+      <p class="section-lead">If he goes into this territory, understand it well enough to ask a good follow-up question. Don't present it as your own expertise.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Neuro-symbolic, by analogy</h3>
+          <p>A familiar public example is DeepMind's AlphaGeometry: a language model proposes auxiliary constructions and a symbolic engine does the proof. AURA follows a similar pattern, with learned models ranking and a symbolic program generating. (This analogy is ours; Guido's paper doesn't cite it.)</p>
+        </div>
+        <div class="card">
+          <h3>Topology optimization vs. Braid</h3>
+          <p>The standard approach is density-based topology optimization (for example, SIMP). It produces organic shapes that often need manual rework to be stamped or cast. Braid's point is that manufacturing rules are built in from the start, as with the draw-depth limit that ties the beam's depth to the panel in the car door.</p>
+        </div>
+        <div class="card">
+          <h3>Shape derivatives (their Hadamard post)</h3>
+          <p>How an objective changes when you push a boundary. Hadamard's result: for smooth shapes, only the <em>normal</em> component of the boundary motion matters. The adjoint method gives the gradient with respect to all design variables for about one extra solve.</p>
+        </div>
+        <div class="card">
+          <h3>JAX (their JAX post)</h3>
+          <p><code>jit</code> traces Python code into a <em>jaxpr</em>, which is lowered to XLA and compiled. Python control flow on traced values fails, so you use <code>lax.cond</code> or <code>lax.scan</code>. New shapes or static arguments trigger recompilation. <code>grad</code> and <code>vmap</code> are transformations of the jaxpr.</p>
+        </div>
+        <div class="card">
+          <h3>Stamping vocabulary</h3>
+          <p>Draw depth (how deep a sheet can be pressed), minimum radii, uniform sheet thickness (1.0 mm panel and 1.5 mm beam in the study), and body-in-white (the car's unpainted structural shell). The two load cases in the study were door sag and over-opening, each limited to 1.5 mm displacement at the latch.</p>
+        </div>
+        <div class="card">
+          <h3>Limitations they state themselves</h3>
+          <p>The car door was “an exploratory study rather than a customer deployment”: two parts, one process (stamping), two static load cases, and no crash simulation. Mentioning this respectfully shows you read the study closely.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">08 · Your turn</p>
+      <h2>Questions to ask Guido (pick three)</h2>
+      <div class="card">
+        <ol>
+          <li><strong>Symbolic/learned boundary:</strong> “In AURA today, what exactly do the learned models rank, and have you moved anything from the symbolic side to the learned side, or the other way, as you scaled?”</li>
+          <li><strong>Coupled iteration:</strong> “In the car door, tightly coupled pairs regenerate earlier parts. How do you know that loop has converged, and when do you reopen an earlier decision?”</li>
+          <li><strong>Representation:</strong> “The 2025 listing mentioned an engineering DSL. Is that what engineers write, or an internal representation behind the CAD-plus-spec input?”</li>
+          <li><strong>Where it breaks:</strong> “What fails most in real deployments: ill-posed specs, solver dispatch and the compute graph, or the geometry kernel?”</li>
+          <li><strong>Leverage:</strong> “For a systems engineer joining now, where would you want the most impact in the first six months?”</li>
+          <li><strong>LLMs at Braid:</strong> “Your white paper says LLMs need MCPs or formal languages for exact reasoning. Do you use LLMs anywhere in AURA, for example to capture intent from engineers?” This leads naturally into your MCP work.</li>
+          <li><strong>The keynote:</strong> “What are you most excited to show at CDFAM next month?”</li>
+          <li><strong>Close:</strong> “What does the rest of the process look like, and is there anything from today you'd like me to go deeper on?”</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="plan">
+      <p class="eyebrow">09 · Timeboxing</p>
+      <h2>The 30-minute plan</h2>
+      <div class="steps">
+        <div class="step"><span class="when">0–3 min</span><div><h3>Warm open</h3><p>Thank him, and mention the listing: “I found you through your June 2025 HN post, the ‘compilers for physics problems’ line.”</p></div></div>
+        <div class="step"><span class="when">3–10 min</span><div><h3>Your story</h3><p>The 60–90-second opener, then let him steer. Keep answers under two minutes, since they value concision.</p></div></div>
+        <div class="step"><span class="when">10–20 min</span><div><h3>Technical depth</h3><p>Use the bridge: proposers vs. an enforcing layer, one contract compiled to many targets. State your geometry and physics gap before he finds it.</p></div></div>
+        <div class="step"><span class="when">20–26 min</span><div><h3>Your questions</h3><p>Two or three from section 08. Start with the symbolic/learned boundary or the coupled-iteration question.</p></div></div>
+        <div class="step"><span class="when">26–30 min</span><div><h3>Logistics and close</h3><p>Relocation answer, the next steps in the process, and one line on why you want this.</p></div></div>
+      </div>
+      <div class="note"><strong>Watch for mix-ups:</strong> data brokers such as ZoomInfo confuse this company with an unrelated fintech also called “Braid Technologies, Inc.” Everything here refers to the Tokyo engineering-design company at braid.tech.</div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">10 · Sources</p>
+      <h2>Links</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>How we found them</h3>
+          <ul>
+            <li><a href="https://news.ycombinator.com/item?id=44220293">Original HN post, item 44220293</a> by <code>guido_braid</code>, 9 June 2025, in “Ask HN: Who is hiring? (June 2025)”. This is where hiring@braid.tech came from.</li>
+            <li>What you sent: subject “Senior Software Engineer - Avraham Weiss”, to hiring@braid.tech, 24 Sep 2026. Main points: Papercusp open-sourcing next month; Hono API, React + Tauri desktop, embedded Postgres; one tool contract across MCP, HTTP and IPC; the 12-year commerce company.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Braid</h3>
+          <ul>
+            <li><a href="https://braid.tech/">braid.tech</a> · <a href="https://braid.tech/aura/">AURA</a> · <a href="https://braid.tech/about/">About</a> · <a href="https://braid.tech/careers/">Careers</a> · <a href="https://braid.tech/notebooks/">Notebooks</a></li>
+            <li><a href="https://www.notion.so/braid-technologies/Software-Engineering-1ad40e338db380f4bdd4c28a16b14e18">Software Engineering roles (Notion)</a> · <a href="https://www.notion.so/braid-technologies/Welcome-to-Braid-2adc4b051b474051933f4551a3512a7c">Team profiles (Notion)</a></li>
+            <li><a href="https://cdfam.com/tokyo-2026/">CDFAM Tokyo 2026</a>, keynote by Guido and Ivo</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Guido</h3>
+          <ul>
+            <li><a href="https://www.linkedin.com/in/guido-cossu/">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=gALbbCsAAAAJ&amp;hl=en">Google Scholar</a></li>
+            <li><a href="https://braid.tech/notebooks/hybrid-approach-to-ai-powered-discovery">White paper</a> · <a href="https://braid.tech/notebooks/composing-a-car-door">Car-door study</a></li>
+            <li>Also on Notebooks: <a href="https://braid.tech/notebooks/jax-under-the-hood">JAX under the hood</a>, <a href="https://braid.tech/notebooks/shape-derivatives-hadamard">Shape derivatives à la Hadamard</a> (authors not listed)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>Prepared 24 September 2026 from braid.tech (home, AURA, About, Careers, Notebooks), the CDFAM Tokyo 2026 program, the original HN listing, and the application email in hn-apply. Guido's earlier roles (KEK, Ascent Robotics, Higgs Centre, Alan Turing Institute) come from search-result summaries of his LinkedIn profile; confirm anything you plan to mention. Likely questions are practice prompts, not a known question list.</footer>
+</div>
+</body>
+</html>

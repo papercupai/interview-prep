@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Capital One — CodeSignal General Coding Assessment — Interview Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); overflow-wrap: anywhere; }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Capital One &middot; CodeSignal General Coding Assessment &middot; GCA</p>
+      <h1>Four questions, seventy minutes. Triage beats elegance.</h1>
+      <p class="standfirst">Nothing here is gated and nothing carries forward, so the discipline that
+      wins an Industry Coding Assessment actively costs you points on this one. All four questions are
+      visible the moment the clock starts, scoring is cumulative, and a blank scores the floor. Rank
+      them, set a ceiling per question, and submit something for every single one.</p>
+    </div>
+    <aside class="join-card" aria-label="Assessment facts">
+      <p class="eyebrow">Before you click Start</p>
+      <p><strong>70 minutes &middot; 4 independent questions</strong><br><span class="muted">Score 300&ndash;850. 300 is what a blank attempt scores.</span></p>
+      <p><strong class="hot">Your invitation email is authoritative.</strong><br><span class="muted">It carries the real time limit, language list and deadline. This page is the reported norm, not your contract.</span></p>
+      <a class="button" href="capital-one-gca-solutions.py">Open the drill file &darr;</a>
+      <p class="small muted">Run <code class="mono">capital-one-gca-solutions.py</code> until it exits clean. It is self-testing.</p>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#instrument">The instrument</a></li>
+      <li><span class="n">02</span><a href="#archetypes">The four archetypes &amp; drills</a></li>
+      <li><span class="n">03</span><a href="#before">Before you click</a></li>
+      <li><span class="n">04</span><a href="#confidence">What to trust, and what comes next</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <style>
+      .cs-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); margin: 0.9rem 0; }
+      .cs-grid article { background: var(--surface-alt, #EAF1ED); border-radius: 10px; padding: 0.85rem 1rem; }
+      .cs-grid article h4 { margin: 0.25rem 0 0.35rem; font-size: 0.97rem; }
+      .cs-grid article p { margin: 0; font-size: 0.87rem; }
+      .cs-grid .num { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.62; }
+      table.cs-table { width: 100%; border-collapse: collapse; margin: 0.85rem 0; font-size: 0.87rem; }
+      table.cs-table th, table.cs-table td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid rgba(16,25,20,0.12); vertical-align: top; }
+      table.cs-table th { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.7; }
+    </style>
+
+    <section id="instrument">
+      <div class="sec-head">
+        <p class="eyebrow">01 &middot; The instrument</p>
+        <h2>Four independent questions, 70 minutes, all visible at once &mdash; so the order is yours to choose</h2>
+      </div>
+
+      <p class="lead">This is a <strong>different instrument from the Anthropic CodeSignal assessment</strong>, and
+      confusing the two is the fastest way to prepare wrong. Anthropic's is an <em>Industry Coding Assessment</em>:
+      one problem, four gated levels, your own code carried forward. Capital One's is the
+      <strong>General Coding Assessment (GCA)</strong>: four <em>unrelated</em> questions, nothing
+      carried forward, nothing gated. Design-for-the-next-level discipline earns you nothing here;
+      triage and speed earn everything.</p>
+
+      <div class="note crit">
+        <p class="eyebrow">Does clicking &ldquo;Start Assessment&rdquo; start the clock?</p>
+        <p><strong>Almost certainly not — but do not test it.</strong> The button on
+        <code class="mono">mycareeratcapitalone.com</code> is a <em>router</em>: it hands you to
+        whichever vendor that role uses. What follows is a setup flow — identity verification,
+        camera and microphone permission, screen share, close-your-other-apps — and the timer starts
+        on a <em>second</em>, explicit start button after all of that. Where Capital One uses
+        Codility, the vendor says so outright: you may open the invite, read the intro, the policies,
+        the task count and the time limit, then leave and come back.</p>
+        <p><strong>The asymmetry is what decides this, not the odds.</strong> Being right costs you
+        nothing; being wrong costs the attempt. There is nothing behind that button you want to see
+        early. Click it only when you have the full uninterrupted block free — and if you want
+        certainty rather than inference, your invitation email states the time limit and whether the
+        session is resumable.</p>
+      </div>
+
+      <div class="cs-grid">
+        <article>
+          <span class="num">FORMAT</span>
+          <h4>Four questions, 70 minutes</h4>
+          <p>Independent problems, mixed easy/medium/hard. All four are visible the moment the timer
+          starts, and you allocate the 70 minutes yourself.</p>
+        </article>
+        <article>
+          <span class="num">SCORE</span>
+          <h4>300–850</h4>
+          <p>Correctness, speed and implementation quality. 300 is the floor for submitting nothing,
+          so a partial attempt at every question strictly beats leaving one blank.</p>
+        </article>
+        <article>
+          <span class="num">ORDER</span>
+          <h4>Not sequential — triage first</h4>
+          <p>Spend the first three minutes reading all four and ranking them by points-per-minute.
+          Multiple candidate reports put Q4 as easier than Q3 at the same weight.</p>
+        </article>
+        <article>
+          <span class="num">REUSE</span>
+          <h4>The score is portable</h4>
+          <p>A GCA score attaches to your CodeSignal profile and is commonly accepted by other GCA
+          employers for ~6 months. You are not sitting this only for Capital One.</p>
+        </article>
+      </div>
+
+      <div class="note">
+        <p class="eyebrow">The one structural fact worth more than any algorithm</p>
+        <p>Because all four are visible and scoring is cumulative, <strong>this assessment rewards
+        abandonment.</strong> The failure mode is not "couldn't solve the hard one" — it is sinking
+        thirty minutes into one problem and leaving two easy ones untouched. Set a hard per-question
+        ceiling before you start, and when you hit it, submit whatever passes and move. A brute-force
+        solution that passes the small cases scores; an elegant half-written one does not.</p>
+      </div>
+    </section>
+
+    <section id="archetypes">
+      <div class="sec-head">
+        <p class="eyebrow">02 &middot; Drills</p>
+        <h2>The four archetypes, and your drill file</h2>
+      </div>
+
+      <p>Reported question categories are stable even though the exact problems rotate. Each row below
+      has a worked, self-testing drill in
+      <a href="capital-one-gca-solutions.py"><code class="mono">capital-one-gca-solutions.py</code></a>
+      — run it and it must exit clean.</p>
+
+      <table class="cs-table">
+        <thead>
+          <tr><th>Archetype</th><th>What it looks like</th><th>Budget</th><th>Drill</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>String / array basics</td>
+            <td>Deliberately easy. Points are lost to spec-reading, not difficulty — "first-seen
+            order", "after trimming", "case-insensitive" are where they hide.</td>
+            <td>8 min</td>
+            <td><code class="mono">normalize_account_tags</code></td>
+          </tr>
+          <tr>
+            <td>Reading-heavy conversion</td>
+            <td>A long spec, simple operations, one rule that interacts with the others. Banking and
+            ledger framing is common here for obvious reasons.</td>
+            <td>15 min</td>
+            <td><code class="mono">replay_ledger</code></td>
+          </tr>
+          <tr>
+            <td>Matrix implementation</td>
+            <td>No clever algorithm — pure boundary bookkeeping. The bug is always the last row or
+            column, emitted twice or not at all.</td>
+            <td>18 min</td>
+            <td><code class="mono">spiral_sums</code></td>
+          </tr>
+          <tr>
+            <td>Optimization</td>
+            <td>The one question where the naive loop times out. In practice this is a monotonic
+            stack or a prefix-sum hashmap far more often than it is anything exotic.</td>
+            <td>20 min</td>
+            <td><code class="mono">days_until_higher_rate</code>, <code class="mono">count_balanced_windows</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note warn">
+        <p class="eyebrow">The two patterns that carry the optimization question</p>
+        <p><strong>Monotonic stack</strong> — push <em>indices</em>, not values, or you need a second
+        scan to find where they came from. <strong>Prefix-sum hashmap</strong> — seed
+        <code class="mono">{0: 1}</code> (the empty prefix, which is what lets a window starting at
+        index 0 count) and look up <em>before</em> inserting (or a window matches itself when the
+        target is 0). Both live in
+        <a href="string-array-patterns.py"><code class="mono">string-array-patterns.py</code></a>
+        alongside the other six, each with the exact token that breaks it.</p>
+      </div>
+    </section>
+
+    <section id="before">
+      <div class="sec-head">
+        <p class="eyebrow">03 &middot; Test day</p>
+        <h2>Before you click</h2>
+      </div>
+
+      <ol class="stack">
+        <li><strong>Read the invitation email for the real time limit.</strong> Everything on this
+        page is the reported norm; your email is authoritative and this page is not.</li>
+        <li><strong>One screen, nothing else open.</strong> Same proctoring discipline as any proctored CodeSignal sitting —
+        the assessment is screen-shared and camera-on, and a second monitor is a flag.</li>
+        <li><strong>Pick your language before the timer, not after.</strong> Python unless the
+        employer restricts it; know your own <code class="mono">collections</code> imports cold
+        (<code class="mono">Counter</code>, <code class="mono">defaultdict</code>,
+        <code class="mono">deque</code>) because there is no IDE and no autocomplete worth trusting.</li>
+        <li><strong>Three minutes of triage before the first keystroke.</strong> Rank all four, write
+        the order down, set the per-question ceilings.</li>
+        <li><strong>Submit something for every question.</strong> Brute force that passes small cases
+        beats an unfinished optimum, and 300 is what a blank scores.</li>
+      </ol>
+    </section>
+
+    <section id="confidence">
+      <div class="sec-head">
+        <p class="eyebrow">04 &middot; Confidence</p>
+        <h2>What to trust, and what comes next</h2>
+      </div>
+
+      <div class="note info">
+        <p class="eyebrow">Confidence — read this before you rely on any number above</p>
+        <p>The <strong>4-questions / 70-minutes / 300–850</strong> format is CodeSignal's own
+        documented GCA structure and is solid. The <strong>advancement thresholds</strong> circulating
+        for Capital One (roughly 750+ general, 800+ for software engineering, 700–730 for analyst
+        tracks) are <em>community self-reports, not published figures</em>, and a meaningful share of
+        the pages repeating them are AI-generated SEO content citing each other. Treat them as
+        directional only. The retake limits (2 per 30 days, 3 per 6 months) and the ~6-month score
+        validity are CodeSignal platform policy rather than a Capital One rule. Anything that
+        actually gates you — the time limit, the language list, the deadline — is in your invitation
+        email or answerable by your recruiter, and that is the source to trust over this page.</p>
+        <p>If you clear it, the next stage is Capital One's <strong>Power Day</strong>: technical
+        coding, system design, a case study and behavioural, back to back in one day. The coding
+        round there is reported to be class-based/OOP design rather than LeetCode-style, which is a
+        different preparation again — worth its own section if you get there.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="eyebrow">Local interview-prep collection</p>
+    <p>Use the <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a> for verified personal
+    stories. The sibling <a href="anthropic-codesignal-assessment-standalone.html">Anthropic CodeSignal</a> page
+    covers the <em>other</em> CodeSignal instrument &mdash; one problem, four gated levels &mdash; and
+    preparing for one as though it were the other is the mistake this page exists to prevent.</p>
+    <p><a href="#top">Back to top</a></p>
+  </footer>
+</div>
+</body>
+</html>

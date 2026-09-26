@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Interview preparation for Vantor's Agentic Engineering Lead role: engineering systems of record, agent architecture, guardrails, evaluation, and adoption.">
+<title>Vantor — Agentic Engineering Lead Prep</title>
+<style>
+  :root {
+    --ground:#F6F8F9; --surface:#FFFFFF; --surface-alt:#EEF2F3;
+    --ink:#10181C; --muted:#55646C; --accent:#14666E; --accent-soft:#DCEAEB;
+    --rule:#DDE4E7; --caution:#8A5D05; --caution-soft:#F7EDD6;
+    --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  @media(prefers-color-scheme:dark) {
+    :root { --ground:#0D1417; --surface:#141E22; --surface-alt:#1A262B;
+      --ink:#E6EDEF; --muted:#A5B5BD; --accent:#6CC3CA; --accent-soft:#16333A;
+      --rule:#35474F; --caution:#E5B654; --caution-soft:#33290F; }
+  }
+  * { box-sizing:border-box; }
+  html { scroll-padding-top:8rem; }
+  body { margin:0; background:var(--ground); color:var(--ink); font:17px/1.65 var(--f-body); }
+  a { color:var(--accent); text-underline-offset:3px; }
+  a:focus-visible,summary:focus-visible { outline:3px solid var(--accent); outline-offset:4px; }
+  h1,h2,h3 { font-family:var(--f-display); line-height:1.2; letter-spacing:-.02em; text-wrap:balance; }
+  h1 { font-size:clamp(2rem,4.4vw,3.4rem); margin:.6rem 0 1rem; max-width:22ch; }
+  h2 { font-size:1.55rem; margin:.4rem 0 1.1rem; }
+  h3 { font-size:1.08rem; margin:0 0 .5rem; }
+  p { margin:0 0 .9rem; }
+  p:last-child { margin-bottom:0; }
+  ul,ol { padding-left:1.35rem; margin:.6rem 0 0; }
+  li + li { margin-top:.45rem; }
+  code { font:.84em var(--f-mono); background:var(--surface-alt); padding:.08em .3em; overflow-wrap:anywhere; }
+  .wrap { width:min(70rem,100%); margin:auto; padding:0 1.5rem 5rem; }
+  .eyebrow { margin:0; color:var(--accent); font:600 .7rem/1.6 var(--f-mono); letter-spacing:.12em; text-transform:uppercase; }
+  .muted,.small { color:var(--muted); }
+  .small { font-size:.88rem; }
+  .skip { position:absolute; top:-8rem; left:1rem; padding:.6rem 1rem; background:var(--surface); z-index:50; }
+  .skip:focus { top:.5rem; }
+  nav.sitenav { position:sticky; top:0; z-index:20; display:flex; flex-wrap:wrap; gap:.2rem; padding:.65rem 0; background:var(--ground); border-bottom:1px solid var(--rule); font:600 .81rem/1.5 var(--f-display); }
+  nav.sitenav a { text-decoration:none; color:var(--muted); padding:.35rem .6rem; border:1px solid transparent; border-radius:2px; white-space:nowrap; }
+  nav.sitenav a:hover { color:var(--accent); background:var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] { color:var(--accent); background:var(--surface); border-color:var(--rule); }
+  nav.sitenav .sep { flex:1; }
+  .hero { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:2.4rem; padding:3rem 0 2.2rem; align-items:start; }
+  .standfirst { color:var(--muted); font-size:1.13rem; max-width:56ch; }
+  .brief,.note,.card,.question { background:var(--surface); border:1px solid var(--rule); padding:1.25rem; border-radius:3px; }
+  .brief { border-top:3px solid var(--accent); }
+  .brief dl { margin:1rem 0 0; }
+  .brief dt { font:600 .68rem var(--f-mono); text-transform:uppercase; letter-spacing:.07em; color:var(--muted); margin-top:.9rem; }
+  .brief dd { margin:.2rem 0 0; font:600 .98rem/1.5 var(--f-display); }
+  .note { border-left:3px solid var(--accent); margin:1.2rem 0; }
+  .note.warn { border-left-color:var(--caution); background:var(--caution-soft); }
+  .note.warn .eyebrow { color:var(--caution); }
+  .toc { border-block:1px solid var(--rule); padding:1.2rem 0; }
+  .toc ol { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.5rem 1.8rem; font:.92rem/1.5 var(--f-display); }
+  .toc li + li { margin-top:0; }
+  section { padding-top:3rem; scroll-margin-top:1rem; }
+  .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1rem 0; }
+  .card .eyebrow { margin-bottom:.55rem; }
+  .script { border-left:3px solid var(--accent); background:var(--accent-soft); padding:1.1rem 1.3rem; margin:1rem 0; }
+  .flow { list-style:none; counter-reset:flow; padding:0; display:grid; gap:.65rem; }
+  .flow li { counter-increment:flow; display:grid; grid-template-columns:2rem minmax(0,1fr); gap:.85rem; padding:1rem; background:var(--surface); border:1px solid var(--rule); margin:0; }
+  .flow li::before { content:counter(flow,decimal-leading-zero); color:var(--accent); font:600 .85rem var(--f-mono); padding-top:.18rem; }
+  .flow h3 { margin:0 0 .25rem; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--rule); background:var(--surface); border-radius:3px; margin:1rem 0; }
+  table { width:100%; border-collapse:collapse; font-size:.92rem; }
+  th,td { text-align:left; vertical-align:top; padding:.8rem 1rem; border-top:1px solid var(--rule); }
+  th { font:600 .77rem/1.45 var(--f-display); background:var(--surface-alt); }
+  td:first-child { font-family:var(--f-display); font-weight:600; }
+  .question { margin:1rem 0; scroll-margin-top:8rem; }
+  .question h3 { margin:.35rem 0 .7rem; }
+  details.answer { border-top:1px solid var(--rule); margin-top:.85rem; }
+  summary { cursor:pointer; font:600 .9rem/1.5 var(--f-display); color:var(--accent); padding:.7rem 0; }
+  .probe { color:var(--muted); font-size:.94rem; border-left:2px solid var(--rule); padding-left:.85rem; margin-top:.8rem; }
+  footer { border-top:1px solid var(--rule); margin-top:3rem; padding-top:1.3rem; font-size:.86rem; color:var(--muted); }
+  @media(max-width:45rem) {
+    .hero,.grid { grid-template-columns:minmax(0,1fr); gap:1rem; }
+    .hero { padding-top:2rem; }
+    .toc ol { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    nav.sitenav { flex-wrap:nowrap; overflow-x:auto; }
+    nav.sitenav .sep { display:none; }
+    html { scroll-padding-top:5rem; }
+    .question { scroll-margin-top:5rem; }
+    .wrap { padding-inline:1.1rem; }
+  }
+  @media(max-width:25rem) { .toc ol { grid-template-columns:1fr; } }
+  @media print {
+    :root { --ground:#fff; --surface:#fff; --surface-alt:#f4f4f4; --ink:#111; --muted:#444; --accent:#174d52; --accent-soft:#f1f5f5; --rule:#bbb; --caution:#76500b; --caution-soft:#fff8e7; }
+    nav.sitenav,.skip { display:none; }
+    .wrap { width:100%; padding:0; }
+    .hero { padding-top:0; }
+    .question,.card,.note { break-inside:avoid; }
+    .table-wrap { overflow:visible; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to Vantor interview preparation</a>
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Vantor · Agentic Engineering Lead · T7 / Principal</p>
+      <h1>Build an Agentic SDLC engineers can trust.</h1>
+      <p class="standfirst">This role is about making AI useful across Engineering: trusted data, reusable workflows, controls that work in the execution path, and adoption across very different teams.</p>
+      <p class="small">Start with the <a href="#pitch">opening answer</a>, walk through the <a href="#architecture">design</a>, then rehearse the <a href="#practice">10 questions</a>. Draft answers describe a design; replace any personal claim with work you can demonstrate.</p>
+    </div>
+    <aside class="brief" aria-label="Role facts from the supplied posting">
+      <p class="eyebrow">The posting at a glance</p>
+      <dl>
+        <dt>Level</dt><dd>Agentic Engineering Lead · T7 / Principal</dd>
+        <dt>Experience bar</dt><dd>Posting gives 15+ / 10+ / 8+ years by degree, or equivalent experience</dd>
+        <dt>Scope</dt><dd>Engineering Operating Model and Agentic SDLC across teams</dd>
+        <dt>Technical center</dt><dd>Agents, engineering data, systems of record, evaluation, guardrails</dd>
+        <dt>Environment</dt><dd>Spatial intelligence; mission and product constraints vary</dd>
+        <dt>Eligibility</dt><dd>U.S. person required; some roles may be export controlled</dd>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Your route through the prep</p>
+    <ol>
+      <li><a href="#mandate">What Vantor is hiring for</a></li>
+      <li><a href="#pitch">Opening answer</a></li>
+      <li><a href="#architecture">System design to rehearse</a></li>
+      <li><a href="#adoption">First 90 days and success measures</a></li>
+      <li><a href="#practice">10 interview questions</a></li>
+      <li><a href="#stories">Papercusp evidence map</a></li>
+      <li><a href="#ask">Questions to ask Vantor</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="mandate">
+      <p class="eyebrow">01 · Read the mandate</p>
+      <h2>A platform and change-leadership role.</h2>
+      <p>The posting asks for a technical leader who can make engineering standards and systems of record usable by agents, then help product teams adopt the resulting workflows. A strong answer connects <strong>architecture</strong>, <strong>control</strong>, <strong>evidence</strong>, and <strong>adoption</strong>. The company describes its domain as spatial intelligence; prepare to ask how product missions and assurance requirements change the allowable autonomy.</p>
+      <div class="grid">
+        <article class="card">
+          <p class="eyebrow">Build the common core</p>
+          <h3>One trusted agent pattern</h3>
+          <p>Shared identity, scoped tools, durable run state, context provenance, approvals, evaluation, and trace IDs. Each team supplies its own workflow steps and policy constraints.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Keep authority explicit</p>
+          <h3>Systems of record stay authoritative</h3>
+          <p>Git, issue tracking, CI, documentation, and operational systems each own particular facts. A search index or model summary is a derived view with citations and a freshness limit.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Fit the mission</p>
+          <h3>Autonomy depends on risk</h3>
+          <p>Reading and proposing are different from merging, deploying, changing access, or touching controlled data. Those transitions need enforceable policy and, where required, named human approval.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Prove the benefit</p>
+          <h3>Measure outcomes</h3>
+          <p>Compare matched engineering work before and after the pilot: cycle time and review effort alongside defect escape, change failure, trace completeness, and engineer trust.</p>
+        </article>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">High-assurance boundary</p>
+        <p>U.S.-person eligibility is stated in the posting. It is separate from a security clearance. For export-controlled or mission-sensitive work, ask which data, models, tools, networks, and logs are approved. Do not imply clearance or approval you have not been granted.</p>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">02 · Opening answer</p>
+      <h2>Connect Papercusp to Vantor's operating-model problem.</h2>
+      <p class="small">Practice wording. Identify the pieces you personally built and bring one concrete failure-and-fix story.</p>
+      <div class="script">
+        <p class="eyebrow">60-second answer: “Tell me about yourself and why this role?”</p>
+        <p>“I'm building Papercusp, an agentic software system where agents use tools, share state, and do real engineering work. The hard part has been making those actions accountable: deciding what data is authoritative, where permissions and approvals are enforced, how a run recovers, and what evidence shows the work was correct.</p>
+        <p>Vantor's role is interesting to me because it puts that problem at Engineering scale. I would establish a small set of reusable controls and data contracts, then work with product teams to adapt them to their architecture and mission risk. I would start with one workflow where the baseline is measurable, prove that it saves effort without weakening quality or traceability, and use what we learn to shape the wider Agentic SDLC.”</p>
+      </div>
+      <p class="probe"><strong>Make it yours:</strong> Replace “I'm building” with your exact role and one feature you can show. If asked about production deployment, distinguish what you operated from what you designed or tested.</p>
+    </section>
+
+    <section id="architecture">
+      <p class="eyebrow">03 · System design</p>
+      <h2>Design one agentic engineering workflow end to end.</h2>
+      <p>Use a hypothetical example: a Jira issue requests a change to a spatial-data processing service. The agent may gather context and propose a patch. The release path still needs the product team's tests, approval rules, and evidence. Ask which systems Vantor actually uses before naming an integration as fact.</p>
+      <ol class="flow">
+        <li><div><h3>Define the contract</h3><p>Pick a task class, responsible team, allowed outputs, risk level, and success test. Give each run a stable ID tied to the issue and product version.</p></div></li>
+        <li><div><h3>Resolve authoritative context</h3><p>Read scoped issue, code, standards, tests, and operational data through typed integrations. Preserve source IDs, versions, timestamps, and access rules; mark missing or stale context.</p></div></li>
+        <li><div><h3>Propose, then enforce</h3><p>The agent can draft a plan or patch. A policy service and tool boundary decide whether it can open a PR, request review, or perform a higher-impact action. Required human approval names the exact change.</p></div></li>
+        <li><div><h3>Verify and recover</h3><p>Run deterministic checks and task-specific evaluation. Persist state, tool receipts, test results, approvals, and retry identity. On an uncertain outcome, reconcile before repeating a side effect.</p></div></li>
+        <li><div><h3>Close the evidence loop</h3><p>Link issue → run → context versions → PR → CI result → reviewer → release or rejection. Trace one run while aggregate metrics show whether the workflow improves engineering outcomes.</p></div></li>
+      </ol>
+      <div class="table-wrap" role="region" aria-label="Engineering systems of record" tabindex="0">
+        <table>
+          <thead><tr><th>System</th><th>Authoritative for</th><th>What the agent records</th></tr></thead>
+          <tbody>
+            <tr><td>Issue tracker</td><td>Request, owner, acceptance criteria</td><td>Issue ID and version at run start</td></tr>
+            <tr><td>Git repository</td><td>Source, review, commit identity</td><td>Base commit, diff, PR, merged commit</td></tr>
+            <tr><td>CI/CD</td><td>Build, tests, promotion outcome</td><td>Run ID, artifact, verdict, release receipt</td></tr>
+            <tr><td>Standards and docs</td><td>Published engineering rules</td><td>Rule version and cited passages</td></tr>
+            <tr><td>Observability</td><td>Operational behavior</td><td>Trace and metric window used in a decision</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="probe"><strong>Principal-level tradeoff:</strong> Share identity, data contracts, policy enforcement, traceability, and evaluation. Let each team configure its workflow, test suite, approval thresholds, and deployment constraints.</p>
+    </section>
+
+    <section id="adoption">
+      <p class="eyebrow">04 · Lead the rollout</p>
+      <h2>Start narrow, then earn a common pattern.</h2>
+      <div class="grid">
+        <article class="card">
+          <p class="eyebrow">Days 1–30 · map</p>
+          <p>Interview product and platform teams; identify one costly workflow, its current baseline, authoritative systems, data classification, approval points, and failure history. Choose a pilot with a willing owner and a measurable outcome.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Days 31–60 · prove</p>
+          <p>Ship a limited workflow with scoped tools, explicit handoffs, audit links, and a representative evaluation set. Run it in shadow or proposal-only mode before granting execution rights. Review failures with engineers.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Days 61–90 · generalize</p>
+          <p>Extract reusable integration, policy, and evaluation patterns from the pilot. Try a second team with different constraints; document which parts transfer and which require local choices.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Decision to expand</p>
+          <p>Compare matched work against baseline. Expand only when engineering time improves and quality, security, traceability, and review burden meet pre-agreed limits.</p>
+        </article>
+      </div>
+      <div class="note">
+        <p class="eyebrow">Metrics that answer “did it help?”</p>
+        <p><strong>Adoption:</strong> weekly active teams and repeat use. <strong>Efficiency:</strong> comparable task cycle time and human review minutes. <strong>Quality:</strong> accepted changes, rework, escaped defects, and change failure rate. <strong>Control:</strong> policy blocks, missing evidence, approval bypasses, and complete run traces. Count agent-generated PRs only as activity, not success.</p>
+      </div>
+    </section>
+
+    <section id="practice">
+      <p class="eyebrow">05 · Interview practice</p>
+      <h2>Answer the leadership question and the engineering detail.</h2>
+      <p>Say your answer aloud before opening each card. Use one real Papercusp example only where you can explain your contribution and evidence.</p>
+
+      <article class="question" id="q-sdlc">
+        <p class="eyebrow">01 · Direction</p><h3>“What is an Agentic SDLC?”</h3>
+        <details class="answer"><summary>Show answer</summary>
+          <p>“It is an engineering lifecycle in which agents help with defined work—triage, context gathering, code changes, tests, review, and operations—under the same ownership and quality rules as human work. I would define which steps an agent may propose, which it may execute, and which need a person. Each action links to the source request, code version, policy, test result, and reviewer. The goal is faster, more consistent work with a stronger evidence trail, not an unbounded agent loop.”</p>
+        </details>
+      </article>
+      <article class="question" id="q-standards">
+        <p class="eyebrow">02 · Standards</p><h3>“How do you turn engineering playbooks into automated controls?”</h3>
+        <details class="answer"><summary>Show answer</summary>
+          <p>“I would separate guidance from enforceable rules. A playbook may help the agent draft a change; a typed tool boundary, policy check, and CI gate enforce permissions, required tests, and approvals. I would version the rule, record which version applied to a run, and add a test that fails if the rule is bypassed. Start with one high-value standard that teams already agree on, then validate exceptions with the teams before scaling it.”</p>
+        </details>
+      </article>
+      <article class="question" id="q-records">
+        <p class="eyebrow">03 · Data architecture</p><h3>“What does a trusted engineering system-of-record model look like?”</h3>
+        <details class="answer"><summary>Show answer</summary>
+          <p>“I would name the authority for each fact: issue ownership in the tracker, code and review in Git, test verdict in CI, and released behavior in deployment and telemetry records. Join them with stable IDs and preserve source versions and timestamps. The agent's context index is useful for retrieval but is not the authority. When records conflict or are stale, the workflow should show the uncertainty and stop the affected action rather than silently choose a convenient answer.”</p>
+        </details>
+      </article>
+      <article class="question" id="q-context">
+        <p class="eyebrow">04 · Context</p><h3>“How do you give an agent enough context without leaking or confusing data?”</h3>
+        <details class="answer"><summary>Show answer</summary>
+          <p>“Scope retrieval to the actor, product, task, and data classification. Fetch only the current code, requirements, standards, and test evidence needed for the decision; attach citations, versions, and freshness. Durable run state and approvals live in a database, not a prompt summary. I would test permission boundaries, stale documents, conflicting sources, and a resume after context compaction. Sensitive content goes only to approved model and tool environments.”</p>
+        </details>
+      </article>
+      <article class="question" id="q-handoffs">
+        <p class="eyebrow">05 · Handoffs</p><h3>“Where would you put humans in the loop?”</h3>
+        <details class="answer"><summary>Show answer</summary>
+          <p>“At decisions whose risk or authority cannot be delegated safely: a sensitive data boundary, a significant design choice, merge or deploy, a policy exception, or an ambiguous external outcome. The agent should hand over a specific proposal, evidence, risks, and the exact action it wants approved. Approval must bind to that version of the action; changing the diff or target invalidates it. A human review should be useful, not a rubber stamp on every low-risk read.”</p>
+        </details>
+      </article>
+      <article class="question" id="q-evaluation">
+        <p class="eyebrow">06 · Evaluation</p><h3>“How would you evaluate an engineering agent before and after rollout?”</h3>
+        <details class="answer"><summary>Show answer</summary>
+          <p>“Build a representative task set with expected outcomes, hard permission tests, failure injection, and a human baseline. Offline, score task completion, correctness, test quality, unsafe actions, and recovery from tool failures. In a pilot, compare matched tasks on engineer time, review effort, accepted changes, rework, and escaped defects. Keep policy violations as hard failures even if average productivity improves. Review the traces behind the numbers before expanding.”</p>
+        </details>
+      </article>
+      <article class="question" id="q-observability">
+        <p class="eyebrow">07 · Observability</p><h3>“What should a trace of one agentic change show?”</h3>
+        <details class="answer"><summary>Show answer</summary>
+          <p>“One correlation ID should connect the issue, run, context versions, model and tool calls, policy decisions, PR, test run, approval, and final release or rejection. Record durations, retries, and redacted failure reasons. That lets an engineer reconstruct what happened without exposing secrets in logs. Aggregate metrics show queue age, completion, manual correction, cost, policy denials, and missing evidence. A successful HTTP response is not proof that the engineering task succeeded.”</p>
+        </details>
+      </article>
+      <article class="question" id="q-adoption">
+        <p class="eyebrow">08 · Adoption</p><h3>“How do you scale a common pattern without forcing every team into one workflow?”</h3>
+        <details class="answer"><summary>Show answer</summary>
+          <p>“I would standardize the seams that need consistency—identity, tool contracts, data provenance, policy decisions, audit records, and evaluation. Teams choose their task flow, tests, risk thresholds, and review points within those contracts. I would pilot with two different products, bring engineers into the design review, and measure both saved effort and the friction the common layer creates. A pattern that only works for the first team is not yet reusable.”</p>
+        </details>
+      </article>
+      <article class="question" id="q-assurance">
+        <p class="eyebrow">09 · Mission constraints</p><h3>“What changes in an export-controlled or high-assurance environment?”</h3>
+        <details class="answer"><summary>Show answer</summary>
+          <p>“The data and execution boundary comes first. I would classify inputs and outputs, use only approved models and infrastructure, restrict credentials and network paths, and keep controlled data out of unapproved prompts and logs. Then I would define which agent actions are allowed, what evidence each must leave, and where a person must approve. The exact rules depend on Vantor's programs and counsel; I would verify them with the security and export-control owners rather than assume a generic cloud setup is acceptable.”</p>
+        </details>
+      </article>
+      <article class="question" id="q-influence">
+        <p class="eyebrow">10 · Principal leadership</p><h3>“How would you win over senior engineers who distrust agents?”</h3>
+        <details class="answer"><summary>Show answer</summary>
+          <p>“I would ask which failure they are worried about, make it a test, and let them inspect the evidence. Choose a narrow workflow they own, keep an easy manual path, and compare it with current work on quality as well as time. Publish the failure cases and the decisions they changed. If the agent adds review burden or hides uncertainty, fix that before asking more teams to adopt it. Influence at this level comes from a sound shared design and measured results.”</p>
+        </details>
+      </article>
+    </section>
+
+    <section id="stories">
+      <p class="eyebrow">06 · Bring proof</p>
+      <h2>Choose a Papercusp story for each part of the mandate.</h2>
+      <p class="small">These are prompts, not verified claims about your personal contribution. Open the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a> for details and confirm the code, result, and your role before saying a number.</p>
+      <div class="table-wrap" role="region" aria-label="Vantor requirement and Papercusp story map" tabindex="0">
+        <table>
+          <thead><tr><th>Vantor asks for</th><th>Story to prepare</th><th>Evidence to bring</th></tr></thead>
+          <tbody>
+            <tr><td>Agent architecture and reusable patterns</td><td>A typed tool or workflow boundary you designed or changed.</td><td>Before/after contract, tests, and a second use case.</td></tr>
+            <tr><td>Systems of record and traceability</td><td>A case where durable state or a source-of-truth decision prevented confusion.</td><td>Identifiers, state transition, receipt, and reconstruction of one run.</td></tr>
+            <tr><td>Guardrails and human handoffs</td><td>An approval, lock, policy, or release-control failure you found and fixed.</td><td>Failure mode, enforcement point, regression test, and recovery path.</td></tr>
+            <tr><td>Evaluation and adoption</td><td>An agent capability you measured or revised after engineer feedback.</td><td>Baseline, rubric, denominator, quality guardrail, and actual result.</td></tr>
+            <tr><td>Technical direction across teams</td><td>A design decision you influenced beyond your own code.</td><td>Alternatives, written decision, teams involved, and adoption or follow-up.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="probe"><strong>Story shape:</strong> “The problem was X. I owned Y. The failure case was Z. We enforced the rule at this boundary, tested it this way, and saw this measured result.” If you do not have the measured result, say what you checked and what remains unknown.</p>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">07 · Questions for Vantor</p>
+      <h2>Learn the constraints before prescribing the platform.</h2>
+      <ul>
+        <li>Which engineering workflows are the first candidates, and what manual effort or failure is driving this role?</li>
+        <li>Which systems are authoritative for requirements, code, tests, approvals, and release state today?</li>
+        <li>How do product teams differ in architecture, mission risk, and allowed model or tool environments?</li>
+        <li>What does T7 own directly versus influence through other engineering leaders?</li>
+        <li>Which actions may agents take now, and which require human or export-control review?</li>
+        <li>What baseline and quality bar would make the first 90 days a success?</li>
+      </ul>
+      <div class="note">
+        <p class="eyebrow">Application detail</p>
+        <p>The supplied posting says applications go through Vantor's <a href="https://www.vantor.com/careers">Careers page</a>. It describes a three-day posting window that may continue until a qualified candidate is found. The posting date and interview stage were not supplied here; check the current listing before relying on timing or location-specific pay.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><b>Vantor Agentic Engineering Lead Prep</b> — based on the job description you supplied. Company-specific architecture and interview format are questions to confirm, not facts assumed by this guide.</p>
+    <p><a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a> · <a href="#top">Back to top</a></p>
+  </footer>
+</div>
+</body>
+</html>

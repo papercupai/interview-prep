@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Restart Chatbot Infra — Scout on shop.buyrestart.com</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{color-scheme:light dark;--bg:#f4f7f7;--paper:#ffffff;--ink:#182226;--muted:#61727a;--line:#c6d1d5;--accent:#1c6d88;--accent-soft:#e3f0f5;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1719;--paper:#172229;--ink:#e1eaee;--muted:#93a5ad;--line:#2f4149;--accent:#63c0dd;--accent-soft:#153039}}
+:root[data-theme="dark"]{--bg:#0f1719;--paper:#172229;--ink:#e1eaee;--muted:#93a5ad;--line:#2f4149;--accent:#63c0dd;--accent-soft:#153039}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans)}
+header,main,figure{max-width:1260px;margin-inline:auto;padding:0 28px}
+header{padding-top:26px}
+.eyebrow{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+h1{font-size:1.7rem;line-height:1.2;margin:0 0 8px;text-wrap:balance;font-weight:600}
+h2{font-size:1.05rem;margin:30px 0 6px;font-weight:600}
+.lede{max-width:70ch;margin:0 0 18px;color:var(--muted)}
+figure{margin:22px auto 0}
+.plate{border:1px solid var(--line);border-radius:6px;background:var(--paper);overflow-x:auto;padding:10px}
+.plate svg{display:block;width:100%;min-width:900px;height:auto;color:var(--ink)}
+figcaption{font-size:.88rem;color:var(--muted);margin:8px 2px 0;max-width:90ch}
+.bx{fill:var(--paper);stroke:currentColor;stroke-width:1.2}
+.bx.ac{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.6}
+.ln{fill:var(--paper);stroke:currentColor;stroke-width:1.2}
+.ll{stroke:var(--line);stroke-width:1.2;stroke-dasharray:4 4}
+.fr{fill:none;stroke:var(--line);stroke-width:1.4}
+.ft{font:600 12px var(--sans);fill:var(--muted);letter-spacing:.03em}
+.tt{font:600 12px var(--sans);fill:currentColor}
+.mo{font:10.6px var(--mono);fill:currentColor}
+.sa{font:11px var(--sans);fill:currentColor}
+.ta{fill:var(--accent)}
+.lb{font:11px var(--sans);fill:var(--muted)}
+.lb.ta{fill:var(--accent)}
+.ed{fill:none;stroke:currentColor;stroke-width:1.15;stroke-linejoin:round}
+.ed.ac{stroke:var(--accent);stroke-width:1.6}
+.ed.da{stroke:var(--muted);stroke-dasharray:5 4}
+.mh{fill:currentColor}
+.mha{fill:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:.86rem;background:var(--paper);border:1px solid var(--line)}
+th,td{text-align:left;vertical-align:top;padding:7px 10px;border-bottom:1px solid var(--line)}
+th{font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td:first-child{font-family:var(--mono);font-size:.8rem;white-space:nowrap}
+.tools td:first-child{font-family:var(--sans);font-size:.86rem;font-weight:600}
+.tools td:nth-child(2){font-family:var(--mono);font-size:.78rem;max-width:22ch}
+.tblwrap{overflow-x:auto}
+ul.say{margin:8px 0 40px;padding-left:20px;max-width:78ch}
+ul.say li{margin:6px 0}
+nav.sitenav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:.2rem;padding:.58rem 28px;background:var(--bg);background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font:600 .82rem var(--sans)}
+nav.sitenav a{padding:.3rem .58rem;border:1px solid transparent;border-radius:2px;color:var(--muted);text-decoration:none;white-space:nowrap}
+nav.sitenav a:hover{color:var(--accent);background:var(--accent-soft)}
+nav.sitenav a[aria-current="page"]{color:var(--accent);background:var(--paper);border-color:var(--line)}
+nav.sitenav .sep{flex:1}
+@media print{nav.sitenav{display:none}}
+@media(max-width:760px){header,main,figure{padding-inline:16px}}
+</style>
+<div id="sitenav"></div>
+<script src="sitenav.js"></script>
+<header>
+<p class="eyebrow">Restart . shop.buyrestart.com . checked against the Restart source 25 September 2026</p>
+<h1>Scout, the chatbot on shop.buyrestart.com</h1>
+<p class="lede">Figure 1 shows where the chatbot runs and what it talks to, read from <code>docker-compose.prod.yml</code>. Figures 2 and 3 follow one chat turn: the transport, then the loop. Those two figures come from the September 10 deep-dive and were re-read from <code>apps/scout-service</code>, <code>libs/scout-runtime</code>, <code>libs/scout-chat</code>, the shop's <code>/api/scout</code> route and shop-api's tooldef host.</p>
+</header>
+<figure>
+<div class="plate"><svg viewBox="0 0 1400 760" role="img" aria-label="Deployment of the Scout chatbot: browser, Cloudflare, and one Hetzner host running Traefik, the Astro shop, scout-service, shop-api, Postgres with pgvector, Typesense, Redis and autoheal, with the external model APIs and an optional Chatwoot mirror"><defs><marker id="f1h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mh" d="M0,0 L10,5 L0,10 z"/></marker><marker id="f1ha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mha" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="bx" x="20" y="40" width="250" height="84" rx="3"/>
+<text class="tt" x="29" y="57">Shopper&#x27;s browser</text>
+<text class="sa" x="29" y="75">any page on shop.buyrestart.com</text>
+<text class="sa" x="29" y="90">ScoutChat widget (libs/scout-chat)</text>
+<text class="sa" x="29" y="105">reads SSE; re-POSTs on a drop</text>
+<rect class="bx" x="20" y="215" width="250" height="100" rx="3"/>
+<text class="tt" x="29" y="232">Cloudflare proxy</text>
+<text class="sa" x="29" y="250">buyrestart.com zone, orange-cloud</text>
+<text class="sa" x="29" y="265">caches shop HTML + region catalog</text>
+<text class="sa" x="29" y="280">never caches /api/*, so the</text>
+<text class="sa" x="29" y="295">SSE stream passes straight through</text>
+<polyline class="ed ac" points="145,124 145,211" marker-end="url(#f1ha)"/>
+<text class="lb ta" x="153" y="160" text-anchor="start">POST /api/scout</text>
+<text class="lb ta" x="153" y="173" text-anchor="start">SSE stream back</text>
+<rect class="bx" x="20" y="560" width="250" height="84" rx="3"/>
+<text class="tt" x="29" y="577">Reading the figure</text>
+<text class="sa ta" x="29" y="595">accent: the chat request path</text>
+<text class="sa" x="29" y="610">solid: calls Scout makes per turn</text>
+<text class="sa" x="29" y="625">dashed: optional or batch</text>
+<rect class="fr" x="305" y="165" width="1080" height="585" rx="4"/>
+<text class="ft" x="317" y="186" text-anchor="start">One Hetzner host  .  docker compose  (docker-compose.prod.yml)</text>
+<rect class="bx" x="330" y="205" width="250" height="84" rx="3"/>
+<text class="tt" x="339" y="222">Traefik v3.6</text>
+<text class="sa" x="339" y="240">:443, Let&#x27;s Encrypt HTTP-01 certs</text>
+<text class="sa" x="339" y="255">Host(shop.buyrestart.com) -&gt; shop</text>
+<text class="sa" x="339" y="270">scout-service: traefik.enable=false</text>
+<polyline class="ed ac" points="270,262 326,262" marker-end="url(#f1ha)"/>
+<rect class="bx" x="330" y="380" width="250" height="100" rx="3"/>
+<text class="tt" x="339" y="397">shop  (Astro 6 SSR on Node)</text>
+<text class="sa" x="339" y="415">/api/scout: a proxy, not a model</text>
+<text class="sa" x="339" y="430">better-auth cookie -&gt; userId</text>
+<text class="sa" x="339" y="445">overwrites any client-sent userId</text>
+<text class="sa" x="339" y="460">/api/scout-card-response</text>
+<polyline class="ed ac" points="455,289 455,376" marker-end="url(#f1ha)"/>
+<text class="lb ta" x="463" y="336" text-anchor="start">Host rule</text>
+<rect class="bx ac" x="670" y="370" width="330" height="110" rx="3"/>
+<text class="tt" x="679" y="387">scout-service  (NestJS, :3300)</text>
+<text class="sa" x="679" y="405">ScoutController + TurnBus ring buffer</text>
+<text class="sa" x="679" y="420">chat() loop: detect, run tools, stream</text>
+<text class="sa" x="679" y="435">19 tools; budget gates $1 / $50 a day</text>
+<text class="sa" x="679" y="450">memory recall (2 s budget), cost ledger</text>
+<text class="sa" x="679" y="465">no public route: internal network only</text>
+<polyline class="ed ac" points="580,430 666,430" marker-end="url(#f1ha)"/>
+<text class="lb ta" x="623" y="411" text-anchor="middle">POST :3300</text>
+<text class="lb ta" x="623" y="424" text-anchor="middle">/chat/stream</text>
+<rect class="bx" x="1040" y="370" width="330" height="110" rx="3"/>
+<text class="tt" x="1049" y="387">shop-api  (:3100)</text>
+<text class="sa" x="1049" y="405">tooldef host: POST /tooldef/mcp</text>
+<text class="sa" x="1049" y="420">catalog.search: hybrid + LLM rerank</text>
+<text class="sa" x="1049" y="435">resolve-principal: cookie -&gt; customer</text>
+<text class="sa" x="1049" y="450">cart, quotes, orders for that customer</text>
+<text class="sa" x="1049" y="465">own tables in the same Postgres; Redis</text>
+<polyline class="ed" points="1000,410 1036,410" marker-end="url(#f1h)"/>
+<text class="lb" x="1018" y="404" text-anchor="middle">MCP</text>
+<rect class="bx" x="600" y="20" width="460" height="100" rx="3"/>
+<text class="tt" x="609" y="37">Model APIs  (HTTPS, outside the host)</text>
+<text class="sa" x="609" y="55">gemini-2.5-flash: default today, via Google&#x27;s OpenAI-compatible API</text>
+<text class="sa" x="609" y="70">gpt-4o-mini: preferred default once OpenAI billing is restored</text>
+<text class="sa" x="609" y="85">groq llama-3.1-8b-instant, ollama qwen3.5: per-request model choice</text>
+<text class="sa" x="609" y="100">text-embedding-3-small (OpenAI): memory vectors, 1536 dims</text>
+<polyline class="ed" points="830,370 830,124" marker-end="url(#f1h)"/>
+<text class="lb" x="838" y="250" text-anchor="start">detect, stream, embed</text>
+<rect class="bx" x="1090" y="20" width="290" height="100" rx="3"/>
+<text class="tt" x="1099" y="37">Chatwoot  (separate compose file)</text>
+<text class="sa" x="1099" y="55">agent inbox: mirrors user + reply</text>
+<text class="sa" x="1099" y="70">on only if CHATWOOT_API_TOKEN and</text>
+<text class="sa" x="1099" y="85">the inbox id reach scout-service;</text>
+<text class="sa" x="1099" y="100">the prod compose passes neither</text>
+<polyline class="ed da" points="975,370 975,300 1235,300 1235,124" marker-end="url(#f1h)"/>
+<text class="lb" x="1110" y="294" text-anchor="middle">mirror (off in prod)</text>
+<rect class="bx" x="670" y="580" width="330" height="100" rx="3"/>
+<text class="tt" x="679" y="597">Postgres 16 + pgvector</text>
+<text class="sa" x="679" y="615">scout_conversation: messages jsonb</text>
+<text class="sa" x="679" y="630">scout_memory: vector(1536) per scope</text>
+<text class="sa" x="679" y="645">scout_llm_call: cost per round, micro-USD</text>
+<text class="sa" x="679" y="660">scout_tool_invocation: name, ms, ok</text>
+<polyline class="ed" points="830,480 830,576" marker-end="url(#f1h)"/>
+<text class="lb" x="838" y="532" text-anchor="start">state, memory, costs</text>
+<rect class="bx" x="1040" y="580" width="200" height="100" rx="3"/>
+<text class="tt" x="1049" y="597">Typesense 29</text>
+<text class="sa" x="1049" y="615">product collection</text>
+<text class="sa" x="1049" y="630">ask_catalog search</text>
+<text class="sa" x="1049" y="645">fed by typesense-sync</text>
+<polyline class="ed" points="1000,460 1015,460 1015,630 1036,630" marker-end="url(#f1h)"/>
+<polyline class="ed" points="1140,480 1140,576" marker-end="url(#f1h)"/>
+<polyline class="ed da" points="1000,655 1036,655" marker-end="url(#f1h)"/>
+<rect class="bx" x="1255" y="580" width="125" height="60" rx="3"/>
+<text class="tt" x="1264" y="597">Redis 7</text>
+<text class="sa" x="1264" y="615">shop-api cache</text>
+<polyline class="ed" points="1317,480 1317,576" marker-end="url(#f1h)"/>
+<rect class="bx" x="1255" y="660" width="125" height="60" rx="3"/>
+<text class="tt" x="1264" y="677">autoheal</text>
+<text class="sa" x="1264" y="695">heals containers</text>
+<text class="lb" x="317" y="738" text-anchor="start">Browsers reach only Traefik. scout-service has no public route, so every Scout request passes the shop&#x27;s identity check first.</text></svg></div>
+<figcaption><strong>Figure 1.</strong> The chatbot is one NestJS service behind the shop, and the browser never talks to it directly. Cloudflare passes <code>/api/*</code> through uncached, Traefik routes the hostname to the Astro shop, and the shop's <code>/api/scout</code> route attaches the signed-in customer before forwarding over the internal Docker network. From there Scout calls the model APIs, writes its own tables in Postgres, and reaches orders, quotes and the cart only through shop-api's tooldef surface, which re-checks the customer's cookie on every read.</figcaption>
+</figure>
+<figure>
+<div class="plate"><svg viewBox="0 0 1400 700" role="img" aria-label="Sequence of one Scout turn across the browser, the shop proxy, the scout-service controller, the per-turn ring-buffer channel and the detached chat generator, including the reconnect replay"><defs><marker id="f2h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mh" d="M0,0 L10,5 L0,10 z"/></marker><marker id="f2ha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mha" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="ln" x="30" y="10" width="240" height="44" rx="3"/>
+<text class="tt" x="150" y="29" text-anchor="middle">Browser</text>
+<text class="lb" x="150" y="45" text-anchor="middle">ScoutChat lib + reducer</text>
+<line class="ll" x1="150" y1="54" x2="150" y2="690"/>
+<rect class="ln" x="300" y="10" width="240" height="44" rx="3"/>
+<text class="tt" x="420" y="29" text-anchor="middle">shop  /api/scout</text>
+<text class="lb" x="420" y="45" text-anchor="middle">Astro route, same origin</text>
+<line class="ll" x1="420" y1="54" x2="420" y2="690"/>
+<rect class="ln" x="580" y="10" width="240" height="44" rx="3"/>
+<text class="tt" x="700" y="29" text-anchor="middle">scout-service</text>
+<text class="lb" x="700" y="45" text-anchor="middle">ScoutController</text>
+<line class="ll" x1="700" y1="54" x2="700" y2="690"/>
+<rect class="ln" x="860" y="10" width="240" height="44" rx="3"/>
+<text class="tt" x="980" y="29" text-anchor="middle">TurnBus channel</text>
+<text class="lb" x="980" y="45" text-anchor="middle">scout:turn:&lt;turnId&gt;  ring buffer</text>
+<line class="ll" x1="980" y1="54" x2="980" y2="690"/>
+<rect class="ln" x="1140" y="10" width="240" height="44" rx="3"/>
+<text class="tt" x="1260" y="29" text-anchor="middle">chat() generator</text>
+<text class="lb" x="1260" y="45" text-anchor="middle">runs detached from any socket</text>
+<line class="ll" x1="1260" y1="54" x2="1260" y2="690"/>
+<polyline class="ed" points="150,100 416,100" marker-end="url(#f2h)"/>
+<text class="lb" x="283" y="81" text-anchor="middle">POST /api/scout</text>
+<text class="lb" x="283" y="94" text-anchor="middle">{ message, sessionId?, pageContext? } + cookies</text>
+<rect class="bx ac" x="290" y="108" width="260" height="58" rx="3"/>
+<text class="mo" x="299" y="124">getOptionalSessionUser(cookie)</text>
+<text class="mo" x="299" y="139">body.userId := session user</text>
+<text class="mo" x="299" y="154">(a client-sent userId is dropped)</text>
+<polyline class="ed" points="420,198 696,198" marker-end="url(#f2h)"/>
+<text class="lb" x="558" y="179" text-anchor="middle">POST /chat/stream</text>
+<text class="lb" x="558" y="192" text-anchor="middle">+ cookie, + Last-Event-ID</text>
+<rect class="bx ac" x="570" y="216" width="260" height="60" rx="3"/>
+<text class="mo" x="579" y="232">no turnId -&gt; mint uuid</text>
+<text class="mo" x="579" y="247">turnBus.run(turnId,</text>
+<text class="mo" x="579" y="262">  scout.chat(body, cart, cookie))</text>
+<polyline class="ed ac" points="700,288 1256,288" marker-end="url(#f2ha)"/>
+<text class="lb ta" x="980" y="269" text-anchor="middle">start chat(body, cartCookie, sessionCookie)</text>
+<text class="lb ta" x="980" y="282" text-anchor="middle">returns at once: the turn is not awaited</text>
+<polyline class="ed" points="1260,336 984,336" marker-end="url(#f2h)"/>
+<text class="lb" x="1120" y="317" text-anchor="middle">publish(event) per yield</text>
+<text class="lb" x="1120" y="330" text-anchor="middle">session . tool_start . token . products . card . done</text>
+<polyline class="ed" points="980,384 704,384" marker-end="url(#f2h)"/>
+<text class="lb" x="840" y="378" text-anchor="middle">replay recentSince(lastEventId), then subscribe()</text>
+<polyline class="ed" points="700,424 154,424" marker-end="url(#f2h)"/>
+<text class="lb" x="425" y="405" text-anchor="middle">200 text/event-stream   X-Scout-Turn-Id: &lt;turnId&gt;</text>
+<text class="lb" x="425" y="418" text-anchor="middle">id: n   data: { event }   heartbeat every 10 s</text>
+<rect class="bx" x="20" y="442" width="260" height="90" rx="3"/>
+<text class="mo" x="29" y="458">reducer per event:</text>
+<text class="mo" x="29" y="473">session -&gt; keep sessionId</text>
+<text class="mo" x="29" y="488">token -&gt; append</text>
+<text class="mo" x="29" y="503">products -&gt; cards</text>
+<text class="mo" x="29" y="518">card -&gt; ChatCard (locks on answer)</text>
+<polyline class="ed da" points="268,558 818,558"/>
+<text class="lb" x="420" y="552" text-anchor="middle">connection drops (tab sleep, network)</text>
+<rect class="bx ac" x="570" y="570" width="260" height="60" rx="3"/>
+<text class="mo" x="579" y="586">req &#x27;close&#x27; -&gt; abort this SSE</text>
+<text class="mo" x="579" y="601">turn keeps publishing into</text>
+<text class="mo" x="579" y="616">the channel</text>
+<polyline class="ed ac" points="150,646 696,646" marker-end="url(#f2ha)"/>
+<text class="lb ta" x="420" y="627" text-anchor="middle">re-POST { turnId, lastEventId } + Last-Event-ID</text>
+<text class="lb ta" x="420" y="640" text-anchor="middle">turnId present -&gt; no new run; replay, then live</text>
+<polyline class="ed" points="1260,676 984,676" marker-end="url(#f2h)"/>
+<text class="lb" x="1120" y="670" text-anchor="middle">done() -&gt; channel GC ~60 s after last subscriber</text></svg></div>
+<figcaption><strong>Figure 2.</strong> The turn is detached from the socket on purpose. The controller mints a turnId, starts <code>chat()</code> into a per-turn ring buffer, and the HTTP response only subscribes to that buffer. A dropped connection aborts the response and nothing else; the browser re-POSTs the turnId with Last-Event-ID and the buffer replays what it missed. That is what lets an <code>ask_choice</code> card hold a turn open for up to five minutes. The buffer is process memory: it survives a dropped connection, not a service restart.</figcaption>
+</figure>
+<figure>
+<div class="plate"><svg viewBox="0 0 1400 980" role="img" aria-label="Flow of one Scout turn inside chat() and runScoutTurn: five pre-turn steps, then a bounded detection, tool, final-stream loop with hops to the LLM provider, Postgres, tool executors and Chatwoot"><defs><marker id="f3h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mh" d="M0,0 L10,5 L0,10 z"/></marker><marker id="f3ha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mha" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="bx" x="20" y="40" width="400" height="66" rx="3"/>
+<text class="tt" x="29" y="57">1  sessions.getOrCreate(sessionId)</text>
+<text class="mo" x="29" y="75">hot Map (TTL) -&gt; PG scout_conversation -&gt; create</text>
+<text class="mo" x="29" y="90">yield { session, sessionId }</text>
+<polyline class="ed" points="220.0,106 220.0,120" marker-end="url(#f3h)"/>
+<rect class="bx" x="20" y="122" width="400" height="66" rx="3"/>
+<text class="tt" x="29" y="139">2  memory.recall(scopes, message, k = 5)</text>
+<text class="mo" x="29" y="157">scopes: [user:&lt;id&gt;, store] signed in . [store] guest</text>
+<text class="mo" x="29" y="172">embed -&gt; pgvector &lt;=&gt; . 2 s budget . any failure -&gt; []</text>
+<polyline class="ed" points="220.0,188 220.0,202" marker-end="url(#f3h)"/>
+<rect class="bx" x="20" y="204" width="400" height="66" rx="3"/>
+<text class="tt" x="29" y="221">3  ensureSystemPrompt(session, memories)</text>
+<text class="mo" x="29" y="239">persona + page context + active prefs</text>
+<text class="mo" x="29" y="254">+ memory block marked exhaustive (grounding guard)</text>
+<polyline class="ed" points="220.0,270 220.0,284" marker-end="url(#f3h)"/>
+<rect class="bx" x="20" y="286" width="400" height="66" rx="3"/>
+<text class="tt" x="29" y="303">4  append user message</text>
+<text class="mo" x="29" y="321">convStore.upsert -&gt; PG . chatwoot.pushUserMessage</text>
+<text class="mo" x="29" y="336">both fire-and-forget</text>
+<polyline class="ed" points="220.0,352 220.0,366" marker-end="url(#f3h)"/>
+<rect class="bx" x="20" y="368" width="400" height="66" rx="3"/>
+<text class="tt" x="29" y="385">5  budget gate  (telemetry reads fail-open)</text>
+<text class="mo" x="29" y="403">conversation cost &gt;= $1 -&gt; error event, return</text>
+<text class="mo" x="29" y="418">store spend 24 h &gt;= $50 -&gt; error event, return</text>
+<polyline class="ed" points="420,73 466,73" marker-end="url(#f3h)"/>
+<text class="lb" x="422" y="60" text-anchor="start">hands messages to the loop</text>
+<rect class="fr" x="470" y="30" width="520" height="920" rx="4"/>
+<text class="ft" x="482" y="50" text-anchor="start">6  runScoutTurn(model, messages, tools, hooks)   round 0 .. 4   (MAX_TOOL_ROUNDS = 5)</text>
+<rect class="bx" x="490" y="66" width="480" height="92" rx="3"/>
+<text class="tt" x="499" y="83">A  model.complete   detection round, never streamed</text>
+<text class="mo" x="499" y="101">messages + 19 tool schemas . temperature 0.1</text>
+<text class="mo" x="499" y="116">round 0: tool_choice &#x27;required&#x27; + respond_to_user sentinel</text>
+<text class="mo" x="499" y="131">later rounds: &#x27;auto&#x27;   (sentinel returned = no tool)</text>
+<rect class="bx" x="490" y="176" width="480" height="44" rx="3"/>
+<text class="tt" x="499" y="193">B  usage -&gt; hooks.onUsage -&gt; scout_llm_call</text>
+<text class="mo" x="499" y="211">cost in micro-USD, priced per actual model id</text>
+<rect class="bx ac" x="490" y="240" width="480" height="36" rx="3"/>
+<text class="mo" x="499" y="256">C  response.toolCalls.length &gt; 0 ?</text>
+<text class="lb" x="500" y="300" text-anchor="start">yes</text>
+<polyline class="ed" points="530,276 530,296" marker-end="url(#f3h)"/>
+<rect class="bx" x="490" y="300" width="480" height="126" rx="3"/>
+<text class="tt" x="499" y="317">D  tool round</text>
+<text class="mo" x="499" y="335">append assistant { content, toolCalls }</text>
+<text class="mo" x="499" y="350">for each call:  yield tool_start(name)</text>
+<text class="mo" x="499" y="365">   execute(args, ctx, call) -&gt; app events (products, card ...)</text>
+<text class="mo" x="499" y="380">   hooks.onTool -&gt; scout_tool_invocation (name, ms, ok)</text>
+<text class="mo" x="499" y="395">   append { role: tool, toolCallId, content }</text>
+<text class="mo" x="499" y="410">continue -&gt; next round</text>
+<polyline class="ed" points="490,363 478,363 478,112 486,112" marker-end="url(#f3h)"/>
+<text class="lb" x="474" y="240" text-anchor="end">loop</text>
+<polyline class="ed" points="970,258 982,258 982,452 770,452 770,476" marker-end="url(#f3h)"/>
+<text class="lb" x="978" y="300" text-anchor="end">no</text>
+<rect class="bx" x="490" y="480" width="480" height="142" rx="3"/>
+<text class="tt" x="499" y="497">E  streamFinalResponse</text>
+<text class="mo" x="499" y="515">if any tool message: append user &#x27;The required tool results</text>
+<text class="mo" x="499" y="530">  are complete. Answer ... Do not call tools.&#x27;</text>
+<text class="mo" x="499" y="545">model.stream   tool_choice &#x27;none&#x27; . temperature 0.7</text>
+<text class="mo" x="499" y="560">yield token per chunk . usage chunk -&gt; scout_llm_call</text>
+<text class="mo" x="499" y="575">append assistant(content) -&gt; convStore.upsert + chatwoot push</text>
+<text class="mo" x="499" y="590">yield done   -&gt; channel.done()</text>
+<rect class="bx" x="490" y="646" width="480" height="60" rx="3"/>
+<text class="tt" x="499" y="663">F  exits that are not a reply</text>
+<text class="mo" x="499" y="681">round 5 with no final answer -&gt; ScoutToolRoundLimitError</text>
+<text class="mo" x="499" y="696">any throw -&gt; hooks.onError -&gt; error event (generic message)</text>
+<rect class="bx ac" x="490" y="730" width="480" height="100" rx="3"/>
+<text class="tt" x="499" y="747">G  ask_choice inside step D  (the pause)</text>
+<text class="mo" x="499" y="765">cards.register(spec, timeoutMs 5 min) -&gt; yield card{correlationId}</text>
+<text class="mo" x="499" y="780">await promise   &lt;- POST /api/scout-card-response -&gt; /card-response</text>
+<text class="mo" x="499" y="795">cards.resolve(correlationId, { submit | decline | cancel })</text>
+<text class="mo" x="499" y="810">yield card_closed -&gt; tool result { answer | declined | cancelled }</text>
+<rect class="bx" x="490" y="852" width="480" height="76" rx="3"/>
+<text class="tt" x="499" y="869">H  what the loop never sees</text>
+<text class="mo" x="499" y="887">the socket: events go to the channel, not to a response</text>
+<text class="mo" x="499" y="902">identity: userId set by the proxy; tools forward the cookie</text>
+<text class="mo" x="499" y="917">the provider: adapter hides gemini / gpt-4o-mini / groq / ollama</text>
+<rect class="bx" x="1060" y="66" width="320" height="92" rx="3"/>
+<text class="tt" x="1069" y="83">LLM provider</text>
+<text class="mo" x="1069" y="101">gemini-2.5-flash (default today)</text>
+<text class="mo" x="1069" y="116">gpt-4o-mini . groq llama-3.1 . ollama</text>
+<text class="mo" x="1069" y="131">3 tries on 429/5xx, backoff &lt;= 4 s</text>
+<text class="mo" x="1069" y="146">long Retry-After -&gt; fail fast, not a hang</text>
+<polyline class="ed" points="970,100 1056,100" marker-end="url(#f3h)"/>
+<text class="lb" x="1013" y="94" text-anchor="middle">detect</text>
+<polyline class="ed" points="970,530 1045,530 1045,140 1056,140" marker-end="url(#f3h)"/>
+<text class="lb" x="974" y="524" text-anchor="start">reply, streamed</text>
+<rect class="bx" x="1060" y="190" width="320" height="100" rx="3"/>
+<text class="tt" x="1069" y="207">Postgres</text>
+<text class="mo" x="1069" y="225">scout_conversation  messages jsonb</text>
+<text class="mo" x="1069" y="240">scout_memory  vector(1536), scope, text</text>
+<text class="mo" x="1069" y="255">scout_llm_call   per round, micro-USD</text>
+<text class="mo" x="1069" y="270">scout_tool_invocation   name, ms, ok</text>
+<polyline class="ed" points="970,198 1056,198" marker-end="url(#f3h)"/>
+<text class="lb" x="1013" y="192" text-anchor="middle">recordLlm</text>
+<polyline class="ed" points="970,380 1035,380 1035,260 1056,260" marker-end="url(#f3h)"/>
+<text class="lb" x="972" y="374" text-anchor="start">recordTool</text>
+<rect class="bx" x="1060" y="320" width="320" height="116" rx="3"/>
+<text class="tt" x="1069" y="337">Tool executors  (table below)</text>
+<text class="mo" x="1069" y="355">catalog.search over shop-api /tooldef/mcp</text>
+<text class="mo" x="1069" y="370">customer reads: forwarded session cookie</text>
+<text class="mo" x="1069" y="385">ui control: no I/O, just an app event</text>
+<text class="mo" x="1069" y="400">remember: scout_memory, fire-and-forget</text>
+<text class="mo" x="1069" y="415">ask_choice: CardCorrelator (step G)</text>
+<polyline class="ed ac" points="970,350 1056,350" marker-end="url(#f3ha)"/>
+<text class="lb ta" x="1013" y="344" text-anchor="middle">execute</text>
+<rect class="bx" x="1060" y="578" width="320" height="60" rx="3"/>
+<text class="tt" x="1069" y="595">Chatwoot</text>
+<text class="mo" x="1069" y="613">mirror of user + assistant turns</text>
+<text class="mo" x="1069" y="628">off unless CHATWOOT_* are set</text>
+<polyline class="ed" points="970,600 1056,600" marker-end="url(#f3h)"/>
+<text class="lb" x="1013" y="594" text-anchor="middle">push</text></svg></div>
+<figcaption><strong>Figure 3.</strong> Every turn pays one non-streamed detection call with the full tool schema, then either a tool round or the streamed reply. Round zero forces a tool choice and gives the model a <code>respond_to_user</code> sentinel so "no tool" is still a tool call. The reply round strips tools entirely. Five rounds without a plain answer is an error, not a sixth call.</figcaption>
+</figure>
+<main>
+<h2>What the browser receives</h2>
+<div class="tblwrap"><table><thead><tr><th>event</th><th>raised by</th><th>reducer does</th></tr></thead><tbody>
+<tr><td>session</td><td>chat() first yield</td><td>keep sessionId for the next turn and the transcript GET</td></tr>
+<tr><td>tool_start</td><td>runner, before each tool</td><td>show the working indicator with the tool name</td></tr>
+<tr><td>token</td><td>final stream, per chunk</td><td>append to the assistant bubble</td></tr>
+<tr><td>products</td><td>search_products, ask_catalog</td><td>render product cards; the reply is told not to re-list them</td></tr>
+<tr><td>broaden</td><td>search_products with 0 hits</td><td>render verified broaden chips (label + result count)</td></tr>
+<tr><td>card / card_closed</td><td>ask_choice</td><td>render ChatCard; POST the answer; lock the card after one answer</td></tr>
+<tr><td>navigate, highlight, open_drawer, prefill_form</td><td>ui-control tools</td><td>drive the page: route, scroll to a group, open cart/quote, fill a form</td></tr>
+<tr><td>cart_mutate</td><td>add_to_cart ok</td><td>refetch the cart</td></tr>
+<tr><td>error</td><td>budget gate, runner catch, bus catch</td><td>show the message; terminal</td></tr>
+<tr><td>done</td><td>runner after the final stream</td><td>settle: enable the composer; terminal</td></tr>
+</tbody></table></div>
+<h2>The 19 tools, by where they execute</h2>
+<div class="tblwrap"><table class="tools"><thead><tr><th>family</th><th>tools</th><th>executes via</th><th>identity</th><th>emits</th></tr></thead><tbody>
+<tr><td>Catalog</td><td>search_products</td><td>tooldef catalog.search as the scout service principal; hybrid retrieval + rerank, rewrite:false; 0 hits -&gt; broaden service</td><td>none needed (public tool)</td><td>products or broaden</td></tr>
+<tr><td></td><td>get_product_details, ask_catalog</td><td>CatalogService by slug; Typesense conversational search</td><td>none</td><td>products (ask_catalog)</td></tr>
+<tr><td>Customer context</td><td>list_orders, get_order, list_quotes, get_quote, list_returns, get_order_serials, list_assets</td><td>tooldef over /tooldef/mcp with the shopper&#x27;s session cookie; shop-api resolve-principal locks reads to that customer</td><td>better-auth session, no service key; guest -&gt; &#x27;ask them to sign in&#x27;</td><td>none</td></tr>
+<tr><td>Cart</td><td>get_cart, add_to_cart, create_quote</td><td>tooldef cart.get / cart.add / quotes.create; get_cart falls back to the cookie-cart proxy</td><td>session cookie, cookie cart for guests</td><td>cart_mutate</td></tr>
+<tr><td>UI control</td><td>navigate, highlight_product, open_drawer, prefill_form</td><td>no I/O: the tool result is the event</td><td>none</td><td>navigate, highlight, open_drawer, prefill_form</td></tr>
+<tr><td>Conversation</td><td>ask_choice</td><td>CardCorrelator register/await/resolve; 5 min timeout -&gt; cancel</td><td>none</td><td>card, card_closed</td></tr>
+<tr><td>Memory</td><td>remember</td><td>memory.remember(writeScope, fact) fire-and-forget; guests persist nothing</td><td>writeScope = user:&lt;id&gt; only</td><td>none</td></tr>
+</tbody></table></div>
+<h2>Numbers worth having ready</h2>
+<ul class="say">
+<li><strong>One service, one hop from the shop.</strong> scout-service listens on <code>:3300</code> on the internal Docker network with <code>traefik.enable=false</code>. The only way in is the shop's <code>/api/scout</code> route, which sets <code>userId</code> from the better-auth cookie.</li>
+<li><strong>19 tools, at most 5 rounds.</strong> Round zero forces a tool choice, with <code>respond_to_user</code> as the "no tool" sentinel. <code>MAX_TOOL_ROUNDS = 5</code>, and a sixth call is an error, not a retry.</li>
+<li><strong>Spend is capped before the model is called.</strong> $1 per conversation and $50 per 24 hours for the whole store, priced per model id in <code>scout_llm_call</code>.</li>
+<li><strong>Memory recall is best-effort.</strong> It returns the top 5 by pgvector distance over 1536-dimension <code>text-embedding-3-small</code> vectors, with a 2 s budget. A failure yields no memories, not a failed turn.</li>
+<li><strong>The turn outlives the socket.</strong> SSE heartbeats every 10 s, a card waits up to 5 minutes, and a finished channel is collected about 60 s after its last subscriber. The ring buffer is process memory, so it survives a dropped connection but not a restart.</li>
+<li><strong>The model can be swapped per request.</strong> The default today is gemini-2.5-flash, a July stopgap while the OpenAI account was out of credits (WI-5324). gpt-4o-mini is the intended default. Groq and Ollama sit behind the same adapter, with 3 tries on 429/5xx.</li>
+</ul>
+</main>
+</body>
+</html>

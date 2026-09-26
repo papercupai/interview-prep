@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="M3 Senior Agentic Software Engineer interview preparation: Papercusp stories, parallel coding workflows, .NET and Angular review, and a hospitality software design exercise.">
+<title>M3 — Senior Agentic Software Engineer | Interview Prep</title>
+<style>
+  :root {
+    --ground:      #F6F8F9;
+    --surface:     #FFFFFF;
+    --surface-alt: #EEF2F3;
+    --ink:         #10181C;
+    --ink-muted:   #55646C;
+    --ink-faint:   #8A979E;
+    --accent:      #14666E;
+    --accent-soft: #DCEAEB;
+    --caution:     #8A5D05;
+    --caution-soft:#F7EDD6;
+    --critical:    #A3322C;
+    --critical-soft:#F7E2E0;
+    --rule:        #DDE4E7;
+    --rule-strong: #C3CFD3;
+
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body:    "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #0D1417;
+      --surface:     #141E22;
+      --surface-alt: #1A262B;
+      --ink:         #E6EDEF;
+      --ink-muted:   #93A3AA;
+      --ink-faint:   #6C7C84;
+      --accent:      #4FB3BC;
+      --accent-soft: #16333A;
+      --caution:     #D9A43A;
+      --caution-soft:#33290F;
+      --critical:    #E0736C;
+      --critical-soft:#3A1E1C;
+      --rule:        #24333A;
+      --rule-strong: #35474F;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:      #0D1417;
+    --surface:     #141E22;
+    --surface-alt: #1A262B;
+    --ink:         #E6EDEF;
+    --ink-muted:   #93A3AA;
+    --ink-faint:   #6C7C84;
+    --accent:      #4FB3BC;
+    --accent-soft: #16333A;
+    --caution:     #D9A43A;
+    --caution-soft:#33290F;
+    --critical:    #E0736C;
+    --critical-soft:#3A1E1C;
+    --rule:        #24333A;
+    --rule-strong: #35474F;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--f-display);
+    text-wrap: balance;
+    margin: 0;
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+  }
+  h1 { font-size: 2.3rem; font-weight: 700; }
+  h2 { font-size: 1.4rem; font-weight: 600; }
+  h3 { font-size: 1.06rem; font-weight: 600; }
+
+  p { margin: 0; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:focus-visible,
+  details > summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---- site menubar (shared across the prep set) ---- */
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin: -3rem -0.4rem 0;
+    padding: 0.55rem 0.4rem;
+    background: var(--ground);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.83rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    text-decoration: none;
+    color: var(--ink-muted);
+    padding: 0.3rem 0.62rem;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+  nav.sitenav a.ext { color: var(--ink-faint); font-weight: 500; }
+
+  /* ---- masthead ---- */
+  .masthead { display: flex; flex-direction: column; gap: 1.1rem; }
+  .masthead p.standfirst {
+    font-size: 1.09rem;
+    color: var(--ink-muted);
+    max-width: 34rem;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+    margin: 0;
+  }
+  .fact {
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd {
+    margin: 0;
+    font-family: var(--f-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .fact dd.hot { color: var(--critical); }
+
+  /* ---- table of contents ---- */
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1rem 1.15rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: 0.3rem 1.2rem;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc ol li { display: flex; gap: 0.5rem; align-items: baseline; }
+  nav.toc ol li span.n {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    min-width: 2.4rem;
+    font-variant-numeric: tabular-nums;
+  }
+  nav.toc a { text-decoration: none; color: var(--ink); }
+  nav.toc a:hover { text-decoration: underline; color: var(--accent); }
+
+  /* ---- sections ---- */
+  section { display: flex; flex-direction: column; gap: 1.15rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.4rem; }
+  .sec-head::after {
+    content: "";
+    height: 2px;
+    background: var(--ink);
+    width: 2.2rem;
+    margin-top: 0.35rem;
+  }
+
+  .stack { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* ---- callout ---- */
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 2px;
+    padding: 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+
+  /* ---- question cards ---- */
+  .qcard {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    scroll-margin-top: 3.5rem;
+  }
+  .qbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.15rem;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .qbar .idx { color: var(--accent); }
+  .qbar .timing {
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
+    color: var(--caution);
+  }
+  .qbar .new {
+    background: var(--critical-soft);
+    color: var(--critical);
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+  }
+  .qbody { padding: 1.15rem; display: flex; flex-direction: column; gap: 1rem; }
+  .prompt {
+    font-family: var(--f-display);
+    font-size: 1.12rem;
+    font-weight: 600;
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+  .odds {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+
+  .beats { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .beat {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.28rem 0.6rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 2px;
+    letter-spacing: 0.02em;
+  }
+
+  .draft {
+    border-top: 1px solid var(--rule);
+    padding-top: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .draft p { font-size: 1rem; }
+  .slot {
+    font-family: var(--f-mono);
+    font-size: 0.85rem;
+    background: var(--caution-soft);
+    color: var(--caution);
+    padding: 0.06rem 0.34rem;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+  .kicker {
+    font-family: var(--f-display);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ---- where it lives in the code ---- */
+  .src {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    line-height: 1.6;
+    color: var(--ink-faint);
+    overflow-wrap: anywhere;
+    padding-top: 0.2rem;
+  }
+  .src b { color: var(--ink-muted); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 0.4rem; }
+
+  .table-wrap { max-width: 100%; overflow-x: auto; border: 1px solid var(--rule); }
+  .mechanism-table { width: 100%; min-width: 34rem; border-collapse: collapse; font-size: 0.9rem; }
+  .mechanism-table th, .mechanism-table td { text-align: left; vertical-align: top; padding: 0.75rem; border-bottom: 1px solid var(--rule); }
+  .mechanism-table th { font-family: var(--f-display); background: var(--surface-alt); }
+  .mechanism-table code { overflow-wrap: anywhere; }
+
+  /* ---- checklist ---- */
+  ul.check { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  ul.check > li {
+    display: grid;
+    grid-template-columns: 1.35rem 1fr;
+    gap: 0.55rem;
+    align-items: start;
+  }
+  ul.check > li::before {
+    content: "";
+    width: 0.85rem; height: 0.85rem;
+    margin-top: 0.42rem;
+    border: 1.5px solid var(--rule-strong);
+    border-radius: 2px;
+  }
+
+  ol.seq { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.1rem; counter-reset: seq; }
+  ol.seq > li {
+    counter-increment: seq;
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.85rem;
+  }
+  ol.seq > li::before {
+    content: counter(seq, decimal-leading-zero);
+    font-family: var(--f-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    padding-top: 0.22rem;
+    font-variant-numeric: tabular-nums;
+  }
+  ol.seq h3 { margin-bottom: 0.25rem; }
+  .when {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .pair { display: flex; flex-direction: column; gap: 0.3rem; }
+  .pair .lbl {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .pair .lbl.no  { color: var(--critical); }
+  .pair .lbl.yes { color: var(--accent); }
+
+  hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.25rem;
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  footer .eyebrow { color: var(--ink-faint); }
+
+  /* ---- probe list: likely follow-up → one-line answer ---- */
+  dl.probes { margin: 0; display: flex; flex-direction: column; gap: 0.8rem; }
+  dl.probes dt {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 0.97rem;
+    line-height: 1.35;
+  }
+  dl.probes dd {
+    margin: 0.2rem 0 0;
+    color: var(--ink-muted);
+    font-size: 0.97rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule);
+  }
+
+  .short {
+    background: var(--surface-alt);
+    border-radius: 2px;
+    padding: 0.9rem 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .short p:not(.eyebrow) { font-size: 0.98rem; }
+
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    h1 { font-size: 1.85rem; }
+    .wrap { padding: 2rem 1.1rem 4rem; gap: 2.75rem; }
+    nav.sitenav { margin: -2rem -0.4rem 0; }
+  }
+</style>
+<style>
+  .wrap { max-width: 62rem; }
+  main { display: flex; flex-direction: column; gap: 3.5rem; min-width: 0; }
+  .masthead p.standfirst { max-width: 48rem; }
+  .two-up { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .fact dd { line-height: 1.4; }
+  .facts .fact:last-child { border-right: 0; }
+  .mechanism-table { min-width: 38rem; }
+  .table-wrap:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  details.answer { border-top: 1px solid var(--rule); padding-top: .8rem; }
+  details.answer summary { cursor: pointer; color: var(--accent); font-family: var(--f-display); font-size: .94rem; font-weight: 600; }
+  details.answer[open] summary { margin-bottom: .85rem; }
+  details.answer .draft { border: 0; padding: 0; }
+  ul, ol { padding-left: 1.3rem; margin: 0; }
+  li + li { margin-top: .45rem; }
+  pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; padding: 1rem; background: var(--surface-alt); border: 1px solid var(--rule); font-size: .85rem; line-height: 1.55; }
+  pre code { background: none; padding: 0; font-size: 1em; }
+  .flow { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; }
+  .flow li { margin: 0; padding: .5rem .75rem; background: var(--accent-soft); color: var(--accent); font-family: var(--f-display); font-size: .9rem; }
+  section[id] { scroll-margin-top: 13rem; }
+  .skip { position: absolute; top: -5rem; left: 1rem; padding: .7rem; background: var(--surface); z-index: 30; }
+  .skip:focus { top: .5rem; }
+  .source-list { font-size: .94rem; }
+  @media (max-width: 40rem) {
+    .two-up { grid-template-columns: 1fr; }
+    nav.sitenav { position: static; }
+    section[id] { scroll-margin-top: 1rem; }
+    main { gap: 2.75rem; }
+  }
+  @media print {
+    nav.sitenav, .skip { display: none; }
+    .wrap { max-width: none; padding: 0; }
+    details::details-content { display: block; content-visibility: visible; }
+    .qcard { break-inside: avoid; }
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to preparation</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+<header class="masthead">
+  <p class="eyebrow">M3 · Engineering interview · Prepared 11 September 2026</p>
+  <h1>Ship reliable software with coding agents.</h1>
+  <p class="standfirst">Prepare for M3’s <strong>Senior Agentic Software Engineer</strong> role with concrete examples of task design, parallel execution, code review, and release verification. Connect each example to the people using hospitality finance software.</p>
+  <p><a href="https://job-boards.greenhouse.io/m3/jobs/7985832003">Read the job posting ↗</a> · <a href="papercusp-answer-bank-standalone.html">Open your full story bank</a></p>
+</header>
+<dl class="facts" aria-label="Job posting facts">
+  <div class="fact"><dt>Location listed</dt><dd>Lawrenceville, GA</dd></div>
+  <div class="fact"><dt>Application stack</dt><dd>C# / .NET · Angular · SQL</dd></div>
+  <div class="fact"><dt>Experience bar</dt><dd>10+ years related work</dd></div>
+  <div class="fact"><dt>Delivery focus</dt><dd>Parallel agents + human review</dd></div>
+</dl>
+<nav class="toc" aria-label="M3 preparation contents">
+  <p class="eyebrow">Your rehearsal route</p>
+  <ol>
+    <li><span class="n">01</span><a href="#orientation">What the role needs</a></li>
+    <li><span class="n">02</span><a href="#opening">Your opening answer</a></li>
+    <li><span class="n">03</span><a href="#fit">Choose your evidence</a></li>
+    <li><span class="n">04</span><a href="#workflow">Show an agent workflow</a></li>
+    <li><span class="n">05</span><a href="#design">Hotel-accounting exercise</a></li>
+    <li><span class="n">06</span><a href="#questions">Practice questions</a></li>
+    <li><span class="n">07</span><a href="#stack">Stack refresh</a></li>
+    <li><span class="n">08</span><a href="#first90">First 90 days</a></li>
+    <li><span class="n">09</span><a href="#ask">Questions for M3</a></li>
+    <li><span class="n">10</span><a href="#references">Sources and scope</a></li>
+  </ol>
+</nav>
+<main id="main">
+<section id="orientation">
+  <div class="sec-head"><p class="eyebrow">01 · Read the role accurately</p><h2>Enterprise engineering, with agentic delivery as a core skill.</h2></div>
+  <p>The posting combines hands-on application development with technical leadership: .NET/Core, Angular, REST APIs, relational data, testing, and mentoring. It explicitly names GitHub Copilot, Claude Code, and parallel agents. Prepare to explain how you make generated changes understandable, correct, and maintainable. <a href="https://job-boards.greenhouse.io/m3/jobs/7985832003">Job source</a>.</p>
+  <div class="two-up">
+    <div class="note"><h3>The business context</h3><p>M3 provides hotel accounting, labor management, reporting, and business intelligence software. Its customers work across properties and connected operational systems. A useful interview lens is how a software change affects a controller’s ability to trust the numbers. <a href="https://www.m3as.com/">M3 overview</a>.</p></div>
+    <div class="note"><h3>Your strongest connection</h3><p>Your existing Papercusp material covers coordination, tool boundaries, concurrent edits, evaluation, and release gates. Use one failure and its repair to demonstrate judgment. Explain your personal contribution and the actual deployment context.</p></div>
+  </div>
+  <p class="src">The posting also asks for five years each with REST APIs, JavaScript frameworks, and relational databases. Your timeline, .NET depth, Angular depth, and human mentoring experience still need to be established from your résumé. Remote/hybrid policy, salary, and the interview format are not specified in the retrieved description.</p>
+</section>
+
+<section id="opening">
+  <div class="sec-head"><p class="eyebrow">02 · About 60 seconds</p><h2>Lead with engineering ownership.</h2></div>
+  <div class="qcard"><div class="qbar"><span class="idx">Tell me about yourself</span><span>Adapt to your actual contribution</span></div><div class="qbody">
+    <div class="draft">
+      <p>“My recent work has focused on Papercusp, a platform for coordinating coding agents through implementation, validation, and review. The engineering challenge is making concurrent work reliable: defining tasks clearly, preventing conflicting changes, keeping state recoverable, and verifying what actually shipped.</p>
+      <p>One example I can walk through is <span class="slot">[the coordination or release-gate change you personally owned]</span>. The useful part of that story is the failure we found and the control we added to prevent it from recurring.</p>
+      <p>M3 interests me because you’re applying those practices to software people depend on to run their businesses. I’d bring that experience to feature delivery and review while learning your hospitality workflows and existing application architecture.”</p>
+    </div>
+    <p class="src">Add one factual sentence about career length and C#/.NET/Angular experience. The existing story bank supplies technical material, not a verified employment history. Describe internal or alpha operation accurately.</p>
+  </div></div>
+  <div class="note"><h3>If your .NET or Angular experience is limited</h3><p>“My deepest recent hands-on experience is in <span class="slot">[actual stack]</span>. I can explain the system design and delivery practices in detail. For <span class="slot">[specific technology]</span>, my experience is <span class="slot">[accurate level]</span>; I’d ramp by implementing a small feature in your existing architecture and reviewing it with someone who knows the codebase.”</p></div>
+</section>
+
+<section id="fit">
+  <div class="sec-head"><p class="eyebrow">03 · Pick three stories</p><h2>Make each claim easy to examine.</h2></div>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Story selection table">
+    <table class="mechanism-table"><thead><tr><th scope="col">Theme</th><th scope="col">Story to rehearse</th><th scope="col">Evidence to bring</th></tr></thead><tbody>
+      <tr><td>Parallel work</td><td><a href="papercusp-answer-bank-standalone.html#q-concurrency">Q4: edit collisions and migration allocation</a></td><td>Your contribution, the contested resource, the enforced boundary, and how recovery works.</td></tr>
+      <tr><td>Release quality</td><td><a href="papercusp-answer-bank-standalone.html#q-cicd">Q1: the release gate</a> and <a href="papercusp-answer-bank-standalone.html#q-testing">Q2: meaningful tests</a></td><td>A failed candidate, the exact check, the fix, and the verification result.</td></tr>
+      <tr><td>Debugging</td><td><a href="papercusp-answer-bank-standalone.html#q-debugging">Q3: a liveness check that gave a false answer</a></td><td>How you separated missing evidence from evidence of absence.</td></tr>
+      <tr><td>Agent instructions</td><td><a href="papercusp-answer-bank-standalone.html#n-tool-design">N6: tool interfaces</a> and <a href="papercusp-answer-bank-standalone.html#n-docs">N12: documentation</a></td><td>A before/after task or tool contract and the failure it removed.</td></tr>
+      <tr><td>Security</td><td><a href="papercusp-answer-bank-standalone.html#g-permissions">G1: permissions</a> and <a href="papercusp-answer-bank-standalone.html#g-injection">G2: untrusted content</a></td><td>A blocked action and a test of the enforcement boundary.</td></tr>
+      <tr><td>Mentoring people</td><td><span class="slot">[A real colleague you helped]</span></td><td>Their difficulty, your feedback, and what they could do independently afterward. Coordinating software agents is a different responsibility.</td></tr>
+    </tbody></table>
+  </div>
+  <p>For each story, rehearse: <strong>constraint → decision → your implementation → observed result → remaining limitation</strong>. Treat the old bank’s scale figures as dated context; verify a number before using it as a current claim.</p>
+</section>
+
+<section id="workflow">
+  <div class="sec-head"><p class="eyebrow">04 · Whiteboard this</p><h2>From a product request to a reviewed change.</h2></div>
+  <ol class="flow" aria-label="Proposed agent-assisted delivery workflow"><li>1. Clarify outcome</li><li>2. Define contract</li><li>3. Split bounded tasks</li><li>4. Execute + inspect</li><li>5. Integrate + verify</li><li>6. Release + observe</li></ol>
+  <p>Proposed practice: agree on acceptance criteria and API/data contracts first. Parallelize independent modules after the contract is stable. Give each task a named owner, a narrow write scope, explicit dependencies, and a verifiable stopping condition. Keep integration ownership with one engineer.</p>
+  <pre><code>Task: Add the invoice-review API for a single property.
+Read first: existing authorization, API errors, and audit conventions.
+Allowed changes: invoice API/service and their tests.
+Dependencies: approved request/response contract and schema.
+Acceptance:
+- Authorized reviewers can view invoices for their assigned property.
+- Cross-property access is rejected by the server.
+- Stale review updates fail without overwriting a newer decision.
+- Retrying the same review request creates one effective transition.
+Verify: unit + database-backed API tests; report commands and results.
+Stop and escalate: a shared contract or unrelated schema must change.</code></pre>
+  <p>Keep task-specific facts in the task, stable conventions in the repository guidance, and enforceable restrictions in permissions and tooling. Review the diff and test results yourself. A second agent can help find defects; human ownership and independent checks still matter.</p>
+  <div class="note"><h3>How to measure the improvement</h3><p>Establish a baseline for comparable work. Measure time from ready-to-start to accepted delivery, reviewer effort, rework, escaped defects, and operating cost. Report sample size and task mix. More agents or generated lines do not establish faster delivery.</p></div>
+</section>
+
+<section id="design">
+  <div class="sec-head"><p class="eyebrow">05 · Hypothetical interview exercise</p><h2>Design an invoice-review workflow for multiple hotels.</h2></div>
+  <p><strong>Prompt:</strong> A hotel controller needs staff to review imported invoices without duplicates, conflicting decisions, or access to another property’s financial data. Explain the feature design, then how you would use coding agents to implement it. This is a practice scenario, not a claim about M3’s internals.</p>
+  <ol class="seq">
+    <li><div><h3>Clarify the accounting workflow.</h3><p>Who imports, reviews, approves, and posts? Can a user act across properties? Which system owns the invoice? What happens when an accounting period closes? Ask the domain owner to define correction and approval rules before implementation.</p></div></li>
+    <li><div><h3>Model explicit states and authorization.</h3><p>Consider received → needs review → approved/rejected → posted, subject to business rules. Store tenant/property, source identifier, version, and audit history. Authorize every operation on the server using the authenticated user’s property access.</p></div></li>
+    <li><div><h3>Handle retries and conflicting updates.</h3><p>Use a unique source key for import deduplication. Bind request idempotency to tenant, operation, and payload. Use a transaction for related database changes and a concurrency token for stale updates. Resolve a conflict explicitly instead of silently overwriting someone’s decision.</p></div></li>
+    <li><div><h3>Make downstream posting recoverable.</h3><p>If posting crosses a system boundary, commit a durable work item with the local decision. A worker retries delivery; a receiver with idempotency support avoids duplicate effects. If the receiver cannot deduplicate, reconcile ambiguous outcomes before retrying. Show pending and failed states to the operator.</p></div></li>
+    <li><div><h3>Split implementation by ownership.</h3><p>After agreeing on the API contract: one agent handles the API/service, another the Angular review screen, and another independently develops adversarial tests. Give schema changes one owner. An engineer resolves integration conflicts and reviews the combined behavior.</p></div></li>
+    <li><div><h3>Verify business effects.</h3><p>Exercise duplicate imports, simultaneous reviewers, forbidden property access, timeout after a downstream commit, rounding boundaries, and closed-period behavior. Release to a small agreed cohort and monitor duplicates, reconciliation exceptions, error rate, and review completion time.</p></div></li>
+  </ol>
+  <p class="src">Stack detail: EF Core supports optimistic concurrency tokens and surfaces stale updates for the application to handle. A unique-key conflict on insertion is a separate case. <a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency">Microsoft: concurrency conflicts</a>.</p>
+</section>
+
+<section id="questions">
+  <div class="sec-head"><p class="eyebrow">06 · Answer aloud before opening</p><h2>Twelve questions to rehearse.</h2></div>
+  <p>These are practice questions inferred from the role. They are not a reported M3 interview script. Use the answer beats to organize your own evidence.</p>
+<article class="qcard question" id="practice-1"><div class="qbar"><span class="idx">Q01</span><span>Match autonomy to task clarity.</span></div><div class="qbody"><h3 class="prompt">How do you decide whether to use an agent?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>I look for a clear contract, useful context, bounded permissions, and a checkable result. A contained refactor or regression test can fit well. An unresolved product decision, a sensitive migration, or a change I cannot meaningfully review needs more human work first. I also compare setup and review effort with the cost of doing the task directly.</p><p class="src"><b>Your evidence</b>Give one real example where using an agent would have added overhead.</p></div></details></div></article>
+<article class="qcard question" id="practice-2"><div class="qbar"><span class="idx">Q02</span><span>Dependencies before concurrency.</span></div><div class="qbody"><h3 class="prompt">How do you coordinate parallel agents?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>I separate independent work from shared decisions, agree on interfaces, assign ownership, and cap concurrency at our ability to review and integrate. Isolated branches/worktrees can contain edits; shared-tree work needs explicit coordination. Neither approach resolves incompatible assumptions by itself. Shared schema changes and integration have named owners.</p><p class="src"><b>Your evidence</b>Use the edit-collision example from Q4; distinguish your actual setup from a proposed M3 workflow.</p></div></details></div></article>
+<article class="qcard question" id="practice-3"><div class="qbar"><span class="idx">Q03</span><span>A compact implementation contract.</span></div><div class="qbody"><h3 class="prompt">What makes a good prompt or agent-ready task?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>It gives the goal, relevant files, constraints, examples, acceptance criteria, verification commands, and escalation conditions. I ask for observable results and a concise change report. If the agent repeatedly guesses the same missing detail, I repair the task or interface rather than continually correcting the final answer.</p><p class="src"><b>Your evidence</b>Show a task before and after one real failure.</p></div></details></div></article>
+<article class="qcard question" id="practice-4"><div class="qbar"><span class="idx">Q04</span><span>Trace behavior through the diff.</span></div><div class="qbody"><h3 class="prompt">How do you review AI-generated code?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>I start with the requirement and changed trust boundaries, then inspect correctness, authorization, data integrity, error paths, performance, dependencies, and maintainability. I run tests that could fail for the bug we care about and inspect what actually executed. I do not accept the author’s test summary as independent proof.</p><p class="src"><b>Your evidence</b>Explain the test that would catch a plausible but incorrect implementation.</p></div></details></div></article>
+<article class="qcard question" id="practice-5"><div class="qbar"><span class="idx">Q05</span><span>Challenge their shared assumptions.</span></div><div class="qbody"><h3 class="prompt">What if the agent writes both the implementation and the tests?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>Both can agree on the same mistake. I derive acceptance checks from the requirement, preserve existing regression coverage, and include negative and boundary cases. I verify that tests execute and detect a known bad behavior. Another agent may propose adversarial cases, but the acceptance rule should remain independent of the generated solution.</p><p class="src"><b>Your evidence</b>Use Q2’s positive-control story if it matches your contribution.</p></div></details></div></article>
+<article class="qcard question" id="practice-6"><div class="qbar"><span class="idx">Q06</span><span>The instrument can be wrong.</span></div><div class="qbody"><h3 class="prompt">Tell me about a difficult debugging problem.</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>Use the liveness-check incident: explain the reported symptom, how you discovered the check itself was invalid, and the independent observation that established reality. Finish with the detector or contract change and its validation. Keep the actual incident separate from other examples of the same failure pattern.</p><p class="src"><b>Your evidence</b>Open Answer Bank Q3 and rehearse it in 90 seconds.</p></div></details></div></article>
+<article class="qcard question" id="practice-7"><div class="qbar"><span class="idx">Q07</span><span>Define the invariant with the business.</span></div><div class="qbody"><h3 class="prompt">How would you protect financial correctness?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>I ask the domain owner what must remain true: permitted property access, approval authority, valid accounting periods, balanced entries where applicable, and a traceable correction process. I represent those rules explicitly and test transaction boundaries, concurrency, retries, and amount precision. Generated code receives the same review as any other change.</p><p class="src"><b>Your evidence</b>Explain which checks run in the UI, API, and database, and why the server is authoritative.</p></div></details></div></article>
+<article class="qcard question" id="practice-8"><div class="qbar"><span class="idx">Q08</span><span>Constrain the action path.</span></div><div class="qbody"><h3 class="prompt">What would you do if an agent exposed a secret or followed malicious text?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>I would stop the affected execution, determine what was accessed or transmitted, and follow the incident process, including credential rotation when needed. Preventive controls include scoped credentials, approved data use, restricted tools, and treating retrieved documents as untrusted input. Instructions are useful guidance; enforcement must survive a bad instruction.</p><p class="src"><b>Your evidence</b>Describe an actual boundary from your bank without claiming controls you have not validated.</p></div></details></div></article>
+<article class="qcard question" id="practice-9"><div class="qbar"><span class="idx">Q09</span><span>One useful workflow, then teach it.</span></div><div class="qbody"><h3 class="prompt">How would you introduce these practices to an existing team?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>I would pair with engineers on a small real task, show the full loop from specification to review, and create a short reusable example. We would discuss both a success and a failure. I would track review effort and rework, invite feedback, and expand only after the workflow helps people deliver reliably.</p><p class="src"><b>Your evidence</b>Supply a real human mentoring story; keep a proposed rollout in future tense.</p></div></details></div></article>
+<article class="qcard question" id="practice-10"><div class="qbar"><span class="idx">Q10</span><span>Measure accepted work and its cost.</span></div><div class="qbody"><h3 class="prompt">How would you prove agents improve delivery speed?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>I would compare similar tasks using a baseline and include specification, execution, review, integration, and rework time. I would track defects and change failures alongside lead time. With a small sample, I would describe the limits instead of claiming a universal multiplier. The gain needs to survive real review and operation.</p><p class="src"><b>Your evidence</b>Prepare a measured result if you have one; otherwise show the measurement plan.</p></div></details></div></article>
+<article class="qcard question" id="practice-11"><div class="qbar"><span class="idx">Q11</span><span>Name the cost and the follow-up.</span></div><div class="qbody"><h3 class="prompt">How do you balance speed with technical debt?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>I distinguish a deliberate temporary shortcut from an unclear design. I can accept a bounded compromise when its effect is visible, it does not violate a critical invariant, and we have an owner and a trigger for revisiting it. Agent-generated abstractions and extra dependencies still need to justify their maintenance cost.</p><p class="src"><b>Your evidence</b>Give an example of something you chose not to generalize.</p></div></details></div></article>
+<article class="qcard question" id="practice-12"><div class="qbar"><span class="idx">Q12</span><span>Diagnose the candidate and contain impact.</span></div><div class="qbody"><h3 class="prompt">What happens when a release fails?</h3><details class="answer"><summary>Reveal answer beats</summary><div class="draft"><p>I identify the actual release candidate and failing check, preserve useful evidence, and decide whether to fix forward or roll back. Schema compatibility and external effects shape that decision. I re-run the necessary checks on the candidate being shipped and verify the user-visible behavior afterward. Then I improve the detector or process that missed the problem.</p><p class="src"><b>Your evidence</b>Use Q1 or N9, with an exact before/after and a truthful outcome.</p></div></details></div></article>
+
+</section>
+<section id="stack">
+  <div class="sec-head"><p class="eyebrow">07 · Refresh before the technical round</p><h2>Be ready to review the application code.</h2></div>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Technical practice topics"><table class="mechanism-table"><thead><tr><th scope="col">Topic</th><th scope="col">Practice task</th><th scope="col">What to explain</th></tr></thead><tbody>
+    <tr><td>C# / ASP.NET Core</td><td>Walk a request through validation, authorization, service logic, and persistence.</td><td>Async work, cancellation, dependency lifetimes, structured errors, and testability. Learn the project’s target runtime before choosing APIs.</td></tr>
+    <tr><td>Entity Framework</td><td>Review two users updating the same invoice.</td><td>Concurrency tokens, conflict handling, transaction scope, and the distinction between a stale update and a duplicate insert.</td></tr>
+    <tr><td>SQL</td><td>Diagnose a slow per-property report.</td><td>Query plan, index choice, join cardinality, bounded results, and workload measurements before optimization.</td></tr>
+    <tr><td>Angular / TypeScript</td><td>Review an invoice-search screen under rapid filter changes.</td><td>Loading/error states, obsolete requests, typed contracts, validation, and an accessible review flow.</td></tr>
+    <tr><td>REST and integrations</td><td>Retry a timed-out approval or posting request.</td><td>Idempotency, authorization, versioning, ambiguous outcomes, and which system owns each fact.</td></tr>
+    <tr><td>CI/CD and Azure</td><td>Outline a small, reversible release.</td><td>Build artifact, tests, secrets, approval policy, database compatibility, deployment observation, and rollback conditions.</td></tr>
+  </tbody></table></div>
+  <p>For ASP.NET Core, understand transient, scoped, and singleton lifetimes and why a singleton should not directly capture a scoped dependency. For Angular, practice explaining that each subscription to an HttpClient request can send another request, and how cancellation affects an obsolete search. <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection">Microsoft DI guide</a> · <a href="https://angular.dev/guide/http/making-requests">Angular HTTP guide</a>.</p>
+  <div class="note"><h3>A focused practice build</h3><p>Implement one hypothetical invoice-review path in a small .NET API and Angular UI. Add server-side property authorization, a stale-update case, and a meaningful API test. Write down where an agent helped, where you corrected it, and how you verified the result. Present it as practice unless it was actually deployed to users.</p></div>
+</section>
+
+<section id="first90">
+  <div class="sec-head"><p class="eyebrow">08 · A proposed starting plan</p><h2>Learn, ship, then make the practice repeatable.</h2></div>
+  <ol class="seq">
+    <li><div><h3>Days 1–30: understand the system and deliver one change.</h3><p>Meet engineering and product partners, trace a real user workflow, learn the existing .NET/Angular patterns and approved AI tools, baseline delivery friction, and ship a bounded change with tests and review.</p></div></li>
+    <li><div><h3>Days 31–60: pilot a repeatable agent workflow.</h3><p>Choose a recurring task, define the task template and evidence requirements, pair with a few engineers, and measure total effort and defects. Fix the biggest context or review bottleneck.</p></div></li>
+    <li><div><h3>Days 61–90: expand what the evidence supports.</h3><p>Document useful prompt patterns, examples, and review expectations. Add parallelism where dependencies permit it. Share results and limitations with the team and decide together what to adopt next.</p></div></li>
+  </ol>
+</section>
+
+<section id="ask">
+  <div class="sec-head"><p class="eyebrow">09 · Choose four</p><h2>Questions that reveal the real work.</h2></div>
+  <ul>
+    <li>Which product and user workflow would this role own first?</li>
+    <li>Where does delivery slow down today: defining work, coding, review, testing, integration, or deployment?</li>
+    <li>How are coding agents currently approved, constrained, and reviewed?</li>
+    <li>Which .NET, Angular, and database versions are in the main product, and what is being modernized?</li>
+    <li>What evidence would make you say this hire succeeded after 90 days?</li>
+    <li>How much of the role is feature delivery versus helping other engineers adopt agentic practices?</li>
+    <li>How do you test financial invariants and property-level access today?</li>
+    <li>What are the location expectations for Lawrenceville, and how is evening or weekend work handled?</li>
+  </ul>
+  <div class="note"><h3>Your final 20-minute rehearsal</h3><p>Say the opening once. Deliver the concurrency and release stories in 90 seconds each. Explain the invoice design in five minutes. Practice your honest stack-gap answer. Finish with four questions for M3.</p></div>
+</section>
+
+<section id="references">
+  <div class="sec-head"><p class="eyebrow">10 · What this preparation is based on</p><h2>Sources and boundaries.</h2></div>
+  <ul class="source-list">
+    <li><a href="https://job-boards.greenhouse.io/m3/jobs/7985832003">M3: Senior Agentic Software Engineer, requisition 588</a> — role details retrieved through the <a href="https://boards-api.greenhouse.io/v1/boards/m3/jobs/7985832003">public Greenhouse Job Board API</a>; posting updated 9 September 2026.</li>
+    <li><a href="https://www.m3as.com/">M3 company and product overview</a> — hospitality software context.</li>
+    <li><a href="https://learn.microsoft.com/en-us/ef/core/saving/concurrency">Microsoft: handling concurrency conflicts in EF Core</a> — application handling of concurrent updates.</li>
+    <li><a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection">Microsoft: dependency injection in ASP.NET Core</a> — dependency lifetimes and scoping.</li>
+    <li><a href="https://angular.dev/guide/http/making-requests">Angular: making HTTP requests</a> — subscriptions, requests, and cancellation.</li>
+    <li><a href="papercusp-answer-bank-standalone.html">Your Papercusp Answer Bank</a> — existing project stories; ownership, operating context, and current metrics must match your experience.</li>
+  </ul>
+  <p><strong>Known:</strong> the posted role and named stack. <strong>Inferred:</strong> likely interview themes. <strong>Proposed:</strong> the invoice exercise, delivery workflow, and 90-day plan. <strong>Unknown:</strong> team topology, actual internal architecture, interview stages, compensation, work arrangement, and your unprovided career details.</p>
+</section>
+</main>
+<footer><p><b>M3 interview preparation</b> · Rehearse the decisions, the evidence, and your contribution.</p><p><a href="papercusp-answer-bank-standalone.html">Back to Answer Bank</a> · <a href="rackspace-screening-reply.txt">Rackspace screening reply draft</a></p></footer>
+</div>
+</body>
+</html>

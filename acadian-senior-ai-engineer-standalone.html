@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Acadian Senior AI Engineer interview preparation: architecture, agent evaluation, governance, investment research, and leadership through influence.">
+<title>Acadian · Senior AI Engineer | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f5f8f6;
+    --surface: #fff;
+    --soft: #eaf1ed;
+    --ink: #101914;
+    --muted: #526159;
+    --accent: #176b4d;
+    --rule: #dce5df;
+    --rule-strong: #bccbc2;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0c1410;
+      --surface: #131e18;
+      --soft: #1a2921;
+      --ink: #e5eee9;
+      --muted: #a3b2aa;
+      --accent: #8bdcb8;
+      --rule: #26372e;
+      --rule-strong: #3b5145;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2.1rem, 5vw, 3.2rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .75fr); gap: 2rem; padding: 3rem 0; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .7rem 0 0; }
+  .hero-card div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 3px; font: 600 .82rem/1.4 var(--display); text-decoration: none; }
+  main { display: grid; gap: 3rem; }
+  section { display: grid; gap: 1rem; scroll-margin-top: 7rem; }
+  .section-lead { max-width: 50rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+  .card { padding: 1.1rem 1.2rem; display: grid; gap: .6rem; }
+  .card ul, .card ol { padding-left: 1.2rem; }
+  .tag { font: 600 .7rem/1.4 var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+  .steps { display: grid; gap: .8rem; counter-reset: step; }
+  .step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: .6rem; padding: 1rem 1.2rem; background: var(--surface); border: 1px solid var(--rule); }
+  .step::before { counter-increment: step; content: counter(step, decimal-leading-zero); color: var(--accent); font: 600 .8rem/1.5 var(--mono); }
+  details { padding: 0 1.2rem; }
+  details + details { margin-top: .6rem; }
+  summary { cursor: pointer; padding: .95rem 0; font: 600 1rem/1.4 var(--display); }
+  details > div { display: grid; gap: .7rem; padding: 0 0 1.1rem; }
+  .note { padding: 1rem 1.2rem; border-left: 3px solid var(--accent); background: var(--soft); }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) { .hero, .grid { grid-template-columns: 1fr; } .hero { padding: 2rem 0; } .wrap { width: min(100% - 1.5rem, 70rem); } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to prep</a>
+<div class="wrap">
+  <div id="sitenav"></div><script src="sitenav.js"></script>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Acadian Asset Management · Senior AI Engineer</p>
+      <h1>From AI experiments to governed production systems</h1>
+      <p class="lead">Prepare to show how you would own a slice of enterprise AI architecture, make agentic systems reliable, and bring investment, research, engineering, risk, and security teams to one decision.</p>
+    </div>
+    <aside class="hero-card" aria-label="Role facts from the supplied posting">
+      <h2>Posting at a glance</h2>
+      <dl>
+        <div><dt>Mandate</dt><dd>Senior technical leadership and delivery, with influence rather than formal authority.</dd></div>
+        <div><dt>Environment</dt><dd>Systematic investment manager; Boston hybrid schedule, three office days per week.</dd></div>
+        <div><dt>Technology</dt><dd>Agents, RAG, MCP, model integration and evals; AWS, Kubernetes, and day two operations. Bedrock is preferred.</dd></div>
+        <div><dt>Pay in posting</dt><dd>$175,000–$225,000 base; discretionary incentive may apply.</dd></div>
+      </dl>
+    </aside>
+  </header>
+  <nav class="toc" aria-label="On this page">
+    <a href="#position">Positioning</a><a href="#evidence">Proof stories</a><a href="#design">Design exercise</a><a href="#questions">Likely questions</a><a href="#ask">Ask Acadian</a><a href="#rehearse">Rehearse</a>
+  </nav>
+  <main id="main">
+    <section id="position">
+      <h2>Your opening position</h2>
+      <p class="section-lead">Use this as a structure, then replace the bracketed claim with work you can substantiate. The posting emphasizes durable systems, controls, and adoption more than a model demo.</p>
+      <div class="card">
+        <p>“I build AI systems that teams can operate and trust. I start with the user workflow and a measurable success criterion, then design the data, model, tools, evaluation, and controls together. In [specific project], I owned [your actual scope], made [one tradeoff], and measured [verified outcome]. At Acadian I would bring that discipline to research and investment workflows, while aligning Risk, Security, and engineering before broad adoption.”</p>
+      </div>
+      <div class="note"><strong>Do not overclaim:</strong> the posting gives no interview format, current production architecture, or deployed use case. Ask about those; do not present guesses as facts.</div>
+    </section>
+
+    <section id="evidence">
+      <h2>Five proof stories to prepare</h2>
+      <p class="section-lead">For each, prepare a 90-second version with your decision, alternatives, failure mode, result, and what you would change. The Answer Bank links are prompts to verify against your own work.</p>
+      <div class="grid">
+        <article class="card"><p class="tag">Architecture ownership</p><h3>One system you took beyond a prototype</h3><p>Draw the service boundary, data flow, APIs, queue or workflow durability, rollout, and on-call owner. State what you personally designed and shipped.</p><a href="papercusp-answer-bank-standalone.html#n-system-design">Answer Bank: system design</a></article>
+        <article class="card"><p class="tag">Agent reliability</p><h3>One failure you made recoverable</h3><p>Explain tool permissions, retries and idempotency, checkpointing, context limits, and the test that would catch recurrence.</p><a href="papercusp-answer-bank-standalone.html#n-liveness">Answer Bank: liveness and recovery</a></article>
+        <article class="card"><p class="tag">Evaluation</p><h3>One quality decision based on evidence</h3><p>Describe a versioned dataset, baseline, offline and live measures, human review, and release criteria. Separate answer quality from retrieval and tool-use quality.</p><a href="papercusp-answer-bank-standalone.html#q-ai-eval">Answer Bank: AI evaluation</a></article>
+        <article class="card"><p class="tag">Governance</p><h3>One control enforced by the system</h3><p>Show where identity, authorization, approval, audit, retention, and rollback are implemented. Explain how untrusted retrieved content is treated.</p><a href="papercusp-answer-bank-standalone.html#g-permissions">Answer Bank: permission boundary</a></article>
+        <article class="card"><p class="tag">Influence</p><h3>One cross-team tradeoff you resolved</h3><p>Name competing goals, options considered, how you won agreement, and a later signal that showed whether the choice worked.</p><a href="papercusp-answer-bank-standalone.html#n-leading">Answer Bank: leading through influence</a></article>
+      </div>
+    </section>
+
+    <section id="design">
+      <h2>Practice design: an investment-research assistant</h2>
+      <p class="section-lead">Interview prompt to rehearse: “Help a research analyst compare approved internal research with a new company filing, with citations, while preventing unauthorized disclosure or autonomous trade actions.” This is a practice scenario, not a claim about Acadian’s systems.</p>
+      <div class="steps">
+        <div class="step"><div><h3>Define the decision and boundary</h3><p>Identify the analyst’s task, permitted source documents, freshness requirement, and what a useful, cited answer looks like. Keep investment decisions and orders with authorized humans.</p></div></div>
+        <div class="step"><div><h3>Design retrieval and tools</h3><p>Ingest with source version, effective date, tenant and entitlement metadata. Retrieve only documents the caller can access; show citations to exact passages. Treat document text as data, never instructions.</p></div></div>
+        <div class="step"><div><h3>Choose a narrow agent loop</h3><p>Use deterministic retrieval and comparison first. Add bounded tool calls only where they improve the task; set budgets, timeouts, trace IDs, and a clear stop condition. Define human approval for any write or outward action.</p></div></div>
+        <div class="step"><div><h3>Evaluate before release</h3><p>Build a versioned set of real analyst questions: correct citations, answer support, abstention, access-control negatives, stale-source handling, latency, and cost. Review difficult cases with research and Risk; gate rollout on agreed thresholds.</p></div></div>
+        <div class="step"><div><h3>Operate and improve</h3><p>Log source and model versions without leaking sensitive content. Monitor quality, cost, latency, denied access, and human overrides. Roll out by cohort, preserve rollback, and assign an owner for incidents and data lifecycle.</p></div></div>
+      </div>
+    </section>
+
+    <section id="questions">
+      <h2>Likely interview questions</h2>
+      <p class="section-lead">Answer aloud before opening the prompts. These are inferred from the job description, not a known interview script.</p>
+      <div>
+        <details><summary>How would you turn a successful agent prototype into a production service?</summary><div><p>Start with the workflow and measurable outcome. Name the owner and API contract; constrain tool permissions; make side effects idempotent; add traces, evals, incident response, rollback, and a staged rollout. Explain which autonomy you would postpone until evidence supports it.</p></div></details>
+        <details><summary>How do you know a RAG or agent system is good enough?</summary><div><p>Split the scorecard: retrieval recall and entitlement, grounded answer quality, abstention, tool correctness, human task success, latency, and cost. Version the dataset and judge criteria; compare to a simple baseline; inspect regressions by slice before a release.</p></div></details>
+        <details><summary>Where do governance and security controls live?</summary><div><p>At the data, tool, and action boundaries: caller identity, document entitlements, scoped credentials, approval on consequential actions, audit logs, retention, and red-team cases for prompt injection. A model instruction alone is not an enforcement boundary.</p></div></details>
+        <details><summary>How would you handle disagreement between research, Risk, and platform engineering?</summary><div><p>Write down the shared outcome and constraints, compare two or three concrete options with cost and failure modes, then run a small test with an agreed decision date. Make the chosen standard and exception path visible; revisit it with adoption and incident data.</p></div></details>
+        <details><summary>Would you use Bedrock, a hosted model API, or a self-hosted model?</summary><div><p>Ask first about data classification, required regions, existing contracts, model quality, latency, volume, and team capacity. Compare total operating cost and control needs against a benchmark workload. The posting prefers Bedrock; it does not say every workload must use it.</p></div></details>
+        <details><summary>How would you improve inference cost without losing quality?</summary><div><p>Measure token mix and bottlenecks first. Consider prompt and context trimming, retrieval quality, caching where entitlements permit it, smaller models for narrow tasks, batching, and fallback rules. Re-run the same quality and safety evals before claiming savings.</p></div></details>
+      </div>
+    </section>
+
+    <section id="ask">
+      <h2>Questions to ask Acadian</h2>
+      <div class="grid">
+        <div class="card"><h3>Scope and success</h3><ul><li>Which slice of the AI roadmap would this role own in its first six months?</li><li>Which research or business workflows have moved from experiment to production, and how is value measured?</li></ul></div>
+        <div class="card"><h3>Architecture and controls</h3><ul><li>What are the current boundaries between the shared platform and team-owned AI applications?</li><li>Who sets model, data-access, and evaluation standards, and how are exceptions approved?</li></ul></div>
+        <div class="card"><h3>Team and operations</h3><ul><li>What does the on-call and incident model look like for AI services?</li><li>Which collaboration is hardest today: investment research, data, engineering, or Risk and Compliance?</li></ul></div>
+      </div>
+    </section>
+
+    <section id="rehearse">
+      <h2>A 25-minute rehearsal</h2>
+      <ol>
+        <li><strong>3 minutes:</strong> deliver the opening position with one verified result.</li>
+        <li><strong>8 minutes:</strong> draw the research-assistant design; state trust boundaries and rollout gates.</li>
+        <li><strong>10 minutes:</strong> answer two questions from the cards using real project evidence.</li>
+        <li><strong>4 minutes:</strong> ask two Acadian questions and close with the role scope you want to own.</li>
+      </ol>
+    </section>
+  </main>
+  <footer>Prepared from the job description supplied on 23 September 2026. Scenario and likely questions are practice prompts; confirm company-specific details with the interviewer.</footer>
+</div>
+</body>
+</html>

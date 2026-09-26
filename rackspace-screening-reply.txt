@@ -1,0 +1,31 @@
+Subject: Re: Senior Forward Deployed Engineer – Rackspace Technology
+
+Hi Renu,
+
+Thank you for reaching out. I’m interested in learning more about the Senior Forward Deployed Engineer opportunity. Please find my details below:
+
+Work Authorization: [US Citizen / Permanent Resident / other status]
+Current Location: [City, State]
+Expected Salary/Compensation: [Target base salary range and total compensation expectations]
+Notice Period / Availability: [Notice period or earliest start date]
+Total Experience: [X years]
+Palantir Experience: [Platform, modules, duration, and delivery context — or “No direct Palantir experience”]
+Palantir Certification: [Certification name — or “None”]
+Customer-facing Experience: [Duration and a brief example of client or stakeholder delivery]
+Python Experience: [Duration and relevant hands-on work]
+Enterprise AI/ML Production Experience: [Duration, deployed use cases, and operating context]
+LLM, RAG & Agentic AI Experience: Hands-on work on Papercusp, a platform for coordinating coding agents, including tool integration, task coordination, and validation workflows. [Add duration and a specific RAG example, if applicable.]
+Vector DB & ETL/ELT Experience: [Databases, ingestion/transformation tools, duration, and one implemented pipeline]
+Docker/Kubernetes/CI-CD Experience: CI/CD and automated validation work on Papercusp. [Add Docker and Kubernetes experience separately, with accurate duration and scope.]
+Enterprise Integration Experience: API and MCP-based tool integration in Papercusp. [Add a relevant enterprise systems integration and your contribution, if applicable.]
+Customer-facing & Solution Architecture Experience: [Duration and an example covering discovery, architecture, implementation, and handoff]
+Travel: [Confirm comfort with up to 25% travel]
+
+My recent work has focused on Papercusp, a platform for coordinating coding agents through implementation, validation, and review. Relevant areas include concurrent-work coordination, API/MCP tool integration, persistent workflow state, and automated quality checks. I’m interested in bringing that engineering experience to customer-facing solution delivery. [Add one sentence about your actual enterprise AI/ML deployment, LLM/RAG work, and customer outcome, plus a brief, accurate statement of your Palantir experience.]
+
+Could you please resend the full job description? The JD link was not included in the message I received.
+
+[Attach your updated résumé before sending, then replace this line with: “I’ve attached my updated résumé for your review.”]
+
+Best,
+Avi

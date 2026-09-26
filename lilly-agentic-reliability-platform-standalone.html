@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Eli Lilly — Agentic Resolution Platform (Reliability Engineering) Interview Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #7FB5D8;
+      --info-soft: #142A38;
+      --rule: #24362C;
+      --rule-strong: #3A5245;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -999px;
+  }
+  .skip-link:focus {
+    left: 1rem; top: 1rem;
+    position: fixed; z-index: 50;
+    background: var(--surface); color: var(--accent);
+    padding: 0.6rem 1rem; border: 1px solid var(--accent);
+  }
+
+  .wrap {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 0 1.5rem 5rem;
+  }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    padding: 0.5rem 0;
+    margin: 0 0 1.5rem;
+    background: var(--ground);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+    padding: 1.5rem 0 2rem;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 2.5rem;
+  }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 0.6rem;
+  }
+
+  h1 {
+    font-family: var(--f-display);
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    line-height: 1.12;
+    margin: 0 0 0.9rem;
+    letter-spacing: -0.015em;
+  }
+
+  .standfirst { margin: 0; color: var(--ink-muted); font-size: 1.04rem; }
+
+  .fact-stack { display: grid; gap: 0.6rem; }
+  .fact {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.7rem 0.9rem;
+  }
+  .fact .k {
+    font-family: var(--f-mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    display: block;
+  }
+  .fact .v { font-size: 0.95rem; }
+
+  nav.toc { margin: 0 0 3rem; }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 2rem; }
+  nav.toc li { break-inside: avoid; margin-bottom: 0.4rem; font-size: 0.94rem; }
+  nav.toc .n {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    margin-right: 0.5rem;
+  }
+  nav.toc a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+  nav.toc a:hover { color: var(--accent); border-color: var(--accent); }
+
+  section { margin: 0 0 3.5rem; scroll-margin-top: 3.5rem; }
+  .sec-head { margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--rule); }
+  .sec-head h2 {
+    font-family: var(--f-display);
+    font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  h3 { font-family: var(--f-display); font-size: 1.05rem; margin: 1.6rem 0 0.5rem; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 1.1rem 1.25rem;
+    margin: 1rem 0;
+  }
+  .card > :first-child { margin-top: 0; }
+  .card > :last-child { margin-bottom: 0; }
+
+  .note {
+    border-left: 3px solid var(--info);
+    background: var(--info-soft);
+    padding: 0.85rem 1.1rem;
+    margin: 1rem 0;
+    font-size: 0.96rem;
+  }
+  .note.caution { border-left-color: var(--caution); background: var(--caution-soft); }
+  .note.critical { border-left-color: var(--critical); background: var(--critical-soft); }
+  .note > :first-child { margin-top: 0; }
+  .note > :last-child { margin-bottom: 0; }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.12rem 0.4rem;
+    border-radius: 2px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    border: 1px solid var(--rule-strong);
+    vertical-align: middle;
+  }
+  .badge.thin { background: var(--caution-soft); color: var(--caution); }
+  .badge.gap { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    padding: 0.9rem 1.15rem;
+    margin: 1rem 0;
+    font-size: 0.99rem;
+  }
+  .script p { margin: 0 0 0.7rem; }
+  .script p:last-child { margin-bottom: 0; }
+
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.1rem 0.3rem;
+    border-radius: 2px;
+    overflow-wrap: anywhere;
+  }
+
+  details.drill {
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    padding: 0.7rem 1rem;
+    margin: 0.7rem 0;
+  }
+  details.drill summary {
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-size: 0.98rem;
+  }
+  details.drill[open] summary { margin-bottom: 0.7rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule); }
+
+  ul.checklist { list-style: none; padding: 0; margin: 1rem 0; }
+  ul.checklist li {
+    padding: 0.45rem 0 0.45rem 1.9rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  ul.checklist li::before {
+    content: "";
+    position: absolute;
+    left: 0.35rem; top: 0.85rem;
+    width: 0.7rem; height: 0.7rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+  }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+  }
+
+  a { color: var(--accent); }
+
+  @media (max-width: 52rem) {
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    nav.toc ol { columns: 1; }
+    nav.sitenav { margin-top: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    nav.sitenav, nav.toc, .skip-link { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+  }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Senior IC · Eli Lilly · Digital Core / Reliability Engineering · agentic resolution platform</p>
+      <h1>They are hiring one person to do two jobs. Show them the seam.</h1>
+      <p class="standfirst">This role fuses a cloud-native platform engineer (EKS, Terraform, CI/CD, observability, security) with an agentic AI engineer (agent runtime, RAG, evals, human-in-the-loop). Most candidates are credible at one and hand-wave the other. The differentiator is the <em>seam</em>: applying the same reliability discipline — SLOs, canaries, rollback, audit trails — to systems whose output is non-deterministic. Lead with that and you are answering a question they may not have learned to ask yet.</p>
+    </div>
+    <div class="fact-stack">
+      <div class="fact"><span class="k">Band</span><span class="v">$129,000 – $231,000 + bonus</span></div>
+      <div class="fact"><span class="k">Measured by</span><span class="v">Deflection rate, toil reduction, availability, developer velocity</span></div>
+      <div class="fact"><span class="k">Context</span><span class="v">Regulated pharma. GxP posture is not optional</span></div>
+      <div class="fact"><span class="k">Watch</span><span class="v">"Flexible hours … weekends and holidays"</span></div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Contents">
+    <ol>
+      <li><span class="n">01</span><a href="#thesis">What they are actually buying</a></li>
+      <li><span class="n">02</span><a href="#opener">Your opener</a></li>
+      <li><span class="n">03</span><a href="#coverage">Honest coverage map</a></li>
+      <li><span class="n">04</span><a href="#platform">The resolution platform</a></li>
+      <li><span class="n">05</span><a href="#evals">Evaluating non-deterministic systems</a></li>
+      <li><span class="n">06</span><a href="#knowledge">Knowledge as a compounding lever</a></li>
+      <li><span class="n">07</span><a href="#cloud">Cloud-native + CI/CD</a></li>
+      <li><span class="n">08</span><a href="#regulated">GxP and the regulated frame</a></li>
+      <li><span class="n">09</span><a href="#metrics">Talking deflection with numbers</a></li>
+      <li><span class="n">10</span><a href="#leadership">Leadership as a senior IC</a></li>
+      <li><span class="n">11</span><a href="#questions">Questions for them</a></li>
+      <li><span class="n">12</span><a href="#checklist">Last-minute checklist</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <section id="thesis">
+      <div class="sec-head">
+        <p class="eyebrow">01 · The thesis</p>
+        <h2>What they are actually buying</h2>
+      </div>
+
+      <p>Read the JD's own words: the Reliability Engineering team is <em>"in active transition from human-executed operations to engineering-led, agent-assisted reliability."</em> That sentence is the whole job. They have an ops team doing repetitive work by hand, and they want someone to build the machine that makes most of that work disappear — then prove it disappeared.</p>
+
+      <p>"Deflection" is a service-desk term, and the supporting skills give the shape away: ServiceNow integration, Microsoft Teams intake. So the pipeline is concretely:</p>
+
+      <div class="card">
+        <p><strong>intake</strong> (ServiceNow ticket / Teams message) → <strong>classify</strong> (what kind of problem is this?) → <strong>act</strong> (run the remediation) → <strong>verify</strong> (did it actually work?) → <strong>escalate</strong> (hand to a human when confidence is low).</p>
+        <p style="margin-top:0.7rem;"><strong>Deflection rate</strong> = the share of intake that reaches a correct terminal state without a human touching it.</p>
+      </div>
+
+      <p>Two structural observations worth saying out loud in the interview, because they show you have built one of these rather than read about them:</p>
+
+      <h3>The verify step is where these platforms actually fail</h3>
+      <p>Everyone builds intake, classification and action. Far fewer build honest verification, so the agent reports success and the ticket reopens two hours later. Insist that "resolved" means <em>observed</em> resolved — the alert cleared, the probe passed, the metric returned to band — not "the remediation script exited zero." A platform that cannot distinguish those two is reporting deflection it has not earned.</p>
+
+      <h3>They ask for a data contract, which is the interesting half</h3>
+      <p>The JD asks you to define <em>"the data contracts that let the platform consume durable fixes from upstream engineering teams."</em> Translation: deflection is a treadmill if the underlying defects are never fixed. The platform should be producing a ranked feed of recurring root causes back to product teams, and the JD's line about influencing <em>"engineering leaders to adopt automation-friendly patterns at the source, not just downstream"</em> is the same idea. Say plainly: <strong>the goal is not to automate toil forever, it is to make toil extinct — automation buys time for the durable fix, it does not replace it.</strong> That reframing lands well with reliability leaders and is genuinely correct.</p>
+
+      <div class="note">
+        <p><strong>Use this line.</strong> "A deflection number that goes up while the same incident class keeps recurring is a warning sign, not a win. I'd instrument both: deflection <em>and</em> recurrence, and treat a rising deflection rate on a flat recurrence curve as a signal that we're papering over something upstream."</p>
+      </div>
+    </section>
+
+    <section id="opener">
+      <div class="sec-head">
+        <p class="eyebrow">02 · Your opener</p>
+        <h2>Ninety seconds, no numbers you have not re-checked</h2>
+      </div>
+
+      <p>Structure: what you build → the one hard thing you learned → why this role specifically. Do not recite a CV; they have it.</p>
+
+      <div class="script">
+        <p>"I build agentic platforms — the runtime, not just the prompts. Most recently a multi-agent system where the interesting problems were all the ones people don't anticipate: how agents coordinate without clobbering each other's work, how you hand off to a human at exactly the right confidence threshold, and how you evaluate a system whose output is different every time you run it.</p>
+        <p>The lesson I keep coming back to is that non-determinism doesn't excuse you from reliability engineering — it raises the bar. An agent that's right 95% of the time is a fundamentally different operational object than a script that's right 100% of the time, and it needs its own SLOs, its own rollback story, and above all its own honest evaluation. The failure mode I watch for is an eval suite that passes whether or not the agent is working.</p>
+        <p>What draws me here is that this role owns both halves — the Kubernetes and Terraform underneath and the agent runtime on top. I've found you can't do the second well without controlling the first, and in a regulated environment where every automated action has to be auditable, that's even more true."</p>
+      </div>
+
+      <div class="note caution">
+        <p><strong>Adapt the first sentence to your real evidence.</strong> Everything above is a frame, not a claim about your history. Before you use any specific — a system, a number, a role — confirm you can defend it under follow-up. A confident specific you cannot substantiate is worse than a modest one you can.</p>
+      </div>
+    </section>
+
+    <section id="coverage">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Coverage</p>
+        <h2>Honest map: strong, adjacent, thin</h2>
+      </div>
+
+      <p>Grade yourself before they do. The JD has nine "basic qualifications" and fifteen "should bring" items — nobody has all of them, and they know it. What separates candidates is whether the gaps are <em>named and planned</em> or discovered mid-interview.</p>
+
+      <table>
+        <tr><th>JD requirement</th><th>Your position</th><th>How to handle it</th></tr>
+        <tr><td>Agent runtime, multi-agent orchestration, tool integration, memory/state</td><td><span class="badge">Core</span></td><td>This is your strongest ground. Go deep and concrete — coordination, locks, handoffs, state durability.</td></tr>
+        <tr><td>LLM patterns: prompting, RAG, structured outputs, multi-model routing</td><td><span class="badge">Core</span></td><td>Have one opinionated take on each. Especially retrieval quality and when RAG is the wrong tool.</td></tr>
+        <tr><td>Evals, guardrails, drift detection, HITL feedback loops</td><td><span class="badge">Core</span></td><td>Your differentiator — see §05. Most candidates are weakest exactly here.</td></tr>
+        <tr><td>Python (async, packaging, performance)</td><td><span class="badge">Core</span></td><td>Expect live or deep-dive questions. Async specifics: backpressure, task groups, cancellation.</td></tr>
+        <tr><td>MCP / LangGraph / LangChain / LlamaIndex</td><td><span class="badge">Core</span></td><td>They accept <em>any one</em>. MCP counts fully — say so if that is your depth.</td></tr>
+        <tr><td>Kubernetes (EKS) at scale</td><td><span class="badge thin">Verify</span></td><td>Be precise about what you have operated vs. deployed onto. Do not inflate.</td></tr>
+        <tr><td>Terraform + a cloud AI stack (Bedrock / SageMaker / Vertex / Azure AI)</td><td><span class="badge thin">Verify</span></td><td>Name the one you know. "I've used X, and the Bedrock equivalent is Y" shows transferable understanding.</td></tr>
+        <tr><td>CI/CD with eval gates, canary, rollback for agents</td><td><span class="badge thin">Verify</span></td><td>Even without a pharma-scale example, you can design it credibly. See §07.</td></tr>
+        <tr><td>ServiceNow + Teams intake patterns</td><td><span class="badge gap">Likely gap</span></td><td>Cheap to close conceptually; say what you'd need to learn and how fast.</td></tr>
+        <tr><td>Regulated life-sciences experience (GxP, Part 11)</td><td><span class="badge gap">Likely gap</span></td><td>Do the reading in §08. Showing you understand <em>why</em> the constraints exist beats claiming experience.</td></tr>
+      </table>
+
+      <div class="note">
+        <p><strong>The move for a named gap.</strong> Do not apologize and do not bluff. Three beats: <em>name it</em> → <em>show the nearest transferable thing you have done</em> → <em>state concretely how you'd close it.</em> "I haven't run ServiceNow integrations. I have built intake adapters over other ticketing and chat surfaces, and the hard part was never the API — it was idempotency and making sure a retried webhook didn't trigger the remediation twice. I'd expect the ServiceNow specifics to take me a couple of weeks; the failure modes I already know."</p>
+      </div>
+    </section>
+
+    <section id="platform">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Architecture</p>
+        <h2>The resolution platform, end to end</h2>
+      </div>
+
+      <p>Expect to whiteboard this. Have a default design you can draw in two minutes and defend for twenty.</p>
+
+      <h3>Confidence-thresholded handoff — get the asymmetry right</h3>
+      <p>The JD names this explicitly. The naive version is a single confidence score with one cutoff. The version that shows judgment accounts for <strong>asymmetric cost</strong>:</p>
+
+      <div class="card">
+        <p>In a pharma production estate, a <em>wrong automated action</em> is far more expensive than a <em>missed deflection</em>. A missed deflection costs a human twenty minutes. A wrong action on a GxP-relevant system can mean a deviation, an investigation, and a regulatory paper trail.</p>
+        <p style="margin-top:0.7rem;">So the threshold is not tuned to maximize deflection. It is tuned for <strong>precision on the action path</strong>, with deflection maximized only <em>subject to</em> a false-action ceiling. Those are different optimization problems and conflating them is how these platforms get rolled back after one bad week.</p>
+      </div>
+
+      <p>Say that, and add the refinement: <strong>confidence should be per-action-class, not global.</strong> "Restart a stateless pod in a dev namespace" and "modify a record in a validated system" do not deserve the same bar. Tier the action catalog by blast radius, and let each tier carry its own threshold and its own approval requirement.</p>
+
+      <h3>Agent state and memory — the question behind the question</h3>
+      <p>When they ask about "agent state and memory," they are usually probing whether you understand that different state has different durability needs. A crisp answer:</p>
+
+      <table>
+        <tr><th>Kind of state</th><th>Where it belongs</th><th>Why</th></tr>
+        <tr><td>Workflow state — what is this agent doing, what step is it on</td><td>Durable store (Postgres), not memory</td><td>Must survive a crash mid-incident. An agent that forgets it already restarted a service will restart it again.</td></tr>
+        <tr><td>Structured facts — this host is in this cluster, this ticket maps to this service</td><td>Relational, queryable</td><td>Code branches on it. Absence must be an <em>answer</em> you can act on.</td></tr>
+        <tr><td>Fuzzy knowledge — how this class of incident usually behaves</td><td>Vector / semantic retrieval</td><td>Value is associative; a miss costs a rediscovery, not a wrong action.</td></tr>
+      </table>
+
+      <p>The load-bearing principle, and a genuinely good thing to say aloud:</p>
+
+      <div class="note">
+        <p><strong>"Ask what a <em>miss</em> means."</strong> A relational store returning zero rows is authoritative absence — you can branch on it. A semantic search returning nothing is uninterpretable: it might not exist, or the embedding just didn't match. So anything where the agent must distinguish <em>"not there"</em> from <em>"not retrieved"</em> cannot live behind semantic retrieval alone. Put a routing decision on that and you avoid a whole class of confidently-wrong agent behavior.</p>
+      </div>
+
+      <h3>Idempotency and the replay problem</h3>
+      <p>Underrated and very interview-worthy: agent actions must be idempotent, because agents retry. A webhook fires twice, a run resumes after a crash, a human re-triggers. Every action in the catalog needs an idempotency key and a safe-to-replay contract, and the ones that genuinely cannot be made idempotent should be flagged as requiring human confirmation regardless of confidence.</p>
+    </section>
+
+    <section id="evals">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Your differentiator</p>
+        <h2>Evaluating systems that are different every run</h2>
+      </div>
+
+      <p>The JD asks for <em>"evaluation and guardrail frameworks for non-deterministic systems: automated evals, quality scoring, drift detection, and feedback loops."</em> This is where most candidates get vague. Be specific and you separate yourself immediately.</p>
+
+      <h3>The question almost nobody asks: does your eval actually fail?</h3>
+      <div class="card">
+        <p>An evaluation suite that has never failed is not a passing grade — it is an <strong>untested instrument</strong>. A test that passes whether or not the behavior is present is decoration, not coverage.</p>
+        <p style="margin-top:0.7rem;">The fix is to <em>deliberately break the thing and confirm the eval catches it.</em> Mutate the agent's prompt, degrade the retrieval, swap in a deliberately-wrong tool response — and assert your eval goes red. If it stays green, your eval was measuring nothing and you would never have found out.</p>
+      </div>
+
+      <p>This has a name in software — mutation testing — and almost nobody applies it to LLM evals. Bringing it up signals you have been burned by a green dashboard that meant nothing, which is exactly the scar tissue they are hiring for.</p>
+
+      <h3>The false-green family, generally</h3>
+      <p>Related and worth having ready: most bad automated conclusions come from an instrument that <em>measured nothing</em> but reported a clean result. A test selector that matched zero tests and exited zero. A search whose output was truncated before the real hit. A query against the wrong table returning zero rows. In each case the empty result is indistinguishable from a genuine all-clear.</p>
+      <p>The discipline: <strong>never act on a negative result without a positive control.</strong> Before you believe "the agent found no matching incidents," confirm the same search returns something you know is there. In an agentic platform, this is what stops an agent from confidently reporting "nothing is wrong" because its detector was broken.</p>
+
+      <h3>A layered eval stack you can sketch</h3>
+      <table>
+        <tr><th>Layer</th><th>What it catches</th><th>Runs when</th></tr>
+        <tr><td>Golden dataset — frozen incidents with known-correct resolutions</td><td>Regression in classification or action selection</td><td>Every CI run; blocks merge</td></tr>
+        <tr><td>Structured-output validation</td><td>Schema drift, malformed tool calls</td><td>Every run, cheap, deterministic</td></tr>
+        <tr><td>LLM-as-judge with human calibration</td><td>Quality of reasoning and resolution write-ups</td><td>Nightly + pre-release; sampled</td></tr>
+        <tr><td>Shadow / canary against live traffic</td><td>Real-world distribution shift the golden set missed</td><td>Continuous on a traffic slice</td></tr>
+        <tr><td>Drift detection on inputs and outputs</td><td>Incident mix changed; model provider changed under you</td><td>Continuous, alerting</td></tr>
+      </table>
+
+      <div class="note caution">
+        <p><strong>Have an opinion on LLM-as-judge.</strong> It is useful and it is not free: the judge is itself non-deterministic and drifts. Calibrate it against human labels periodically and track judge–human agreement as its own metric. A judge nobody has audited is a confident number with nothing behind it.</p>
+      </div>
+
+      <h3>Drift you do not control</h3>
+      <p>A sharp point for a regulated environment: when a model provider silently updates a model behind an endpoint, your validated system's behavior can change without any deployment on your side. That is a real problem for change control. The mitigation is <strong>pinned model versions</strong>, explicit promotion between versions, and evals gating that promotion — never floating aliases in production. Say this and you have demonstrated you understand why pharma treats AI differently.</p>
+    </section>
+
+    <section id="knowledge">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Knowledge</p>
+        <h2>"Every resolved incident becomes training data"</h2>
+      </div>
+
+      <p>The JD calls the knowledge base <em>"a compounding deflection lever."</em> Agree with the ambition, then show you know where it breaks.</p>
+
+      <h3>The staleness problem is the whole problem</h3>
+      <p>A knowledge base built from resolved incidents accumulates entries that were true when written. Services get rewritten; runbooks go stale. A retrieval system has no concept of "this is outdated" — it will happily surface a two-year-old resolution with high similarity and the agent will act on it.</p>
+
+      <div class="card">
+        <p>Three things that actually help:</p>
+        <p style="margin-top:0.5rem;"><strong>1. Every entry carries a lifetime.</strong> A claim about current system state gets an expiry; a durable principle does not. Forcing the author to declare which is a cheap, high-yield discipline.</p>
+        <p><strong>2. Supersession must be a real operation.</strong> If "correcting" an entry means writing a second one, you now have two entries competing at retrieval and the wrong one can win. Ensure you can update in place and verify the update landed.</p>
+        <p><strong>3. Feed outcomes back as signal.</strong> When a retrieved entry leads to a failed resolution, that is a labeled negative. Use it — demote the entry, flag it for review. Most knowledge bases only ever accumulate, never prune, and quality decays silently.</p>
+      </div>
+
+      <h3>Hybrid retrieval, and when RAG is the wrong tool</h3>
+      <p>They ask for "hybrid retrieval," meaning semantic + lexical. Have the reason ready: <strong>semantic search is bad at exact identifiers.</strong> Error codes, hostnames, ticket numbers, stack-trace symbols — these are precisely what appears in incidents, and embeddings blur them. Lexical (BM25) nails them. Fuse both, and reciprocal-rank fusion is the usual sane default.</p>
+      <p>And the maturity signal: sometimes retrieval is the wrong answer entirely. If the fact is structured and authoritative — which host runs which service, who owns this alert — that is a database query, not a similarity search. Reaching for RAG where a join would do is a common and expensive mistake.</p>
+    </section>
+
+    <section id="cloud">
+      <div class="sec-head">
+        <p class="eyebrow">07 · Substrate</p>
+        <h2>Cloud-native, CI/CD, and observability for agents</h2>
+      </div>
+
+      <h3>What makes agentic CI/CD different</h3>
+      <p>Ordinary pipelines test deterministic code. An agent pipeline has to gate on a <em>statistical</em> result, which changes the design:</p>
+      <ul>
+        <li><strong>Eval gates, not just test gates</strong> — the gate is "golden-set score ≥ threshold and no regression beyond noise," which means you need a handle on run-to-run variance before you can set a threshold at all.</li>
+        <li><strong>Version the whole bundle</strong> — prompt, model version, tool schema, retrieval index. Changing the prompt alone changes behavior, so prompts are deployable artifacts under version control, not config someone edits live.</li>
+        <li><strong>Canary on traffic slices with automatic rollback</strong> — measured on resolution quality and escalation rate, not just error rate and latency. An agent that silently starts escalating everything is "healthy" by infrastructure metrics and broken by every metric that matters.</li>
+        <li><strong>Rollback must include the index</strong> — rolling back code while leaving a re-embedded retrieval index in place gives you a configuration nobody ever tested.</li>
+      </ul>
+
+      <h3>Observability: the agent-decision layer is the new part</h3>
+      <p>Prometheus/Grafana/OpenTelemetry for the platform is table stakes. The JD's phrase <em>"agent-decision telemetry"</em> is the interesting ask. Concretely, every agent run should emit a traceable record of: what it was asked, what it retrieved, what it decided and with what confidence, which tools it called with what arguments, what it observed back, and why it escalated or did not.</p>
+      <p>Two reasons, and give both — the second is the one that resonates in pharma:</p>
+      <ol>
+        <li><strong>Debugging.</strong> Without it, "the agent did something weird" is unfalsifiable.</li>
+        <li><strong>Audit.</strong> In a regulated environment you must be able to reconstruct, after the fact, exactly why an automated action was taken. That is not a nice-to-have; it is the difference between a platform that can touch validated systems and one that cannot.</li>
+      </ol>
+
+      <h3>SLOs for a non-deterministic system</h3>
+      <p>Good answer: you need <em>two</em> tiers, and people conflate them.</p>
+      <table>
+        <tr><th>Tier</th><th>Example SLIs</th></tr>
+        <tr><td>Platform health — classic, deterministic</td><td>API availability, p99 latency, queue depth, inference error rate</td></tr>
+        <tr><td>Agent quality — statistical, needs windows</td><td>Resolution correctness on sampled review, false-action rate, escalation precision, deflection rate, time-to-resolution</td></tr>
+      </table>
+      <p>The second tier cannot be measured per-request in real time; it needs sampling windows and some human review. Saying that shows you have actually run one of these rather than designed one on a slide.</p>
+    </section>
+
+    <section id="regulated">
+      <div class="sec-head">
+        <p class="eyebrow">08 · The frame you may be missing</p>
+        <h2>GxP, Part 11, and why pharma is different</h2>
+      </div>
+
+      <div class="note caution">
+        <p>If you have not worked in life sciences, this section is your highest-leverage hour of prep. You will not be expected to be a compliance expert. You <em>will</em> be expected to understand why the constraints exist — and a candidate who does stands out sharply against one who treats "regulated" as a synonym for "slow."</p>
+      </div>
+
+      <h3>The vocabulary, briefly</h3>
+      <table>
+        <tr><th>Term</th><th>What it means for you</th></tr>
+        <tr><td><strong>GxP</strong></td><td>Umbrella for Good Manufacturing/Clinical/Laboratory Practice. A system is "GxP-relevant" if it touches product quality, patient safety, or data supporting a regulatory submission. Those systems carry far heavier change-control requirements.</td></tr>
+        <tr><td><strong>21 CFR Part 11</strong></td><td>FDA rule on electronic records and electronic signatures. Practically: audit trails that are attributable, time-stamped, and non-modifiable; access controls; and the ability to demonstrate who did what and when.</td></tr>
+        <tr><td><strong>Validation (CSV / CSA)</strong></td><td>Documented evidence that a system does what it is specified to do. The newer Computer Software Assurance guidance is explicitly more risk-based and friendlier to automated testing — worth knowing, because it is the lever that lets modern CI/CD coexist with validation.</td></tr>
+        <tr><td><strong>ALCOA+</strong></td><td>Data integrity principles: Attributable, Legible, Contemporaneous, Original, Accurate (+ complete, consistent, enduring, available). A useful checklist for what your agent-decision telemetry must capture.</td></tr>
+      </table>
+
+      <h3>The connection to make</h3>
+      <p>Here is the synthesis that makes you sound like you belong there:</p>
+
+      <div class="script">
+        <p>"The audit trail a regulator wants and the observability an engineer wants are nearly the same artifact. Attributable, time-stamped, tamper-evident records of what the system did and why — that's Part 11, and it's also just good agent-decision telemetry. I'd build one and satisfy both, rather than bolting compliance on afterward.</p>
+        <p>The place I'd be careful is autonomy scope. I'd want a clear, enforced boundary between GxP-relevant systems and everything else, with the agent's action catalog tiered accordingly — full autonomy on low-blast-radius non-GxP work, human-in-the-loop as a hard requirement on anything validated, regardless of how confident the model is."</p>
+      </div>
+
+      <p>That last sentence matters. It tells them you will not have to be <em>restrained</em> — you already understand where the brakes belong, which is exactly the anxiety a reliability leader has about handing agents production access in pharma.</p>
+    </section>
+
+    <section id="metrics">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Numbers</p>
+        <h2>Talking deflection and toil credibly</h2>
+      </div>
+
+      <p>The JD asks twice for measurable outcomes — <em>"with the numbers to show it."</em> Prepare one story with real figures you can defend. If you do not have a clean deflection number, do not invent one; use a toil-reduction or cycle-time number and say what it is.</p>
+
+      <div class="card">
+        <p><strong>Shape of a strong answer:</strong> baseline → intervention → result → what it cost → what you would do differently.</p>
+        <p style="margin-top:0.6rem;">The last two are what make it believable. Anyone can claim a percentage. Someone who says "it also increased our false-escalation rate for the first month until we retuned the threshold, and I'd run a shadow period first next time" has obviously lived it.</p>
+      </div>
+
+      <h3>Metrics to have opinions about</h3>
+      <ul>
+        <li><strong>Deflection rate</strong> — define the denominator carefully. Deflection of <em>eligible</em> intake is honest; deflection of <em>all</em> intake is inflated by things that were never automatable.</li>
+        <li><strong>False-action rate</strong> — the metric that protects the program's existence. Track it from day one, before anyone asks.</li>
+        <li><strong>Escalation precision</strong> — when the agent hands to a human, was that the right call? Over-escalation burns the trust you need; under-escalation burns something worse.</li>
+        <li><strong>Toil hours reclaimed</strong> — the number leadership actually feels. Translate deflection into engineer-hours returned.</li>
+        <li><strong>Recurrence</strong> — see §01. The honesty metric.</li>
+        <li><strong>Cost per resolution</strong> — inference is not free, and the JD lists FinOps familiarity. A deflection that costs more than the human it replaced is not a win.</li>
+      </ul>
+
+      <div class="note">
+        <p><strong>If asked for a number you do not have:</strong> "I don't have a defensible figure for that and I'd rather not give you one I can't stand behind. What I can tell you precisely is <em>[the thing you did measure]</em>." Interviewers at this level read that as integrity, not weakness — and it is the same instinct they want in someone reporting deflection metrics to leadership.</p>
+      </div>
+    </section>
+
+    <section id="leadership">
+      <div class="sec-head">
+        <p class="eyebrow">10 · Leadership</p>
+        <h2>Senior IC: influence without org-chart authority</h2>
+      </div>
+
+      <p>The JD is unusually explicit: <em>"Leads through what they build and how they write, not through org-chart authority"</em> and <em>"Scale agentic intelligence through systems, standards, and people — not individual heroics."</em> Both are invitations to specific stories.</p>
+
+      <details class="drill">
+        <summary>"Tell me about influencing a team that didn't report to you."</summary>
+        <p>The strongest version involves changing someone's <em>defaults</em> rather than winning an argument — a golden-path template, a linter, a shared library that made the right thing easiest. The JD's phrase "automation-friendly patterns at the source" is exactly this: you do not nag teams into emitting better telemetry, you make the paved road emit it.</p>
+      </details>
+
+      <details class="drill">
+        <summary>"How do you set an engineering bar?"</summary>
+        <p>Avoid "I do thorough code reviews." Better: a bar is something that holds when you are not in the room, which means it is encoded — in CI checks, in templates, in review checklists, in written standards. Mention that you would rather write the check than repeat the comment.</p>
+      </details>
+
+      <details class="drill">
+        <summary>"How would you mentor senior engineers in agentic AI?" <span class="badge">likely</span></summary>
+        <p>Note the word <em>senior</em> — these are experienced engineers new to a domain, not juniors. The honest answer is that experienced engineers mostly need the <em>mental model shift</em>: from deterministic to statistical thinking, from "does it work" to "how often and how does it fail." Pairing on a real eval suite teaches that faster than any doc.</p>
+      </details>
+
+      <details class="drill">
+        <summary>"Disagreement with an architect on a pattern."</summary>
+        <p>The JD says you partner with a senior architect. They are checking you can disagree productively and then commit. Have a real example where you changed your mind on evidence — that version is more convincing than one where you were right.</p>
+      </details>
+
+      <h3>"Standing up a new capability from a small founding team"</h3>
+      <p>Listed under what you should bring, and it reframes the role: this platform may not exist yet, or barely. Ask directly (see §11). If it is greenfield, your first-90-days answer should be unglamorous and sequenced: instrument and measure the current toil <em>before</em> automating any of it, pick one high-volume low-blast-radius incident class, prove the loop end to end including verification and audit, then expand the action catalog. Resist the pull to build the general platform first.</p>
+    </section>
+
+    <section id="questions">
+      <div class="sec-head">
+        <p class="eyebrow">11 · Your questions</p>
+        <h2>Ask things that change your decision</h2>
+      </div>
+
+      <p>Pick four or five. The good ones are the ones whose answers would genuinely affect whether you want the job.</p>
+
+      <h3>Scope and maturity</h3>
+      <ul>
+        <li>"Does the agentic resolution platform exist today, or am I standing it up? What's running in production right now, and what's the current deflection rate?"</li>
+        <li>"What's the split between the platform substrate and the agent layer in practice — is this genuinely one role, or two that were merged because the right person could do both?"</li>
+        <li>"How large is the production estate — applications, incident volume per week?"</li>
+      </ul>
+
+      <h3>The hard ones — these are the differentiators</h3>
+      <ul>
+        <li>"What's the blast-radius boundary today? Can an agent take an action on a GxP-relevant system, and if not, what would have to be true for it to?"</li>
+        <li>"Has the platform ever taken a wrong automated action in production? What happened, and what changed afterward?" <em>— the single most informative question you can ask. The answer tells you their real maturity and their real culture.</em></li>
+        <li>"How does validation and change control actually work for a system whose behavior can shift when a model provider updates something? Has that come up yet?"</li>
+        <li>"The JD mentions data contracts for consuming durable fixes from upstream teams. Is that feedback loop live, or aspirational? Do upstream teams currently act on what reliability finds?"</li>
+      </ul>
+
+      <h3>The one you should not skip</h3>
+      <div class="note critical">
+        <p>"The posting mentions flexible hours including some weekends and holidays. Can you walk me through what that looks like in practice — is there a formal on-call rotation with compensation, or is it more ad hoc? How often did the team get paged outside hours last quarter?"</p>
+        <p style="margin-top:0.6rem;">This is a reliability role supporting continuous operations, so some of this is legitimate and expected. But "flexible hours may be required" is doing a lot of work in that sentence, and a team mid-transition from manual ops is exactly the situation where a small group absorbs a lot of unplanned nights. Ask it neutrally and listen for whether they have real numbers. Vagueness here is itself the answer.</p>
+      </div>
+
+      <h3>Success and support</h3>
+      <ul>
+        <li>"What does success look like at six months, in numbers you'd actually track?"</li>
+        <li>"Who else is on the engineering side of this — team size and shape?"</li>
+        <li>"Which build-vs-buy calls are still open? The JD says I'd own them, so I'm curious what's genuinely undecided."</li>
+      </ul>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">12 · Last-minute checklist</p>
+        <h2>The day before, and ten minutes before</h2>
+      </div>
+
+      <ul class="checklist">
+        <li>Fill in the coverage table in §03 honestly. Know your three weakest rows and have the name-it / nearest-thing / close-it answer ready for each.</li>
+        <li>Pick your <strong>one</strong> metrics story (§09). Re-check every number in it against the source. Do not carry a figure you have not verified today.</li>
+        <li>Read §08 once more. The GxP vocabulary is the cheapest differentiator on this page.</li>
+        <li>Decide which framework you'll claim depth in — MCP, LangGraph, LangChain, LlamaIndex. They accept any one. Be ready for "walk me through how you'd structure a multi-step agent in it."</li>
+        <li>Prepare the whiteboard version of §04: intake → classify → act → verify → escalate, drawable in two minutes.</li>
+        <li>Have the mutation-testing-for-evals point ready (§05). It is the most memorable thing on this page.</li>
+        <li>Say the opener aloud once. Ninety seconds. Adapt the first line to your real evidence.</li>
+        <li>Pick four questions from §11, including the on-call one. Write them where you can see them.</li>
+        <li>Know your number: the band is $129k–$231k. Decide your target before anyone asks, and do not anchor first if you can avoid it.</li>
+        <li>Quiet room, water, notifications off. Camera and microphone tested in the browser you'll actually use.</li>
+      </ul>
+
+      <div class="note">
+        <p><strong>If you remember one thing:</strong> they are buying someone who applies reliability engineering to non-deterministic systems. Every strong answer on this page is a variation on that. When a question is ambiguous, answer it in that register.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Prepared 22 September 2026 from the job posting text. Everything here is derived from the JD and general domain practice — no inside information, and no claims about your background that you have not verified yourself. Re-check the posting for any change to the role, interviewers or format.</p>
+    <p><a href="#top">Back to top</a></p>
+  </footer>
+</div>
+</body>
+</html>

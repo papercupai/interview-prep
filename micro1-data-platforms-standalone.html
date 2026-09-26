@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>micro1 · Software Engineer, Data Platforms — AI Interview Prep</title>
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1410; --surface: #131E18; --surface-alt: #1A2921;
+    --ink: #E5EEE9; --ink-muted: #9DADA4; --ink-faint: #708077;
+    --accent: #66C69C; --accent-strong: #8BDCB8; --accent-soft: #17372A;
+    --caution: #D9A43A; --caution-soft: #33290F;
+    --critical: #E0736C; --critical-soft: #3A1E1C;
+    --info: #78B7DE; --info-soft: #172D3B;
+    --rule: #26372E; --rule-strong: #3B5145;
+  }
+  .tag.gap { background: var(--critical-soft); color: var(--critical); }
+  .question-list .rank { display: inline-block; margin-bottom: 0.15rem; }
+  .script .say code { font-size: 0.8em; }
+</style>
+<style>
+  pre.code { margin: 0; padding: 0.85rem 1rem; background: var(--surface-alt); border: 1px solid var(--rule); border-radius: 3px; overflow-x: auto; font-family: var(--f-mono); font-size: 0.77rem; line-height: 1.5; tab-size: 4; max-width: 100%; }
+  pre.code code { background: transparent; padding: 0; font-size: inherit; }
+  details.solution { border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); min-width: 0; }
+  details.solution summary { padding: 0.65rem 0.9rem; cursor: pointer; font-family: var(--f-display); font-weight: 650; font-size: 0.9rem; background: var(--caution-soft); color: var(--caution); }
+  details.solution[open] summary { border-bottom: 1px solid var(--rule); }
+  details.solution > pre.code { border: 0; border-radius: 0 0 3px 3px; }
+  .flash-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; align-items: start; }
+  details.flash { background: var(--surface); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+  details.flash summary { padding: 0.75rem 0.95rem; cursor: pointer; font-family: var(--f-display); font-weight: 650; font-size: 0.95rem; line-height: 1.35; }
+  details.flash summary::before { content: attr(data-topic); display: block; margin-bottom: 0.25rem; color: var(--accent); font: 600 0.62rem var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; }
+  details.flash[open] summary { border-bottom: 1px solid var(--rule); background: var(--surface-alt); }
+  details.flash .answer { padding: 0.8rem 0.95rem 0.95rem; font-size: 0.95rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .say-plain { margin: 0; line-height: 1.66; }
+  .drill-body.single { grid-template-columns: 1fr; }
+  table.matrix.compact { min-width: 36rem; }
+  table.matrix.compact td:nth-child(3) { width: auto; }
+  table.matrix code { font-size: 0.82em; overflow-wrap: anywhere; }
+  .skill-head { display: flex; flex-direction: column; gap: 0.3rem; }
+  .skill-head .rule { color: var(--ink-muted); }
+  section > *, .two-col > *, .card, .stack, .drill-body > * { min-width: 0; }
+  .badge.fact { min-height: 0; padding: 0.13rem 0.42rem; border: 0; display: inline-block; }
+  html { scroll-padding-top: 8rem; }
+  section { scroll-margin-top: 1rem; }
+  @media (max-width: 48rem) { .flash-grid { grid-template-columns: 1fr; } }
+  @media print { details.solution > *, details.flash > *, details.drill > * { display: block; } }
+</style>
+<style>
+  .src { margin-top: .6rem; font-size: .82rem; line-height: 1.5; opacity: .72; }
+  .src b { font-weight: 600; letter-spacing: .02em; text-transform: uppercase;
+           font-size: .74rem; margin-right: .4rem; }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">micro1 · 18 Sep 2026</p>
+      <h1>Eighteen minutes. Compression is the skill being tested.</h1>
+      <p class="standfirst">The shortest of your six by a wide margin — eighteen minutes across three areas is about six minutes each, so roughly four answers per area at most. Nothing here is unfamiliar: fundamentals, architectural judgment, and ownership are all ground you cover on the other pages. What is different is the budget. Every answer has to land its point in the first sentence, and the Postgres section below is here because the role title says Data Platforms even though the focus list does not — that is your differentiator if the conversation goes there.</p>
+    </div>
+    <aside class="join-card" aria-label="Interview access">
+      <p class="eyebrow">Recruiter email · 18 Sep 2026</p>
+      <p><strong>Complete by Sep 20, 2026 05:36 am.</strong></p>
+      <p><strong class="hot">Take the free practice interview first.</strong><br><span class="muted">Eighteen minutes, free, same interviewer. It is the only way to see the format before it counts.</span></p>
+      <a class="button" href="https://www.micro1.ai/interview-prep" target="_blank" rel="noreferrer">micro1 practice interviews ↗</a>
+      <p class="small muted">Start the real interview only from the link in your own email, on a micro1.ai address.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Role and interview facts">
+    <div class="fact"><dt>Role</dt><dd>Software Engineer, Data Platforms</dd></div>
+    <div class="fact"><dt>Company</dt><dd>micro1</dd></div>
+    <div class="fact"><dt>Format</dt><dd>AI Interview</dd></div>
+    <div class="fact"><dt>Duration</dt><dd>up to 18 minutes</dd></div>
+    <div class="fact"><dt>Deadline</dt><dd class="hot">Sep 20, 2026 05:36 am</dd></div>
+    <div class="fact"><dt>Focus areas</dt><dd>Fullstack Engineering Fundamentals · System &amp; Architectural Judgment · Ownership &amp; Outcome-Driven Problem Solving</dd></div>
+    <div class="fact"><dt>Interviewer</dt><dd>Zara, micro1's AI recruiter</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Start here</a></li>
+      <li><span class="n">02</span><a href="#format">The format</a></li>
+      <li><span class="n">03</span><a href="#opener">Your opener</a></li>
+      <li><span class="n">04</span><a href="#fullstack">Full stack experience</a></li>
+      <li><span class="n">05</span><a href="#design">System design and architecture reasoning</a></li>
+      <li><span class="n">06</span><a href="#ownership">Ownership and learning velocity</a></li>
+      <li><span class="n">07</span><a href="#postgres">PostgreSQL</a></li>
+      <li><span class="n">08</span><a href="#questions">Questions to ask</a></li>
+      <li><span class="n">09</span><a href="#checklist">Before you start</a></li>
+      <li><span class="n">10</span><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Start here</p>
+        <h2>What to do with the time you have</h2>
+      </div>
+      <p>The focus areas below are ranked by how much they will move your score, given what you can actually evidence. If you only have one evening, do them in this order and stop when you run out of time.</p>
+      <div class="priority-grid">
+        <div class="priority">
+          <span class="num">01</span>
+          <p><a href="#fullstack"><b>Full stack experience</b></a> — One story that crosses every layer.</p>
+        </div>
+        <div class="priority">
+          <span class="num">02</span>
+          <p><a href="#design"><b>System design and architecture reasoning</b></a> — State the constraint, then the trade you are making.</p>
+        </div>
+        <div class="priority">
+          <span class="num">03</span>
+          <p><a href="#ownership"><b>Ownership and learning velocity</b></a> — Evidence that you finish, and that you pick things up fast.</p>
+        </div>
+        <div class="priority">
+          <span class="num">04</span>
+          <p><a href="#postgres"><b>PostgreSQL</b></a> — Schema discipline, locks, and the read you can trust.</p>
+        </div>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">Eighteen minutes changes the strategy</p>
+        <p>On the longer interviews you can afford to build an answer. Here you cannot. Lead with the conclusion, give one concrete system with one real number, and stop — then let Zara ask for more. The most common way to lose a short interview is to spend four of your eighteen minutes on context before reaching the point. Note also that <i>Postgres</i> is the fourth section here and is <b>not</b> in the scored focus list: it is preparation for the role title, so treat it as a bonus, not a priority.</p>
+      </div>
+    </section>
+
+    <section id="format">
+      <div class="sec-head">
+        <p class="eyebrow">02 · The format</p>
+        <h2>What the email commits to, and what is only reported</h2>
+      </div>
+      <p>Everything graded <span class="badge owner">Owner</span> is from your own email and is reliable. Everything below it is third-party reporting — useful for preparation, not worth treating as a rule.</p>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>What to expect</th><th>Source</th><th>Confidence</th></tr></thead>
+          <tbody>
+            <tr><td><b>Format</b>: AI Interview</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td><b>Duration</b>: up to 18 minutes</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td><b>Deadline</b>: Sep 20, 2026 05:36 am</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td><b>Focus areas</b>: Fullstack Engineering Fundamentals · System &amp; Architectural Judgment · Ownership &amp; Outcome-Driven Problem Solving</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td>A conversational interview with an AI recruiter, Zara, taken on demand</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Open-ended technical questions, scenario questions, and a coding challenge for technical roles</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>A real-time result against micro1's certification criteria, with feedback on request if you do not pass</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Free AI practice interviews, listed at 18 minutes each</td><td>micro1's interview-prep page</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Zara generates practice interviews, runs conversational assessments and gives structured feedback</td><td>Paper by micro1's CEO and colleagues, April 2025</td><td><span class="badge fact">Fact</span> as of 2025</td></tr>
+            <tr><td>Voice activity detection can move on if you pause too long</td><td>aitrainer.work guide, Sep 2026, cites no sources</td><td><span class="badge inference">Low</span></td></tr>
+            <tr><td>Proctored coding in a VS Code-like editor: paste disabled, tab switching and gaze monitored</td><td>aitrainer.work guide, Sep 2026, cites no sources</td><td><span class="badge inference">Low</span></td></tr>
+            <tr><td>Problem difficulty, the scoring bar per focus area, and the retake policy</td><td>Not published</td><td><span class="badge unknown">Unknown</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="two-col">
+      <article class="card">
+        <h3>Setup</h3>
+        <ul class="checklist" style="grid-template-columns: 1fr">
+          <li>A laptop or desktop, not a phone — micro1 says so explicitly.</li>
+          <li>A quiet room, a working webcam and microphone, a stable connection.</li>
+          <li>Headphones, so Zara's voice is not picked up and read as you talking.</li>
+          <li>Screen share ready — the email says to be ready to share it.</li>
+          <li>Notifications off on the computer and the phone; extensions disabled.</li>
+          <li>Water, and nothing on the desk you would be tempted to look at.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>How to talk to Zara <span class="badge inference">Inference</span></h3>
+        <ul>
+          <li>Answer in your first sentence, then support it. No preamble.</li>
+          <li>Use the focus area's own vocabulary where it is true: main process, context isolation, backpressure, coalescing, p99.</li>
+          <li>One concrete example per answer, with a real number or a real failure in it.</li>
+          <li>Aim for 60 to 90 seconds. A short pause is fine; long silence may be read as you being finished.</li>
+          <li>If a question is ambiguous, say how you are reading it, then answer that reading.</li>
+          <li>Name the limit of your own claim before it is probed. It reads as seniority, not weakness.</li>
+        </ul>
+      </article>
+      </div>
+        <div class="note crit">
+          <p class="eyebrow">Integrity</p>
+          <p>Treat the interview as monitored and unaided. The email requires camera, microphone and screen share; third-party guides report tab-switch tracking and disabled paste in the coding round. micro1 does not publish a retake policy, so plan for one attempt. Close this page, every AI assistant and every browser extension before you start.</p>
+        </div>
+    </section>
+
+    <section id="opener">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Your opener</p>
+        <h2>The first ninety seconds, written out</h2>
+      </div>
+      <p>Zara opens conversationally. This is the one answer worth having word-perfect, because it seeds every focus area so later answers become callbacks rather than fresh stories.</p>
+      <div class="script">
+        <p class="eyebrow">Say this in the first minute</p>
+        <p class="say">I'm a fullstack engineer who has spent most of the last while on platform work — the layer other engineers build on rather than the product surface. The clearest example is a platform that coordinates many AI coding agents working on one codebase at once: a Node API over Postgres, a typed sync layer that pushes live invalidations to a React front end, a durable workflow layer for work that has to survive a restart, and a release gate that will not promote a red build. The data side is the part I'd point at for this role — a schema at around 975 migrations with no runtime schema changes anywhere, claim semantics built on row-level locking so a hundred concurrent workers can pull from one queue without stepping on each other, and change notification pushed rather than polled. The judgment I'd say I've developed is mostly about what not to build: the reflex to add a new table or a new service is usually one more field on something that already exists.</p>
+        <p class="small muted">Cut this to sixty seconds for an eighteen-minute interview — it is the one place where the long version costs you a whole answer elsewhere.</p>
+      </div>
+    </section>
+
+    <section id="fullstack">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Full stack experience</p>
+        <h2>One story that crosses every layer</h2>
+      </div>
+      <p>&ldquo;Full stack&rdquo; is scored on whether you own a feature end to end, not on naming frameworks. Pick one feature and walk it from click to row and back.</p>
+      <details class="drill">
+        <summary>&ldquo;Walk me through a feature you built end to end.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>I will take live data sync, because it touches every layer. In the UI, a React view reads through one hook — not a hand-rolled fetch with an interval — so every query in the app has one cache, one invalidation path and one loading contract. State that a user would expect to share or reload into lives in the URL rather than component state, which also makes the whole UI scriptable by anything that can set a URL.</p>
+      <p>The API is a typed HTTP layer where each query name resolves to one resolver, so a query cannot exist without a server-side definition. Writes commit to Postgres and then publish an invalidation for the query names they touched; the stream pushes those names to connected clients, which refetch through the same audited path. Tests sit at both ends — unit tests for the resolvers, a headless browser run for the real UI.</p>
+      <p>The thing I would call out is that the boring part is the contract, not the code: one read path, one write path, one invalidation vocabulary. Every performance and correctness problem I have had at this layer came from a second path someone added because it was quicker.</p>
+        <p class="src"><b>Evidence</b>Vite + React with URL-first state, a Hono API with a resolver registry, Postgres, and SSE invalidation; <code>notifySyncInvalidate</code> in 338 files (measured).</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;How do you decide what goes in the URL versus component state?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>If it is meaningful to a person — which tab, which record, a filter, a search, a sort, pagination, whether a panel is open — it goes in the URL, typed and validated. If it is mechanical — in-flight loading, a half-typed draft, hover, a toast — it stays in component state. Two payoffs: a user can reload, bookmark and share exactly what they are looking at, and anything automating the app can read and drive the real state instead of guessing at the DOM. I enforce it as a convention with a bias — when in doubt, the URL — because the failure is always the same direction: state that should have been shareable and is not.</p>
+        </div></div>
+      </details>
+    </section>
+
+    <section id="design">
+      <div class="sec-head">
+        <p class="eyebrow">05 · System design and architecture reasoning</p>
+        <h2>State the constraint, then the trade you are making</h2>
+      </div>
+      <p>In a 27-minute conversational interview you will get one or two design prompts and no whiteboard. Structure beats detail: constraints, one design, the failure modes, the trade you accepted.</p>
+      <details class="drill">
+        <summary>&ldquo;Design a system that runs many long-lived jobs and survives restarts.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>I would ask two things first: is a job's effect safe to repeat, and what must survive a restart — the schedule, or also the job's progress? The answers change the design more than the scale does.</p>
+      <p>The shape I would build: work as rows in Postgres with an explicit state machine, claimed by workers with <code>FOR UPDATE SKIP LOCKED</code> under a lease with a heartbeat, so a dead worker's job returns to the pool on TTL rather than needing detection. Long jobs use durable execution — each step's result is persisted, so a restart resumes at the last completed step instead of re-running side effects. Scheduling is one mechanism, not several: a durable tier for anything that must not be missed and a bounded in-process tier for frequent sweeps, both declared in one inventory. The rule I hold to is that every recurring thing must be visible in one place — the failure I have actually seen is not a wrong schedule, it is a timer nobody knew existed.</p>
+      <p>Then the trade I would say out loud: putting the queue in Postgres costs me throughput a dedicated broker would give me, and buys transactional claims, one operational surface and no extra thing to run. At my volumes that is the right side of the trade, and I would name the volume where it stops being right.</p>
+        <p class="src"><b>Evidence</b>Durable workflow engine plus a two-tier scheduler with a single inventory; claims via <code>SKIP LOCKED</code> with leases and heartbeats.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;How do you keep a system like that observable?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>Every long-running thing has to answer three questions without me reading logs: is it running, is it making progress, and if not, why. Running is process-level and cheap. Progress is the one people skip — a heartbeat proves a process is alive, not that its work is advancing, so I record a work-level marker and treat a stalled marker as a failure even while the process looks healthy. And I measure from outside the suspect, because a component reporting on itself cannot report the failure that stops it reporting. The corollary I insist on: a monitor's verdict has to include <code>unknown</code> as distinct from healthy, or an unmeasured system will be reported as a passing one.</p>
+        </div></div>
+      </details>
+    </section>
+
+    <section id="ownership">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Ownership and learning velocity</p>
+        <h2>Evidence that you finish, and that you pick things up fast</h2>
+      </div>
+      <p>These two are behavioural and they are scored. Have one story about owning something unglamorous to completion, and one about learning something you did not know on a deadline. Concrete, first person, with an outcome.</p>
+      <details class="drill">
+        <summary>&ldquo;Tell me about something you owned end to end.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>I built and now run a platform that coordinates many AI coding agents on one codebase at once — the coordination layer, the tool surface, the scheduler, the release gate and the evaluation rails. Ownership in practice has meant the parts nobody asks for: the release gate that refuses to promote a red build, the guards that make conventions executable instead of aspirational, the headless verification path so UI work is actually checked rather than claimed. The measure I would give is that rules which used to live in review comments are now enforced by the system, so &lsquo;done&rsquo; has to arrive with evidence attached. That was not one feature, it was deciding the class of bug was mine to remove.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;Tell me about learning something quickly.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>The desktop shell. I needed a native host — a privileged process managing a webview, a Node sidecar, an embedded database and a custom protocol handler — in a language and framework I had not shipped before. What made it fast was not reading everything; it was picking the smallest end-to-end slice that had to work, getting it running, and then letting each real failure teach me the next thing. The file-descriptor limit, the write-ahead log that grew to 127&nbsp;GiB, the framing bug across the process boundary — I did not know any of those existed when I started, and each one taught me more about the platform than a chapter would have. I would rather be the person who ships the slice and then reads the manual about the specific thing that broke.</p>
+        </div></div>
+      </details>
+      <div class="note info">
+        <p class="eyebrow">What to do with a gap</p>
+        <p>Both of these focus areas are partly about how you handle not knowing something. The pattern that scores well is the same one you should use for Electron: name the gap precisely, say what the nearest thing you have done is, and say how you would close it. Vague confidence invites a probe; a precise gap ends the line of questioning.</p>
+      </div>
+    </section>
+
+    <section id="postgres">
+      <div class="sec-head">
+        <p class="eyebrow">07 · PostgreSQL</p>
+        <h2>Schema discipline, locks, and the read you can trust</h2>
+      </div>
+      <p>You have unusually strong material here: a schema with roughly 975 migrations and no runtime DDL, and real use of the concurrency primitives most candidates only name.</p>
+      <details class="drill">
+        <summary>&ldquo;How do you manage schema change on a live system?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>Migrations only, forward only, and no runtime DDL anywhere in the application — no &ldquo;create table if not exists&rdquo; on a code path. My current schema is around 975 numbered migrations, and the schema file is generated from them rather than hand-maintained, so the checked-in schema cannot drift from what actually applied.</p>
+      <p>Two details I would offer because they only show up with parallel developers. Numbering is allocated atomically under an advisory lock, because two people listing the directory and picking the next number will collide — we had that race and removed it. And a migration under construction carries a suffix that the runner ignores, so an unfinished file cannot be picked up and half-applied while it is being written.</p>
+      <p>For the risky shapes I separate the write from the read: add nullable, backfill in batches, deploy code that tolerates both, then enforce the constraint. Adding an index concurrently, and never taking a long ACCESS EXCLUSIVE lock on a hot table during business hours.</p>
+        <p class="src"><b>Evidence</b>~975 migrations (counted 18 Sep 2026); numbering allocator under <code>pg_advisory_lock</code>; generated schema snapshot.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;What Postgres features do you reach for that most people do not?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p><code>SKIP LOCKED</code> for work queues, so the database is the queue and I do not run a broker. Advisory locks — usually transaction-scoped — for mutual exclusion across processes, because they release automatically when the transaction ends, which a lock table does not. <code>LISTEN</code>/<code>NOTIFY</code> to turn a commit into a push instead of having clients poll, with the caveat I would state unprompted: notifications are fire-and-forget and are lost if nobody is listening, so they are a wake-up signal, never the record. Partial and expression indexes, because most slow queries here were a predicate an index did not cover rather than a missing index. And JSONB for genuinely open-shaped payload data, with the columns I filter on promoted out to real columns — a query filtering inside JSONB is the one that surprises people at scale.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;A query got slow. Walk me through it.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p><code>EXPLAIN (ANALYZE, BUFFERS)</code> first, and I read the row estimates against the actual rows before I look at anything else — a plan that is wrong by orders of magnitude is a statistics problem, and adding an index to a bad estimate just gives you a bad plan faster. Then the usual suspects: a sequential scan on a predicate no index covers, a nested loop chosen from a bad estimate, or sorting in memory that has spilled to disk. But the first question I ask is whether the query is slow or whether it is <i>waiting</i> — lock contention and connection-pool starvation both present as a slow query while the plan is perfectly fine. I have chased a &ldquo;slow query&rdquo; that was actually a pooler killing idle transactions, and the fix was in the caller's transaction scope, not the SQL.</p>
+        </div></div>
+      </details>
+    </section>
+
+    <section id="questions">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Questions to ask</p>
+        <h2>What to ask when Zara turns it around</h2>
+      </div>
+      <p>An AI interviewer will ask if you have questions, and the answer is scored. These are ordered — ask the first two if you only get two.</p>
+      <ol class="question-list">
+        <li><span class="rank">01</span><div><p class="say">What does &lsquo;data platforms&rsquo; mean here — pipelines and warehousing, or the transactional systems the product runs on?</p><p class="small muted">Those are very different jobs and the focus areas do not disambiguate. Ask it first; the answer should change which of your examples you reach for.</p></div></li>
+        <li><span class="rank">02</span><div><p class="say">Who are the platform's users, and what do they complain about most?</p><p class="small muted">Platform work is judged on adoption, not architecture. The complaint tells you what the job actually is.</p></div></li>
+        <li><span class="rank">03</span><div><p class="say">What is the largest thing in the system today, and what breaks first as it grows?</p><p class="small muted">Invites a real architecture conversation in the time you have, and it is the System &amp; Architectural Judgment area in one question.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Before you start</p>
+        <h2>The last ten minutes</h2>
+      </div>
+      <ul class="checklist">
+          <li>Laptop, headphones, webcam and microphone tested — not a phone.</li>
+          <li>Screen share ready; notifications off on computer and phone.</li>
+          <li>The free micro1 practice interview taken at least once.</li>
+          <li>Opener said out loud, timed, at ninety seconds or under.</li>
+          <li>One concrete system with a real number ready for every focus area.</li>
+          <li>Your own questions written down where you can see them.</li>
+          <li>This page, every AI assistant and every extension closed before you start.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">10 · Sources</p>
+        <h2>Where every claim on this page comes from</h2>
+      </div>
+      <ul>
+        <li>Your micro1 recruiter email, 18 Sep 2026 — format, duration, focus areas and deadline.
+          Graded <span class="badge owner">Owner</span> throughout.</li>
+        <li>micro1's own AI interview guide and interview-prep page — the Zara format, the free
+          practice interviews. Graded <span class="badge fact">Fact</span>.</li>
+        <li>&ldquo;Conversational AI interviewing&rdquo;, paper by micro1's CEO and colleagues,
+          April 2025 — what Zara is built to do. <span class="badge fact">Fact</span> as of 2025.</li>
+        <li>aitrainer.work's micro1 guide, Sep 2026 — cites no sources, so tab-tracking, paste
+          blocking and voice-activity cutoff are carried as
+          <span class="badge inference">Low confidence</span>, not fact.</li>
+        <li>Your own work, on the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>. Every number
+          quoted on this page was recounted in the codebase on 18 Sep 2026.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared 18 Sep 2026. Every claim is graded: <span class="badge fact">Fact</span> from a published source, <span class="badge owner">Owner</span> from your recruiter email, <span class="badge inference">Inference</span> reasoned from the role, <span class="badge unknown">Unknown</span> not published. Say nothing in the interview you cannot defend.</p>
+  </footer>
+</div>
+</body>
+</html>

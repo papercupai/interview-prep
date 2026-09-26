@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Verizon — Principal Engineer, AI Control Plane · Phone Screen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1410; --surface: #131E18; --surface-alt: #1A2921;
+    --ink: #E5EEE9; --ink-muted: #9DADA4; --ink-faint: #708077;
+    --accent: #66C69C; --accent-strong: #8BDCB8; --accent-soft: #17372A;
+    --caution: #D9A43A; --caution-soft: #33290F;
+    --critical: #E0736C; --critical-soft: #3A1E1C;
+    --info: #78B7DE; --info-soft: #172D3B;
+    --rule: #26372E; --rule-strong: #3B5145;
+  }
+  .tag.gap { background: var(--critical-soft); color: var(--critical); }
+  .question-list .rank { display: inline-block; margin-bottom: 0.15rem; }
+  .script .say code { font-size: 0.8em; }
+</style>
+
+<style>
+  .drill-body .script { padding: 0.95rem 1.05rem; }
+  .drill-body .stack { display: flex; flex-direction: column; gap: 0.7rem; }
+  .drill-body .src { font-size: 0.86rem; color: var(--ink-muted); }
+  .gap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .gap-grid .card .say { font-size: 0.98rem; line-height: 1.6; }
+  .gap-grid .card .say::before { content: "“"; color: var(--accent); }
+  .gap-grid .card .say::after { content: "”"; color: var(--accent); }
+  table.matrix td:nth-child(3) { width: 7rem; }
+  .badge.fact { min-height: 0; padding: 0.13rem 0.42rem; border: 0; display: inline-block; }
+  @media (max-width: 48rem) { .gap-grid { grid-template-columns: 1fr; } }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Principal Engineer – AI Control Plane · Verizon · 30-minute phone screen · prepared 16 Sep 2026</p>
+      <h1>You have already built a small control plane. Say it in those words.</h1>
+      <p class="standfirst">Verizon’s Enterprise AI Control Plane team wants a hands-on builder for the layer between its AI developer platforms and its governance hubs: identity and routing at an Agent Gateway, Security and Responsible AI guardrails inside CI/CD, and real-time telemetry for production LLMs. Papercusp is that shape at a smaller scale. The honest gaps are Bedrock, Kubernetes, and enterprise users. This page is built for a thirty-minute call: an opener, spoken answers, the gaps said first, and questions that find out what the job really is.</p>
+    </div>
+    <aside class="join-card" aria-label="Call details">
+      <p class="eyebrow">Owner-supplied call</p>
+      <p><strong>Thursday 17 Sep 2026 · 2:45 PM EDT</strong><br><span class="muted">30 minutes. Luis Mota-Sousa calls you. That is 1:45 PM in Irving.</span></p>
+      <p><strong class="hot">Phone, not video.</strong><br><span class="muted">Answer unknown numbers from 2:40. Luis’s role was not stated, so ask in the first minute.</span></p>
+      <a class="button" href="https://verizon.wd12.myworkdayjobs.com/contractor_external_careers/job/irving-texas/principal-engineer---ai-control-plane-engineer_r-1100572-2" target="_blank" rel="noreferrer">Open the job posting ↗</a>
+      <p class="small muted">Having this page and the posting open is fine on a phone screen. Use them as prompts. An answer read aloud is obvious over the phone.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Call and role facts">
+    <div class="fact"><dt>Role</dt><dd>Principal Engineer</dd></div>
+    <div class="fact"><dt>Team</dt><dd>Enterprise AI Control Plane</dd></div>
+    <div class="fact"><dt>Caller</dt><dd>Luis Mota-Sousa</dd></div>
+    <div class="fact"><dt>Caller’s role</dt><dd class="hot">Unknown</dd></div>
+    <div class="fact"><dt>Format</dt><dd>Phone · 30 min</dd></div>
+    <div class="fact"><dt>Where</dt><dd>Irving TX or Basking Ridge NJ · hybrid</dd></div>
+    <div class="fact"><dt>Posted range</dt><dd>$120.5k – $231k</dd></div>
+    <div class="fact"><dt>Employee or contract</dt><dd class="hot">Confirm on the call</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Read this first</a></li>
+      <li><span class="n">02</span><a href="#role">The role, decoded</a></li>
+      <li><span class="n">03</span><a href="#coverage">Coverage map</a></li>
+      <li><span class="n">04</span><a href="#opener">Your opener</a></li>
+      <li><span class="n">05</span><a href="#questions">Likely questions</a></li>
+      <li><span class="n">06</span><a href="#gaps">Gaps to say first</a></li>
+      <li><span class="n">07</span><a href="#ask">Questions for Luis</a></li>
+      <li><span class="n">08</span><a href="#checklist">Last-minute checklist</a></li>
+      <li><span class="n">09</span><a href="#sources">Sources + confidence</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Read this first</p>
+        <h2>Four things decide a thirty-minute screen</h2>
+      </div>
+      <div class="priority-grid">
+        <article class="priority">
+          <span class="num">01 / FRAME</span>
+          <h3>Call it a control plane</h3>
+          <p>Papercusp enforces its rules in the system, not in review: default-deny tool dispatch, locks at the write, evidence-gated “done”, and a release gate. That is inventory, policy, guardrails and telemetry. Lead with that, not “I built an AI system.”</p>
+        </article>
+        <article class="priority">
+          <span class="num">02 / HONESTY</span>
+          <h3>Say the gaps before he finds them</h3>
+          <p>The verified pages show no Bedrock and no Kubernetes work, and Papercusp is in alpha with one operator. Give one sentence for each, then the bridge. See <a href="#gaps">section 06</a>.</p>
+        </article>
+        <article class="priority">
+          <span class="num">03 / DISCOVERY</span>
+          <h3>Find out who Luis is</h3>
+          <p>His title was not given. The posting sits on Verizon’s contractor careers site but lists the job as full time with a salary range. Ask about both early. See <a href="#ask">section 07</a>.</p>
+        </article>
+        <article class="priority">
+          <span class="num">04 / PACE</span>
+          <h3>Thirty minutes is short</h3>
+          <p>Keep the opener under 90 seconds and each answer under 90. Answer quick probes in 20 seconds and stop. Protect the last five minutes for your questions and next steps.</p>
+        </article>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">Logistics <span class="badge owner">Owner</span></p>
+          <h3>A phone call, not a video call</h3>
+          <ul>
+            <li>He calls you at 2:45 PM EDT on Thursday 17 September. Answer unknown numbers from 2:40.</li>
+            <li>Charge the phone and turn the ringer on. Use a quiet room and a headset, not speakerphone.</li>
+            <li>Keep the posting and this page open, plus a notepad for his name, role, team and next steps.</li>
+            <li>If no call has come by 2:55, reply through the channel the scheduling reminder came from.</li>
+          </ul>
+        </article>
+        <div class="note warn">
+          <p class="eyebrow">The posting has two voices</p>
+          <p>The “What you’ll be doing” half is specific: gateway IAM, CI/CD guardrails, registry integrations. The “What we’re looking for” paragraph talks about data analytics and reporting, which reads like reused template text. Anchor on the specific half. If “good with numbers” comes up, use the story about finding the code that writes a number before trusting it (<a href="papercusp-answer-bank-standalone.html#q-wrong">Answer Bank Q6</a>).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="role">
+      <div class="sec-head">
+        <p class="eyebrow">02 · The role, decoded</p>
+        <h2>A builder for the layer that decides what agents may do</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">The five duties, in plain words <span class="badge fact">Posting</span></p>
+          <ul>
+            <li><strong>Guardrails inside the pipeline.</strong> CI/CD governance pipelines that inject Security and RIL (Responsible AI, Integrity, Legal) guardrails into deployment. An agent or model cannot reach production without passing checks that are code, not a form.</li>
+            <li><strong>Simulation and telemetry.</strong> Agent simulation before release, and continuous real-time observability for production LLMs after it.</li>
+            <li><strong>Identity and routing at the gateway.</strong> IAM and routing logic in the Agent Gateway, so autonomous workflows run inside secure access boundaries.</li>
+            <li><strong>Integrations to the governance hubs.</strong> APIs connecting developer platforms (Vegas, Atlas AI, and AWS Bedrock) to governance hubs (Engram, Agent Registry). In practice, keeping the registry true while teams build in different places.</li>
+            <li><strong>Internal customers.</strong> Daily work with AI platform engineers, DevOps and DataOps, data scientists and AI product developers across business units. This is a platform run as a product.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Posting facts</p>
+          <ul>
+            <li><span class="badge fact">Fact</span> <strong>Required:</strong> six or more years of relevant experience. Also LLM operationalization, orchestration frameworks, model evaluation frameworks, agentic workflows, automated safety testing, and cloud architecture on AWS Bedrock.</li>
+            <li><span class="badge fact">Fact</span> <strong>Even better:</strong> a master’s degree, platform plus applied ML engineering, advanced Python and Kubernetes, CI/CD tooling, automated safety testing and agentic IAM.</li>
+            <li><span class="badge fact">Fact</span> Hybrid, with at least three days a week in the office. Locations are Irving, Texas and Basking Ridge, New Jersey. Requisition R-1100572.</li>
+            <li><span class="badge fact">Fact</span> Listed as full time, 40 hours, “incentive based”, with a range of $120,500–$231,000. The hiring entity is Verizon Data Services LLC. The posting closes on 18 September 2026.</li>
+            <li><span class="badge unknown">Unknown</span> The posting lives on the Workday site named <code>contractor_external_careers</code>. Whether this is an employee or contract role is not settled by the page. Ask.</li>
+            <li><span class="badge inference">Inference</span> Vegas, Atlas AI, Engram and Agent Registry are internal names with no public documentation found. The posting’s pairing suggests the first two are developer platforms and the last two are governance hubs. Don’t pretend to know them.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">Context, possibly not this team <span class="badge inference">Inference</span></p>
+        <p>At Google Cloud Next in April 2026, Verizon’s VP of Consumer AI and Analytics, Anil Kumar, described how Verizon governs agent sprawl. Employees create agents freely. Unused agents get pruned. Adopted agents are standardized into enterprise agents. Mission-critical agents go through a central process and are registered in advance. He also described a LangChain layer that keeps “one single control plane” across data stores and clouds. That is a consumer-AI group on Google Cloud, and this posting centres on Bedrock, so treat it as a question rather than a fact: “Is the Agent Registry the same registration process Verizon has talked about publicly, or a separate enterprise one?”</p>
+      </div>
+    </section>
+
+    <section id="coverage">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Coverage map</p>
+        <h2>Posting requirement, your verified evidence, and how strong it is</h2>
+      </div>
+      <p class="muted">Every claim in the middle column comes from the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a> or the <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf section</a>. Answer Bank figures were checked against the tree on 3 September 2026, so re-verify any number you plan to lead with.</p>
+      <div class="matrix-wrap" role="region" aria-label="Requirement coverage map" tabindex="0">
+        <table class="matrix">
+          <thead><tr><th scope="col">Posting asks</th><th scope="col">Your evidence</th><th scope="col">Strength</th></tr></thead>
+          <tbody>
+            <tr><td>Agentic IAM and routing in an Agent Gateway</td><td>The dispatcher runs a default-deny step, so a tool with no declared gate is refused. Above it sit a per-role allowlist, a per-principal capability check, and a capability envelope with a protected floor. Generic dispatch goes through the same stack. An inference gateway routes calls across a pool of provider accounts with pin, auto and bypass modes and AIMD admission. Be candid that the authored policy is thin: on 9 September only three roles carried deny entries. <a href="papercusp-answer-bank-standalone.html#g-permissions">G1</a> · <a href="papercusp-answer-bank-standalone.html#native-execution">native execution</a> · <a href="papercusp-answer-bank-standalone.html#n-capacity">N8</a></td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>CI/CD governance pipelines with guardrails</td><td>A release gate certifies the shared branch before it promotes and deploys, and falls back to the full run when it can’t positively verify a narrowed one. Pre-write hooks, 47 registered with 9 pre-write, include a secrets scan before a write lands. The gap to name is that these guard code releases, not model or Responsible AI policy. <a href="papercusp-answer-bank-standalone.html#q-cicd">Q1</a> · <a href="papercusp-answer-bank-standalone.html#rapid-fire">rapid-fire</a></td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>Registry integrations with governance hubs</td><td>A roughly 650-tool MCP catalog with a per-tool description budget checked at registration and again on every hot reload. The event-catalog drift incident and the derive, pin, attest ladder, with 47 pin tests, is the registry story. <a href="papercusp-answer-bank-standalone.html#n-tool-design">N6</a> · <a href="papercusp-answer-bank-standalone.html#q-design">Q5</a></td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>Model evaluation frameworks</td><td>Evidence-gated completion, graded rubrics, and a grader that structurally cannot be in the implementer’s lineage. There are 141 behavioral scenario tests across ten agent roles, plus a pre-registered SWE-bench Pro subset of 50 and 150 tasks at seed 42. <a href="papercusp-answer-bank-standalone.html#q-ai-eval">Q8</a></td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>LLM operationalization</td><td>Capacity pool behind a gateway, a canary preflight before launching a fleet, a probe that reads authoritative limit headers, and the two-store bug where admission sat at 4 while the controller allowed 24. Tool results are capped around 1,500 tokens, and context compaction carries provenance. <a href="papercusp-answer-bank-standalone.html#n-capacity">N8</a> · <a href="papercusp-answer-bank-standalone.html#n-context">N7</a></td><td><span class="tag support">Strong</span></td></tr>
+            <tr><td>Real-time observability for production LLMs</td><td>Process lists with provenance, CPU measured as a delta, health observed from outside the process, and about 150 live state cells with explicit “not-measured” states. Alerts fire on transitions. There is no named LLM-tracing product on the verified pages, so describe per-call telemetry as design. <a href="papercusp-answer-bank-standalone.html#q-observability">Q7</a> · <a href="papercusp-answer-bank-standalone.html#n-liveness">N3</a></td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Agent simulation and automated safety testing</td><td>Scenario tests run real prompts against a model. A mutation probe proves a guard can fail. The negative-plus-positive-control safety suite in G6 is a proposed design, not a shipped system. <a href="papercusp-answer-bank-standalone.html#q-testing">Q2</a> · <a href="papercusp-answer-bank-standalone.html#g-evaluation">G6</a></td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Orchestration frameworks and agentic workflows</td><td>You built coordination from primitives: pull-based claims, locks at the write, declared events, one liveness oracle. You used DBOS for durable workflows and MCP. Nothing verified shows LangChain or LangGraph. <a href="papercusp-answer-bank-standalone.html#n-system-design">N2</a> · <a href="papercusp-answer-bank-standalone.html#n-overview">N1</a></td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Advanced Python</td><td>Papercusp is TypeScript. The Python evidence is the Storewolf scoring service: a long-lived <code>python3 -u</code> process answering one JSON command per line, <code>train</code> or <code>predict</code>, holding an XGBoost model in memory, with the one-hot column contract persisted to disk and reindexed at inference. <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf</a></td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Cross-business-unit collaboration</td><td>Papercusp is in alpha with one operator. Your coordination experience is mostly with automated workers. The honest reframe is in Q13, and fleet leadership is in N13. <a href="papercusp-answer-bank-standalone.html#q-teamwork">Q13</a> · <a href="papercusp-answer-bank-standalone.html#n-leading">N13</a></td><td><span class="tag prepare">Partial</span></td></tr>
+            <tr><td>Cloud architecture on AWS Bedrock</td><td>Nothing on the verified pages. See <a href="#gaps">section 06</a> for the bridge.</td><td><span class="tag gap">Gap</span></td></tr>
+            <tr><td>Kubernetes</td><td>Nothing on the verified pages. Process isolation in Papercusp uses Linux cgroup scopes, which is adjacent but not the same. <a href="papercusp-answer-bank-standalone.html#n-processes">N4</a></td><td><span class="tag gap">Gap</span></td></tr>
+            <tr><td>Six or more years of relevant experience</td><td>Career dates and titles are not on the verified pages. Know yours cold before the call.</td><td><span class="tag gap">Unknown</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="opener">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Your opener</p>
+        <h2>Seventy-five seconds that turn the call technical</h2>
+      </div>
+      <div class="script short">
+        <p class="eyebrow">Draft · about 75 seconds · every claim is in the Answer Bank or the Storewolf section</p>
+        <p class="say">I build the layer that makes AI agents safe to run, which is close to what your posting calls a control plane. My main project is a platform that runs about a hundred AI coding agents on one codebase. The agents are ordinary clients, like Claude Code and Codex, and they talk to the platform over the Model Context Protocol. I built the server side: roughly 650 tools for coordination, work tracking, locks, events, scheduling and release, on Postgres. The design rule is that anything you’d normally enforce in code review is enforced by the system. A tool that declares no permission gate is refused by default. A write has to claim a lock. “Done” needs evidence, and a grader can’t be the author. A release gate certifies the branch before anything deploys. I also run the capacity side: a pool of provider accounts behind an inference gateway with admission control. Separately, I’ve built a Python model-serving process for a pricing model. Your posting describes the same problem at enterprise scale: identity and routing at a gateway, guardrails inside the deployment pipeline, telemetry, and a registry that stays true. What I’d be learning is Bedrock and Verizon’s own platforms.</p>
+      </div>
+      <div class="script long">
+        <p class="eyebrow">If he says “briefly” · about 20 seconds</p>
+        <p class="say">I built a platform that runs about a hundred AI agents on one codebase over MCP, with the rules enforced by the system rather than by review: default-deny tool dispatch, locks at the write, evidence-gated completion and a release gate. Your posting is that problem at enterprise scale, on Bedrock.</p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">Then prove it</p>
+          <h3>Three stories, in this order</h3>
+          <ul>
+            <li><strong>Registry drift</strong> (<a href="papercusp-answer-bank-standalone.html#q-design">Q5</a>). The hand-kept event catalog recorded the most-fired event as unregistered, and fourteen subscribers sat parked on an event with no emitter anywhere. This maps straight onto an Agent Registry.</li>
+            <li><strong>The permission boundary</strong> (<a href="papercusp-answer-bank-standalone.html#g-permissions">G1</a>). Default-deny dispatch, a capability envelope, and the honest line that the enforcement point is live but the policy is thin.</li>
+            <li><strong>The release gate</strong> (<a href="papercusp-answer-bank-standalone.html#q-cicd">Q1</a>). It fails safe in one direction: anything it can’t positively verify falls back to the full run.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Avoid</p>
+          <h3>Four ways to lose credibility fast</h3>
+          <ul>
+            <li>Don’t imply Papercusp has enterprise users. It is in alpha with one operator.</li>
+            <li>Don’t call Papercusp a Python system. It is TypeScript, and the Python story is Storewolf.</li>
+            <li>Don’t claim Bedrock, AgentCore or Kubernetes experience.</li>
+            <li>Don’t round numbers up. “About a hundred agents” and “roughly 650 tools” are the checked forms.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="questions">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Likely questions</p>
+        <h2>Spoken drafts, each under ninety seconds</h2>
+      </div>
+      <p class="muted">Read each draft aloud once tonight, then close it and say it from the summary line. Where a draft is a proposed design rather than something you built, it says so. Keep it labelled that way when you speak.</p>
+
+      <details class="drill" open>
+        <summary>“What does an AI control plane mean to you?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="eyebrow">Definition, then your mapping</p>
+            <p class="say">I think of it as four jobs between the people building agents and the things agents touch. First, an inventory: every agent and model registered with an owner, a version and a risk tier. Second, identity and policy at the point of use: a gateway that decides what an agent may call, under whose identity, and routes it. Third, guardrails in the lifecycle, so nothing reaches production without passing checks that are code rather than a form. Fourth, telemetry and an audit record, so you can explain afterwards what an agent did and why it was allowed. The agents doing work are the data plane. The control plane decides what’s allowed and proves what happened. In my own platform the pieces map fairly directly: the tool catalog is the inventory, default-deny dispatch and capability checks are the policy point, the release gate is the lifecycle guardrail, and live state cells plus task identity are the telemetry.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>“Where does it usually fail?”</strong> Drift. A registry maintained by hand stops describing what is actually running. You have hit exactly that. Tell the event-catalog story from Q5.</p>
+            <p class="probe"><strong>“Gateway versus control plane?”</strong> The gateway is the enforcement point on the request path. The control plane adds inventory, policy authoring, observability and audit around it.</p>
+            <p class="src">Definition: vendor literature, <span class="badge inference">Inference</span>. Mapping: <a href="papercusp-answer-bank-standalone.html#n-overview">N1</a>, <a href="papercusp-answer-bank-standalone.html#g-permissions">G1</a>, <a href="papercusp-answer-bank-standalone.html#q-cicd">Q1</a>, <a href="papercusp-answer-bank-standalone.html#q-observability">Q7</a>.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>“How would you inject Security and Responsible AI guardrails into CI/CD for agents?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="eyebrow">Proposed design, anchored in your gate</p>
+            <p class="say">I’d make the pipeline refuse to promote anything it can’t positively verify. Stage one is registration: the agent has to exist in the registry with an owner, a risk tier and the data it touches, or the build stops. Stage two is static policy: requested tool scopes checked against what the tier allows, a secrets scan, and the prompt, model and tool versions pinned so every result is attributable. Stage three is behavioral: scenario and red-team runs that assert a forbidden side effect did not happen, each paired with an authorized positive control, so an always-deny policy or a broken connector can’t look green. Stage four, for higher tiers, is the Responsible AI evidence as an attached review record, not a checkbox. Then a staged rollout: shadow, a limited pilot, and stop criteria. The principle carries straight over from my own release gate. Anything we can’t positively verify falls back to the stricter path, because a silently narrowed check hands you a false green.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>“Won’t that slow teams down?”</strong> Tier it. Low-risk internal agents get the automated stages, and human review is reserved for the tiers that need it. Reuse verdicts against pinned versions, the way your gate inherits passes for untouched tests instead of re-running them.</p>
+            <p class="probe"><strong>“How do you know a guardrail works?”</strong> A guard that has never failed hasn’t been tested. Your mutation probe deliberately breaks the thing under test and asserts the guard catches it.</p>
+            <p class="src">Design: <a href="papercusp-answer-bank-standalone.html#g-evaluation">G6</a>, <span class="badge inference">Proposed</span>. Built: <a href="papercusp-answer-bank-standalone.html#q-cicd">Q1</a>, <a href="papercusp-answer-bank-standalone.html#q-testing">Q2</a>.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill">
+        <summary>“How do you handle identity and access for autonomous agents?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="eyebrow">Built, with the honest status</p>
+            <p class="say">I separate three questions: which operation the agent can request, what the server authorizes, and what the resulting process can actually touch. In my platform the dispatcher runs a default-deny step, so a tool that declares no gate at all is refused rather than allowed by omission. Above that there’s a per-role tool allowlist, a per-principal capability check, and a capability envelope with a protected floor no autonomous role can exercise. The generic dispatch route goes through the same stack, because a tool ban that a generic dispatcher can route around is theatre. I’d be straight about the state of it: the enforcement point is live, but the authored policy is thin. When I checked on 9 September, only three roles carried deny entries. For an enterprise gateway I’d add that the model never chooses its own scope. The server derives it from authenticated identity, credentials stay server-side, and a resumed job is re-authorized instead of trusted from when it was queued.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>“What would prove the policy is real?”</strong> Run an allowed command through the managed route. Verify its native counterpart is unavailable on launch and on resume. Then test unauthorized writes, secret reads, egress and child-process cleanup.</p>
+            <p class="probe"><strong>“Can privilege bypass it?”</strong> Your session confinement is shaped so it can’t: the decision function receives no role or superuser flag, and it has only a deny list. Say plainly that it is implemented and wired, but zero confinements have been declared.</p>
+            <p class="src"><a href="papercusp-answer-bank-standalone.html#g-permissions">G1</a> · <a href="papercusp-answer-bank-standalone.html#native-execution">native execution</a> · <a href="papercusp-answer-bank-standalone.html#g-tenancy">G3</a> for the scope-derivation design.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill">
+        <summary>“How do you observe agents and LLMs in production?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="eyebrow">Three properties, then the LLM layer</p>
+            <p class="say">Three properties matter more than the tool name. Provenance: our process list says who launched something, for which piece of work, and what it costs, not just that something is using CPU. Outside observation: a health signal emitted by the thing being judged can’t detect that thing being saturated, so anything that matters is observed from outside the process. Explicit unknowns: a value we can’t measure says “not measured” in-band, so unknown never reads as zero or fine. We alert on transitions, not levels. For LLM calls specifically, I’d make every call carry the model, prompt and tool versions, tokens, latency, cost, and the policy decision that allowed it, all correlated to the agent and the run. Then the telemetry doubles as the audit trail.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>“Alert fatigue?”</strong> Anything that fires and self-recovers is still a bug. A false alarm is a defect in the alarm.</p>
+            <p class="probe"><strong>“Dead agent or slow one?”</strong> A heartbeat proves the process is scheduled, not that it is working. Use one liveness function with an evidence ladder, and φ-accrual suspicion for eviction across machines.</p>
+            <p class="src">Built: <a href="papercusp-answer-bank-standalone.html#q-observability">Q7</a>, <a href="papercusp-answer-bank-standalone.html#n-liveness">N3</a>. Per-call LLM telemetry: <a href="papercusp-answer-bank-standalone.html#g-audit">G7</a>, <span class="badge inference">Proposed</span>.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill">
+        <summary>“How do you test or simulate agents before production?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="eyebrow">Two layers, and who may judge</p>
+            <p class="say">Two layers, kept separate. Hard safety properties get deterministic tests: authorization, approval binding, duplicate-write protection. Model behavior gets scenario runs. In my platform there are 141 behavioral scenario tests across ten agent roles that run the actual prompts against a model. For capability, there’s a pre-registered random subset of SWE-bench Pro, 50 and 150 tasks at seed 42, so we can’t move the goalposts after the run. The part I’d emphasize is who is allowed to judge. A grader can’t be in the implementer’s lineage, enforced structurally, and “done” requires cited evidence. For a safety test, the assertion is that the side effect didn’t happen, not that the model wrote a refusal.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>“A good red-team case?”</strong> Change an approved payload after review. Resume after permission is revoked. Replay the same send twice. Put an export instruction inside retrieved content. Observe the backend, not the final text.</p>
+            <p class="probe"><strong>“What pass rate would you ship at?”</strong> Not a bare percentage. It needs the denominator and the severity. Zero cross-tenant leaks in a finite suite is a release condition, not proof the risk is zero.</p>
+            <p class="src"><a href="papercusp-answer-bank-standalone.html#q-ai-eval">Q8</a> · <a href="papercusp-answer-bank-standalone.html#g-evaluation">G6</a> for the red-team design.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill">
+        <summary>“Tell me about a hard problem you solved.”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="eyebrow">The registry story, because this is a registry role</p>
+            <p class="say">The most relevant one here is registry drift. Our event catalog listed which events had emitters, and it was maintained by hand. The single most-fired event in the whole system was recorded as unregistered, and fourteen subscribers were parked waiting on an event with no emitter anywhere. Fixing that entry wasn’t the point. The category was: a second copy of a truth the code already owns always drifts. So we wrote a ladder. Derive the value from the source if you can. If you can’t, keep the prose but pin it with a test that fails when it diverges; there are 47 of those now. If static analysis can’t see it, attest it against the runtime on a schedule. Hand-maintain it only as a last resort, with a stated reason. An Agent Registry needs the same rule: registration should be derived from what is actually deployed, or checked against it, not filled in by hand.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>“An example of attestation?”</strong> The tool-description budget check runs against the runtime catalog at registration and on every hot reload, because a static read under-counts tools that build their text from constants.</p>
+            <p class="probe"><strong>“Another one?”</strong> The silent stall: the background commit routine kept firing, but no commit landed and nothing alarmed for about six hours. A watchdog must not depend on what it watches, and the robust signal was that the head stopped advancing.</p>
+            <p class="src"><a href="papercusp-answer-bank-standalone.html#q-design">Q5</a> · <a href="papercusp-answer-bank-standalone.html#n-incident">N9</a> · <a href="papercusp-answer-bank-standalone.html#q-debugging">Q3</a> as a third option.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill">
+        <summary>“How do you handle rate limits, routing and cost across model providers?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="eyebrow">A pool, a gateway, and two stores that disagreed</p>
+            <p class="say">Every agent’s calls bill to a credentialed account, and there’s a pool of them behind an inference gateway. There are three routing modes. Pin gives predictable billing and no failover. Auto picks at session start, prefers the same account each turn so the prompt cache stays warm, and fails over on a rate limit. Bypass uses the system credential. Admission is an AIMD controller over the pool’s measured headroom. The operating rule is to preflight before launch: one canary, confirm it completes a real turn, then the rest. The bug that taught me most was two stores. A probe updated the database view of capacity, but the gateway kept its own in-memory exclusion map, and nothing reconciled them. Admission sat at four while the controller allowed twenty-four. The fix was one action that converges both, and a status read that names which ceiling is binding.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>“When do you re-route automatically?”</strong> On a measured failure, never on a predicted one.</p>
+            <p class="probe"><strong>“Cost per agent?”</strong> Result caps and projections on every tool, and pacing around a one-hour prompt-cache window instead of waking agents just to keep it warm.</p>
+            <p class="src"><a href="papercusp-answer-bank-standalone.html#n-capacity">N8</a> · <a href="papercusp-answer-bank-standalone.html#g-limits">G5</a> for per-run budgets as design.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill">
+        <summary>“Who uses your platform, and how big is the team?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="eyebrow">Say it first, plainly</p>
+            <p class="say">Honestly, it’s in alpha: one operator running a fleet of agents, and no external users yet. That’s deliberate, and it’s why we make breaking changes freely. The design target is a team that wants AI-assisted changes to enter a real pipeline with an audit trail. The consequence is that most of my coordination experience is with automated workers rather than a room of engineers, and I’d rather say that than have you find it. What it forced is writing for someone who can’t ask a clarifying question, and handing reviewers evidence rather than conclusions. Those are the habits I’d bring to working across your business units.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>“Have you mentored anyone?”</strong> If not, say so. Then pivot to the closest true thing: you write the conventions others follow, and you learned a convention nobody enforces isn’t one.</p>
+            <p class="src"><a href="papercusp-answer-bank-standalone.html#n-overview">N1</a> · <a href="papercusp-answer-bank-standalone.html#q-teamwork">Q13</a> · <a href="papercusp-answer-bank-standalone.html#q-tradeoffs">Q12</a>.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill">
+        <summary>“Why Verizon, and why this role?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="eyebrow">About 40 seconds</p>
+            <p class="say">Because the posting is unusually specific about the hard part. Most AI roles are about building agents. This one is about the layer that decides what agents are allowed to do and proves what they did: the gateway, the guardrails in the pipeline, the registry. That’s the part I’ve found most interesting in my own work, because the failures there are quiet: a registry that drifts, or a check that exits green because it measured nothing. Doing that across many business units, with real Responsible AI and legal requirements, is the version of the problem I can’t get on my own platform.</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>If he asks what you know about Verizon’s AI work,</strong> mention the publicly described practice of registering mission-critical agents in advance and pruning unused ones, and ask whether that is this team’s registry.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill">
+        <summary>“What are your compensation expectations?”</summary>
+        <div class="drill-body">
+          <div class="script short">
+            <p class="eyebrow">Only if asked · confirm the role type first</p>
+            <p class="say">Before a number, I’d like to understand the level and whether this is an employee role or a contract engagement. The posted range is wide. Where does this role usually land in it?</p>
+          </div>
+          <div class="stack">
+            <p class="probe"><strong>Owner decision.</strong> The posting states $120,500–$231,000 for a full-time schedule. Decide your floor for both the employee and the contract case before the call. This page does not set it for you.</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section id="gaps">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Gaps to say first</p>
+        <h2>One honest sentence, then the bridge</h2>
+      </div>
+      <div class="gap-grid">
+        <article class="card">
+          <p class="eyebrow">Required skill <span class="tag gap">Gap</span></p>
+          <h3>AWS Bedrock</h3>
+          <p class="say">I haven’t built on Bedrock. My platform reaches model providers through its own gateway, so I know the problems Bedrock’s agent services address, but not their APIs or limits. I’d expect to be quick on the concepts and slower on the account and IAM plumbing.</p>
+          <p><strong>Tonight, fifteen minutes.</strong> Amazon Bedrock AgentCore is generally available, with Runtime, Identity, Gateway, Policy and Observability. Gateway is a managed entry point for agent traffic to tools, other agents and models. It connects to existing MCP servers and supports IAM as well as OAuth. Observability is OpenTelemetry-compatible and feeds CloudWatch. Bedrock Guardrails is the separate content and sensitive-information filter. <span class="badge fact">AWS docs</span></p>
+          <p class="small muted">Whether Verizon’s Agent Gateway is built on AgentCore is <span class="badge unknown">Unknown</span>. Ask; don’t assume.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Even-better skill <span class="tag gap">Gap</span></p>
+          <h3>Kubernetes</h3>
+          <p class="say">Nothing I’d call production Kubernetes. My platform is single-instance, so isolation uses Linux cgroups: every long-lived spawn is enrolled in a scope and killed by task identity, never by name. I understand the problems Kubernetes solves there; I haven’t operated a cluster.</p>
+          <p><strong>Vocabulary to hold a conversation.</strong> Deployment, Service, Ingress, HorizontalPodAutoscaler, ConfigMap and Secret, ServiceAccount with RBAC, NetworkPolicy. On EKS, pods get AWS IAM permissions through IAM Roles for Service Accounts or EKS Pod Identity, which is the Kubernetes half of “agentic IAM.”</p>
+          <p class="small muted">Source for the cgroup claim: <a href="papercusp-answer-bank-standalone.html#n-processes">N4</a>.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Scale <span class="tag prepare">Partial</span></p>
+          <h3>Enterprise users and business units</h3>
+          <p class="say">My platform is in alpha with one operator, so I haven’t run it for other teams. What I can show is rules enforced by the system at about a hundred concurrent agents on one branch, where there was no human reviewer to catch mistakes.</p>
+          <p class="small muted"><a href="papercusp-answer-bank-standalone.html#n-overview">N1</a> · <a href="papercusp-answer-bank-standalone.html#q-teamwork">Q13</a></p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Required skill <span class="tag prepare">Partial</span></p>
+          <h3>Orchestration frameworks</h3>
+          <p class="say">I built coordination from primitives rather than on LangChain or LangGraph: pull-based claims, locks at the write, declared events and one liveness oracle, with DBOS for durable workflows. I can map those to framework concepts, but I haven’t shipped on the frameworks.</p>
+          <p><strong>Vocabulary.</strong> LangGraph’s StateGraph, checkpointer, and <code>interrupt()</code> for human approval, plus the supervisor pattern. Verizon’s consumer AI group has publicly described a LangChain layer, so expect the question.</p>
+          <p class="small muted"><a href="papercusp-answer-bank-standalone.html#n-system-design">N2</a></p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Domain <span class="tag prepare">Partial</span></p>
+          <h3>Responsible AI and legal review</h3>
+          <p class="say">I haven’t worked inside a formal Responsible AI or legal review process. I have designed the evidence side, meaning approvals bound to an exact action and an audit record from request to receipt, and I’d want to learn how your RIL review works today before automating any of it.</p>
+          <p class="small muted">Designs, not shipped systems: <a href="papercusp-answer-bank-standalone.html#g-approval">G4</a> · <a href="papercusp-answer-bank-standalone.html#g-audit">G7</a></p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Language <span class="tag prepare">Partial</span></p>
+          <h3>Python depth</h3>
+          <p class="say">My largest recent system is TypeScript. My production Python is a model-serving process: a long-lived service answering JSON commands to train or predict, holding the model in memory, with the feature-column contract persisted across the process boundary.</p>
+          <p>Volunteer its flaws if pushed. The imputer re-fits at inference, harmless only because it fills a constant. Evaluation was a single R² on one 80/20 split.</p>
+          <p class="small muted"><a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf section</a></p>
+        </article>
+      </div>
+      <div class="note crit">
+        <p class="eyebrow">Only you can answer this <span class="badge unknown">Unknown</span></p>
+        <p>The posting requires six or more years of relevant experience. Your career dates, employers and titles are not on the verified prep pages. Have a clean one-sentence version ready, and don’t let the Papercusp story stand in for the whole career if he asks for years.</p>
+      </div>
+    </section>
+
+    <section id="ask">
+      <div class="sec-head">
+        <p class="eyebrow">07 · Questions for Luis</p>
+        <h2>Ask the first two early, and the rest at the end</h2>
+      </div>
+      <ol class="question-list">
+        <li><span class="rank">Minute one</span><br><strong>“Before we start, could you tell me your role and how you work with the Enterprise AI Control Plane team?”</strong> You don’t know whether he is a recruiter, a hiring manager or an engineer. His answer decides how technical to be.</li>
+        <li><span class="rank">Early</span><br><strong>“The posting is on Verizon’s contractor careers site but lists the job as full time. Is this a Verizon employee role or a contract engagement, and if contract, through whom?”</strong></li>
+        <li><span class="rank">Scope</span><br><strong>“What does the control plane cover today? Are the Agent Gateway and Agent Registry built and this role integrates them, or are parts still being designed?”</strong></li>
+        <li><span class="rank">Pain</span><br><strong>“Of the Vegas, Atlas AI, Engram and Agent Registry integrations, which one hurts most right now?”</strong></li>
+        <li><span class="rank">Guardrails</span><br><strong>“When a Responsible AI or legal check runs in the pipeline, what is it today: automated evaluations, a recorded human review, or both?”</strong></li>
+        <li><span class="rank">Scale</span><br><strong>“Roughly how many agents or models go through the governance framework, and from how many business units?”</strong></li>
+        <li><span class="rank">Place</span><br><strong>“Is the team centred in Irving or Basking Ridge, and which office would the three in-office days be?”</strong></li>
+        <li><span class="rank">Success</span><br><strong>“What would make you say, six months in, that this hire went really well?”</strong></li>
+        <li><span class="rank">Close</span><br><strong>“What are the next steps and the timeline?”</strong> The posting closes on 18 September, the day after your call.</li>
+      </ol>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Last-minute checklist</p>
+        <h2>The fifteen minutes before 2:45 PM EDT</h2>
+      </div>
+      <ul class="checklist">
+        <li>Phone charged, ringer on, ready to answer an unknown number from 2:40.</li>
+        <li>Quiet room, headset on, water nearby.</li>
+        <li>Posting open, this page on <a href="#opener">the opener</a>, and a notepad ready.</li>
+        <li>Say the 20-second opener aloud once.</li>
+        <li>Say the Bedrock gap answer aloud once, so it comes out calm.</li>
+        <li>Say these cold: about 100 agents on one branch, roughly 650 MCP tools, 920 migrations, 47 pin tests. Re-check any you plan to lead with.</li>
+        <li>Know your career dates and years of relevant experience in one sentence.</li>
+        <li>Decide your compensation floor for both employee and contract cases.</li>
+        <li>Ask who Luis is in the first minute, and write it down.</li>
+        <li>Before hanging up, confirm next steps, timeline and the best way to follow up.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Sources + confidence</p>
+        <h2>What is from the posting, what is yours, and what is inferred</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Confidence by claim</h3>
+          <ul>
+            <li><span class="badge owner">Owner</span> Call date and time, the 30-minute phone format, the caller’s name, the job title and the posting URL. From the reminder you received, supplied 16 Sep 2026.</li>
+            <li><span class="badge fact">Fact</span> Team name, duties, requirements, hybrid policy, locations, full-time listing, salary range, hiring entity, requisition number and the 18 September close date. From Workday’s posting data, fetched 16 Sep 2026.</li>
+            <li><span class="badge fact">Fact</span> Every statement about your work. From the Answer Bank, checked against the tree on 3 Sep 2026 with guardrail checks dated 9 Sep, and from the ServiceNow page’s Storewolf section.</li>
+            <li><span class="badge fact">Fact</span> AgentCore components and Gateway capabilities. From AWS announcements and documentation, searched 16 Sep 2026.</li>
+            <li><span class="badge inference">Inference</span> What Vegas, Atlas AI, Engram and Agent Registry are, beyond the posting’s own pairing. No public documentation was found.</li>
+            <li><span class="badge inference">Inference</span> That Verizon’s publicly described agent-governance practice applies to this team. The source is a consumer-AI VP speaking at Google Cloud Next, April 2026.</li>
+            <li><span class="badge inference">Inference</span> The four-part definition of an AI control plane. It follows vendor literature, not a Verizon statement.</li>
+            <li><span class="badge unknown">Unknown</span> Luis’s role, whether the job is employee or contract, team size, whether the gateway uses AgentCore, and your years of relevant experience as the posting counts them.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Sources</h3>
+          <ul class="source-list">
+            <li><a href="https://verizon.wd12.myworkdayjobs.com/contractor_external_careers/job/irving-texas/principal-engineer---ai-control-plane-engineer_r-1100572-2" target="_blank" rel="noreferrer">Verizon posting, Principal Engineer – AI Control Plane Engineer, R-1100572</a>, with the same data read from Workday’s JSON endpoint</li>
+            <li><a href="https://www.constellationr.com/insights/news/how-verizon-manages-ai-agent-sprawl" target="_blank" rel="noreferrer">Constellation Research, “How Verizon manages AI agent sprawl”, April 2026</a></li>
+            <li><a href="https://aws.amazon.com/about-aws/whats-new/2025/10/amazon-bedrock-agentcore-available/" target="_blank" rel="noreferrer">AWS, Amazon Bedrock AgentCore is now generally available</a></li>
+            <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.html" target="_blank" rel="noreferrer">AWS docs, AgentCore Gateway</a></li>
+            <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html" target="_blank" rel="noreferrer">AWS docs, Amazon Bedrock Guardrails</a></li>
+            <li><a href="https://www.speakeasy.com/resources/ai-control-plane" target="_blank" rel="noreferrer">Speakeasy, “AI control plane”</a>, a vendor definition used for the framing</li>
+            <li><a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a> and <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">the Storewolf section</a>, the only sources for claims about your work</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared 16 Sep 2026 for a 30-minute Verizon phone screen on Thursday 17 September at 2:45 PM EDT. Claims about your experience come only from the Answer Bank and the Storewolf section. Re-check any number before you lead with it.</p>
+    <p><a href="#top">Back to top ↑</a></p>
+  </footer>
+</div>
+</body>
+</html>

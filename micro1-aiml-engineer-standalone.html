@@ -1,0 +1,1385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>micro1 · AI/ML Engineer — AI Interview Prep</title>
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1410; --surface: #131E18; --surface-alt: #1A2921;
+    --ink: #E5EEE9; --ink-muted: #9DADA4; --ink-faint: #708077;
+    --accent: #66C69C; --accent-strong: #8BDCB8; --accent-soft: #17372A;
+    --caution: #D9A43A; --caution-soft: #33290F;
+    --critical: #E0736C; --critical-soft: #3A1E1C;
+    --info: #78B7DE; --info-soft: #172D3B;
+    --rule: #26372E; --rule-strong: #3B5145;
+  }
+  .tag.gap { background: var(--critical-soft); color: var(--critical); }
+  .question-list .rank { display: inline-block; margin-bottom: 0.15rem; }
+  .script .say code { font-size: 0.8em; }
+</style>
+<style>
+  pre.code { margin: 0; padding: 0.85rem 1rem; background: var(--surface-alt); border: 1px solid var(--rule); border-radius: 3px; overflow-x: auto; font-family: var(--f-mono); font-size: 0.77rem; line-height: 1.5; tab-size: 4; max-width: 100%; }
+  pre.code code { background: transparent; padding: 0; font-size: inherit; }
+  details.solution { border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); min-width: 0; }
+  details.solution summary { padding: 0.65rem 0.9rem; cursor: pointer; font-family: var(--f-display); font-weight: 650; font-size: 0.9rem; background: var(--caution-soft); color: var(--caution); }
+  details.solution[open] summary { border-bottom: 1px solid var(--rule); }
+  details.solution > pre.code { border: 0; border-radius: 0 0 3px 3px; }
+  .flash-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; align-items: start; }
+  details.flash { background: var(--surface); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+  details.flash summary { padding: 0.75rem 0.95rem; cursor: pointer; font-family: var(--f-display); font-weight: 650; font-size: 0.95rem; line-height: 1.35; }
+  details.flash summary::before { content: attr(data-topic); display: block; margin-bottom: 0.25rem; color: var(--accent); font: 600 0.62rem var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; }
+  details.flash[open] summary { border-bottom: 1px solid var(--rule); background: var(--surface-alt); }
+  details.flash .answer { padding: 0.8rem 0.95rem 0.95rem; font-size: 0.95rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .say-plain { margin: 0; line-height: 1.66; }
+  .drill-body.single { grid-template-columns: 1fr; }
+  table.matrix.compact { min-width: 36rem; }
+  table.matrix.compact td:nth-child(3) { width: auto; }
+  table.matrix code { font-size: 0.82em; overflow-wrap: anywhere; }
+  .skill-head { display: flex; flex-direction: column; gap: 0.3rem; }
+  .skill-head .rule { color: var(--ink-muted); }
+  section > *, .two-col > *, .card, .stack, .drill-body > * { min-width: 0; }
+  .badge.fact { min-height: 0; padding: 0.13rem 0.42rem; border: 0; display: inline-block; }
+  html { scroll-padding-top: 8rem; }
+  section { scroll-margin-top: 1rem; }
+  @media (max-width: 48rem) { .flash-grid { grid-template-columns: 1fr; } }
+  @media print { details.solution > *, details.flash > *, details.drill > * { display: block; } }
+</style>
+<style>
+  .src { margin-top: .6rem; font-size: .82rem; line-height: 1.5; opacity: .72; }
+  .src b { font-weight: 600; letter-spacing: .02em; text-transform: uppercase;
+           font-size: .74rem; margin-right: .4rem; }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">micro1 · 18 Sep 2026</p>
+      <h1>Three focus areas, forty-three minutes. This is the one with room for real depth.</h1>
+      <p class="standfirst">Note what this role does <i>not</i> ask about: no modelling theory, no algorithms round, no MLOps tooling quiz. Python <i>systems</i> engineering, production ownership and secure engineering — three areas across forty-three minutes is roughly eight minutes each, the most depth of any of your six micro1 interviews. That is an invitation to go past the headline of each answer, and it means a thin answer has nowhere to hide.</p>
+    </div>
+    <aside class="join-card" aria-label="Interview access">
+      <p class="eyebrow">Recruiter email · 18 Sep 2026</p>
+      <p><strong>Complete by Sep 20, 2026 05:26 am.</strong></p>
+      <p><strong class="hot">Take the free practice interview first.</strong><br><span class="muted">Eighteen minutes, free, same interviewer. It is the only way to see the format before it counts.</span></p>
+      <a class="button" href="https://www.micro1.ai/interview-prep" target="_blank" rel="noreferrer">micro1 practice interviews ↗</a>
+      <p class="small muted">Start the real interview only from the link in your own email, on a micro1.ai address.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Role and interview facts">
+    <div class="fact"><dt>Role</dt><dd>AI/ML Engineer</dd></div>
+    <div class="fact"><dt>Company</dt><dd>micro1</dd></div>
+    <div class="fact"><dt>Format</dt><dd>AI Interview + Exercise</dd></div>
+    <div class="fact"><dt>Duration</dt><dd>up to 43 minutes</dd></div>
+    <div class="fact"><dt>Deadline</dt><dd class="hot">Sep 20, 2026 05:26 am</dd></div>
+    <div class="fact"><dt>Focus areas</dt><dd>Python Systems Engineering · Production Ownership &amp; Secure Engineering</dd></div>
+    <div class="fact"><dt>Interviewer</dt><dd>Zara, micro1's AI recruiter</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Start here</a></li>
+      <li><span class="n">02</span><a href="#format">The format</a></li>
+      <li><span class="n">03</span><a href="#opener">Your opener</a></li>
+      <li><span class="n">04</span><a href="#python-systems">Python systems engineering</a></li>
+      <li><span class="n">05</span><a href="#production-ownership">Production ownership</a></li>
+      <li><span class="n">06</span><a href="#secure-engineering">Secure engineering</a></li>
+      <li><span class="n">07</span><a href="#exercise">The exercise</a></li>
+      <li><span class="n">08</span><a href="#questions">Questions to ask</a></li>
+      <li><span class="n">09</span><a href="#checklist">Before you start</a></li>
+      <li><span class="n">10</span><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Start here</p>
+        <h2>What to do with the time you have</h2>
+      </div>
+      <p>The focus areas below are ranked by how much they will move your score, given what you can actually evidence. If you only have one evening, do them in this order and stop when you run out of time.</p>
+      <div class="priority-grid">
+        <div class="priority">
+          <span class="num">01</span>
+          <p><a href="#python-systems"><b>Python systems engineering</b></a> — A long-lived process, not a script.</p>
+        </div>
+        <div class="priority">
+          <span class="num">02</span>
+          <p><a href="#production-ownership"><b>Production ownership</b></a> — What you did after it broke.</p>
+        </div>
+        <div class="priority">
+          <span class="num">03</span>
+          <p><a href="#secure-engineering"><b>Secure engineering</b></a> — Make the bad thing impossible, not discouraged.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="format">
+      <div class="sec-head">
+        <p class="eyebrow">02 · The format</p>
+        <h2>What the email commits to, and what is only reported</h2>
+      </div>
+      <p>Everything graded <span class="badge owner">Owner</span> is from your own email and is reliable. Everything below it is third-party reporting — useful for preparation, not worth treating as a rule.</p>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>What to expect</th><th>Source</th><th>Confidence</th></tr></thead>
+          <tbody>
+            <tr><td><b>Format</b>: AI Interview + Exercise</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td><b>Duration</b>: up to 43 minutes</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td><b>Deadline</b>: Sep 20, 2026 05:26 am</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td><b>Focus areas</b>: Python Systems Engineering · Production Ownership &amp; Secure Engineering</td><td>Your recruiter email</td><td><span class="badge owner">Owner</span></td></tr>
+            <tr><td>A conversational interview with an AI recruiter, Zara, taken on demand</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Open-ended technical questions, scenario questions, and a coding challenge for technical roles</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>A real-time result against micro1's certification criteria, with feedback on request if you do not pass</td><td>micro1's AI interview guide</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Free AI practice interviews, listed at 18 minutes each</td><td>micro1's interview-prep page</td><td><span class="badge fact">Fact</span></td></tr>
+            <tr><td>Zara generates practice interviews, runs conversational assessments and gives structured feedback</td><td>Paper by micro1's CEO and colleagues, April 2025</td><td><span class="badge fact">Fact</span> as of 2025</td></tr>
+            <tr><td>Voice activity detection can move on if you pause too long</td><td>aitrainer.work guide, Sep 2026, cites no sources</td><td><span class="badge inference">Low</span></td></tr>
+            <tr><td>Proctored coding in a VS Code-like editor: paste disabled, tab switching and gaze monitored</td><td>aitrainer.work guide, Sep 2026, cites no sources</td><td><span class="badge inference">Low</span></td></tr>
+            <tr><td>Problem difficulty, the scoring bar per focus area, and the retake policy</td><td>Not published</td><td><span class="badge unknown">Unknown</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="two-col">
+      <article class="card">
+        <h3>Setup</h3>
+        <ul class="checklist" style="grid-template-columns: 1fr">
+          <li>A laptop or desktop, not a phone — micro1 says so explicitly.</li>
+          <li>A quiet room, a working webcam and microphone, a stable connection.</li>
+          <li>Headphones, so Zara's voice is not picked up and read as you talking.</li>
+          <li>Screen share ready — the email says to be ready to share it.</li>
+          <li>Notifications off on the computer and the phone; extensions disabled.</li>
+          <li>Water, and nothing on the desk you would be tempted to look at.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>How to talk to Zara <span class="badge inference">Inference</span></h3>
+        <ul>
+          <li>Answer in your first sentence, then support it. No preamble.</li>
+          <li>Use the focus area's own vocabulary where it is true: main process, context isolation, backpressure, coalescing, p99.</li>
+          <li>One concrete example per answer, with a real number or a real failure in it.</li>
+          <li>Aim for 60 to 90 seconds. A short pause is fine; long silence may be read as you being finished.</li>
+          <li>If a question is ambiguous, say how you are reading it, then answer that reading.</li>
+          <li>Name the limit of your own claim before it is probed. It reads as seniority, not weakness.</li>
+        </ul>
+      </article>
+      </div>
+        <div class="note crit">
+          <p class="eyebrow">Integrity</p>
+          <p>Treat the interview as monitored and unaided. The email requires camera, microphone and screen share; third-party guides report tab-switch tracking and disabled paste in the coding round. micro1 does not publish a retake policy, so plan for one attempt. Close this page, every AI assistant and every browser extension before you start.</p>
+        </div>
+    </section>
+
+    <section id="opener">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Your opener</p>
+        <h2>The first ninety seconds, written out</h2>
+      </div>
+      <p>Zara opens conversationally. This is the one answer worth having word-perfect, because it seeds every focus area so later answers become callbacks rather than fresh stories.</p>
+      <div class="script">
+        <p class="eyebrow">Say this in the first minute</p>
+        <p class="say">I'm an engineer who builds machine-learning systems and then owns them in production, which in my experience is where most of the actual work is. The clearest example is a pricing and matching service — a gradient-boosted model served from a long-lived Python process, sitting behind an entity-resolution step that decides whether two records from different sources describe the same thing. The modelling was the small part. The hard parts were keeping the training path and the serving path from drifting apart, and making the process survive weeks without anyone touching it. More recently I've built a platform that coordinates many AI coding agents working on one codebase at once, which is where the security thinking comes from: model output is untrusted input, so those agents get a list of allowlisted operations rather than raw access to a filesystem or a database. The habit I'd want you to take from all of it is that I treat an incident as a detector failure — the thing worth fixing is usually whatever should have caught it and didn't.</p>
+        <p class="small muted">Three focus areas, and this opener seeds all three by design: Python systems, then production ownership, then security. Practise it at ninety seconds so each later answer is a callback.</p>
+      </div>
+    </section>
+
+    <section id="python-systems">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Python systems engineering</p>
+        <h2>A long-lived process, not a script</h2>
+      </div>
+      <p>The focus area says <i>systems</i>, and that word is doing the work. They are not asking whether you know list comprehensions; they are asking whether you have run Python as a process that stays up — where memory grows, the GIL matters, a dependency resolves differently in production, and nobody restarts it for you. Answer everything in that register.</p>
+      <details class="drill">
+        <summary>&ldquo;Tell me about a Python system you have built.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>The one I'd use is a pricing and matching service: a gradient-boosted model served out of a long-lived Python process, in front of an entity-resolution step that decides whether two records from different sources are the same thing. The interesting part was never the model — it was that the process has to stay correct for weeks. Feature code and training code have to agree, or you get skew that no test catches because each half passes its own.</p>
+      <p>The shape I'd defend: the model is loaded once at start, not per request; the feature transformation is one module imported by both the training path and the serving path, so they cannot drift; and the boundary is typed, so a malformed row fails at the edge with a useful message instead of becoming a <code>NaN</code> that silently moves a price.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;asyncio, threads, or processes?&rdquo; <span class="badge inference">Likely</span></summary>
+        <div class="drill-body single"><div class="stack">
+      <p>I pick by where the time actually goes, and I say which I measured. IO-bound and high-concurrency — fan-out to APIs, a database, a queue — is <code>asyncio</code>: one thread, explicit await points, and the cost is that a single blocking call poisons the whole loop. Blocking libraries that I cannot replace go in a thread pool via <code>run_in_executor</code>, which is really just quarantining them. CPU-bound work — inference, big transforms — goes to processes, because the GIL means threads buy nothing there.</p>
+      <p>The sentence I'd add unprompted, because it is the one that gets probed: the GIL is not a throughput problem for IO, it is a throughput problem for CPU. Getting that backwards is the classic tell.</p>
+        <p class="src"><b>Evidence</b> Your own platform runs an embedded Postgres and several sidecar processes, so the process-vs-thread choice is one you have actually made.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;How do you keep a Python service reproducible?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>Pinned, hashed dependencies and a lockfile committed — not a floating <code>requirements.txt</code>. The same interpreter version everywhere, declared rather than inherited from whatever the host happens to have. And the environment built in the image, not on the box, so &lsquo;works on my machine&rsquo; stops being a category of bug.</p>
+      <p>What I'd flag as the underrated one: import side effects. A module that opens a connection or reads config at import time makes the process order-dependent and almost impossible to test. Construct at call time, wire at the edge.</p>
+        </div></div>
+      </details>
+      <div class="note info">
+        <p class="eyebrow">If they ask about typing</p>
+        <p>Say you use type hints as an enforced boundary, not decoration — checked in CI, strictest at the edges where untrusted data arrives. The honest limit, which is worth volunteering: hints are erased at runtime, so they are a development-time guarantee and you still validate real input at the boundary.</p>
+      </div>
+    </section>
+
+    <section id="production-ownership">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Production ownership</p>
+        <h2>What you did after it broke</h2>
+      </div>
+      <p>This focus area is almost always scored on one thing: do you distinguish a <b>mitigation</b> from a <b>fix</b>. Restarting the thing, widening a timeout, retrying around a broken call and deleting the bad input are all mitigations. They stop the bleeding and they leave the trap armed. Say that distinction out loud and then give an example where you did the second one.</p>
+      <details class="drill">
+        <summary>&ldquo;Tell me about something that broke in production.&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>My best one is a storage bug in the desktop app. The webview persists localStorage as a SQLite database in WAL mode. A long-lived reader kept the write-ahead log from ever checkpointing, so it grew — to about 127 gigabytes, for roughly a megabyte of actual data. Something like a hundred-thousand-fold.</p>
+      <p>The mitigation is obvious and wrong: delete the file. That returns the disk and guarantees a recurrence. The fix was to checkpoint at boot, before the webview reopens the database, because that is the one moment no reader is holding it. Then the part I care about more — I asked what <i>should</i> have caught it. Nothing was watching that file's size at all, so the detector was the real defect, and a disk-growth check was the actual deliverable.</p>
+        <p class="src"><b>Evidence</b> The WAL incident is on the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a> with the numbers.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;How do you stop bad code reaching production?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>A release gate that owns the decision rather than a human remembering. In mine, the promotion branch only ever fast-forwards to a commit that passed the suite — nothing else can push it. A red suite holds the branch, and the deploy carries auto-rollback, so the worst case is a short window rather than a bad build sitting there.</p>
+      <p>The consequence I'd be honest about, because it is the interesting trade-off: that gate is shared, so one person's red freezes everyone. That is a feature only if the team treats a red gate as everyone's job. If it becomes &lsquo;not my tests&rsquo;, the gate turns into a queue and people start routing around it.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;How do you decide what to be paged for?&rdquo; <span class="badge inference">Likely</span></summary>
+        <div class="drill-body single"><div class="stack">
+      <p>Page on symptoms the user would notice, not on causes. CPU at ninety percent is not an incident; requests failing or a queue that stops draining is. And I treat a false alarm as a real bug in the alarm — if it fires and nobody acts, it has trained everyone to ignore the next one, which is strictly worse than not having it.</p>
+        </div></div>
+      </details>
+      <div class="note warn">
+        <p class="eyebrow">The trap in this area</p>
+        <p>Do not attribute a failure to &ldquo;high load&rdquo;, &ldquo;low memory&rdquo; or &ldquo;thrashing&rdquo; without naming a mechanism. Used swap and a big load average are not evidence on their own. If you tell an incident story, say what you measured that tied the symptom to the cause — that single habit reads as more senior than the story itself.</p>
+      </div>
+    </section>
+
+    <section id="secure-engineering">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Secure engineering</p>
+        <h2>Make the bad thing impossible, not discouraged</h2>
+      </div>
+      <p>For an AI/ML role this is mostly about untrusted input reaching powerful things — model output treated as a command, a prompt carrying data it should not, a tool surface that is too broad. The framing that scores: a convention nobody can enforce decays, so the goal is designs where the unsafe action is not expressible.</p>
+      <details class="drill">
+        <summary>&ldquo;How do you handle secrets?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>Never in the repository, and not only because of leaks — a secret in the tree ends up in every fork, every backup and every model's training context. Injected at runtime from outside the checkout, scoped to the one process that needs it, and redacted at the logging boundary rather than remembered about at each call site. If a credential does leak, rotation has to be routine, which means nothing can hardcode it anywhere.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;How do you give an agent or a client access to the system safely?&rdquo;</summary>
+        <div class="drill-body single"><div class="stack">
+      <p>Allowlisted capabilities instead of raw primitives. In my own platform the untrusted side cannot call the filesystem or the database directly; it calls named operations that are individually gated, so &lsquo;what can this thing do&rsquo; is an enumerable list rather than a judgement call. The webview is treated as hostile territory on purpose — it gets a bridge, never the host.</p>
+      <p>Where that pays off is path handling. Rather than validating a path and hoping the check is airtight, the operation takes an identifier and resolves it against a fixed root, so a traversal has nowhere to express itself. Impossible by construction beats checked.</p>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>&ldquo;What about the AI-specific risks?&rdquo; <span class="badge inference">Likely</span></summary>
+        <div class="drill-body single"><div class="stack">
+      <p>Three I'd name. Prompt injection: anything a model reads is untrusted input, so model output must never be executed directly — it proposes an action, and the action is validated against the same allowlist a user would hit. Data leakage: prompts and traces are logs, so PII in a prompt is PII in a log, and it needs the same redaction and retention rules. And supply chain: a model, a dataset and a package are all third-party code, pinned and checksummed.</p>
+      <p>The one I'd volunteer as genuinely hard is tenant isolation in a shared vector store — a filter you have to remember to apply is a breach waiting for one missed query, so the tenant belongs in the key, not the WHERE clause.</p>
+        </div></div>
+      </details>
+      <div class="note crit">
+        <p class="eyebrow">Say the limit of your own claim</p>
+        <p>This focus area punishes overclaiming more than most. You have not run a formal threat-modelling process or a pen-test programme, and saying so costs nothing next to the concrete designs above. &ldquo;Here is what I built, here is the class of attack it makes impossible, here is what I have not done&rdquo; is the answer.</p>
+      </div>
+    </section>
+
+    <section id="exercise">
+      <div class="sec-head">
+        <p class="eyebrow">07 · The exercise round</p>
+        <h2>Python systems problems, and the sentence that separates the candidates</h2>
+      </div>
+      <p>This role's exercise is <b>Python</b>, and the focus area is Python <i>Systems</i> Engineering — so expect a long-lived process, concurrency, and a stream or a batch, not a LeetCode puzzle. The four problem shapes below are the ones that keep appearing in this format, expressed in Python terms.</p>
+      <div class="note warn">
+        <p class="eyebrow">Read this before you rehearse</p>
+        <p>The runnable drills on this collection's Electron page are JavaScript. The problem <i>shapes</i> transfer exactly, but the idioms below do not — rehearse these in Python, in a file you run, not by reading. Python-specific traps are what a Python systems interview actually probes.</p>
+      </div>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>Shape</th><th>How it looks in Python, and what is really being scored</th></tr></thead>
+          <tbody>
+            <tr><td>Framing and parsing a byte stream</td><td><code>struct.unpack('&gt;I', header)</code> over a <code>bytearray</code> buffer, with an explicit cap. In Python the trap is different from JS: slicing a <code>bytes</code> copies, so a naive parser is accidentally O(n²) on a large stream. Use a <code>memoryview</code>, and say why.</td></tr>
+            <tr><td>Bounded concurrency and backpressure</td><td><code>asyncio.Semaphore</code> for the concurrency bound and a <b>bounded</b> <code>asyncio.Queue(maxsize=N)</code> for the rejection path — <code>put_nowait</code> raising <code>QueueFull</code> is the backpressure. Name the GIL boundary unprompted: this is the right shape for IO-bound work, and CPU-bound work needs a process pool instead.</td></tr>
+            <tr><td>Coalescing and debouncing</td><td>The window starts at the <i>first</i> dirty key, not the latest, or a hot key never flushes. A single <code>call_later</code> handle rearmed on demand, plus a max-batch early flush.</td></tr>
+            <tr><td>Percentiles and an honest verdict</td><td><code>statistics.quantiles</code> or nearest-rank by hand — and the same finding as the JS version: p99 over a small sample cannot see one long freeze, so carry a max leg and return <code>unknown</code> on zero samples rather than <code>healthy</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">Say the boundary out loud</p>
+        <p>In every one of these, the sentence that reads as senior is the same: which of this is IO-bound and which is CPU-bound, and therefore whether <code>asyncio</code>, threads or processes is the right tool. Volunteer it before you are asked.</p>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">How to use these</p>
+        <p>Generated from a tested source. <code>micro1-python-practice.py</code> holds the same
+        functions with every marked body replaced by a raising stub; the checks are identical to the
+        ones the reference solutions pass. Implement, then run
+        <code>python3 micro1-python-practice.py</code> until it is green. Standard library only —
+        nothing to install. Open a reference solution only after your own attempt.</p>
+      </div>
+      <details class="drill">
+        <summary>Drill 1 · Length-prefixed frame codec</summary>
+        <div class="drill-body single"><div class="stack">
+          <p>A pipe or socket hands you arbitrary chunks. Reassemble whole messages from <code>[4-byte length BE][1-byte type][payload]</code> with <code>struct.unpack_from</code>, cap them at 16&nbsp;MiB <i>on the decoder</i> — that is where the untrusted number arrives — and handle a frame split across chunks, several frames in one chunk, and a declared length that is a lie. The Python-specific half: slicing <code>bytes</code> copies, so the natural <code>buf = buf[total:]</code> per frame is accidentally O(n²). Use a <code>memoryview</code> plus an offset, and say why.</p>
+          <details class="solution"><summary>Skeleton · target ≈15 min</summary><pre class="code"><code># You never see framing inside a single Python process — a queue hands you whole objects. You see it
+# the moment bytes cross a process boundary: a subprocess pipe, a socket, a model-server sidecar.
+# A stream gives you BYTES, not messages. The OS will hand you half a frame, or two and a half
+# frames, and a decoder that assumes message boundaries works in dev and corrupts under load.
+#
+# Wire format:
+#   [4B payload length, big-endian][1B type][payload]
+# Big-endian because every other wire protocol is, and an endianness bug stays invisible until a
+# length crosses 256. A 16 MiB cap so a corrupt or hostile length field cannot make the peer
+# allocate a gigabyte — that cap is the secure-engineering half of this drill, and it belongs on the
+# DECODER, where the untrusted number arrives, not only on the encoder.
+#
+# The Python-specific trap, and the reason this drill is not the JavaScript one:
+# slicing bytes or bytearray COPIES. The natural line to write after consuming a frame is
+#     self._buf = self._buf[total:]
+# and it copies the entire REMAINING buffer, once per frame — accidentally O(n^2) over a long
+# stream. It is invisible on a unit test with three frames and it melts under a real one. The fix
+# is an offset plus a memoryview (which slices WITHOUT copying), compacting only occasionally.
+
+HEADER_BYTES = 5
+MAX_PAYLOAD = 16 * 1024 * 1024
+COMPACT_THRESHOLD = 64 * 1024
+
+Frame = namedtuple(&quot;Frame&quot;, &quot;type payload&quot;)
+
+
+class FrameType:
+    REQUEST = 1
+    RESPONSE = 2
+    ERROR = 3
+    CANCEL = 4
+
+
+def encode_frame(ftype, payload):
+    &quot;&quot;&quot;Encode one frame. `payload` may be bytes-like or a str (encoded UTF-8).
+
+    Raises ValueError for a type that is not a single byte, or a payload over the cap.&quot;&quot;&quot;
+    # implement this — the contract is in the docstring above
+    raise NotImplementedError(&quot;not implemented&quot;)
+
+
+class FrameDecoder:
+    &quot;&quot;&quot;Accumulates bytes; returns every COMPLETE frame so far and keeps the remainder.
+
+    Never returns a partial frame and never blocks waiting for one.&quot;&quot;&quot;
+
+    def __init__(self, max_payload=MAX_PAYLOAD, compact_threshold=COMPACT_THRESHOLD):
+        self.max_payload = max_payload
+        self._compact_threshold = compact_threshold
+        self._buf = bytearray()
+        self._start = 0          # everything before this offset is consumed but not yet reclaimed
+        self.compactions = 0     # instrumentation, so the O(n^2) property is TESTABLE, not timed
+        self.bytes_compacted = 0
+
+    @property
+    def pending_bytes(self):
+        return len(self._buf) - self._start
+
+    def push(self, chunk):
+        &quot;&quot;&quot;Feed arbitrary bytes. Returns a list of Frame. Raises ValueError on an over-cap length.&quot;&quot;&quot;
+        # implement this — the contract is in the docstring above
+        raise NotImplementedError(&quot;not implemented&quot;)
+</code></pre></details>
+          <details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># You never see framing inside a single Python process — a queue hands you whole objects. You see it
+# the moment bytes cross a process boundary: a subprocess pipe, a socket, a model-server sidecar.
+# A stream gives you BYTES, not messages. The OS will hand you half a frame, or two and a half
+# frames, and a decoder that assumes message boundaries works in dev and corrupts under load.
+#
+# Wire format:
+#   [4B payload length, big-endian][1B type][payload]
+# Big-endian because every other wire protocol is, and an endianness bug stays invisible until a
+# length crosses 256. A 16 MiB cap so a corrupt or hostile length field cannot make the peer
+# allocate a gigabyte — that cap is the secure-engineering half of this drill, and it belongs on the
+# DECODER, where the untrusted number arrives, not only on the encoder.
+#
+# The Python-specific trap, and the reason this drill is not the JavaScript one:
+# slicing bytes or bytearray COPIES. The natural line to write after consuming a frame is
+#     self._buf = self._buf[total:]
+# and it copies the entire REMAINING buffer, once per frame — accidentally O(n^2) over a long
+# stream. It is invisible on a unit test with three frames and it melts under a real one. The fix
+# is an offset plus a memoryview (which slices WITHOUT copying), compacting only occasionally.
+
+HEADER_BYTES = 5
+MAX_PAYLOAD = 16 * 1024 * 1024
+COMPACT_THRESHOLD = 64 * 1024
+
+Frame = namedtuple(&quot;Frame&quot;, &quot;type payload&quot;)
+
+
+class FrameType:
+    REQUEST = 1
+    RESPONSE = 2
+    ERROR = 3
+    CANCEL = 4
+
+
+def encode_frame(ftype, payload):
+    &quot;&quot;&quot;Encode one frame. `payload` may be bytes-like or a str (encoded UTF-8).
+
+    Raises ValueError for a type that is not a single byte, or a payload over the cap.&quot;&quot;&quot;
+    if not isinstance(ftype, int) or isinstance(ftype, bool) or not 0 &lt;= ftype &lt;= 255:
+        raise ValueError(f&quot;frame type must be a byte, got {ftype!r}&quot;)
+    body = payload.encode(&quot;utf-8&quot;) if isinstance(payload, str) else bytes(payload)
+    if len(body) &gt; MAX_PAYLOAD:
+        raise ValueError(f&quot;frame payload {len(body)}B exceeds {MAX_PAYLOAD}B cap&quot;)
+    return struct.pack(&quot;&gt;IB&quot;, len(body), ftype) + body
+
+
+class FrameDecoder:
+    &quot;&quot;&quot;Accumulates bytes; returns every COMPLETE frame so far and keeps the remainder.
+
+    Never returns a partial frame and never blocks waiting for one.&quot;&quot;&quot;
+
+    def __init__(self, max_payload=MAX_PAYLOAD, compact_threshold=COMPACT_THRESHOLD):
+        self.max_payload = max_payload
+        self._compact_threshold = compact_threshold
+        self._buf = bytearray()
+        self._start = 0          # everything before this offset is consumed but not yet reclaimed
+        self.compactions = 0     # instrumentation, so the O(n^2) property is TESTABLE, not timed
+        self.bytes_compacted = 0
+
+    @property
+    def pending_bytes(self):
+        return len(self._buf) - self._start
+
+    def push(self, chunk):
+        &quot;&quot;&quot;Feed arbitrary bytes. Returns a list of Frame. Raises ValueError on an over-cap length.&quot;&quot;&quot;
+        self._buf += chunk
+        frames = []
+        # A memoryview slices without copying, so the parse loop touches each byte once.
+        view = memoryview(self._buf)
+        try:
+            start, end = self._start, len(self._buf)
+            while end - start &gt;= HEADER_BYTES:
+                (length,) = struct.unpack_from(&quot;&gt;I&quot;, view, start)
+                if length &gt; self.max_payload:
+                    # Unrecoverable: the stream is desynchronised or the peer is hostile.
+                    # Raising is correct — resyncing by scanning for a plausible header INVENTS
+                    # message boundaries, which is how a corrupt stream becomes corrupt data.
+                    raise ValueError(
+                        f&quot;declared frame payload {length}B exceeds {self.max_payload}B cap&quot;)
+                total = HEADER_BYTES + length
+                if end - start &lt; total:
+                    break  # partial frame: keep the bytes, wait for more
+                # bytes(...) copies THIS payload out, which is required — the caller keeps it and
+                # the buffer underneath is about to be reused. Copying each payload once is O(n);
+                # copying the remaining BUFFER once per frame is the O(n^2) mistake.
+                frames.append(Frame(view[start + 4],
+                                    bytes(view[start + HEADER_BYTES:start + total])))
+                start += total
+            self._start = start
+        finally:
+            # Releasing before the `del` below is not optional: a bytearray with a live memoryview
+            # export cannot be resized, and Python raises BufferError if you try. Worth naming out
+            # loud — it is the failure people hit the first time they reach for memoryview.
+            view.release()
+
+        # Reclaim the dead prefix only when it is genuinely large, or when the buffer is fully
+        # drained (in which case there is nothing left to move and the copy is free).
+        if self._start and (self._start &gt;= self._compact_threshold
+                            or self._start == len(self._buf)):
+            self.bytes_compacted += len(self._buf) - self._start
+            del self._buf[:self._start]
+            self._start = 0
+            self.compactions += 1
+        return frames
+</code></pre></details>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>Drill 2 · Bounded concurrency with real backpressure</summary>
+        <div class="drill-body single"><div class="stack">
+          <p><code>asyncio.Semaphore</code> for the bound, a <b>bounded</b> <code>asyncio.Queue</code> for the rejection path — <code>put_nowait</code> raising <code>QueueFull</code> <i>is</i> the backpressure, and raising it synchronously at submit time is what lets the producer react. Then <code>map_limit</code>, which must keep input order while completing out of order. Volunteer the GIL boundary here: this shape is right for IO-bound work and wrong for CPU-bound, which needs a process pool. Knowing which one you are looking at is the thing being scored.</p>
+          <details class="solution"><summary>Skeleton · target ≈12 min</summary><pre class="code"><code># &quot;Python has a GIL&quot; is not why this matters, and saying only that is the thin answer. Async work is
+# cheap to START and that is the trap: asyncio.gather over 10,000 items opens 10,000 sockets, file
+# handles or database connections at once. The answer is a bounded pool whose QUEUE is also bounded
+# — an unbounded queue just moves the failure out of the connection table and into the heap, which
+# is worse because it is invisible until the OOM killer arrives.
+#
+# Backpressure means the producer LEARNS it is too fast. A pool that silently buffers is not
+# applying backpressure, it is hiding the need for it. Here the bounded asyncio.Queue is the
+# admission ledger and put_nowait raising QueueFull IS the backpressure signal — raised
+# SYNCHRONOUSLY at submit time, so the caller finds out immediately rather than in a callback.
+#
+# THE BOUNDARY SENTENCE, volunteered before you are asked:
+#   IO-bound (HTTP calls, database round-trips, reading model shards off disk) -&gt; asyncio, and this
+#   pool is the right shape. The GIL is irrelevant because the thread is not holding it while
+#   awaiting.
+#   CPU-bound (tokenising, feature extraction, numeric work in pure Python) -&gt; this pool is the
+#   WRONG shape: the coroutines serialise behind the GIL and you have written a slow for-loop with
+#   extra steps. Use concurrent.futures.ProcessPoolExecutor, or a library that releases the GIL
+#   (numpy, a native tokeniser) in which case threads are fine.
+# Knowing WHICH of the two you are looking at is the actual skill being scored.
+
+
+class BoundedPool:
+    &quot;&quot;&quot;At most `limit` coroutines in flight, plus at most `max_queue` admitted and waiting.
+
+    Construct inside a running event loop. Total admission capacity is `limit + max_queue`; one more
+    submit than that raises asyncio.QueueFull rather than growing a queue nobody is watching.&quot;&quot;&quot;
+
+    def __init__(self, limit, max_queue=0):
+        if not isinstance(limit, int) or limit &lt; 1:
+            raise ValueError(&quot;limit must be &gt;= 1&quot;)
+        if not isinstance(max_queue, int) or max_queue &lt; 0:
+            raise ValueError(&quot;max_queue must be &gt;= 0&quot;)
+        self.limit = limit
+        self.max_queue = max_queue
+        self._sem = asyncio.Semaphore(limit)
+        self._slots = asyncio.Queue(maxsize=limit + max_queue)
+        self.active = 0
+        self.peak_active = 0
+
+    @property
+    def admitted(self):
+        return self._slots.qsize()
+
+    def submit(self, factory):
+        &quot;&quot;&quot;Admit or reject NOW, synchronously. `factory` is a zero-arg callable returning an
+        awaitable — not an awaitable, so nothing is created for a job that gets rejected.
+
+        Returns an asyncio.Task. Raises asyncio.QueueFull when the pool and its queue are both
+        full; that exception is the backpressure the producer is supposed to react to.&quot;&quot;&quot;
+        # implement this — the contract is in the docstring above
+        raise NotImplementedError(&quot;not implemented&quot;)
+
+    async def _run_admitted(self, factory):
+        try:
+            async with self._sem:
+                self.active += 1
+                self.peak_active = max(self.peak_active, self.active)
+                try:
+                    return await factory()
+                finally:
+                    self.active -= 1
+        finally:
+            self._slots.get_nowait()  # free the admission slot even if the job raised
+
+    async def run(self, factory):
+        &quot;&quot;&quot;Convenience: submit and await. Still rejects synchronously on a full queue.&quot;&quot;&quot;
+        return await self.submit(factory)
+
+
+async def map_limit(items, limit, fn):
+    &quot;&quot;&quot;Apply async `fn(item, index)` to every item with at most `limit` in flight.
+
+    Results keep INPUT order regardless of completion order — the property people get wrong by
+    appending to a list from inside the workers.&quot;&quot;&quot;
+    # implement this — the contract is in the docstring above
+    raise NotImplementedError(&quot;not implemented&quot;)
+    # Worth saying: gather still materialises one coroutine per item up front, so this is fine for
+    # thousands and wrong for millions. At that size you want BoundedPool fed from an iterator, so
+    # the items themselves are also bounded — not just the concurrency.
+</code></pre></details>
+          <details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># &quot;Python has a GIL&quot; is not why this matters, and saying only that is the thin answer. Async work is
+# cheap to START and that is the trap: asyncio.gather over 10,000 items opens 10,000 sockets, file
+# handles or database connections at once. The answer is a bounded pool whose QUEUE is also bounded
+# — an unbounded queue just moves the failure out of the connection table and into the heap, which
+# is worse because it is invisible until the OOM killer arrives.
+#
+# Backpressure means the producer LEARNS it is too fast. A pool that silently buffers is not
+# applying backpressure, it is hiding the need for it. Here the bounded asyncio.Queue is the
+# admission ledger and put_nowait raising QueueFull IS the backpressure signal — raised
+# SYNCHRONOUSLY at submit time, so the caller finds out immediately rather than in a callback.
+#
+# THE BOUNDARY SENTENCE, volunteered before you are asked:
+#   IO-bound (HTTP calls, database round-trips, reading model shards off disk) -&gt; asyncio, and this
+#   pool is the right shape. The GIL is irrelevant because the thread is not holding it while
+#   awaiting.
+#   CPU-bound (tokenising, feature extraction, numeric work in pure Python) -&gt; this pool is the
+#   WRONG shape: the coroutines serialise behind the GIL and you have written a slow for-loop with
+#   extra steps. Use concurrent.futures.ProcessPoolExecutor, or a library that releases the GIL
+#   (numpy, a native tokeniser) in which case threads are fine.
+# Knowing WHICH of the two you are looking at is the actual skill being scored.
+
+
+class BoundedPool:
+    &quot;&quot;&quot;At most `limit` coroutines in flight, plus at most `max_queue` admitted and waiting.
+
+    Construct inside a running event loop. Total admission capacity is `limit + max_queue`; one more
+    submit than that raises asyncio.QueueFull rather than growing a queue nobody is watching.&quot;&quot;&quot;
+
+    def __init__(self, limit, max_queue=0):
+        if not isinstance(limit, int) or limit &lt; 1:
+            raise ValueError(&quot;limit must be &gt;= 1&quot;)
+        if not isinstance(max_queue, int) or max_queue &lt; 0:
+            raise ValueError(&quot;max_queue must be &gt;= 0&quot;)
+        self.limit = limit
+        self.max_queue = max_queue
+        self._sem = asyncio.Semaphore(limit)
+        self._slots = asyncio.Queue(maxsize=limit + max_queue)
+        self.active = 0
+        self.peak_active = 0
+
+    @property
+    def admitted(self):
+        return self._slots.qsize()
+
+    def submit(self, factory):
+        &quot;&quot;&quot;Admit or reject NOW, synchronously. `factory` is a zero-arg callable returning an
+        awaitable — not an awaitable, so nothing is created for a job that gets rejected.
+
+        Returns an asyncio.Task. Raises asyncio.QueueFull when the pool and its queue are both
+        full; that exception is the backpressure the producer is supposed to react to.&quot;&quot;&quot;
+        self._slots.put_nowait(None)  # raises asyncio.QueueFull — the whole point of the drill
+        return asyncio.get_running_loop().create_task(self._run_admitted(factory))
+
+    async def _run_admitted(self, factory):
+        try:
+            async with self._sem:
+                self.active += 1
+                self.peak_active = max(self.peak_active, self.active)
+                try:
+                    return await factory()
+                finally:
+                    self.active -= 1
+        finally:
+            self._slots.get_nowait()  # free the admission slot even if the job raised
+
+    async def run(self, factory):
+        &quot;&quot;&quot;Convenience: submit and await. Still rejects synchronously on a full queue.&quot;&quot;&quot;
+        return await self.submit(factory)
+
+
+async def map_limit(items, limit, fn):
+    &quot;&quot;&quot;Apply async `fn(item, index)` to every item with at most `limit` in flight.
+
+    Results keep INPUT order regardless of completion order — the property people get wrong by
+    appending to a list from inside the workers.&quot;&quot;&quot;
+    items = list(items)
+    results = [None] * len(items)
+    sem = asyncio.Semaphore(limit)
+
+    async def one(index, item):
+        async with sem:
+            results[index] = await fn(item, index)
+
+    await asyncio.gather(*(one(i, item) for i, item in enumerate(items)))
+    return results
+    # Worth saying: gather still materialises one coroutine per item up front, so this is fine for
+    # thousands and wrong for millions. At that size you want BoundedPool fed from an iterator, so
+    # the items themselves are also bounded — not just the concurrency.
+</code></pre></details>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>Drill 3 · Invalidation coalescing</summary>
+        <div class="drill-body single"><div class="stack">
+          <p>Many writes, one notification, carrying the latest value. Measure the window <b>from the first dirty key</b>, not the most recent — a debounce restarts its timer on every event, so the hottest key never flushes at all. Add a max-batch early flush so a burst is not also slow. Pure core, time passed in as an argument: no fake timers, and no event loop needed to test it.</p>
+          <details class="solution"><summary>Skeleton · target ≈12 min</summary><pre class="code"><code># The shape: a burst of invalidations arrives for the same key and you want ONE downstream effect
+# carrying the LATEST value — a cache refresh, an SSE push, a re-embedding job. Doing the work per
+# event is how a hot key takes the system down.
+#
+# The mistake is reaching for a debounce, which restarts the timer on every event. Under a key that
+# is re-marked continuously, a debounce NEVER fires: the thing most in need of a refresh is the one
+# that never gets one. Measuring the window from the FIRST dirty mark instead gives a latency bound
+# no traffic pattern can break, which is the property to state out loud.
+#
+# Pure core, time passed in. No event loop, no fake timers, no sleeping tests.
+
+Due = namedtuple(&quot;Due&quot;, &quot;key value hits first_ms&quot;)
+
+
+class Coalescer:
+    def __init__(self, window_ms, max_dirty=None):
+        if window_ms &lt; 0:
+            raise ValueError(&quot;window_ms must be &gt;= 0&quot;)
+        if max_dirty is not None and max_dirty &lt; 1:
+            raise ValueError(&quot;max_dirty must be &gt;= 1&quot;)
+        self.window_ms = window_ms
+        self.max_dirty = max_dirty
+        self._dirty = {}  # key -&gt; [first_ms, hits, value]
+
+    @property
+    def dirty_count(self):
+        return len(self._dirty)
+
+    def mark(self, key, now_ms, value=None):
+        &quot;&quot;&quot;Record that `key` changed. The newest value wins; the FIRST timestamp is kept.&quot;&quot;&quot;
+        # implement this — the contract is in the docstring above
+        raise NotImplementedError(&quot;not implemented&quot;)
+
+    def drain(self, now_ms):
+        &quot;&quot;&quot;Return and clear every key whose window has elapsed (or all of them, if at max_dirty).&quot;&quot;&quot;
+        # implement this — the contract is in the docstring above
+        raise NotImplementedError(&quot;not implemented&quot;)
+
+    def next_due_ms(self, now_ms):
+        &quot;&quot;&quot;Milliseconds until the next drain is worth calling; 0 if now, None if nothing is dirty.
+
+        This is what a real shell feeds to loop.call_later — one rearmed timer handle, not one
+        timer per key.&quot;&quot;&quot;
+        # implement this — the contract is in the docstring above
+        raise NotImplementedError(&quot;not implemented&quot;)
+</code></pre></details>
+          <details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># The shape: a burst of invalidations arrives for the same key and you want ONE downstream effect
+# carrying the LATEST value — a cache refresh, an SSE push, a re-embedding job. Doing the work per
+# event is how a hot key takes the system down.
+#
+# The mistake is reaching for a debounce, which restarts the timer on every event. Under a key that
+# is re-marked continuously, a debounce NEVER fires: the thing most in need of a refresh is the one
+# that never gets one. Measuring the window from the FIRST dirty mark instead gives a latency bound
+# no traffic pattern can break, which is the property to state out loud.
+#
+# Pure core, time passed in. No event loop, no fake timers, no sleeping tests.
+
+Due = namedtuple(&quot;Due&quot;, &quot;key value hits first_ms&quot;)
+
+
+class Coalescer:
+    def __init__(self, window_ms, max_dirty=None):
+        if window_ms &lt; 0:
+            raise ValueError(&quot;window_ms must be &gt;= 0&quot;)
+        if max_dirty is not None and max_dirty &lt; 1:
+            raise ValueError(&quot;max_dirty must be &gt;= 1&quot;)
+        self.window_ms = window_ms
+        self.max_dirty = max_dirty
+        self._dirty = {}  # key -&gt; [first_ms, hits, value]
+
+    @property
+    def dirty_count(self):
+        return len(self._dirty)
+
+    def mark(self, key, now_ms, value=None):
+        &quot;&quot;&quot;Record that `key` changed. The newest value wins; the FIRST timestamp is kept.&quot;&quot;&quot;
+        entry = self._dirty.get(key)
+        if entry is None:
+            self._dirty[key] = [now_ms, 1, value]
+        else:
+            entry[1] += 1     # hits
+            entry[2] = value  # last value wins
+            # entry[0] deliberately untouched: the window is anchored to first-dirty
+
+    def drain(self, now_ms):
+        &quot;&quot;&quot;Return and clear every key whose window has elapsed (or all of them, if at max_dirty).&quot;&quot;&quot;
+        at_cap = self.max_dirty is not None and len(self._dirty) &gt;= self.max_dirty
+        due = [Due(key, value, hits, first_ms)
+               for key, (first_ms, hits, value) in self._dirty.items()
+               if at_cap or now_ms - first_ms &gt;= self.window_ms]
+        for item in due:
+            del self._dirty[item.key]
+        return due
+
+    def next_due_ms(self, now_ms):
+        &quot;&quot;&quot;Milliseconds until the next drain is worth calling; 0 if now, None if nothing is dirty.
+
+        This is what a real shell feeds to loop.call_later — one rearmed timer handle, not one
+        timer per key.&quot;&quot;&quot;
+        if not self._dirty:
+            return None
+        if self.max_dirty is not None and len(self._dirty) &gt;= self.max_dirty:
+            return 0  # at cap: flush early, so a burst is not also slow
+        earliest = min(entry[0] for entry in self._dirty.values())
+        return max(0, earliest + self.window_ms - now_ms)
+</code></pre></details>
+        </div></div>
+      </details>
+      <details class="drill">
+        <summary>Drill 4 · Event-loop lag and an honest verdict</summary>
+        <div class="drill-body single"><div class="stack">
+          <p>Percentiles by nearest rank, then a verdict. The finding worth stating: p99 over 100 samples <i>is</i> the sample a single 900&nbsp;ms freeze gets dropped by, so carry a max leg as well as a percentile leg — and return <code>unknown</code> on zero samples, never <code>healthy</code>. The drill proves it both ways, including that <code>statistics.quantiles</code> interpolates and so gives a different answer on the same data until the sample count grows and it loses the freeze too.</p>
+          <details class="solution"><summary>Skeleton · target ≈10 min</summary><pre class="code"><code># Event-loop lag is the honest health metric for a long-lived asyncio process: schedule a callback
+# for T, see when it actually runs. The gap is everything that was hogging the loop — a synchronous
+# CPU burst, a blocking library call someone forgot to run in an executor, a GC pause.
+#
+# The finding this drill exists to teach, and it generalises well past Python: a percentile cannot
+# see a single freeze. Nearest-rank p99 over 100 samples IS the 99th sorted sample, so one 900 ms
+# stall is exactly the sample it discards. A percentile-only monitor reports healthy straight
+# through the outage its users are filing tickets about. So the verdict carries two legs — a
+# percentile for sustained degradation, a max for the freeze — and returns &quot;unknown&quot; on zero
+# samples, never &quot;healthy&quot;. A monitor that cannot distinguish &quot;measured, fine&quot; from &quot;measured
+# nothing&quot; is worse than no monitor, because it is trusted.
+
+LagStats = namedtuple(&quot;LagStats&quot;, &quot;count p50_ms p99_ms max_ms mean_ms&quot;)
+
+
+def _nearest_rank(sorted_values, percentile):
+    &quot;&quot;&quot;Nearest-rank percentile: the smallest value at or above `percentile`% of the data.&quot;&quot;&quot;
+    rank = math.ceil(percentile / 100 * len(sorted_values))
+    return sorted_values[max(1, rank) - 1]
+
+
+def lag_from_samples(samples):
+    &quot;&quot;&quot;`samples` is an iterable of (scheduled_ms, actual_ms). Returns LagStats.
+
+    Negative lag is clamped to 0 — a clock stepping backwards is not a callback arriving early,
+    and letting it through drags the mean down exactly when something is wrong.&quot;&quot;&quot;
+    # implement this — the contract is in the docstring above
+    raise NotImplementedError(&quot;not implemented&quot;)
+
+
+def saturation_verdict(stats, degraded_ms=50, saturated_ms=200, freeze_ms=250):
+    &quot;&quot;&quot;Two legs: a percentile leg for sustained degradation, a max leg for a single freeze.
+
+    Returns &#x27;unknown&#x27; | &#x27;healthy&#x27; | &#x27;degraded&#x27; | &#x27;saturated&#x27;.&quot;&quot;&quot;
+    # implement this — the contract is in the docstring above
+    raise NotImplementedError(&quot;not implemented&quot;)
+
+
+async def measure_lag(interval_ms=5, samples=4):
+    &quot;&quot;&quot;The thin shell: measure a REAL event loop, then hand the numbers to the pure core above.&quot;&quot;&quot;
+    loop = asyncio.get_running_loop()
+    observed = []
+    for _ in range(samples):
+        scheduled = loop.time() * 1000 + interval_ms
+        await asyncio.sleep(interval_ms / 1000)
+        observed.append((scheduled, loop.time() * 1000))
+    return lag_from_samples(observed)
+</code></pre></details>
+          <details class="solution"><summary>Reference solution — open only after your attempt</summary><pre class="code"><code># Event-loop lag is the honest health metric for a long-lived asyncio process: schedule a callback
+# for T, see when it actually runs. The gap is everything that was hogging the loop — a synchronous
+# CPU burst, a blocking library call someone forgot to run in an executor, a GC pause.
+#
+# The finding this drill exists to teach, and it generalises well past Python: a percentile cannot
+# see a single freeze. Nearest-rank p99 over 100 samples IS the 99th sorted sample, so one 900 ms
+# stall is exactly the sample it discards. A percentile-only monitor reports healthy straight
+# through the outage its users are filing tickets about. So the verdict carries two legs — a
+# percentile for sustained degradation, a max for the freeze — and returns &quot;unknown&quot; on zero
+# samples, never &quot;healthy&quot;. A monitor that cannot distinguish &quot;measured, fine&quot; from &quot;measured
+# nothing&quot; is worse than no monitor, because it is trusted.
+
+LagStats = namedtuple(&quot;LagStats&quot;, &quot;count p50_ms p99_ms max_ms mean_ms&quot;)
+
+
+def _nearest_rank(sorted_values, percentile):
+    &quot;&quot;&quot;Nearest-rank percentile: the smallest value at or above `percentile`% of the data.&quot;&quot;&quot;
+    rank = math.ceil(percentile / 100 * len(sorted_values))
+    return sorted_values[max(1, rank) - 1]
+
+
+def lag_from_samples(samples):
+    &quot;&quot;&quot;`samples` is an iterable of (scheduled_ms, actual_ms). Returns LagStats.
+
+    Negative lag is clamped to 0 — a clock stepping backwards is not a callback arriving early,
+    and letting it through drags the mean down exactly when something is wrong.&quot;&quot;&quot;
+    lags = sorted(max(0.0, float(actual) - float(scheduled)) for scheduled, actual in samples)
+    if not lags:
+        # No samples is NOT health. Every field is None so a caller cannot accidentally
+        # compare its way to a healthy verdict.
+        return LagStats(0, None, None, None, None)
+    return LagStats(
+        count=len(lags),
+        p50_ms=_nearest_rank(lags, 50),
+        p99_ms=_nearest_rank(lags, 99),
+        max_ms=lags[-1],
+        mean_ms=sum(lags) / len(lags),
+    )
+
+
+def saturation_verdict(stats, degraded_ms=50, saturated_ms=200, freeze_ms=250):
+    &quot;&quot;&quot;Two legs: a percentile leg for sustained degradation, a max leg for a single freeze.
+
+    Returns &#x27;unknown&#x27; | &#x27;healthy&#x27; | &#x27;degraded&#x27; | &#x27;saturated&#x27;.&quot;&quot;&quot;
+    if stats.count == 0:
+        return &quot;unknown&quot;
+    if stats.max_ms &gt;= freeze_ms:
+        return &quot;saturated&quot;      # the leg a percentile-only monitor does not have
+    if stats.p99_ms &gt;= saturated_ms:
+        return &quot;saturated&quot;
+    if stats.p99_ms &gt;= degraded_ms:
+        return &quot;degraded&quot;
+    return &quot;healthy&quot;
+
+
+async def measure_lag(interval_ms=5, samples=4):
+    &quot;&quot;&quot;The thin shell: measure a REAL event loop, then hand the numbers to the pure core above.&quot;&quot;&quot;
+    loop = asyncio.get_running_loop()
+    observed = []
+    for _ in range(samples):
+        scheduled = loop.time() * 1000 + interval_ms
+        await asyncio.sleep(interval_ms / 1000)
+        observed.append((scheduled, loop.time() * 1000))
+    return lag_from_samples(observed)
+</code></pre></details>
+        </div></div>
+      </details>
+      <p>All four are backed by <b>12 passing checks</b> in <code>micro1-python-solutions.py</code>. The page refuses to build if any of them is red, so nothing here is code you have not seen run.</p>
+    </section>
+
+    <section id="questions">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Questions to ask</p>
+        <h2>What to ask when Zara turns it around</h2>
+      </div>
+      <p>An AI interviewer will ask if you have questions, and the answer is scored. These are ordered — ask the first two if you only get two.</p>
+      <ol class="question-list">
+        <li><span class="rank">01</span><div><p class="say">What does the AI/ML surface actually look like here — are you training models, serving them, or building the platform other people use to do both?</p><p class="small muted">&lsquo;AI/ML Engineer&rsquo; covers all three and they are different jobs. The focus areas lean platform and production, so the answer may well surprise you.</p></div></li>
+        <li><span class="rank">02</span><div><p class="say">Given the focus areas are Python systems, production ownership and security rather than modelling, is this closer to an ML-platform or ML-infrastructure role?</p><p class="small muted">Shows you read the focus list as evidence, which is itself a signal. Ask it early so you can pitch the rest of the interview correctly.</p></div></li>
+        <li><span class="rank">03</span><div><p class="say">What does on-call look like for the ML systems, and who carries it?</p><p class="small muted">Directly feeds the ownership area, and the answer tells you whether ownership is real or aspirational here.</p></div></li>
+        <li><span class="rank">04</span><div><p class="say">How do you handle untrusted input reaching a model — is prompt injection or data isolation something the team has had to design around yet?</p><p class="small muted">Lands squarely in the third focus area and lets you talk about allowlisted capabilities rather than answering in the abstract.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Before you start</p>
+        <h2>The last ten minutes</h2>
+      </div>
+      <ul class="checklist">
+          <li>Laptop, headphones, webcam and microphone tested — not a phone.</li>
+          <li>Screen share ready; notifications off on computer and phone.</li>
+          <li>The free micro1 practice interview taken at least once.</li>
+          <li>Opener said out loud, timed, at ninety seconds or under.</li>
+          <li>Exercise drills run to green at least once, narrating as you type.</li>
+          <li>One concrete system with a real number ready for every focus area.</li>
+          <li>Your own questions written down where you can see them.</li>
+          <li>This page, every AI assistant and every extension closed before you start.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">10 · Sources</p>
+        <h2>Where every claim on this page comes from</h2>
+      </div>
+      <ul>
+        <li>Your micro1 recruiter email, 18 Sep 2026 — format, duration, focus areas and deadline.
+          Graded <span class="badge owner">Owner</span> throughout.</li>
+        <li>micro1's own AI interview guide and interview-prep page — the Zara format, the free
+          practice interviews. Graded <span class="badge fact">Fact</span>.</li>
+        <li>&ldquo;Conversational AI interviewing&rdquo;, paper by micro1's CEO and colleagues,
+          April 2025 — what Zara is built to do. <span class="badge fact">Fact</span> as of 2025.</li>
+        <li>aitrainer.work's micro1 guide, Sep 2026 — cites no sources, so tab-tracking, paste
+          blocking and voice-activity cutoff are carried as
+          <span class="badge inference">Low confidence</span>, not fact.</li>
+        <li>Your own work, on the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>. Every number
+          quoted on this page was recounted in the codebase on 18 Sep 2026.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared 18 Sep 2026. Every claim is graded: <span class="badge fact">Fact</span> from a published source, <span class="badge owner">Owner</span> from your recruiter email, <span class="badge inference">Inference</span> reasoned from the role, <span class="badge unknown">Unknown</span> not published. Say nothing in the interview you cannot defend.</p>
+  </footer>
+</div>
+</body>
+</html>

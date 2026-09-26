@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Rackspace FDE Screen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+  :root {
+    --paper:      #F4F4F5;
+    --surface:    #FAFAFA;
+    --ink:        #1A1A1D;
+    --ink-soft:   #3F4045;
+    --muted:      #6E7076;
+    --rule:       #DEDEE1;
+    --rule-firm:  #C4C4C9;
+    --accent:     #A81F2D;
+    --accent-ink: #8C1925;
+    --accent-soft:#F7E7E9;
+    --on-accent:  #F4F4F5;
+    --flag:       #8A5A12;
+    --flag-soft:  #F8EFDD;
+
+    --display: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --sans:    "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --serif:   "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    --measure: 68ch;
+    --pad: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #141416;
+      --surface:    #1C1C1F;
+      --ink:        #EAEAEC;
+      --ink-soft:   #C0C0C5;
+      --muted:      #8A8A91;
+      --rule:       #2A2A2E;
+      --rule-firm:  #3C3C42;
+      --accent:     #E8636F;
+      --accent-ink: #F08A94;
+      --accent-soft:#2E1519;
+      --on-accent:  #141416;
+      --flag:       #D9A54A;
+      --flag-soft:  #2E2412;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:      #141416;
+    --surface:    #1C1C1F;
+    --ink:        #EAEAEC;
+    --ink-soft:   #C0C0C5;
+    --muted:      #8A8A91;
+    --rule:       #2A2A2E;
+    --rule-firm:  #3C3C42;
+    --accent:     #E8636F;
+    --accent-ink: #F08A94;
+    --accent-soft:#2E1519;
+    --on-accent:  #141416;
+    --flag:       #D9A54A;
+    --flag-soft:  #2E2412;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 60rem; margin: 0 auto; padding: var(--pad) var(--pad) 5rem; }
+
+  h1, h2, h3, h4 { text-wrap: balance; margin: 0; font-family: var(--display); }
+  p { margin: 0; }
+  a { color: var(--accent-ink); text-underline-offset: 0.18em; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  strong { font-weight: 600; color: var(--ink); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .masthead {
+    display: flex; flex-direction: column; gap: 1.25rem;
+    padding-bottom: 1.75rem; border-bottom: 3px solid var(--accent);
+  }
+
+  .masthead h1 {
+    font-size: clamp(2.1rem, 5.5vw, 3.1rem);
+    font-weight: 700; line-height: 1.04; letter-spacing: -0.02em;
+    margin-top: 0.4rem;
+  }
+
+  .masthead .sub {
+    font-family: var(--serif); font-size: 1.15rem;
+    color: var(--ink-soft); font-style: italic;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
+
+  .chip {
+    font-family: var(--mono); font-size: 0.71rem; letter-spacing: 0.05em;
+    color: var(--ink-soft); border: 1px solid var(--rule-firm);
+    padding: 0.3rem 0.6rem; white-space: nowrap;
+  }
+
+  .chip.hot { color: var(--accent-ink); border-color: var(--accent); background: var(--accent-soft); }
+
+  section { margin-top: 3.75rem; }
+
+  .sec-head {
+    display: flex; align-items: baseline; gap: 1rem;
+    padding-bottom: 0.8rem; border-bottom: 1px solid var(--rule-firm);
+    margin-bottom: 1.75rem;
+  }
+
+  .sec-head h2 {
+    font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+    font-weight: 700; letter-spacing: -0.015em; line-height: 1.15;
+  }
+
+  .sec-head .eyebrow { margin-left: auto; white-space: nowrap; }
+
+  .lede { max-width: var(--measure); color: var(--ink-soft); margin-bottom: 1.5rem; }
+
+  /* fillable template block */
+  .tmpl {
+    background: var(--surface);
+    border: 1px solid var(--rule-firm);
+    border-left: 3px solid var(--accent);
+    padding: clamp(1.1rem, 3vw, 1.6rem);
+    font-family: var(--mono);
+    font-size: 0.86rem;
+    line-height: 1.75;
+    overflow-x: auto;
+  }
+
+  .tmpl .slot {
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    padding: 0.05em 0.3em;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .tmpl .fieldname { color: var(--ink); font-weight: 500; }
+  .tmpl p { margin: 0; }
+  .tmpl p + p { margin-top: 0.5rem; }
+
+  .tmpl .prose {
+    font-family: var(--serif);
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: normal;
+    max-width: 62ch;
+  }
+
+  /* fork: two options */
+  .fork {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 1px; background: var(--rule-firm);
+    border: 1px solid var(--rule-firm);
+  }
+
+  .fork > div {
+    background: var(--paper); padding: 1.4rem;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+
+  .fork h4 {
+    font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink);
+  }
+
+  .fork p { color: var(--ink-soft); font-size: 0.98rem; }
+  .fork .quote { font-style: italic; color: var(--ink); border-left: 2px solid var(--rule-firm); padding-left: 0.85rem; }
+
+  .flagbox {
+    background: var(--flag-soft); border: 1px solid var(--flag);
+    padding: clamp(1.1rem, 3vw, 1.6rem);
+    display: flex; flex-direction: column; gap: 0.8rem; max-width: 54rem;
+  }
+
+  .flagbox h3 { font-family: var(--display); font-size: 1.15rem; font-weight: 700; color: var(--flag); }
+  .flagbox p { color: var(--ink-soft); }
+
+  .checks { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; max-width: var(--measure); }
+
+  .checks li {
+    padding: 0.85rem 0 0.85rem 1.5rem; border-top: 1px solid var(--rule);
+    position: relative; color: var(--ink-soft);
+  }
+
+  .checks li:first-child { border-top: none; }
+
+  .checks li::before {
+    content: ""; position: absolute; left: 0; top: 1.3rem;
+    width: 0.45rem; height: 0.45rem; background: var(--accent);
+  }
+
+  .checks li strong { color: var(--ink); }
+
+  .endnote {
+    margin-top: 4rem; padding-top: 1.4rem; border-top: 1px solid var(--rule);
+    color: var(--muted); font-size: 0.92rem; max-width: var(--measure);
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin: calc(var(--pad) * -1) -0.4rem 2.25rem;
+    padding: 0.55rem 0.4rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 0.83rem;
+    font-weight: 600;
+  }
+
+  nav.sitenav a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.3rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  nav.sitenav a:hover { color: var(--ink); background: var(--rule); }
+
+  nav.sitenav a[aria-current="page"] {
+    color: var(--on-accent);
+    background: var(--accent);
+  }
+
+  nav.sitenav .sep { flex: 1; }
+</style>
+
+<div class="wrap">
+
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div>
+      <span class="eyebrow">Recruiter screen &middot; reply owed</span>
+      <h1>Rackspace &mdash; Senior Forward&nbsp;Deployed Engineer</h1>
+      <p class="sub">A bulk screening form from Renu. Answer it efficiently; the whole thing turns on one field.</p>
+      <div class="chips">
+        <span class="chip hot">Palantir is the real screen</span>
+        <span class="chip">Up to 25% travel</span>
+        <span class="chip">Resume requested</span>
+        <span class="chip">JD link broken &mdash; ask for it</span>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <h2>Read the email before answering it</h2>
+      <span class="eyebrow">Context</span>
+    </div>
+    <ul class="checks">
+      <li>
+        <strong>It is a mail-merge that failed.</strong> The greeting is literally
+        &ldquo;Hi [Candidate Name]&rdquo;, which means this went to a list. Answer it properly, but
+        do not spend an hour crafting prose that a coordinator will paste into a tracker.
+      </li>
+      <li>
+        <strong>The JD did not attach.</strong> &ldquo;JD: Senior Forward Deployed Engineer - Logo&rdquo;
+        is a broken image, not a link. Asking for it is free, legitimate, and gives you a reason for a
+        reply rather than a one-way form submission.
+      </li>
+      <li>
+        <strong>The field order is the tracker&rsquo;s order.</strong> Answer in exactly the sequence
+        asked, one line each. Do not merge fields, do not editorialise inside the list &mdash; the
+        summary paragraph at the bottom is where the selling happens.
+      </li>
+      <li>
+        <strong>Every number will be diffed against your resume later.</strong> Total experience and the
+        per-skill year counts need to be consistent with each other and with the document you attach.
+        Mismatches are a quiet, common reason a candidate gets dropped without explanation.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>The reply</h2>
+      <span class="eyebrow">Fill the slots</span>
+    </div>
+    <p class="lede">
+      Highlighted slots are facts only you have. The summary paragraph is drafted from the agentic-platform
+      work &mdash; <strong>read it critically and cut anything that overstates</strong>, because you are
+      sending it as your own claim.
+    </p>
+
+    <div class="tmpl">
+      <p><span class="fieldname">Subject:</span> Re: Senior Forward Deployed Engineer &ndash; Rackspace Technology</p>
+      <p>&nbsp;</p>
+      <p>Hi Renu,</p>
+      <p>&nbsp;</p>
+      <p>Thanks for reaching out. Details below.</p>
+      <p>&nbsp;</p>
+      <p><span class="fieldname">Work Authorization:</span> <span class="slot">US Citizen / Green Card / other</span></p>
+      <p><span class="fieldname">Current Location:</span> <span class="slot">City, State</span></p>
+      <p><span class="fieldname">Expected Salary/Compensation:</span> <span class="slot">$X&ndash;$Y base, see note</span></p>
+      <p><span class="fieldname">Notice Period / Availability:</span> <span class="slot">Available immediately</span></p>
+      <p><span class="fieldname">Total Experience:</span> <span class="slot">N</span> years</p>
+      <p><span class="fieldname">Palantir Experience:</span> <span class="slot">see the fork below</span></p>
+      <p><span class="fieldname">Palantir Certification:</span> <span class="slot">None / name it</span></p>
+      <p><span class="fieldname">Customer-facing Experience:</span> <span class="slot">N</span> years &mdash; client delivery, requirements gathering, embedded work</p>
+      <p><span class="fieldname">Python Experience:</span> <span class="slot">N</span> years, production</p>
+      <p><span class="fieldname">Enterprise AI/ML Production Experience:</span> <span class="slot">N</span> years &mdash; systems running in production, not prototypes</p>
+      <p><span class="fieldname">LLM, RAG &amp; Agentic AI Experience:</span> <span class="slot">N</span> years &mdash; production multi-agent orchestration, RAG over mixed corpora, evaluation harnesses</p>
+      <p><span class="fieldname">Vector DB &amp; ETL/ELT Experience:</span> <span class="slot">N</span> years &mdash; <span class="slot">pgvector / other</span>, ETL into a shared Postgres data layer</p>
+      <p><span class="fieldname">Docker/Kubernetes/CI-CD Experience:</span> <span class="slot">N</span> years &mdash; containerised services, automated release gating</p>
+      <p><span class="fieldname">Enterprise Integration Experience:</span> <span class="slot">N</span> years &mdash; REST/API integration across systems of record</p>
+      <p><span class="fieldname">Customer-facing &amp; Solution Architecture Experience:</span> <span class="slot">N</span> years</p>
+      <p><span class="fieldname">Travel:</span> Yes &mdash; comfortable with up to 25%.</p>
+      <p>&nbsp;</p>
+      <p><span class="fieldname">Summary</span></p>
+      <p>&nbsp;</p>
+      <p class="prose">
+        Most of my recent work has been building and operating a production multi-agent AI engineering
+        platform &mdash; on the order of 100 autonomous agents working against a shared codebase, plus the
+        orchestration, coordination and verification layers that makes possible. That covers the agentic and
+        LLM side in depth: multi-agent orchestration and conflict resolution, tool integration across roughly
+        650 MCP tools, retrieval over a mixed corpus, evaluation harnesses with graded acceptance gates, and
+        the production failure modes that actually matter &mdash; where the hard problem is rarely generation
+        and almost always verification. On the platform side: Python and TypeScript, Postgres and vector
+        search, ETL into a shared data layer, containerised services, and CI/CD with automated quality gating.
+      </p>
+      <p>&nbsp;</p>
+      <p class="prose"><span class="slot">One or two sentences on customer-facing delivery</span> &mdash; the closer this sits to &ldquo;embedded with a client, scoped the problem, shipped the thing,&rdquo; the better it maps to an FDE role.</p>
+      <p>&nbsp;</p>
+      <p class="prose">Resume attached. The JD link didn&rsquo;t come through on my end &mdash; could you resend it? I&rsquo;d like to see the specific engagement before we talk.</p>
+      <p>&nbsp;</p>
+      <p>Best,<br>Avi</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>The Palantir field decides this</h2>
+      <span class="eyebrow">Pick one</span>
+    </div>
+    <p class="lede">
+      &ldquo;Forward Deployed Engineer&rdquo; is a Palantir-coined job title. A staffing firm advertising
+      a <em>Senior</em> FDE with a Palantir-certification field is almost certainly standing up a Foundry
+      practice for a client. That one line is the screen; everything else is qualification.
+    </p>
+
+    <div class="fork">
+      <div>
+        <h4>If you have it</h4>
+        <p>
+          Be specific rather than affirmative. Name the platform &mdash; Foundry or Gotham &mdash; the
+          modules you actually touched (Pipeline Builder, Ontology, Workshop, Code Repositories), the
+          duration, and whether you were deployed to a client or working internally.
+        </p>
+        <p class="quote">
+          &ldquo;~2 years on Foundry &mdash; Pipeline Builder and Ontology, deployed onto two client
+          engagements. No formal certification.&rdquo;
+        </p>
+      </div>
+      <div>
+        <h4>If you don&rsquo;t</h4>
+        <p>
+          Say so plainly and pivot in the same breath. FDE practices do hire adjacent backgrounds, because
+          the scarce half of the role is embedded client delivery, not platform syntax. Hedging reads far
+          worse than the gap itself and gets discovered anyway.
+        </p>
+        <p class="quote">
+          &ldquo;No direct Palantir platform experience. My background is the same shape of work &mdash;
+          embedded delivery of production data and AI systems against enterprise systems of record &mdash;
+          and I&rsquo;d expect to ramp on Foundry quickly, but I&rsquo;d rather be straight with you about
+          it than have it surface later.&rdquo;
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>What a Forward Deployed Engineer actually is</h2>
+      <span class="eyebrow">The role shape</span>
+    </div>
+    <p class="lede">
+      Worth knowing before any call, because the title misleads people into preparing as a platform
+      engineer. An FDE is an engineer who is <strong>deployed to the customer</strong> &mdash; physically
+      or virtually embedded with their team &mdash; to make a platform produce a result inside that
+      customer&rsquo;s messy reality. The work is roughly half engineering and half consulting: sit with
+      the client, find out what they actually need as opposed to what the statement of work says, wire
+      the platform into their systems of record, and ship something that survives after you leave.
+    </p>
+    <p class="lede">
+      That is why the screening list pairs Python and Kubernetes with &ldquo;customer-facing&rdquo; twice.
+      The failure mode they are screening against is a strong engineer who cannot sit in a room with a
+      frustrated client. The 25% travel is the tell &mdash; this role goes to the customer.
+    </p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Compensation</h2>
+      <span class="eyebrow">Do not leave it blank</span>
+    </div>
+    <div class="flagbox">
+      <h3>A range with a basis &mdash; not a number, not a dodge</h3>
+      <p>
+        Bulk screens discard non-answers, so &ldquo;negotiable&rdquo; or a blank is a real risk here. But a
+        single number anchors you before you know the scope. The middle path is a range tied to something:
+        <em>&ldquo;Targeting $X&ndash;$Y base depending on scope and travel load.&rdquo;</em>
+      </p>
+      <p>
+        The range has to come from your own current compensation and what you have seen for FDE roles in
+        your market &mdash; it is not a number anyone can pick for you. Note that this is a staffing
+        placement, so the band may be set by the end client&rsquo;s contract rather than by Rackspace, which
+        is another reason to ask for the JD before committing to a figure.
+      </p>
+    </div>
+  </section>
+
+  <p class="endnote">
+    The summary paragraph above is drafted from the agentic-platform work visible in this workspace and is
+    written to be true; it is still an assertion you are making to an employer, so verify every clause
+    against what you can actually evidence in an interview before sending. Everything about the FDE role
+    shape is general industry knowledge, not something Rackspace published &mdash; the actual JD never
+    arrived, which is exactly why the reply asks for it.
+  </p>
+
+</div>
+</body>
+</html>

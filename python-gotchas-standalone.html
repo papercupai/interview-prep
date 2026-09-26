@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Python Gotchas — Timed Code-Review Reference</title>
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 18ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  pre {
+    margin: 0;
+    font-family: var(--f-mono);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    background: var(--surface-alt);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.75rem 0.9rem;
+    overflow-x: auto;
+    tab-size: 4;
+  }
+  pre code { background: none; padding: 0; font-size: 1em; }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.15rem 0.35rem;
+    margin: -3rem -0.6rem 0;
+    padding: 0.7rem 0.6rem;
+    background: color-mix(in srgb, var(--ground) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.74rem;
+  }
+  nav.sitenav a {
+    padding: 0.28rem 0.5rem;
+    border-radius: 3px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    font-weight: 650;
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  header.masthead { display: flex; flex-direction: column; gap: 1.15rem; }
+  header.masthead .lede { font-size: 1.12rem; color: var(--ink-muted); max-width: 62ch; }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.3rem 1.5rem;
+  }
+  nav.toc ol { margin: 0.8rem 0 0; padding: 0; list-style: none; columns: 2; column-gap: 2.5rem; }
+  nav.toc li { break-inside: avoid; margin-bottom: 0.4rem; font-size: 0.95rem; }
+  nav.toc .n {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    margin-right: 0.55rem;
+  }
+  nav.toc a { text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.4rem; scroll-margin-top: 4.5rem; }
+  section > .head { display: flex; flex-direction: column; gap: 0.45rem; }
+
+  .trap {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--rule-strong);
+    border-radius: 0 5px 5px 0;
+    padding: 1.15rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .trap.high { border-left-color: var(--critical); }
+  .trap.med { border-left-color: var(--caution); }
+  .trap .title { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+  .tag {
+    font-family: var(--f-mono);
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 0.14rem 0.42rem;
+    border-radius: 3px;
+    background: var(--surface-alt);
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+  .tag.high { background: var(--critical-soft); color: var(--critical); }
+  .tag.med { background: var(--caution-soft); color: var(--caution); }
+  .say {
+    font-size: 0.93rem;
+    background: var(--info-soft);
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    color: var(--ink);
+  }
+  .say b { font-family: var(--f-display); font-size: 0.72rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--info); display: block; margin-bottom: 0.15rem; }
+
+  .scan {
+    background: var(--accent-soft);
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    padding: 1.4rem 1.6rem;
+  }
+  .scan ol { margin: 0.9rem 0 0; padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .scan li { font-size: 0.96rem; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { text-align: left; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-family: var(--f-display); font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+  td.mono, th.mono { font-family: var(--f-mono); font-size: 0.82rem; }
+
+  @media (max-width: 720px) {
+    nav.toc ol { columns: 1; }
+    nav.sitenav { margin-top: -2rem; }
+  }
+  @media print {
+    nav.sitenav, nav.toc, .skip-link { display: none; }
+    body { background: #fff; }
+  }
+</style>
+
+<a class="skip-link" href="#main">Skip to reference</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <p class="eyebrow">Study reference · code review &amp; timed assessments</p>
+    <h1>Python gotchas that cost you points</h1>
+    <p class="lede">
+      Every one of these produces code that <em>runs</em>, returns a plausible value, and passes a
+      casual read. That is exactly why they show up in review exercises: the grader is testing
+      whether you spot a defect the interpreter will never complain about. Scan for these first,
+      before you start reasoning about the algorithm.
+    </p>
+  </header>
+
+  <div class="scan">
+    <p class="eyebrow">The 60-second scan</p>
+    <h2>Run this checklist over any snippet before you write a word</h2>
+    <ol>
+      <li>Does any parameter default to a <strong>list, dict, or set</strong>? → shared-state bug, every time.</li>
+      <li>Is there a <strong>slice</strong> (<code>[:-1]</code>, <code>[1:]</code>)? → off-by-one; ask what it drops.</li>
+      <li>Does it <strong>mutate</strong> an argument the caller owns? → check the contract for "new list" / "do not modify".</li>
+      <li>Is there an <code>in</code> against a <strong>list</strong> inside a loop? → O(n·m); should be a set.</li>
+      <li>Does the contract say <strong>unique / no duplicates / sorted</strong>? → check that the code enforces it.</li>
+      <li>Does a function <strong>mutate and return</strong>, or return <code>None</code> from <code>.sort()</code>/<code>.append()</code>?</li>
+      <li>Is the container <strong>modified while being iterated</strong>?</li>
+      <li>Are there <strong>falsy-but-valid</strong> inputs (<code>0</code>, <code>""</code>, <code>[]</code>) hitting an <code>or</code> default or a bare <code>if x:</code>?</li>
+    </ol>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Contents</p>
+    <ol>
+      <li><span class="n">01</span><a href="#defaults">Defaults and shared state</a></li>
+      <li><span class="n">02</span><a href="#aliasing">Copying and aliasing</a></li>
+      <li><span class="n">03</span><a href="#identity">Identity, equality, truthiness</a></li>
+      <li><span class="n">04</span><a href="#iteration">Iteration</a></li>
+      <li><span class="n">05</span><a href="#silent">Silent returns and silent success</a></li>
+      <li><span class="n">06</span><a href="#numbers">Numbers</a></li>
+      <li><span class="n">07</span><a href="#complexity">Hidden complexity</a></li>
+      <li><span class="n">08</span><a href="#scope">Scope and exceptions</a></li>
+      <li><span class="n">09</span><a href="#paths">Untrusted paths and traversal</a></li>
+      <li><span class="n">10</span><a href="#phrases">Review phrasing that scores</a></li>
+    </ol>
+  </nav>
+
+  <main id="main" class="stack" style="gap:3.6rem">
+
+    <section id="defaults">
+      <div class="head">
+        <p class="eyebrow">01</p>
+        <h2>Defaults and shared state</h2>
+        <p class="muted">The single most-tested family. All four are the same bug wearing different clothes: a mutable object created <em>once</em> and then shared.</p>
+      </div>
+
+      <div class="trap high">
+        <div class="title"><h3>Mutable default argument</h3><span class="tag high">Critical</span></div>
+        <p>Defaults are evaluated <strong>once, at <code>def</code> time</strong> — not per call. Every call that omits the argument shares the same object.</p>
+<pre><code>def add(item, bucket=[]):      # ⛔
+    bucket.append(item)
+    return bucket
+
+add("a")   # ["a"]
+add("b")   # ["a", "b"]  ← leaked from the previous call
+
+def add(item, bucket=None):    # ✅
+    if bucket is None:
+        bucket = []
+    bucket = [*bucket, item]
+    return bucket</code></pre>
+        <p class="small muted">Use <code>is None</code>, not <code>bucket or []</code> — the latter also discards a caller's legitimate empty list. Immutable defaults (<code>None</code>, numbers, strings, tuples) are always safe in the signature.</p>
+        <div class="say"><b>Say in review</b>Critical — <code>bucket=[]</code> is evaluated once at definition time, so state leaks across calls. Use <code>bucket=None</code> and build the list inside the function.</div>
+      </div>
+
+      <div class="trap high">
+        <div class="title"><h3>Mutable class attribute</h3><span class="tag high">Critical</span></div>
+        <p>The same bug at class scope: one list shared by every instance.</p>
+<pre><code>class Cart:
+    items = []              # ⛔ shared by ALL instances
+    def add(self, x): self.items.append(x)
+
+class Cart:                 # ✅
+    def __init__(self): self.items = []</code></pre>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Dataclass field default</h3><span class="tag med">High</span></div>
+        <p><code>@dataclass</code> raises on a mutable default, so people reach for the wrong escape. The correct one is <code>default_factory</code>.</p>
+<pre><code>@dataclass
+class Job:
+    tags: list = field(default_factory=list)   # ✅ fresh list per instance</code></pre>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Late-binding closures in a loop</h3><span class="tag med">High</span></div>
+        <p>A closure captures the <strong>variable</strong>, not its value at creation time. After the loop ends, every closure sees the final value.</p>
+<pre><code>fns = [lambda: i for i in range(3)]
+[f() for f in fns]                  # [2, 2, 2]  — not [0, 1, 2]
+
+fns = [lambda i=i: i for i in range(3)]   # ✅ bind at definition
+# or: functools.partial(lambda i: i, i)</code></pre>
+      </div>
+    </section>
+
+    <section id="aliasing">
+      <div class="head">
+        <p class="eyebrow">02</p>
+        <h2>Copying and aliasing</h2>
+      </div>
+
+      <div class="trap high">
+        <div class="title"><h3><code>[[0] * 3] * 3</code> makes three references to one row</h3><span class="tag high">Critical</span></div>
+<pre><code>grid = [[0] * 3] * 3     # ⛔
+grid[0][0] = 1
+# [[1,0,0], [1,0,0], [1,0,0]]   — all three rows are the same list
+
+grid = [[0] * 3 for _ in range(3)]   # ✅</code></pre>
+        <p class="small muted">The inner <code>[0] * 3</code> is fine — <code>0</code> is immutable. Only the outer repeat of a <em>mutable</em> element is the bug.</p>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Every builtin copy is shallow</h3><span class="tag med">High</span></div>
+        <p><code>list(a)</code>, <code>a[:]</code>, <code>a.copy()</code>, <code>copy.copy(a)</code> and <code>{**d}</code> all copy exactly one level. Nested containers stay shared.</p>
+<pre><code>b = a[:]            # top level copied
+b[0].append(9)      # ⚠ still mutates a[0]
+b = copy.deepcopy(a)  # ✅ when nesting matters</code></pre>
+        <div class="say"><b>Say in review</b>The copy is shallow, so nested values remain aliased to the caller's data. Either deep-copy or document that nested structures are shared.</div>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>Augmented assignment into a tuple</h3><span class="tag">Trivia</span></div>
+        <p>It both <em>succeeds</em> and <em>raises</em> — the list is mutated, then the tuple assignment fails.</p>
+<pre><code>t = ([1], 2)
+t[0] += [3]     # TypeError … and t is now ([1, 3], 2)</code></pre>
+      </div>
+    </section>
+
+    <section id="identity">
+      <div class="head">
+        <p class="eyebrow">03</p>
+        <h2>Identity, equality, truthiness</h2>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3><code>is</code> vs <code>==</code>, and why <code>is</code> seems to work</h3><span class="tag med">High</span></div>
+        <p>CPython interns small integers (−5…256) and many short strings, so <code>is</code> passes on test data and fails in production.</p>
+<pre><code>a, b = 256, 256;  a is b    # True
+a, b = 257, 257;  a is b    # False  ← same code, different answer</code></pre>
+        <p class="small muted">Use <code>is</code> only for <code>None</code>, <code>True</code>, <code>False</code> and sentinel objects. Use <code>==</code> for values. Also prefer <code>is None</code> over <code>== None</code>: <code>==</code> calls <code>__eq__</code>, which a class can override.</p>
+      </div>
+
+      <div class="trap high">
+        <div class="title"><h3><code>x or default</code> swallows valid falsy values</h3><span class="tag high">Critical</span></div>
+<pre><code>def f(limit=None):
+    limit = limit or 10      # ⛔ f(0) silently becomes 10
+    limit = 10 if limit is None else limit   # ✅</code></pre>
+        <p class="small muted">Falsy-but-valid: <code>0</code>, <code>0.0</code>, <code>""</code>, <code>[]</code>, <code>{}</code>, <code>False</code>. The same trap hides in <code>if not items:</code> when an empty list is a legitimate input.</p>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3><code>if x == 1 or 2:</code> is always true</h3><span class="tag med">High</span></div>
+        <p>Parsed as <code>(x == 1) or (2)</code>, and <code>2</code> is truthy.</p>
+<pre><code>if x == 1 or x == 2:   # ✅
+if x in (1, 2):        # ✅ better</code></pre>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3><code>any([])</code> is False, <code>all([])</code> is True</h3><span class="tag">Edge case</span></div>
+        <p>Vacuous truth. <code>all(...)</code> over an empty collection passes every validation you wrote — a classic empty-input edge case.</p>
+      </div>
+    </section>
+
+    <section id="iteration">
+      <div class="head">
+        <p class="eyebrow">04</p>
+        <h2>Iteration</h2>
+      </div>
+
+      <div class="trap high">
+        <div class="title"><h3>Mutating a list while iterating it</h3><span class="tag high">Critical</span></div>
+        <p>The index advances while the list shrinks, so elements are <strong>silently skipped</strong> — no error.</p>
+<pre><code>for x in items:
+    if bad(x): items.remove(x)     # ⛔ skips the element after each removal
+
+items = [x for x in items if not bad(x)]   # ✅
+for x in list(items): ...                  # ✅ iterate a copy</code></pre>
+        <p class="small muted">A <code>dict</code> or <code>set</code> is stricter: changing its size mid-iteration raises <code>RuntimeError</code>. Lists fail silently, which is worse.</p>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Generators are single-use</h3><span class="tag med">High</span></div>
+<pre><code>g = (x for x in data if ok(x))
+total = sum(g)
+count = len(list(g))     # ⛔ 0 — g is exhausted</code></pre>
+        <p class="small muted">Also: <code>len(g)</code> is a <code>TypeError</code>, and the body doesn't run until you consume it — so exceptions surface at a surprising line.</p>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3><code>zip</code> truncates to the shortest input</h3><span class="tag med">High</span></div>
+        <p>Mismatched lengths lose data with no warning.</p>
+<pre><code>zip(a, b, strict=True)          # ✅ 3.10+, raises on mismatch
+itertools.zip_longest(a, b)     # ✅ pad instead</code></pre>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>Iterating a dict gives keys</h3><span class="tag">Trivia</span></div>
+        <p><code>for k in d</code> and <code>sorted(d)</code> both yield keys. Use <code>d.items()</code> when you want pairs. <code>dict</code> preserves insertion order (guaranteed since 3.7); <code>set</code> does <strong>not</strong> — never rely on set iteration order.</p>
+      </div>
+    </section>
+
+    <section id="silent">
+      <div class="head">
+        <p class="eyebrow">05</p>
+        <h2>Silent returns and silent success</h2>
+        <p class="muted">Operations that return a wrong-but-valid value instead of raising. These are the hardest to spot and the most rewarded to catch.</p>
+      </div>
+
+      <div class="trap high">
+        <div class="title"><h3>In-place methods return <code>None</code></h3><span class="tag high">Critical</span></div>
+<pre><code>x = items.sort()       # ⛔ None
+x = items.append(1)    # ⛔ None
+x = sorted(items)      # ✅ returns a new list</code></pre>
+        <p class="small muted">Same family: <code>reverse()</code>, <code>extend()</code>, <code>update()</code>, <code>add()</code>. Convention: mutating methods return <code>None</code>; builtins that return a value leave the input alone.</p>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Out-of-range <em>slices</em> clamp; out-of-range <em>indexes</em> raise</h3><span class="tag med">High</span></div>
+<pre><code>items = [1, 2]
+items[5]      # IndexError — loud
+items[5:]     # []         — silent
+items[:-1]    # drops the last element, [] when len <= 1</code></pre>
+        <p class="small muted">This is why <code>[:-1]</code> bugs survive testing: on a one-element list they return <code>[]</code> rather than crashing.</p>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3><code>strip()</code> takes a character set, not a suffix</h3><span class="tag med">High</span></div>
+<pre><code>"example.com".strip(".com")    # ⛔ "exa"  — strips any of . c o m
+"example.com".removesuffix(".com")   # ✅ 3.9+</code></pre>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3><code>d.get(k)</code> returns <code>None</code> instead of raising</h3><span class="tag">Medium</span></div>
+        <p>A missing key becomes a <code>None</code> that propagates several frames before failing somewhere unrelated. Use <code>d[k]</code> when the key is required, <code>d.get(k, default)</code> when it isn't — and never bare <code>d.get(k)</code> unless <code>None</code> is genuinely meaningful.</p>
+      </div>
+    </section>
+
+    <section id="numbers">
+      <div class="head">
+        <p class="eyebrow">06</p>
+        <h2>Numbers</h2>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Division and modulo floor toward −∞</h3><span class="tag med">High</span></div>
+        <p>Unlike C, Java, and Go. If you ported the algorithm, the negative branch is wrong.</p>
+<pre><code>-7 // 2     # -4   (C gives -3)
+-7 %  2     #  1   (C gives -1; Python's result takes the divisor's sign)
+int(-7 / 2) # -3   ← truncation, if that's what you meant</code></pre>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Float equality</h3><span class="tag med">High</span></div>
+<pre><code>0.1 + 0.2 == 0.3        # False
+math.isclose(a, b)      # ✅
+Decimal("0.1")          # ✅ for money</code></pre>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>Integers never overflow</h3><span class="tag">Worth saying</span></div>
+        <p>Python ints are arbitrary precision, so overflow bugs ported from other languages disappear — but so do the guards. Large-<code>n</code> arithmetic gets <em>slow</em> rather than wrong, which matters in a complexity discussion.</p>
+      </div>
+    </section>
+
+    <section id="complexity">
+      <div class="head">
+        <p class="eyebrow">07</p>
+        <h2>Hidden complexity</h2>
+        <p class="muted">Each of these is correct code with the wrong asymptotics — exactly what the "Complexity" section of a review is for.</p>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Pattern</th><th class="mono">Cost</th><th>Fix</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>x in a_list</code> inside a loop</td><td class="mono">O(n·m)</td><td>Build a <code>set</code> once → O(n + m)</td></tr>
+          <tr><td><code>if x not in result</code> to de-duplicate</td><td class="mono">O(n²)</td><td>A <code>seen</code> set alongside the result list</td></tr>
+          <tr><td><code>s += piece</code> in a loop</td><td class="mono">O(n²)</td><td><code>"".join(parts)</code></td></tr>
+          <tr><td><code>list.pop(0)</code> / <code>insert(0, x)</code></td><td class="mono">O(n) each</td><td><code>collections.deque</code></td></tr>
+          <tr><td><code>list.remove(x)</code> in a loop</td><td class="mono">O(n²)</td><td>Rebuild with a comprehension</td></tr>
+          <tr><td>Re-sorting inside a loop</td><td class="mono">O(n² log n)</td><td>Sort once, or <code>heapq</code></td></tr>
+          <tr><td><code>d.keys()</code> membership in old code</td><td class="mono">O(1) in py3</td><td>Fine — but <code>x in d</code> is clearer</td></tr>
+        </tbody>
+      </table>
+
+      <div class="trap">
+        <div class="title"><h3>Name both variables</h3><span class="tag">Phrasing</span></div>
+        <p>Saying "O(n²)" when two collections are involved is imprecise and graders notice. Write <strong>O(n·m) where n = len(items) and m = len(allowed)</strong>, then add "which is O(n²) when the inputs are comparable in size."</p>
+      </div>
+    </section>
+
+    <section id="scope">
+      <div class="head">
+        <p class="eyebrow">08</p>
+        <h2>Scope and exceptions</h2>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Assignment makes a name local for the whole function</h3><span class="tag med">High</span></div>
+<pre><code>count = 0
+def bump():
+    count += 1      # UnboundLocalError — not a read of the global
+def bump():
+    global count; count += 1     # ✅ (or nonlocal in a closure)</code></pre>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Bare <code>except:</code> catches control-flow exceptions</h3><span class="tag med">High</span></div>
+        <p><code>except:</code> swallows <code>KeyboardInterrupt</code> and <code>SystemExit</code>; <code>except Exception:</code> does not. Neither should be silent.</p>
+<pre><code>try: ...
+except:        pass    # ⛔ un-killable, un-debuggable
+except Exception as e: log.exception(e); raise   # ✅</code></pre>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3><code>return</code> in <code>finally</code> discards the exception</h3><span class="tag">Medium</span></div>
+        <p>A <code>return</code> or <code>break</code> inside <code>finally</code> silently replaces an in-flight exception, so the failure never surfaces.</p>
+      </div>
+    </section>
+
+    <section id="paths">
+      <div class="head">
+        <p class="eyebrow">09</p>
+        <h2>Untrusted paths and traversal</h2>
+        <p class="muted">A path that came from a request is hostile until it has been resolved. Python gives you primitives for this and never a one-call helper &mdash; knowing that is itself the answer.</p>
+      </div>
+
+      <div class="trap high">
+        <div class="title"><h3>Two independent holes, and they get conflated</h3><span class="tag high">Critical</span></div>
+        <p>Containment checks fail in two unrelated ways. Most wrong answers close one and believe they closed both.</p>
+        <table>
+          <tbody>
+            <tr><td></td><td><strong><code>..</code> escape</strong></td><td><strong>sibling dir</strong></td></tr>
+            <tr><td><code>startswith(root)</code></td><td>passes</td><td>passes</td></tr>
+            <tr><td><code>startswith(root + os.sep)</code></td><td>passes</td><td>rejected</td></tr>
+            <tr><td><code>is_relative_to(root)</code>, no resolve</td><td><strong>passes</strong></td><td>rejected</td></tr>
+            <tr><td><code>resolve()</code> <strong>+</strong> either</td><td>rejected</td><td>rejected</td></tr>
+          </tbody>
+        </table>
+        <p class="small">Row three is the one that surprises people. <code>is_relative_to</code> is a <em>lexical</em> check over path components, and pathlib deliberately does not collapse <code>..</code> &mdash; with symlinks in play, <code>a/b/..</code> is not necessarily <code>a</code>. On its own it is no safer against traversal than <code>startswith</code>; it only closes the sibling-directory hole.</p>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3><code>resolve()</code> is the load-bearing step, not the comparison</h3></div>
+        <p>Once both sides are resolved, <em>every</em> comparison form is correct &mdash; including a prefix check. Without it, none of them are.</p>
+        <pre><code>from pathlib import Path
+
+LOG_ROOT = Path("/var/log/app").resolve()
+
+def _validated(path):
+    resolved = Path(path).resolve()               # normalise .., absolutise,
+                                                  # AND follow symlinks
+    if not resolved.is_relative_to(LOG_ROOT):     # py3.9+
+        raise ValueError(f"path escapes {LOG_ROOT}: {path!r}")
+    return resolved</code></pre>
+        <p class="small">Three jobs in one call: collapses <code>..</code>; makes relative input absolute; and <strong>follows symlinks</strong>, which kills a symlink planted <em>inside</em> the allowed directory. No lexical check can see that third one &mdash; it is the real argument for resolving over string work. <code>strict=False</code> is the default, so a nonexistent path still resolves and you validate before opening.</p>
+        <p class="small muted">Pre-3.9: <code>resolved.relative_to(root)</code> in a try/except, or <code>os.path.commonpath([realpath(p), root]) == root</code>.</p>
+      </div>
+
+      <div class="trap high">
+        <div class="title"><h3><code>commonprefix</code> is not <code>commonpath</code></h3><span class="tag high">Critical</span></div>
+        <p>They differ by four characters, both live in <code>os.path</code>, and one of them is a security bug. <code>commonprefix</code> is a <em>string</em> function, and it fails open:</p>
+        <pre><code>commonprefix(['/var/log/app-secrets/x', '/var/log/app'])  ->  '/var/log/app'   # == root: PASSES
+commonpath  (['/var/log/app-secrets/x', '/var/log/app'])  ->  '/var/log'       # != root: rejected</code></pre>
+        <p class="small">The insecure one returns a value equal to your root, so the equality check succeeds and the traversal goes straight through.</p>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Joining to a trusted root does not contain it</h3><span class="tag med">Costly</span></div>
+        <p>The reflex fix &mdash; &ldquo;just join it under the root&rdquo; &mdash; silently discards the root when the untrusted side is absolute:</p>
+        <pre><code>Path('/var/log/app') / '/etc/passwd'         ->  /etc/passwd
+os.path.join('/var/log/app', '/etc/passwd') ->  /etc/passwd</code></pre>
+        <p class="small">True in both <code>pathlib</code> and <code>os.path</code>. Validate the component first &mdash; or better, do not accept a path at all. Take a <em>name</em>, allowlist it, and build the path yourself so traversal is unrepresentable:</p>
+        <pre><code>if not re.fullmatch(r"[A-Za-z0-9._-]+", name) or name in (".", ".."):
+    raise ValueError(f"bad log name: {name!r}")
+target = LOG_ROOT / name        # no separators possible</code></pre>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>There is no stdlib helper &mdash; and saying so is the right answer</h3><span class="tag">Interview</span></div>
+        <p>Python ships no general &ldquo;is this path contained in that root&rdquo; function. It gives you two columns that you compose:</p>
+        <table>
+          <tbody>
+            <tr><td><strong>normalise</strong></td><td><code>Path.resolve</code> &middot; <code>os.path.realpath</code> &middot; <code>abspath</code> &middot; <code>normpath</code></td></tr>
+            <tr><td><strong>compare</strong></td><td><code>Path.is_relative_to</code> &middot; <code>relative_to</code> &middot; <code>os.path.commonpath</code></td></tr>
+          </tbody>
+        </table>
+        <p class="small">&#9888; <code>abspath</code> and <code>normpath</code> sit in the normalise column but are <strong>not</strong> substitutes for <code>realpath</code>: they collapse <code>..</code> lexically and do not follow symlinks. Swapping one in is a real downgrade.</p>
+        <p class="small">The stdlib <em>does</em> ship traversal defence &mdash; but only at specific dangerous operations, never as a general predicate: <code>tarfile</code>'s PEP 706 filters (3.12+) with <code>AbsolutePathError</code>, <code>OutsideDestinationError</code> and <code>LinkOutsideDestinationError</code>; <code>zipfile.extract</code> and <code>http.server.translate_path</code> sanitise internally but expose nothing reusable.</p>
+        <div class="say"><b>Say in interview</b>There is no stdlib helper &mdash; the idiom is two calls: resolve, to normalise <code>..</code> and follow symlinks, then <code>is_relative_to</code> or <code>commonpath</code> to check containment. Python only ships traversal defence at the dangerous operation itself, like tarfile's PEP 706 filters, because whether to follow symlinks and whether to fail closed are application policy.</div>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>If you want to show depth: TOCTOU</h3><span class="tag">Depth</span></div>
+        <p class="small">Resolve-then-open has a race: between <code>resolve()</code> and <code>open()</code>, anyone who can write in that directory can swap a component for a symlink. The mitigations are <code>os.open(..., os.O_NOFOLLOW)</code> for the final component, or opening the root once and passing <code>dir_fd=</code> for everything under it. Raise it only if the directory is attacker-writable &mdash; correctly scoping it <em>out</em> of the threat model scores as well as fixing it.</p>
+      </div>
+    </section>
+
+    <section id="phrases">
+      <div class="head">
+        <p class="eyebrow">10</p>
+        <h2>Review phrasing that scores</h2>
+        <p class="muted">Graders reward evidence, not vocabulary. Each finding should name four things.</p>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>The four-part finding</h3></div>
+        <ol class="small" style="margin:0; padding-left:1.2rem; display:flex; flex-direction:column; gap:0.4rem">
+          <li><strong>Severity</strong> — Critical / High / Medium, so the reader can triage.</li>
+          <li><strong>Trigger input</strong> — the concrete value that breaks it, with actual vs expected output.</li>
+          <li><strong>Which clause it violates</strong> — quote the contract. If you can't name the clause, it isn't a finding.</li>
+          <li><strong>The corrected line</strong> — not a paragraph describing it.</li>
+        </ol>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>Recommendation vocabulary</h3></div>
+        <table>
+          <tbody>
+            <tr><td><strong>Accept</strong></td><td>Correct as written. Name the checks you actually ran — never just "LGTM".</td></tr>
+            <tr><td><strong>Accept with changes</strong></td><td>Do not merge yet, but the defects are clear and local to this function. <em>Most review exercises land here.</em></td></tr>
+            <tr><td><strong>Reject</strong></td><td>Wrong algorithm or data model, security / data-loss risk, or several interacting components need redesign. Not "many lines to change".</td></tr>
+          </tbody>
+        </table>
+        <div class="say"><b>The line that does the work</b>"Accept with changes — do not merge until the skipped final element, duplicate handling, and membership complexity are fixed." It states non-mergeable <em>and</em> bounded, in one sentence.</div>
+      </div>
+
+      <div class="trap high">
+        <div class="title"><h3>The hint list names areas to EXAMINE, not bugs to find</h3><span class="tag high">Critical</span></div>
+        <p>A prompt that says <em>&ldquo;look especially for: touching boundaries, empty input, complexity, mutation of caller-owned data&rdquo;</em> is <strong>not</strong> a list of four defects. It is four places the grader wants you to <em>look</em> &mdash; and on a well-designed exercise some of them are <strong>clean on purpose</strong>, to see whether you will manufacture a defect to fill the slot.</p>
+        <p class="small">Measured instance, merge-ranges exercise with exactly that hint list: only <strong>one</strong> of the four areas held a real defect. Empty input returned <code>[]</code> correctly &mdash; a comprehension over an empty list is a no-op, not an error. Caller data was never mutated &mdash; <code>sorted()</code> returns a <em>new</em> list and the merge appends freshly-built ones. Two of the three findings filed were fabrications, and one proposed fix (&ldquo;copy the list before sorting&rdquo;) would have added a redundant allocation to already-correct code.</p>
+        <div class="say"><b>Say in review</b>Empty input: returns <code>[]</code> correctly; the comprehension over an empty list is a no-op. Caller data: not mutated &mdash; <code>sorted()</code> returns a new list and the merge builds fresh ones, so neither the caller's sequence nor its elements are touched. Both named areas check out.</div>
+        <p class="small muted">Stating a clean result <em>explicitly</em> scores. Silence on a named area reads as &ldquo;didn't check&rdquo;; a fabricated finding there reads considerably worse &mdash; it means you cannot tell working code from broken code, which is the whole job.</p>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>Where each observation goes &mdash; the three-way sort</h3><span class="tag">Method</span></div>
+        <p>Noticing more is <strong>never</strong> the problem. Filing it in the wrong section is. Your Correctness list is a claim about what is <em>broken</em>, and every item in it implicitly reads &ldquo;change this before merge&rdquo; &mdash; so a non-defect placed there is a request to change working code. <strong>Route, don't filter:</strong> everything you noticed goes somewhere, and nothing is thrown away.</p>
+        <table>
+          <tbody>
+            <tr><td><strong>A code change, and the contract supports it?</strong></td><td>&rarr; <strong>Correctness finding.</strong> Severity &middot; trigger input &middot; the clause it violates &middot; the corrected line.</td></tr>
+            <tr><td><strong>A code change, but the contract is silent or ambiguous?</strong></td><td>&rarr; <strong>Question for the author.</strong> &ldquo;The contract doesn't specify X; I assumed Y.&rdquo;</td></tr>
+            <tr><td><strong>No change &mdash; you just want credit for having checked?</strong></td><td>&rarr; <strong>Verified clean.</strong> One line naming what you traced.</td></tr>
+          </tbody>
+        </table>
+        <p class="small">Same exercise, identical amount of noticing, routed two ways. <strong>As filed:</strong> 3 correctness findings, 1 real &mdash; precision 33%, and two changes requested to code that already worked. <strong>Routed:</strong> 1 finding, 2 verified-clean notes, 1 question &mdash; precision 100%, one change. The second reads as thorough; the first reads as unable to distinguish working code from broken code.</p>
+        <p class="small muted">Why precision is the thing being graded: a review's entire value is that the reader can <em>act on it without re-deriving it</em>. The moment one item proves false, every other item has to be re-checked &mdash; and the review has added work instead of removing it. One caveat on volume: keep questions to two or three. Fifteen open questions on a ten-line function reads as an inability to prioritise.</p>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>When complexity is a finding &mdash; and when it is just a number</h3><span class="tag">Method</span></div>
+        <p>&ldquo;Complexity&rdquo; appearing in the brief's hint list does <strong>not</strong> mean the complexity is wrong. State it either way; call it a <em>defect</em> only on one of two triggers:</p>
+        <ol>
+          <li><p><strong>The contract states a scale the code cannot survive.</strong> &ldquo;The file may be 10&nbsp;GB&rdquo; turns <code>readlines()</code> from an O(n) observation into a guaranteed crash on the documented input. The scale statement <em>is</em> the trigger input &mdash; the brief handed it to you.</p></li>
+          <li><p><strong>The complexity class itself is wrong.</strong> An accidental O(n&sup2;): <code>list.insert(0, x)</code> in a loop, membership tested against a list instead of a set, <code>+=</code> on a string in a loop. A different curve is a defect at any scale.</p></li>
+        </ol>
+        <p class="small">Neither trigger fires on a <em>constant factor</em>. A rewrite that cuts peak memory by a third while both versions stay O(n) is an optimisation, and recommending it with no stated performance requirement is premature &mdash; the same false-positive family as inventing a correctness bug, just quieter.</p>
+        <div class="say"><b>Say in review</b>Time O(n log n), dominated by the sort &mdash; optimal for this problem. Space O(n), unavoidable given the output size. Both appropriate; no change recommended. Minor note, <em>not</em> a recommendation: the intermediate list-of-lists plus the final tuple conversion keeps two full structures alive at once, roughly 1.5&times; the necessary peak. Not worth changing absent a stated scale.</div>
+        <p class="small muted">That closing clause is the senior signal &mdash; it proves you traced the allocations <em>and</em> that you know not to act on it. Knowing an optimisation exists and declining it scores higher than either missing it or demanding it.</p>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>Don't invent defects</h3><span class="tag med">Costly</span></div>
+        <p>A false positive costs more than a missed nitpick — it signals you can't distinguish a contract violation from a style preference. If the contract says "normalized" and the code calls <code>.strip().lower()</code>, that is the <em>requirement being met</em>, not a defect. When the code is correct, say so with evidence:</p>
+        <p class="small muted">"No actionable correctness issues found. I traced the loop bounds and checked <code>[]</code>, <code>[x]</code>, duplicates, and the final-element case. Complexity is O(n) time and O(n) space, appropriate for the stated constraints. Recommend Accept."</p>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>Complexity vs edge cases — they don't overlap</h3></div>
+        <p class="small">Ask which question you're answering. <strong>"How long / how much memory as input grows?"</strong> → Complexity. <strong>"What result does it give for this specific unusual input?"</strong> → Edge cases. Large-input performance is complexity; a one-element list returning the wrong value is an edge case, even though both involve size.</p>
+      </div>
+      <div class="trap">
+        <div class="title"><h3>Every finding gets a fix; every fix traces to a finding</h3><span class="tag">Structure</span></div>
+        <p>Count them before you submit. Two findings and three fixes means at least one is untethered &mdash; either you fixed something you never reported (reads as guessing) or you reported something you have no fix for (reads as an unfinished review). Number the findings and reference the numbers in the recommendation.</p>
+        <div class="say"><b>Say in review</b>Accept with changes &mdash; (1) compare the level field exactly, (2) stream the file. Finding (3), the path check, is a question for the contract rather than a code change.</div>
+      </div>
+
+      <div class="trap med">
+        <div class="title"><h3>A fix that swallows the failure is worse than the failure</h3><span class="tag med">Costly</span></div>
+        <p>&ldquo;Wrap it in try/except&rdquo; is not a recommendation until you say what the <code>except</code> does &mdash; and the obvious implementation usually destroys information:</p>
+        <pre><code>try:
+    ...
+except FileNotFoundError:
+    return 0          # "the log is missing" now reports "zero errors"</code></pre>
+        <p class="small">An exception propagating out of <code>open()</code> is <em>defensible current behaviour</em> when the contract is silent. Report the silence; do not patch over it with a value that makes a missing input indistinguishable from a clean one.</p>
+        <div class="say"><b>Say in review</b>Missing file: <code>FileNotFoundError</code> propagates. The contract does not specify this case. Failing loudly is reasonable; returning 0 instead would make a missing log indistinguishable from a clean one, so that has to be an explicit decision.</div>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>State the complexity you are recommending, not just the one you found</h3><span class="tag">Phrasing</span></div>
+        <p>Reporting O(n) memory in one section and recommending streaming in another leaves the grader to join them. Join them yourself &mdash; the recommendation is the point of the measurement.</p>
+        <div class="say"><b>Say in review</b>Memory is O(n) because the whole file is materialised, and a log file is precisely the input you should assume is large. Iterating the handle makes it O(1).</div>
+      </div>
+
+      <div class="trap">
+        <div class="title"><h3>Delimited lines: field-exact beats substring, and <code>maxsplit</code> beats regex</h3><span class="tag">Technique</span></div>
+        <p><code>"ERROR" in line</code> is a substring test over the <em>entire</em> line, so a timestamp or message merely containing the word is counted. Compare the field:</p>
+        <pre><code>line.split("|", 2)[1] == "ERROR"</code></pre>
+        <p class="small"><code>maxsplit=2</code> stops after the fields you need, so a <code>|</code> inside the message is left intact &mdash; which removes the usual objection to <code>split</code>. Reach for a regex only when the field structure itself is variable; here it is slower, more fragile and easier to get subtly wrong.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <p class="small muted" style="border-top:1px solid var(--rule); padding-top:1.2rem">
+    Companion to the <a href="turing-ai-eval-coding-agents-standalone.html">Turing AI Eval</a>,
+    <a href="citi-karat-python-interview-standalone.html">Citi Karat</a> and
+    <a href="anthropic-codesignal-assessment-standalone.html">Anthropic CodeSignal</a> prep documents.
+    <a href="#top">Back to top ↑</a>
+  </p>
+</div>
+</body>
+</html>

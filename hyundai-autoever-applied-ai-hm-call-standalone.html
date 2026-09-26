@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Hyundai AutoEver America — Applied AI Hiring-Manager Call</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0C1410; --surface: #131E18; --surface-alt: #1A2921;
+    --ink: #E5EEE9; --ink-muted: #9DADA4; --ink-faint: #708077;
+    --accent: #66C69C; --accent-strong: #8BDCB8; --accent-soft: #17372A;
+    --caution: #D9A43A; --caution-soft: #33290F;
+    --critical: #E0736C; --critical-soft: #3A1E1C;
+    --info: #78B7DE; --info-soft: #172D3B;
+    --rule: #26372E; --rule-strong: #3B5145;
+  }
+  .tag.gap { background: var(--critical-soft); color: var(--critical); }
+  .question-list .rank { display: inline-block; margin-bottom: 0.15rem; }
+  .script .say code { font-size: 0.8em; }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Sr. Software Engineer, Applied AI · Hyundai AutoEver America · hiring-manager call · prepared 8 Sep 2026</p>
+      <h1>Make one hour prove you ship AI that survives production.</h1>
+      <p class="standfirst">A hiring-manager call is not a screen and not a coding round. The manager is answering four private questions—<em>can you do it, have you done it, will you stay, do you want it</em>—and will decide most of them in the first fifteen minutes. This page exists to make three stories land, to handle the four requirements you cannot evidence without flinching, and to leave the last ten minutes for questions only a builder would ask.</p>
+    </div>
+    <aside class="join-card" aria-label="Interview meeting details">
+      <p class="eyebrow">Owner-supplied format</p>
+      <p><strong>One-hour call with the hiring manager.</strong><br><span class="muted">Date, time, and meeting link were not supplied. Add them here when you have them.</span></p>
+      <p><strong class="hot">Conversation, not code.</strong><br><span class="muted">HAEA calls this stage the <em>“First Interview: an hour to share experiences and technical capabilities with the technical staff.”</em> Expect the manager and possibly a technical peer. Start at <a href="#opener">section 04</a>.</span></p>
+      <a class="button" href="https://hyundaiautoeveramerica.applytojob.com/apply/nMevRcxnrH/10850-Sr-Software-Engineer-Applied-AI" target="_blank" rel="noreferrer">Open the posting ↗</a>
+      <p class="small muted">Re-read the posting the morning of the call. Close this page once the call starts.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Interview and role facts">
+    <div class="fact"><dt>Role</dt><dd>Sr. SWE, Applied AI</dd></div>
+    <div class="fact"><dt>Employer</dt><dd>Hyundai AutoEver America</dd></div>
+    <div class="fact"><dt>Location</dt><dd>Irvine, CA</dd></div>
+    <div class="fact"><dt>Format</dt><dd>1-hr hiring-manager call</dd></div>
+    <div class="fact"><dt>Posted range</dt><dd class="hot">$103,170–$158,873</dd></div>
+    <div class="fact"><dt>Bar stated</dt><dd>8+ yrs SWE · 3+ AI/ML</dd></div>
+    <div class="fact"><dt>Date / time</dt><dd class="hot">Not supplied</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Read this first</a></li>
+      <li><span class="n">02</span><a href="#company">What HAEA is</a></li>
+      <li><span class="n">03</span><a href="#thesis">Role thesis</a></li>
+      <li><span class="n">04</span><a href="#opener">Your opener</a></li>
+      <li><span class="n">05</span><a href="#coverage">Coverage map</a></li>
+      <li><span class="n">06</span><a href="#gaps">The four gaps</a></li>
+      <li><span class="n">07</span><a href="#drills">Likely questions</a></li>
+      <li><span class="n">08</span><a href="#why">Why Hyundai AutoEver?</a></li>
+      <li><span class="n">09</span><a href="#questions">Questions for them</a></li>
+      <li><span class="n">10</span><a href="#comp">Compensation + logistics</a></li>
+      <li><span class="n">11</span><a href="#clock">The 60-minute clock</a></li>
+      <li><span class="n">12</span><a href="#checklist">Checklist</a></li>
+      <li><span class="n">13</span><a href="#sources">Sources + confidence</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Read this first</p>
+        <h2>A hiring manager is deciding four things, and only one is technical</h2>
+      </div>
+      <div class="priority-grid">
+        <article class="priority">
+          <span class="num">01 / HAVE YOU DONE IT</span>
+          <h3>Three stories, each with a number</h3>
+          <p>An MCP server with ~650 tools serving ~100 agents; hybrid retrieval over pgvector with a measured failure; an XGBoost model in production. Numbers from the code, never rounded up. See <a href="#opener">the opener</a> and <a href="#drills">the drills</a>.</p>
+        </article>
+        <article class="priority">
+          <span class="num">02 / CAN YOU DO IT HERE</span>
+          <h3>Their stack, honestly mapped</h3>
+          <p>You lead on MCP, agents, RAG, evaluation, and full-stack. You have real gaps on LangGraph-family frameworks, PyTorch, Bedrock/Azure, and Kubernetes. <a href="#gaps">Section 06</a> is the script for saying so without losing the room.</p>
+        </article>
+        <article class="priority">
+          <span class="num">03 / WILL YOU STAY</span>
+          <h3>Why here, specifically</h3>
+          <p>The posted range is below market for the stated bar. The manager knows it. Your <a href="#why">why-HAEA</a> answer has to be about the work—consequential automotive data, a group that ships AI into operations—not about the offer.</p>
+        </article>
+        <article class="priority">
+          <span class="num">04 / DO YOU WANT IT</span>
+          <h3>Questions only a builder asks</h3>
+          <p>What is in production versus PoC, which cloud they actually run, how a prototype gets promoted, who signs off. <a href="#questions">Eight are drafted</a>; ask three.</p>
+        </article>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">What this call is, and is not</p>
+        <p>An hour with the hiring manager is long for a first conversation—expect a real technical discussion, not a résumé walk. It is still a <strong>conversation</strong>: no shared editor, no whiteboard unless they offer one. Depth is demonstrated by specificity, and the fastest way to lose a manager is a framework list where a story with a measured outcome belonged. Glassdoor rates Hyundai AutoEver interviews as moderate difficulty (2.5/5) with roughly a month from first contact to decision; treat that as weak signal, not a format.</p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">HAEA's stated process <span class="badge fact">haeaus.com/careers</span></p>
+          <h3>Five stages, and this call is the third</h3>
+          <ol class="question-list">
+            <li><strong>Recruiter conversation</strong> — “a call to discuss the role.” Done.</li>
+            <li><strong>Hiring-manager résumé review</strong> — “for a potential fit.” Done; you are past the filter.</li>
+            <li><strong>First interview</strong> — “an hour to share experiences and technical capabilities with the technical staff.” <em>This call.</em> The posting frames it as the hiring manager; HAEA's page frames it as technical staff. Prepare for both in the room.</li>
+            <li><strong>Final interview</strong> — “meet Senior Management and determine overall organizational fit.” The next gate; your <a href="#why">why-HAEA</a> answer gets reused there.</li>
+            <li><strong>Offer</strong> — verbal, then written.</li>
+          </ol>
+        </article>
+        <article class="card">
+          <p class="eyebrow">What candidates report <span class="badge inference">Weak signal</span></p>
+          <h3>Almost nothing for this role—read the tells instead</h3>
+          <ul>
+            <li>No public report exists for a US applied-AI or ML interview at HAEA. Glassdoor, Indeed, and Blind pages could not be fetched; search snippets only.</li>
+            <li>US reports: medium difficulty; recruiter-initiated or referral; roughly six weeks for engineer roles, with one outlier complaint of a six-month process for an architect role. Timelines slip—follow up politely and in writing.</li>
+            <li>The reported technical questions are from Hyundai AutoEver's <em>India</em> campus loop—Java streams, Spring Boot dependency injection, annotations, SQL, a CRUD build. Not your format, but a real tell: <strong>this is a Java-and-Spring house.</strong> Expect the platform you integrate with to be Java, and say you are comfortable there.</li>
+            <li>HAEA's own framing of the hour—“experiences and technical capabilities”—means the split is roughly half walk-me-through and half how-would-you. The <a href="#drills">ten drills</a> cover both.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="company">
+      <div class="sec-head">
+        <p class="eyebrow">02 · What HAEA is</p>
+        <h2>The IT arm of Hyundai Motor Group in North America—know the seam it sits on</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">Fact <span class="badge fact">Sourced</span></p>
+          <h3>What the posting and public record say</h3>
+          <ul>
+            <li>Hyundai AutoEver America describes itself as the <em>“IT powerhouse behind Hyundai Motor Corporation”</em>, providing IT services to Hyundai, Kia, Genesis, Hyundai Translead, Hyundai Mobis, Hyundai Capital, and Glovis.</li>
+            <li>HAEA's own site: <strong>2,200+ IT professionals</strong>; <em>“We build the systems that keep vehicles connected, factories running, and enterprises moving”</em>—manufacturing, connected vehicles, and enterprise operations across Hyundai, Kia, and Genesis. Stated values: Challenge, Globality, Client First, Collaboration, Respect for People.</li>
+            <li>HQ at 10550 Talbert Ave., Fountain Valley; data center at 111 Peters Canyon Rd., Irvine—the address behind the posting's location.</li>
+            <li>Headquartered in Fountain Valley, CA; this role is posted for Irvine. Its telematics affiliate has run connected-car services for Hyundai and Kia in North America since 2012—the Bluelink / Kia Connect backend lineage.</li>
+            <li>At group level, Hyundai Motor Group rolled its internal generative-AI platform (H Chat Pro, fronting ChatGPT, Gemini and Claude) to all general employees; by July 2026 it reported 30,000+ active users, about 80% of Hyundai Motor and Kia general staff.</li>
+            <li>Reported AI outcomes across R&amp;D, manufacturing, and service: crash-safety case review time down ~90%, unnecessary production downtime down ~86%, maintenance response time down ~42%.</li>
+            <li>The group has committed USD 26B of US investment from 2025 across four years, with robotics, AI, and autonomy named explicitly, and unveiled an AI-robotics strategy at CES 2026.</li>
+            <li>HAEA's services page names four lines and nothing else: <strong>Manufacturing IT &amp; MES</strong> for Hyundai Alabama, Kia Georgia, the Savannah EV plant and two engine plants (production monitoring, scheduling, supplier broadcast, OCR, tracking; IQIS for defect detection); <strong>Auto Sales &amp; Enterprise IT</strong> (sales and dealer applications, ERP, interactive services, CRM); <strong>Connected Car &amp; Telematics</strong>; <strong>IT Infrastructure &amp; Security</strong>. No AI product appears on it—Applied AI is new to HAEA's public surface, which is consistent with a role that starts at PoC.</li>
+            <li>The parent's generative-AI product, <strong>H Chat</strong>, is a private-cloud, dedicated-network assistant—“no external data storage”—with per-organisation admin policy, Microsoft Teams integration and multi-LLM support (<strong>Azure OpenAI, Gemini, Claude</strong>). Rolled to Hyundai AutoEver staff in 2024 and to Hyundai Motor, Kia and Hyundai Wia in 2025. Its next layer, an <strong>“AI API Hub”</strong>—“an integration framework with internal systems,” text-generation and embedding APIs—is listed as <em>upcoming</em>.</li>
+            <li>Cloud: Hyundai AutoEver became an <strong>AWS Premier Tier</strong> partner at re:Invent 2024, and HAEA holds AWS Solution Provider status for Connected Car Services (CCS) and Customer Channel Integration (CCI); H Chat itself fronts Azure OpenAI. HAEA's sibling req <strong>10214 Sr. AI/ML Engineer</strong> (Fountain Valley) asks for Azure OpenAI, Azure ML Studio, Azure AI Search, SageMaker, TensorFlow/PyTorch/Hugging Face, vector databases and React dashboards—and is <strong>five days on-site</strong>. A <strong>10783 Gen AI Engineer</strong> req is also open: this is a team being built, not a single backfill.</li>
+            <li>Security is a fresh wound. HAEA's network was breached <strong>22 Feb – 2 Mar 2025</strong>, discovered 1 Mar, with employees notified in late October 2025: ~2,000 current and former HAEA / Hyundai Motor America people, names plus SSNs and driver's-licence numbers per filings. HAEA's statement: no consumer data, no HMA customer information, no Bluelink driver data. The “privacy and security review” line in the posting is not boilerplate here.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Inference <span class="badge inference">Not confirmed</span></p>
+          <h3>Where Applied AI probably lands here</h3>
+          <ul>
+            <li><strong>Dealer and service-side RAG</strong> over technical service bulletins, warranty policy, owner manuals, and repair history—the highest-volume document corpus in any automaker's IT org.</li>
+            <li><strong>Connected-car and owner-facing assistants</strong> on the Bluelink / Kia Connect surface, where an action (unlock, remote start, charge schedule) has real-world consequence.</li>
+            <li><strong>Enterprise copilots</strong> over HMG systems of record—finance at Hyundai Capital, logistics at Glovis, parts at Mobis—where the “integrate with enterprise platforms” bullet actually bites.</li>
+            <li><strong>Manufacturing and quality analytics</strong> for the US plants, which is where the group's headline downtime and safety-review numbers came from.</li>
+            <li><strong>The MCP bullet probably maps to the AI API Hub.</strong> Seoul lists an integration framework plus generation and embedding APIs as “upcoming”; a US req that requires “experience implementing MCP … across multi-agent systems” reads like the tool/agent layer for the North American affiliates on top of that platform—or a US-built equivalent beside it. Which one changes the job: inherit a runtime, or build one.</li>
+            <li><strong>Cloud split, probably: Azure for the model, AWS for the vehicle and the dealer.</strong> H Chat and the sibling AI/ML req are Azure OpenAI / Azure AI Search; connected-car and dealer infrastructure is AWS. Expect the LLM endpoint on one cloud and the data on the other—the integration seam is the work. Section 09's cloud question is now a confirmation, not a discovery.</li>
+          </ul>
+          <p class="small muted">HAEA's site confirms the three broad areas—connected vehicles, factories, enterprise operations—but not which AI surfaces sit on them. Ask which it is (<a href="#questions">section 09</a>) rather than asserting it.</p>
+        </article>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">The structural fact to carry into the room</p>
+        <p>HAEA is a <strong>captive IT services company</strong>, not a product company. Its customers are sister companies, its parent is Hyundai AutoEver in Seoul, and much of its roadmap is set by what those affiliates ask for. That shapes the job: “Applied AI” here means taking a business unit's request from PoC to governed production inside someone else's platform, on their timeline, with their security review. It is closer to forward-deployed engineering inside one conglomerate than to an AI lab. Say that back to the manager and you will sound like someone who has read the org, not the brochure.</p>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">What the candidate-report sites say—search-layer only; the pages themselves are bot-walled</p>
+        <p><strong>Indeed, HAEA (US, ~11 respondents):</strong> a three-step process; most called the difficulty <em>medium</em>; the modal wait from interview to offer was about a week, then two weeks; interviews came mostly from <em>“recruiter contacted me,”</em> then employee referral; respondents' experience clustered at 3–5 years, then 8+; one report put start-to-finish at 75–90 days. <strong>Glassdoor, Hyundai AutoEver global (17 interviews):</strong> 35% positive, difficulty 2.5 of 5, 33 days on average, software-engineer loops rated hardest. <strong>Comparably, HAEA (small sample):</strong> 60% called the process negative. The only AI-specific data point is a Glassdoor question from an SAP developer asking whether proof-of-concept agent work would count toward an “AI developer” transition—so the field you are measured against includes internal transfers with PoC-level experience, and your production numbers are the differentiator. Every reported <em>technical</em> question is from the India campus loop (Java streams, Spring DI, SQL, a CRUD build)—a Java/Spring house; say you are comfortable integrating with it.</p>
+        <p class="small muted">Glassdoor, Indeed, Blind, Comparably and Dataford all serve a Cloudflare human-check to fetchers; the figures above come from search snippets of those pages, fetched 8 Sep 2026. If you want the threads themselves, open them in your own browser—they render fine logged in.</p>
+      </div>
+    </section>
+
+    <section id="thesis">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Role thesis</p>
+        <h2>What they are actually hiring</h2>
+      </div>
+      <div class="note">
+        <p class="eyebrow">The one-sentence read</p>
+        <p><strong>An applied-AI generalist who can take an LLM, RAG, or agent idea from prototype to a governed production system inside a large enterprise IT organization—and build the React front end and the cloud backend around it without a handoff.</strong></p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>How the posting weights itself</h3>
+          <ul>
+            <li><strong>~40% LLM / RAG / agents</strong> — four of the five responsibilities and half the qualifications.</li>
+            <li><strong>~25% full-stack and cloud</strong> — React, microservice APIs, Docker, Kubernetes, AWS or Azure AI platforms.</li>
+            <li><strong>~20% ML engineering</strong> — PyTorch or TensorFlow, Hugging Face, model evaluation, MLOps.</li>
+            <li><strong>~15% governance</strong> — privacy, security, and “ensure solutions meet standards,” which in an automotive IT org is a gate, not a paragraph.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Two tells in the qualifications</h3>
+          <ul>
+            <li><strong>“Experience implementing the Model Context Protocol”</strong> is unusual to see written down. It is the rarest bullet on the list and the one you can evidence most deeply—<a href="#coverage">lead with it</a>.</li>
+            <li><strong>Both AWS (SageMaker/Bedrock) and Azure (OpenAI/AI Foundry)</strong> are named. Either they run both, or they have not standardized. Either way it is a question worth asking, because the answer tells you what you would actually be building on.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">Level calibration</p>
+        <p>The title says Senior and the bar says eight years, but the posted range tops out at $158,873 in Orange County. That is a mid-senior band at a captive IT subsidiary, not a FAANG senior band. Calibrate your stories to <em>ownership and shipping</em>, not to Staff-level architecture theater—the manager needs someone who will build the thing, and the runtime-design material from the ServiceNow prep should appear only when a question invites it.</p>
+      </div>
+    </section>
+
+    <section id="opener">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Your opener</p>
+        <h2>Sixty seconds that earn the technical conversation</h2>
+      </div>
+      <div class="script short">
+        <p class="eyebrow">Draft — every claim below is checkable in the code</p>
+        <p class="say">I build the infrastructure that makes AI systems dependable in production rather than just impressive in a demo. Most recently that has been a platform for running about a hundred AI coding agents on one codebase: the agents talk to it over the Model Context Protocol—I built the server side, roughly 650 tools for coordination, work tracking, locks, scheduling, and release—on Postgres with pgvector for retrieval, a React operator UI, and a background engine that runs the release gate and deploys green several times an hour. The part I care about most is verification: an agent's “done” needs evidence or it gets reopened, and the grader can't be the author. Before that I shipped a classical model—an XGBoost pricing regressor serving live traffic from a Python sidecar behind a Node service on GCE. What draws me to this role is the combination: LLM and RAG work that has to clear real governance, inside an organization that has already put AI into operations at scale, with the expectation that the engineer builds the whole thing end to end.</p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">Then prove it</p>
+          <h3>Have three stories ready, in this order</h3>
+          <ul>
+            <li><strong>Interfaces for LLM agents</strong> (Answer Bank N6) — the 1,500 / 1,600-character tool-description budget, results bounded at the source, refusals that teach. This is the MCP story.</li>
+            <li><strong>The embedding-space incident</strong> — three embedding spaces at the same 384 dimensions, a preference flip silently desynchronised stored vectors from query vectors, and searching for a row's own exact text ranked it #6,574 of 8,383. This is the RAG story, and it is better than any Pinecone anecdote.</li>
+            <li><strong>Evaluation with independence</strong> (Q8) — evidence-gated completion, the grader-lineage refusal, 141 scenario tests, a pre-registered SWE-bench Pro subset. This is the “model evaluation” story.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Avoid</p>
+          <h3>What loses a hiring manager</h3>
+          <ul>
+            <li>Leading with framework names you have not shipped with.</li>
+            <li>Describing papercusp's architecture for four minutes before naming a user problem.</li>
+            <li>Inflating any number. “About a hundred agents,” “roughly 650 tools,” “920 migrations”—say the real figure and let them probe.</li>
+            <li>Claiming automotive domain knowledge. You have none; say you would learn it from them.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="coverage">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Coverage map</p>
+        <h2>Every requirement, what you can point to, and an honest tag</h2>
+      </div>
+      <div class="matrix-wrap" role="region" aria-label="Role coverage matrix" tabindex="0">
+        <table class="matrix">
+          <thead><tr><th scope="col">Posting asks</th><th scope="col">Your evidence — checked against the tree, not recalled</th><th scope="col">Tag</th></tr></thead>
+          <tbody>
+            <tr><td>Model Context Protocol <span class="mono small">“experience implementing”</span></td><td>You built the server, not just a client: <code>sidecar/serve.mjs</code> and <code>mcp-proxy.mjs</code>, ~650 registered tools, hot-reload catalog with a per-tool guidance budget enforced at registration. Consumed by three different agent clients (Claude Code, Codex, an in-house one). Rarest bullet on their list; open with it.</td><td><span class="tag lead">Lead</span></td></tr>
+            <tr><td>Multi-agent orchestration patterns</td><td>~100 concurrent agents on one branch: pull-based claims (<code>FOR UPDATE SKIP LOCKED</code>), pre-write lock hooks with TTL = 3× heartbeat + jitter, a presence oracle, a fleet leader with per-member wake modes. You built the coordination layer LangGraph and CrewAI abstract—know their vocabulary so you can map to it (<a href="#gaps">section 06</a>).</td><td><span class="tag lead">Lead</span></td></tr>
+            <tr><td>Vector DBs + embedding retrieval <span class="mono small">Pinecone · Chroma · FAISS</span></td><td>pgvector with HNSW cosine indexes, three embedding spaces (OpenAI, BGE-small, EmbeddingGemma-300m truncated 768→384 with L2 renormalization), hybrid lexical + semantic fusion with a document-frequency term selector, 36,302 work items embedded. Plus a measured production failure and its fix. Not one of their three named products—argue why Postgres-native retrieval was the right call and name the point at which you would move off it.</td><td><span class="tag lead">Lead</span></td></tr>
+            <tr><td>Prompt engineering · RAG architecture · LLM optimization</td><td>Context as a budget: tool results capped ~1,500 tokens with projection arguments, a one-hour prompt-cache window the fleet paces around, compaction as a designed lifecycle with provenance stamps so a summarized note cannot be promoted into an owner directive. Concrete, measured, unusual.</td><td><span class="tag lead">Lead</span></td></tr>
+            <tr><td>Model evaluation</td><td>Evidence-gated completion, graded rubrics citing code hashes, structural grader independence, 141 behavioral scenario tests across ten agent roles, a pre-registered random subset (50 / 150, seed 42) of the 731-task SWE-bench Pro set.</td><td><span class="tag lead">Lead</span></td></tr>
+            <tr><td>Full-stack <span class="mono small">React · microservices · SQL/NoSQL · Docker</span></td><td>React/Vite operator UI in a Tauri 2 shell, Hono services, Postgres (920 migrations) and MongoDB at storewolf, Node ↔ Python sidecar over stdio, a dozen Dockerfiles and compose stacks. Solid; do not oversell the frontend.</td><td><span class="tag lead">Lead</span></td></tr>
+            <tr><td>Traditional ML <span class="mono small">“predictive models”</span></td><td>storewolf: XGBoost price regressor, sklearn preprocessing, model held in memory in a Python sidecar, trained from SQLite, served to a Node service. Know its three flaws cold (imputer fit at inference, no <code>Pipeline</code>, random split on temporal data)—critiquing your own production code is the strongest possible signal here.</td><td><span class="tag prepare">Prepare</span></td></tr>
+            <tr><td>Cloud AI platforms + MLOps <span class="mono small">SageMaker · Bedrock · Azure OpenAI · Foundry</span></td><td>Reproducible GCE deploys (<code>deploy/provision-gce.sh</code>, Packer) and a release gate that deploys several times an hour—real ops, wrong cloud. No managed AI platform experience. Say so; ask which one they actually run.</td><td><span class="tag gap">Gap</span></td></tr>
+            <tr><td>Agent frameworks <span class="mono small">AutoGen · LangGraph · LlamaIndex · CrewAI · n8n</span></td><td>None shipped. You built the equivalent from primitives, which is a stronger position than it sounds—but only if you can speak their vocabulary (StateGraph, checkpointer, <code>interrupt()</code>, supervisor pattern) fluently. Two evenings of study; see <a href="#gaps">section 06</a>.</td><td><span class="tag gap">Gap</span></td></tr>
+            <tr><td>PyTorch / TensorFlow · Hugging Face</td><td>No production PyTorch. You run Hugging Face-distributed models locally (BGE-small, EmbeddingGemma) and understand embedding spaces at a level most candidates do not. Be candid about the training-loop gap and name what you would reach for first (a GBM) anyway.</td><td><span class="tag gap">Gap</span></td></tr>
+            <tr><td>Kubernetes</td><td>Docker and compose, yes; no K8s. A single-instance system did not need it, and you should say exactly that. Know Deployment / Service / HPA / ConfigMap well enough to hold a conversation.</td><td><span class="tag gap">Gap</span></td></tr>
+            <tr><td>Governance · privacy · security</td><td>One enforced write seam with nine pre-write guards, secret detection at the write path, a size-capped dark-flag registry, a provenance ledger stamping every prompt as human or machine origin, an append-only claims/decisions record. Enterprise-grade thinking without the enterprise. Map it to PII and connected-car data when they ask.</td><td><span class="tag prepare">Prepare</span></td></tr>
+            <tr><td>Cross-functional collaboration</td><td>Your weakest spot, and Q13 in the Answer Bank is the honest reframe: writing for someone who cannot ask a clarifying question, handing reviewers evidence not conclusions, knowing when to ask. At a captive IT subsidiary with a Korean parent, this question <em>will</em> come.</td><td><span class="tag prepare">Prepare</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">Every “Lead” row cites a file or a number that exists in the tree as of 8 Sep 2026. The four “Gap” rows are the ones section 06 handles.</p>
+    </section>
+
+    <section id="gaps">
+      <div class="sec-head">
+        <p class="eyebrow">06 · The four gaps</p>
+        <h2>Say the gap first, then say the thing that is better than the gap</h2>
+      </div>
+      <div class="note crit">
+        <p class="eyebrow">The rule</p>
+        <p>A hiring manager who lists five agent frameworks has met candidates who claim all five. The candidate who says <em>“I have not shipped LangGraph—here is what I built instead, and here is how it maps”</em> is more credible than four of those five, and more hireable than the one who fakes it and gets probed. Never bluff a named tool. Name the gap in one clause, pivot in the next.</p>
+      </div>
+      <details class="drill" open>
+        <summary>Gap 1 — “Hands-on expertise with AutoGen, LangGraph, LlamaIndex, CrewAI, n8n”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>The script</h3>
+            <p class="say">I have not shipped on LangGraph or CrewAI. What I built is the layer they abstract—pull-based work claims, per-file locks, a presence oracle, a supervisor that assigns and wakes workers—from Postgres primitives, because our constraint was a hundred agents on one branch and no framework handled that. I know the LangGraph model well enough to map onto it: their StateGraph is our plan, their checkpointer is our work-item checkpoint, their <code>interrupt()</code> is our owner-gated wall. The difference is where control flow lives—in an authored graph versus in shared state—and I can tell you what each buys. If your team is on LangGraph, I would be productive in it in days, and I would bring an opinion about where its execution model gets in the way.</p>
+          </div>
+          <div class="stack">
+            <h3>Two evenings of study — the vocabulary you must own</h3>
+            <ul>
+              <li><strong>LangGraph:</strong> <code>StateGraph</code>, typed state with reducers, conditional edges, <code>Command</code>, the <code>Send</code> API for fan-out, checkpointers and threads, <code>interrupt()</code> and the replay-before-interrupt caveat, LangGraph Platform vs. the library.</li>
+              <li><strong>AutoGen:</strong> <code>ConversableAgent</code>, GroupChat and speaker selection, the 0.4 actor-model rewrite.</li>
+              <li><strong>CrewAI:</strong> Agents, Tasks, Crews, sequential vs. hierarchical process, Flows.</li>
+              <li><strong>LlamaIndex:</strong> ingestion pipeline, nodes, indices, query engines vs. chat engines, the retriever/postprocessor/synthesizer split.</li>
+              <li><strong>n8n:</strong> a low-code workflow tool with an AI-agent node—know it is a workflow builder, not an orchestration framework, and that its presence suggests business users build some automations themselves.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>Gap 2 — “TensorFlow or PyTorch, the Hugging Face ecosystem”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>The script</h3>
+            <p class="say">My deep-learning work has been at the serving and embedding layer, not the training loop—I run Hugging Face-distributed encoders locally and I have had to reason hard about embedding spaces, dimension truncation and renormalization. I have not trained a PyTorch model for production. For the predictive-model side of this role I would reach for gradient-boosted trees first anyway—that is what I shipped—and I would want to see a real case where a neural model beats that baseline before adding the operational cost. If you have one, I would like to hear what it is.</p>
+          </div>
+          <div class="stack">
+            <h3>Study before the call</h3>
+            <ul>
+              <li>The PyTorch training loop: <code>nn.Module</code>, <code>Dataset</code>/<code>DataLoader</code>, <code>zero_grad → backward → step</code>, <code>.train()</code> vs <code>.eval()</code>, <code>torch.no_grad()</code>.</li>
+              <li>Hugging Face: <code>AutoTokenizer</code>/<code>AutoModel</code>, <code>pipeline()</code>, the <code>Trainer</code> API, PEFT/LoRA at the level of “what it is and when.”</li>
+              <li>Be ready to say why you would fine-tune an embedding model before fine-tuning a generator, for a RAG problem.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>Gap 3 — “AWS SageMaker/Bedrock, Azure OpenAI, or Azure AI Foundry, along with MLOps”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>The script</h3>
+            <p class="say">My cloud work has been on GCP—reproducible GCE provisioning, and a release pipeline that certifies a shared branch and deploys green several times an hour with automatic rollback. I have not built on Bedrock or Azure OpenAI. I understand the shapes—Bedrock as a model gateway with Knowledge Bases and Agents, Azure OpenAI as the enterprise-tenanted OpenAI endpoint, Foundry as the studio around it—and the MLOps concerns are the same ones I have already solved: model artifacts as versioned files, preflight before launch, capacity as a measured signal rather than an assumed one. Which of the two do you actually run? The posting names both.</p>
+          </div>
+          <div class="stack">
+            <h3>Study before the call</h3>
+            <ul>
+              <li><strong>Bedrock:</strong> the Converse API, Knowledge Bases (managed RAG over S3 + a vector store), Bedrock Agents, Guardrails, model access per region.</li>
+              <li><strong>SageMaker:</strong> training jobs, endpoints, Model Registry, Pipelines—enough to say which piece replaces which part of your storewolf sidecar.</li>
+              <li><strong>Azure OpenAI / AI Foundry:</strong> deployments-as-resources, content filters, the Assistants/Agent Service, prompt flow for evaluation.</li>
+              <li>Pick one and read its quickstart end to end so you can describe a concrete flow, not a product page.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>Gap 4 — “Docker, and Kubernetes”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>The script</h3>
+            <p class="say">Docker and compose, extensively—a dozen images across the platform. Not Kubernetes: the system was single-instance by design, and Kubernetes would have been ceremony without a workload to justify it. I know the objects and I know what I would need it for here—horizontal scaling of an inference-facing API, rolling deploys, per-tenant isolation. If the team runs on EKS or AKS I would expect to be shipping into it within the first weeks, and I would want to pair with whoever owns the cluster once rather than guess.</p>
+          </div>
+          <div class="stack">
+            <h3>Study before the call</h3>
+            <ul>
+              <li>Pod, Deployment, Service, Ingress, ConfigMap/Secret, HPA, liveness vs. readiness probes—and what each one would mean for a RAG API.</li>
+              <li>Why a long-lived agent session is awkward on Kubernetes (sticky state, graceful termination, <code>terminationGracePeriodSeconds</code>)—that is a conversation you can lead.</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section id="drills">
+      <div class="sec-head">
+        <p class="eyebrow">07 · Likely questions</p>
+        <h2>What a hiring manager asks in an hour, and the shape of the answer</h2>
+      </div>
+      <details class="drill" open>
+        <summary>1. “Walk me through an AI system you took from prototype to production.”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine — Answer Bank N1, compressed to two minutes</h3>
+            <ul>
+              <li>The problem: many AI agents on one codebase, and making what they do verifiable.</li>
+              <li>The shape: agents as MCP clients, the platform as the server (~650 tools), Postgres underneath, a background engine for sweep-commit, gate, and deploy.</li>
+              <li>The scale, honestly: ~100 agents, 15,271 TS files, 7,786 test files, 920 migrations.</li>
+              <li>What is hard: every rule code review would enforce has to be enforced by the system. Then pick one rule and its incident.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Expect:</strong> “Who uses it?” Say the truth—one operator, alpha, no external users—and that the design target is a team that wants AI-assisted changes to enter a real pipeline with an audit trail. That is exactly HAEA's governance problem, so say so.</p>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>2. “Tell me about a RAG system you built. How did you make it accurate?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine — the embedding-space incident</h3>
+            <ul>
+              <li>Hybrid retrieval: lexical (tsvector with a document-frequency term selector) fused with semantic (pgvector, HNSW cosine) via RRF.</li>
+              <li>Three embedding spaces at the same dimension. A preference flip changed the query embedder but not the stored vectors; nothing errored because both were 384-D.</li>
+              <li>Measured: searching for a row by its own exact text ranked it #6,574 of 8,383. Search silently returned noise.</li>
+              <li>The fix: record which embedder produced each vector, give each space its own table, and make the backfill revisit rows rather than only filling nulls. And the rule: the space is part of the schema, not a runtime preference.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Expect:</strong> “Why Postgres instead of a vector database?” One store, transactional with the data it indexes, no second system to keep consistent, HNSW is good enough at tens of thousands of rows. Name the ceiling honestly: at tens of millions of vectors or multi-region you would evaluate a dedicated store—and you would choose it by its filtering and freshness semantics, not its benchmark.</p>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>3. “How do you evaluate whether an LLM feature is actually good enough to ship?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine — Answer Bank Q8</h3>
+            <ul>
+              <li>The failure mode is not wrong answers, it is confident plausible ones—so “done” must be substantiated, not asserted.</li>
+              <li>Completion requires evidence; a graded rubric against what was built; the grader cannot be the implementer, enforced structurally.</li>
+              <li>Kinds of evidence are distinguished: a citation to code or a test counts (content hash stored); a citation to a document does not.</li>
+              <li>Benchmarks as the probe answer: 141 scenario tests across ten roles; a pre-registered SWE-bench Pro subset so the goalposts cannot move after the run.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Bridge to their world:</strong> for a dealer-facing or owner-facing assistant, name the release rule—a frozen eval set, a hallucination rate with a threshold, a red-team set that must fail closed, and a named owner for the go/no-go. “We monitor it” is not a gate.</p>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>4. “When do you use multiple agents versus one? What orchestration pattern?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>Multiple agents when the work is decomposable and the pieces need isolation—separate context, separate failure domains, separate ownership. Not because it demos well.</li>
+              <li>Name the patterns and where you sit: authored state machines (LangGraph) for known workflows; supervisor/worker for decomposition; a blackboard—shared state, pull-based claims—for open-ended work, which is what you built and why.</li>
+              <li>The cost you pay: coordination overhead, no shared context between workers, and every rule must be enforced by the system because there is no reviewer at that volume.</li>
+              <li>The rule of thumb for an enterprise team: start with one agent and deterministic tools; add a second agent only when you can name the invariant that isolation buys.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Expect:</strong> the follow-up on LangGraph specifically. Use the Gap 1 script; do not improvise a claim of experience.</p>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>5. “How do you handle hallucination in a customer-facing application?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>Separate what the model may <em>say</em> from what the system may <em>do</em>. Anything with consequence—a vehicle command, a warranty determination, a price—goes through a deterministic validator that holds veto power. The model proposes; rules dispose.</li>
+              <li>Grounding: retrieval with provenance, answers that cite, and refusal as a first-class outcome with a measured refusal rate.</li>
+              <li>Bound the surface: tool results capped and projected so the model cannot be handed more than it can use—your ~1,500-token cap and projection arguments.</li>
+              <li>Provenance on inputs: your ledger stamping every prompt as human-typed or machine-injected exists because a summarized note was once promoted into a fabricated instruction. Prompt injection in a document-RAG system is the same failure class.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Automotive specificity:</strong> a wrong answer about a recall, a tow-rating, or a Bluelink remote command is a safety or legal event, not a chat error. Say that unprompted and the manager will hear that you understand why governance is 15% of the posting.</p>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>6. “How do you think about cost and latency for LLM features?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine — Answer Bank N8, compressed</h3>
+            <ul>
+              <li>Capacity is a measured signal, not an assumed one: a probe reads authoritative limit headers on successful responses, not just 429s.</li>
+              <li>Admission is AIMD over measured headroom; routing prefers the same account each turn so the prompt cache stays warm; preflight one canary before launching a fleet.</li>
+              <li>The bug worth telling: two stores of the same truth—a database projection and an in-memory exclusion map—disagreed, and admission sat pinned at four while the controller allowed twenty-four. One action now converges both.</li>
+              <li>Cost per call: bound results at the source, cache stable prefixes, and pace around the cache window instead of waking to keep it warm.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Do not say</strong> “use a smaller model.” Say where the budget goes—retrieval, model, tools, rendering—and what degrades first when demand exceeds capacity.</p>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>7. “Tell me about a time you were wrong.”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine — Answer Bank Q6, and it is your best answer</h3>
+            <ul>
+              <li>Reported a relevance score of 0.03 against a 0.45 threshold as a 99.9% regression. The column stored two different quantities on two code paths; on one the maximum was 0.033. Two scales, one number.</li>
+              <li>The pattern: asserting from a single artifact without reading the thing that wrote it. Three times in one day.</li>
+              <li>The rule: before you report a number, find the code that writes it. The tell: the more damning a finding looks, the likelier you are misreading it.</li>
+              <li>The retraction—immediate, in the written record, because an unretracted finding keeps directing other people's work.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Why it works here:</strong> a captive IT org lives on trust between engineers and business owners. A candidate who has publicly retracted a wrong finding and changed process because of it is safer to hire than one with a clean record.</p>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>8. “How do you work with non-technical stakeholders? With teams in other time zones?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine — Answer Bank Q13, the honest reframe</h3>
+            <ul>
+              <li>Be straight: much of your recent work has been asynchronous, coordinating automated systems rather than a room of engineers—and it forced habits that transfer.</li>
+              <li>Writing for someone who cannot ask a clarifying question: state scope, constraints, and what you have already ruled out, up front.</li>
+              <li>Hand reviewers evidence, not conclusions: “here is the failing case before and after” lets them check you.</li>
+              <li>A handoff is done when pickup is verified, not when it is sent.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>The HAEA-specific angle:</strong> the parent company is in Seoul and the customers are sister companies. Ask how requirements arrive and how decisions get ratified across that seam. Asking is a better signal than claiming experience you do not have.</p>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>9. “Why are you looking? What do you want in your next role?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>You have spent a long stretch building a platform with one user—yourself—and the next step is a system with real users, real governance, and consequences for being wrong.</li>
+              <li>You want the whole loop: the model, the retrieval, the service, the UI, and the conversation with the person who has to trust it.</li>
+              <li>Do not badmouth anything. Do not mention compensation as a driver.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>If they ask about the solo-project risk directly:</strong> answer with the Q13 reframe and the evidence-not-conclusions habit, then ask what collaboration looks like on their team so you can speak to it specifically.</p>
+        </div>
+      </details>
+      <details class="drill" open>
+        <summary>10. “What would you do in your first ninety days?”</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>Days 1–30: learn what is in production, who the users are, what the governance path looks like, and which cloud you are actually on. Ship one small thing through the whole path to learn where it snags.</li>
+              <li>Days 31–60: instrument before changing. Put an eval set and a release rule under whatever LLM feature matters most.</li>
+              <li>Days 61–90: own one PoC-to-production promotion end to end, and write down the path so the next one is faster.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Signal:</strong> “instrument before customizing” and “ship one small thing through the whole path first” are what a manager wants to hear from an applied engineer. Architecture opinions come after.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="why">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Why Hyundai AutoEver?</p>
+        <h2>Make it about the work—and specific enough that it could not be Toyota</h2>
+      </div>
+      <div class="script short">
+        <p class="eyebrow">Concise · about 40 seconds</p>
+        <p class="say">Three reasons. First, the data has consequences. A dealer-service answer, a warranty determination, a connected-car command—being wrong there is not a chat error, and I want to work where the correctness bar is real. Second, the group has already put AI into operations, not just demos—H Chat Pro across most of the workforce, measured reductions in safety-review time and production downtime—which tells me the organization funds this and knows what production looks like. Third, this role expects one engineer to carry an idea from PoC through governance to a React front end and a cloud backend. That is the whole loop, and it is exactly the shape of work I do best.</p>
+      </div>
+      <div class="script long">
+        <p class="eyebrow">Expanded · about 80 seconds</p>
+        <p class="say">I have spent the last stretch building the infrastructure that makes AI systems verifiable—an MCP server with hundreds of tools, retrieval over Postgres, an evaluation layer where “done” requires evidence and the grader cannot be the author. What that work taught me is that the hard part is never the model; it is the governance, the state, and the boundary between what the model may say and what the system may do. Hyundai AutoEver sits exactly on that boundary. It is the IT layer for a set of companies whose data has physical consequence—vehicles, warranties, financing, logistics—and it is inside a group that has already moved AI from pilots into measured operational results. The posting describes an engineer who owns a solution from prototype through privacy and security review to a shipped interface, in an organization where the customers are sister companies with real constraints. That is closer to forward-deployed engineering inside one conglomerate than to a lab, and it is where I think my background produces the most leverage: I bring the runtime and evaluation discipline; I would learn the automotive domain from the people who have it.</p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Use these facts, lightly</h3>
+          <ul>
+            <li>H Chat Pro at 30,000+ users, ~80% of Hyundai Motor and Kia general staff.</li>
+            <li>~90% / ~86% / ~42% reductions in safety-review time, unnecessary downtime, and maintenance response.</li>
+            <li>USD 26B US investment from 2025 with AI and robotics named.</li>
+            <li>A telematics affiliate that has run Bluelink / Kia Connect backends since 2012.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Do not say</h3>
+          <ul>
+            <li>“I've always loved cars.” Irrelevant and everyone says it.</li>
+            <li>Anything about Boston Dynamics or robotics unless they raise it—this is enterprise IT, not the robotics unit.</li>
+            <li>“Hyundai is a leader in AI.” Cite a number instead.</li>
+            <li>Any reason that is about the offer rather than the work.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="questions">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Questions for them</p>
+        <h2>Ask three. Each one should tell you what the job actually is.</h2>
+      </div>
+      <div class="question-grid">
+        <article class="card">
+          <ol class="question-list">
+            <li><span class="rank">Ask first</span><br><strong>“What is in production today versus in PoC—and what was the last thing that made the jump?”</strong> The single most informative question. Their answer tells you the maturity of the practice and whether “production-ready” in the posting is aspiration or fact.</li>
+            <li><span class="rank">Ask second</span><br><strong>“The posting names both AWS Bedrock and Azure OpenAI. Which do you actually run, and is that a choice or a transition?”</strong> Reveals the platform, the politics, and how much of your first month is spent on which quickstart.</li>
+            <li><span class="rank">Ask third</span><br><strong>“Who are the users—dealers, vehicle owners, employees at the affiliates—and who signs off before something reaches them?”</strong> Governance is 15% of the posting; this makes them describe it.</li>
+            <li><strong>“How do requirements arrive from the affiliates and from Seoul, and how does a technical disagreement get ratified?”</strong> The captive-IT question. Asking it shows you understand the org.</li>
+          </ol>
+        </article>
+        <article class="card">
+          <ol class="question-list">
+            <li><strong>“How is the team composed—ML engineers, full-stack, data—and who owns the cloud infrastructure this would run on?”</strong> Tells you whether “full-stack fluency” means occasional or daily.</li>
+            <li><strong>“What is the evaluation bar an LLM feature has to clear, and is it written down?”</strong> You have a worked answer ready if they turn it around.</li>
+            <li><strong>“Does this build on H Chat and the AI API Hub coming out of Seoul, or beside them for the US affiliates?”</strong> Names the parent's platform without being asked. Their answer tells you whether you inherit a runtime or build one—and how much of the MCP work is integration versus invention.</li>
+            <li><strong>“What does the security review for an LLM feature look like now, and who runs it?”</strong> Ask it plainly; do not mention the breach unless they do. It treats governance as engineering, and after 2025 they will have a real answer.</li>
+            <li><strong>“Why is the role open?”</strong> Growth, backfill, or a stalled initiative—each is a different job. Two sibling AI reqs (10214, 10783) are open at once, so “we are standing up the practice” is the likely answer—ask what the practice is meant to own in a year.</li>
+            <li><span class="rank">Close with</span><br><strong>“Six months in, what would make you say this hire went really well?”</strong> A request for the success criteria; restate them back and you have closed the loop.</li>
+          </ol>
+        </article>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">Never ask</p>
+        <p>“What's the culture like,” anything answerable from the careers page, or anything about compensation, remote policy, or PTO on the hiring-manager call. Those belong with the recruiter.</p>
+      </div>
+    </section>
+
+    <section id="comp">
+      <div class="sec-head">
+        <p class="eyebrow">10 · Compensation + logistics</p>
+        <h2>The number on the posting is the fact to plan around</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">Fact <span class="badge fact">Posted</span></p>
+          <h3>What the posting states</h3>
+          <ul>
+            <li>Range: <strong>$103,170 – $158,873</strong>, full time, Irvine, CA.</li>
+            <li>Stated bar: bachelor's or master's, 8+ years engineering, 3+ years AI/ML.</li>
+            <li>Benefits listed: medical/dental, PTO, education assistance, annual merit eligibility.</li>
+            <li>The application asks for work authorization, sponsorship needs, and salary expectations.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Owner decision <span class="badge owner">Yours</span></p>
+          <h3>How to handle it on this call</h3>
+          <ul>
+            <li>Do not negotiate with the hiring manager. If asked for expectations, give a range whose floor is at the top of their band, say it is flexible against level and bonus, and move on.</li>
+            <li>For eight-plus years in Orange County the posted ceiling is below market. Decide before the call whether the work justifies it; do not discover that on the phone.</li>
+            <li>Confirm on-site expectations for Irvine and whether the Fountain Valley HQ is involved. The sibling 10214 AI/ML req is explicitly <strong>five days on-site</strong>; assume this one is too until the recruiter says otherwise.</li>
+            <li>Ask the recruiter—not the manager—about level, bonus structure, and whether the range is firm.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="clock">
+      <div class="sec-head">
+        <p class="eyebrow">11 · The 60-minute clock</p>
+        <h2>Budget the hour so the last ten minutes are yours</h2>
+      </div>
+      <ol class="timeline">
+        <li><div><h3>0:00 – 0:05 · Rapport and their framing</h3><p>Let them describe the team and the role first. Listen for which of the four inferred surfaces in <a href="#company">section 02</a> they name—it re-targets everything after.</p></div></li>
+        <li><div><h3>0:05 – 0:10 · Your opener</h3><p>Sixty seconds, then stop. If they ask a follow-up, you have earned the technical conversation.</p></div></li>
+        <li><div><h3>0:10 – 0:35 · Their questions</h3><p>Two or three deep stories. Lead with MCP/agent interfaces (N6), have the embedding-space incident and the evaluation story ready. Ninety seconds each, then let them pull the thread.</p></div></li>
+        <li><div><h3>0:35 – 0:48 · Technical discussion</h3><p>This is where the gaps surface. Use the <a href="#gaps">section 06</a> scripts verbatim: name the gap, pivot to the thing you built, ask which tool they run.</p></div></li>
+        <li><div><h3>0:48 – 0:57 · Your questions</h3><p>Three from <a href="#questions">section 09</a>—production vs. PoC, which cloud, who signs off. Close with the six-month question.</p></div></li>
+        <li><div><h3>0:57 – 1:00 · Close</h3><p>Restate their success criteria back in one sentence. Ask what the next step is and who owns it. Thank them; stop talking.</p></div></li>
+      </ol>
+      <div class="note">
+        <p class="eyebrow">If the hour runs short</p>
+        <p>Cut the technical-discussion block, never your questions. A manager who did not get to ask everything will schedule a follow-up; a candidate who asked nothing does not get one.</p>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">12 · Checklist</p>
+        <h2>The 48 hours before, and ten minutes before</h2>
+      </div>
+      <ul class="checklist">
+        <li>Re-read Answer Bank N1, N6, N7, N8, Q6, Q8, Q13—the seven cards this page leans on.</li>
+        <li>Re-read the three SQL migration headers (534, 530, 776) so the embedding-space story has its exact numbers.</li>
+        <li>Two evenings on the Gap 1 vocabulary: LangGraph StateGraph, checkpointer, <code>interrupt()</code>; AutoGen; CrewAI; LlamaIndex.</li>
+        <li>One evening on Bedrock Converse + Knowledge Bases, or Azure OpenAI—pick one, read the quickstart end to end.</li>
+        <li>One hour on the PyTorch training loop and Kubernetes objects—enough to converse, not to claim.</li>
+        <li>Re-read storewolf's <code>GradientBoost.py</code> and be able to name its three flaws unprompted.</li>
+        <li>Decide your compensation floor before the call, not during it.</li>
+        <li>Add the date, time, and meeting link to the card at the top of this page.</li>
+        <li>Ten minutes before: opener out loud once; three questions written down; this page closed when the call starts.</li>
+        <li>After: write down what they said is in production, which cloud, and the success criteria—before you forget.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">13 · Sources + confidence</p>
+        <h2>Know what is fact, inference, owner-supplied, or unknown</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Confidence by claim</h3>
+          <ul>
+            <li><span class="badge fact">Fact</span> The posting text, range, location, and qualifications—fetched from the application page on 8 Sep 2026.</li>
+            <li><span class="badge fact">Fact</span> HMG group-level AI figures (H Chat Pro adoption, the ~90/86/42% outcomes, the USD 26B commitment)—Hyundai Motor Group newsroom.</li>
+            <li><span class="badge fact">Fact</span> Every papercusp and storewolf number on this page—checked against the tree on 8 Sep 2026.</li>
+            <li><span class="badge inference">Inference</span> Which applied-AI surfaces HAEA works on (dealer RAG, connected-car assistant, affiliate copilots, manufacturing). Ask; do not assert.</li>
+            <li><span class="badge inference">Inference</span> Level calibration from the posted range. Verify with the recruiter.</li>
+            <li><span class="badge inference">Inference</span> Glassdoor/Indeed/Comparably difficulty, timeline, and the Java-house tell—aggregate, not this role. The pages are bot-walled; the numbers are from search snippets of them (second pass, 8 Sep 2026).</li>
+            <li><span class="badge fact">Fact</span> H Chat's architecture and rollout, HAEA's four service lines, the AWS Premier Tier / SPP status, and the breach timeline—fetched from Hyundai AutoEver's product page, HAEA's services page, the Dec 2024 partner announcement and the Nov 2025 Fox News report.</li>
+            <li><span class="badge inference">Inference</span> That the MCP requirement sits on the AI API Hub, and the Azure-for-models / AWS-for-vehicle split—from the sibling req and the platform pages, not from HAEA. Ask; do not assert.</li>
+            <li><span class="badge fact">Fact</span> HAEA's five-stage process, headcount, and self-description—its own careers page, fetched 8 Sep 2026.</li>
+            <li><span class="badge owner">Owner</span> Format: one-hour hiring-manager call.</li>
+            <li><span class="badge unknown">Unknown</span> Date, time, meeting link, the manager's name, the team's name. Which cloud they run is now an inference (above), not an unknown.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Sources</h3>
+          <ul class="source-list">
+            <li><a href="https://hyundaiautoeveramerica.applytojob.com/apply/nMevRcxnrH/10850-Sr-Software-Engineer-Applied-AI" target="_blank" rel="noreferrer">The posting — 10850 Sr. Software Engineer, Applied AI</a></li>
+            <li><a href="https://www.hyundaimotorgroup.com/en/news/hyundai-motor-group-accelerates-ai-transformation-across-its-business-advancing-toward-the-physical-ai-era" target="_blank" rel="noreferrer">HMG — AI transformation across the business (H Chat Pro, outcome figures)</a></li>
+            <li><a href="https://www.hyundaimotorgroup.com/en/news/hyundai-motor-group-announces-ai-robotics-strategy--to-lead-human-centered-robotics-era-at-ces-2026" target="_blank" rel="noreferrer">HMG — AI robotics strategy, CES 2026 (USD 26B US investment)</a></li>
+            <li><a href="https://www.linkedin.com/company/hyundai-autoever-america" target="_blank" rel="noreferrer">Hyundai AutoEver America — LinkedIn</a></li>
+            <li><a href="https://www.linkedin.com/company/hyundai-autoever-telematics-america-inc-" target="_blank" rel="noreferrer">Hyundai AutoEver Telematics America — LinkedIn (est. 2012)</a></li>
+            <li><a href="https://www.glassdoor.com/Interview/Hyundai-AutoEver-Interview-Questions-E3252012.htm" target="_blank" rel="noreferrer">Glassdoor — Hyundai AutoEver interview reports (weak signal)</a></li>
+            <li><a href="https://www.haeaus.com/careers/" target="_blank" rel="noreferrer">HAEA Careers — the five-stage process, “2,200+ IT professionals,” values</a></li>
+            <li><a href="https://www.indeed.com/cmp/Hyundai-Autoever-America/interviews" target="_blank" rel="noreferrer">Indeed — HAEA interview reports (not fetchable; search-snippet signal only)</a></li>
+            <li><a href="https://www.glassdoor.com/Interview/Hyundai-AutoEver-Software-Engineer-Interview-Questions-EI_IE3252012.0,16_KO17,34.htm" target="_blank" rel="noreferrer">Glassdoor — Hyundai AutoEver software-engineer questions (mostly India campus loop)</a></li>
+            <li><a href="https://www.hyundai-autoever.com/eng/business-area/dx-solutions/h-chat/contents.do?cntnSeq=452" target="_blank" rel="noreferrer">Hyundai AutoEver — H Chat product page (multi-LLM, private cloud, AI API Hub “upcoming,” affiliate rollouts)</a></li>
+            <li><a href="https://www.hyundai-autoever.com/eng/business-area/core-technology/ai/contents.do?cntnSeq=379" target="_blank" rel="noreferrer">Hyundai AutoEver — AI technology page (GPU platform, conversational STT/NLP/TTS stack, road-scene vision; no LLM/RAG named)</a></li>
+            <li><a href="https://haeaus.com/services/" target="_blank" rel="noreferrer">HAEA — Services (the four lines; no AI product named)</a></li>
+            <li><a href="https://stylemagazine.com/news/2024/dec/09/hyundai-autoever-driving-the-future-of-mobility-with-aws-premier-tier-partner-recognition/" target="_blank" rel="noreferrer">AWS Premier Tier + HAEA Solution Provider status for CCS / CCI (Dec 2024)</a></li>
+            <li><a href="https://www.foxnews.com/tech/hyundai-autoever-america-breached-know-risks-you" target="_blank" rel="noreferrer">Fox News — HAEA breach: 22 Feb–2 Mar 2025, ~2,000 people, notified Oct 2025 (18 Nov 2025)</a></li>
+            <li><a href="https://www.ziprecruiter.com/c/Hyundai-Autoever-America/Job/10214-Sr.-AI-ML-Engineer-(5-days-On-site)/-in-Fountain-Valley,CA?jid=257550bb678c9868" target="_blank" rel="noreferrer">Sibling req — 10214 Sr. AI/ML Engineer, Fountain Valley, 5 days on-site (search snippet)</a></li>
+            <li><a href="https://jobs.towardsai.net/job/hyundai-autoever-america-10783-gen-ai-engineer-rph5" target="_blank" rel="noreferrer">Sibling req — 10783 Gen AI Engineer (listing; page not fetchable)</a></li>
+            <li><a href="https://www.comparably.com/companies/hyundai-autoever-america-llc/interviews" target="_blank" rel="noreferrer">Comparably — HAEA interviews (bot-walled; snippet only)</a></li>
+            <li><a href="https://www.teamblind.com/company/Hyundai-AutoEver-America" target="_blank" rel="noreferrer">Blind — HAEA company page (not fetchable; browse logged in)</a></li>
+            <li><a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a> — N1, N6, N7, N8, Q6, Q8, Q13 (numbers re-checked 3 Sep 2026)</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared 8 Sep 2026 for a one-hour hiring-manager call. Every papercusp and storewolf figure was read from the tree, not recalled. Company-surface claims in section 02 are tagged inference until the manager confirms them. Second research pass 8 Sep 2026 (H Chat, services, AWS, breach, sibling reqs, candidate-report snippets) folded into sections 02, 09, 10 and 13.</p>
+    <p><a href="#top">Back to top ↑</a></p>
+  </footer>
+</div>
+</body>
+</html>

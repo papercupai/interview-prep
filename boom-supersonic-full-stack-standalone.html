@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Boom Supersonic — Software Engineer, Full Stack (Boomie) Interview Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #7FB5D8;
+      --info-soft: #142A38;
+      --rule: #24362C;
+      --rule-strong: #3A5245;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -999px;
+  }
+  .skip-link:focus {
+    left: 1rem; top: 1rem;
+    position: fixed; z-index: 50;
+    background: var(--surface); color: var(--accent);
+    padding: 0.6rem 1rem; border: 1px solid var(--accent);
+  }
+
+  .wrap {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 0 1.5rem 5rem;
+  }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    padding: 0.5rem 0;
+    margin: 0 0 1.5rem;
+    background: var(--ground);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+    padding: 1.5rem 0 2rem;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 2.5rem;
+  }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 0.6rem;
+  }
+
+  h1 {
+    font-family: var(--f-display);
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    line-height: 1.12;
+    margin: 0 0 0.9rem;
+    letter-spacing: -0.015em;
+  }
+
+  .standfirst { margin: 0; color: var(--ink-muted); font-size: 1.04rem; }
+
+  .fact-stack { display: grid; gap: 0.6rem; }
+  .fact {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 0.7rem 0.9rem;
+  }
+  .fact .k {
+    font-family: var(--f-mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    display: block;
+  }
+  .fact .v { font-size: 0.95rem; }
+
+  nav.toc { margin: 0 0 3rem; }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 2rem; }
+  nav.toc li { break-inside: avoid; margin-bottom: 0.4rem; font-size: 0.94rem; }
+  nav.toc .n {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    margin-right: 0.5rem;
+  }
+  nav.toc a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+  nav.toc a:hover { color: var(--accent); border-color: var(--accent); }
+
+  section { margin: 0 0 3.5rem; scroll-margin-top: 3.5rem; }
+  .sec-head { margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--rule); }
+  .sec-head h2 {
+    font-family: var(--f-display);
+    font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  h3 { font-family: var(--f-display); font-size: 1.05rem; margin: 1.6rem 0 0.5rem; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 1.1rem 1.25rem;
+    margin: 1rem 0;
+  }
+  .card > :first-child { margin-top: 0; }
+  .card > :last-child { margin-bottom: 0; }
+
+  .note {
+    border-left: 3px solid var(--info);
+    background: var(--info-soft);
+    padding: 0.85rem 1.1rem;
+    margin: 1rem 0;
+    font-size: 0.96rem;
+  }
+  .note.caution { border-left-color: var(--caution); background: var(--caution-soft); }
+  .note.critical { border-left-color: var(--critical); background: var(--critical-soft); }
+  .note > :first-child { margin-top: 0; }
+  .note > :last-child { margin-bottom: 0; }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.12rem 0.4rem;
+    border-radius: 2px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    border: 1px solid var(--rule-strong);
+    vertical-align: middle;
+  }
+  .badge.thin { background: var(--caution-soft); color: var(--caution); }
+  .badge.gap { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    padding: 0.9rem 1.15rem;
+    margin: 1rem 0;
+    font-size: 0.99rem;
+  }
+  .script p { margin: 0 0 0.7rem; }
+  .script p:last-child { margin-bottom: 0; }
+
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.1rem 0.3rem;
+    border-radius: 2px;
+    overflow-wrap: anywhere;
+  }
+
+  details.drill {
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    padding: 0.7rem 1rem;
+    margin: 0.7rem 0;
+  }
+  details.drill summary {
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-size: 0.98rem;
+  }
+  details.drill[open] summary { margin-bottom: 0.7rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule); }
+
+  ul.checklist { list-style: none; padding: 0; margin: 1rem 0; }
+  ul.checklist li {
+    padding: 0.45rem 0 0.45rem 1.9rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  ul.checklist li::before {
+    content: "";
+    position: absolute;
+    left: 0.35rem; top: 0.85rem;
+    width: 0.7rem; height: 0.7rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+  }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+  }
+
+  a { color: var(--accent); }
+
+  @media (max-width: 52rem) {
+    .masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    nav.toc ol { columns: 1; }
+    nav.sitenav { margin-top: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    nav.sitenav, nav.toc, .skip-link { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+  }
+</style>
+<style>
+  /* page-local addition: the shared stylesheet has no block-code rule */
+  pre { font-family: var(--f-mono); font-size: 0.8rem; line-height: 1.55; background: var(--surface-alt); color: var(--ink); border: 1px solid var(--rule); border-radius: 6px; padding: 0.9rem 1rem; overflow-x: auto; margin: 1rem 0; }
+  pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+  @media print { pre { white-space: pre-wrap; } }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Senior Full Stack · Boom Supersonic · Boomie · design · supply chain · manufacturing · test</p>
+      <h1>They want startup speed on records that must never be wrong.</h1>
+      <p class="standfirst">Boomie is Boom's in-house replacement for the PLM / ERP / MES sprawl that runs every other aerospace OEM. The posting sells speed: ship code in week one, a tool in daily use by month one. The domain punishes carelessness: the record of what is installed in an engine is certification evidence. Every candidate will pitch the speed. Few will show they know exactly where speed has to stop. Show both, and show that designing for agents is the <em>same</em> discipline, not a bolt-on.</p>
+    </div>
+    <div class="fact-stack">
+      <div class="fact"><span class="k">Band</span><span class="v">Senior $180k–$225k base · SWE $130k–$175k · plus equity</span></div>
+      <div class="fact"><span class="k">Builds for</span><span class="v">Overture airliner, Symphony engine, Superpower turbines</span></div>
+      <div class="fact"><span class="k">Gate</span><span class="v">ITAR / EAR eligibility. Answer it plainly, early</span></div>
+      <div class="fact"><span class="k">Watch</span><span class="v">Title says "Software Engineer"; the text says Senior. Confirm the level</span></div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Contents">
+    <ol>
+      <li><span class="n">01</span><a href="#thesis">What they are actually buying</a></li>
+      <li><span class="n">02</span><a href="#company">Boom in one page</a></li>
+      <li><span class="n">03</span><a href="#opener">Your opener</a></li>
+      <li><span class="n">04</span><a href="#coverage">Honest coverage map</a></li>
+      <li><span class="n">05</span><a href="#domain">Aerospace vocabulary</a></li>
+      <li><span class="n">06</span><a href="#datamodel">Parts, BOMs, and physical units</a></li>
+      <li><span class="n">07</span><a href="#integration">Systems of systems + the first month</a></li>
+      <li><span class="n">08</span><a href="#agents">APIs for humans and agents</a></li>
+      <li><span class="n">09</span><a href="#frontend">Frontend and the shop floor</a></li>
+      <li><span class="n">10</span><a href="#aitools">AI dev tools: help vs. hurt</a></li>
+      <li><span class="n">11</span><a href="#drills">Drills</a></li>
+      <li><span class="n">12</span><a href="#questions">Questions for them</a></li>
+      <li><span class="n">13</span><a href="#checklist">Last-minute checklist</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <section id="thesis">
+      <div class="sec-head">
+        <p class="eyebrow">01 · The thesis</p>
+        <h2>What they are actually buying</h2>
+      </div>
+
+      <p>Read the verbs in the posting: <em>own, sit with, decide, ship, design.</em> Not "implement", not "support", not "gather requirements". They are buying a product engineer with the shortest possible path from a user's pain to a shipped tool, and they say it outright: "founder energy", "a blank repo to something users depend on".</p>
+
+      <p>Three profiles are fused into one hire:</p>
+      <ul>
+        <li><strong>A full-stack product engineer</strong> who can take a domain from the data model through the UI without handing off.</li>
+        <li><strong>Someone who understands that manufacturing data is not CRUD.</strong> Part designs are configuration-controlled, physical units are traceable, and the build record is legal evidence.</li>
+        <li><strong>An API designer who treats agents as a first-class consumer.</strong> They build MCP servers, schemas, and APIs, with "no pre-AI architecture to retrofit".</li>
+      </ul>
+
+      <p>The seam is <strong>speed versus correctness</strong>, and the strong answer draws the line precisely instead of choosing a side:</p>
+
+      <table>
+        <tr><th>Ship it by Friday</th><th>Same iteration speed — but never skip attribution, immutability, or review</th></tr>
+        <tr><td>Search, lookup, where-used, dashboards</td><td>Releasing a part revision or an engineering change</td></tr>
+        <tr><td>Eliminating copy-paste between systems</td><td>Writing the as-built record of a serialized unit</td></tr>
+        <tr><td>UI iteration, workflow shortcuts, reports</td><td>Inspector buyoffs, nonconformance dispositions</td></tr>
+        <tr><td>Read-only agent tools</td><td>Anything touching export-controlled technical data</td></tr>
+      </table>
+
+      <div class="note">
+        <p><strong>The line to land:</strong> "Read paths ship on Friday. Write paths to the record of truth iterate just as fast, but they are append-only, attributed, and never optimistic. That split is what lets you move fast in aerospace without becoming the reason an audit fails."</p>
+      </div>
+    </section>
+
+    <section id="company">
+      <div class="sec-head">
+        <p class="eyebrow">02 · Context</p>
+        <h2>Boom in one page</h2>
+      </div>
+
+      <p>Boomie itself has no public write-up. Everything known about it comes from the job postings. What you <em>can</em> know is what Boomie has to serve, and that is where your best questions come from.</p>
+
+      <table>
+        <tr><th>When</th><th>Fact</th><th>Why it matters for Boomie</th></tr>
+        <tr><td>2019</td><td>Boom bought Dassault's cloud 3DEXPERIENCE platform for design, certification documentation, and PLM structure.</td><td>Boomie probably grew up beside or on top of a commercial PLM. Whether it now <em>replaces</em> or <em>wraps</em> it is your single best question (§12).</td></tr>
+        <tr><td>Jun 2024</td><td>Overture Superfactory completed at Piedmont Triad airport, Greensboro NC. 400k sq ft; first line sized for 33 aircraft a year.</td><td>A new factory floor with no legacy MES, which fits "no pre-AI architecture to retrofit".</td></tr>
+        <tr><td>28 Jan 2025</td><td>XB-1 demonstrator went supersonic over Mojave (Mach 1.122), the first civil supersonic jet flight since Concorde. The "Boomless Cruise" announcement followed.</td><td>Boom has flown hardware. "Test" in Boomie's scope means real flight-test and ground-test data.</td></tr>
+        <tr><td>9 Dec 2025</td><td>Superpower launched: a 42 MW natural-gas turbine built on the Symphony engine core. Crusoe ordered 29 units (1.21 GW). $300M round. "We use turbine revenue to fund the aeroplane."</td><td>Boom now has a revenue product with a production ramp. Boom cites ~80% hardware commonality between Superpower and Symphony.</td></tr>
+        <tr><td>2026</td><td>Symphony "sprint core" assembly began in spring; core testing targeted this year; pre-production 42 MW turbine targeted for end of 2026; customer deliveries 2027; production goal 4 GW/yr by 2030.</td><td>Supply chain and manufacturing are under real schedule pressure <em>now</em>. That is an inference, so test it with a question rather than asserting it.</td></tr>
+        <tr><td>Jul 2026</td><td>Blake Scholl (YC talk, as reported): AI has cut software costs enough that custom engineering tools become affordable. In-house examples include "Make Boom" (a whole aircraft defined in a config file, with coupled full-vehicle simulation).</td><td>The CEO's thesis <em>is</em> this job description. Your AI-tools opinions (§10) will be measured against it.</td></tr>
+        <tr><td>Standing</td><td>Overture has 130 orders and pre-orders (United, American, Japan Airlines). Skeptics include Richard Aboulafia, and United's Scott Kirby called it "50-50".</td><td>Know the skepticism so you are not naive. Don't raise it to score points.</td></tr>
+        <tr><td>People</td><td>Blake Scholl, founder and CEO. Eric Dowty, Director of Software Engineering (internal platforms and infrastructure).</td><td>Dowty's org is most likely the one you'd join. Look him up before the loop.</td></tr>
+      </table>
+
+      <div class="note caution">
+        <p><strong>Re-check before you quote any figure.</strong> This table comes from public reporting as of September 2026, and sources conflict. One outlet names Baker Hughes as the 1.21 GW buyer. Boom's own release names Crusoe, and Boom's site separately lists a Baker Hughes <em>generator</em> order, so Baker Hughes is most likely a supplier. "I read that…" is safer than a confident number you can't source.</p>
+      </div>
+
+      <div class="note">
+        <p><strong>If they ask "why Boom, given the risk?"</strong> — don't argue the airliner odds. The software is valuable whichever product pays for it. Superpower turned a single-bet company into a manufacturer with revenue, and both ramps (turbines and aircraft) run through the same design, supply-chain, and factory data. Boomie is the thing that has to work either way.</p>
+      </div>
+
+      <details class="drill">
+        <summary>Sources (open before quoting anything above)</summary>
+        <ul>
+          <li><a href="https://www.businesswire.com/news/home/20251209195489/en/Boom-Supersonic-to-Power-AI-Data-Centers-With-Superpower-Natural-Gas-Turbines-Adds-$300-Million-in-New-Funding">Business Wire — Superpower launch and $300M round (Dec 2025)</a></li>
+          <li><a href="https://boomsupersonic.com/symphony">Boom — Symphony</a> · <a href="https://www.eplaneai.com/news/boom-supersonic-to-begin-assembly-of-symphony-engine-within-weeks">ePlane AI — Symphony assembly timeline (2026)</a></li>
+          <li><a href="https://boomsupersonic.com/flyby/boom-achieves-supersonic-flight">Boom — XB-1 achieves supersonic flight</a> · <a href="https://www.prnewswire.com/news-releases/boom-supersonic-announces-boomless-cruise-302372183.html">Boomless Cruise</a></li>
+          <li><a href="https://boomsupersonic.com/flyby/overture-superfactory-building-construction-completion">Boom — Superfactory construction complete</a></li>
+          <li><a href="https://www.cnbc.com/2019/05/16/boom-supersonic-to-use-a-cloud-based-design-tool-owned-by-dassault-systemes.html">CNBC — Boom adopts Dassault 3DEXPERIENCE (2019)</a></li>
+          <li><a href="https://finance.biggo.com/podcast/06dcab4ecad74061">Summary of Scholl's YC podcast (secondary source, so verify before quoting)</a></li>
+          <li><a href="https://simpleflying.com/what-boom-supersonic-still-hasnt-solved-about-overture-2029-passenger-service-promise/">Simple Flying — the skeptic's case (Jul 2026)</a></li>
+          <li><a href="https://boomsupersonic.com/company">Boom — company / team page</a></li>
+        </ul>
+      </details>
+    </section>
+
+    <section id="opener">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Opener</p>
+        <h2>Ninety seconds that answer the posting</h2>
+      </div>
+
+      <div class="script">
+        <p>"I build systems where the user is sometimes a person and sometimes an agent. Most recently that's Papercusp, a multi-agent engineering platform where a fleet of AI agents and humans share one codebase, one database, and one tool layer. The interesting problems were never the prompts. They were the ones any shared system of record has: who changed what, which copy is the truth, and what happens when two writers collide."</p>
+        <p>"The lesson I'd bring to Boomie is that an API that's good for agents is almost always a better API for people. Bounded responses, errors that tell you how to fix the call, a dry run before any consequential write, and every write attributed to someone. We got there by watching agents fail, and every fix made the human experience better too."</p>
+        <p>"What draws me here is doing that on data where being wrong has physical consequences, like the record of what's installed in serial number seven, and doing it by sitting next to the people who use it. Ship something by Friday, and still be able to prove what was built. That's the combination I want."</p>
+      </div>
+
+      <div class="note caution">
+        <p><strong>Adapt this to your real evidence.</strong> It is a frame, not a claim about your history. Pull every Papercusp specific from the <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a>, where the numbers were re-checked against the tree. Claim only what you personally designed or built.</p>
+      </div>
+    </section>
+
+    <section id="coverage">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Coverage</p>
+        <h2>Honest map: strong, adjacent, thin</h2>
+      </div>
+
+      <p>The posting says "domain matters less than instincts", and believe it. They are screening for range and judgment first, and aerospace knowledge second. Grade yourself before they do.</p>
+
+      <table>
+        <tr><th>Posting asks for</th><th>Your position</th><th>How to handle it</th></tr>
+        <tr><td>Own a domain end-to-end, data model → UI</td><td><span class="badge">Core</span></td><td>Papercusp spans a Postgres schema, server-side tools, and a React desktop UI. Pick one feature and be able to walk it top to bottom without notes.</td></tr>
+        <tr><td>Complex systems of systems</td><td><span class="badge">Core</span></td><td>Multi-agent coordination: locks, presence, handoffs, a gated deploy pipeline. Frame it in their language: <em>many writers, one record of truth.</em></td></tr>
+        <tr><td>MCP servers, schemas, APIs for humans + agents</td><td><span class="badge">Core</span></td><td>Your strongest ground. §08 translates it into Boom's domain. Companion: the <a href="mcp-cicd-study-faq-standalone.html">MCP + CI/CD Study FAQ</a>.</td></tr>
+        <tr><td>Modern AI dev tools, with opinions</td><td><span class="badge">Core</span></td><td>You have run agent fleets, not just used autocomplete. Have the "where it hurts" half ready (§10), because that half is the opinion.</td></tr>
+        <tr><td>Defend a frontend state decision</td><td><span class="badge thin">Verify</span></td><td>Have one concrete decision with its trade-off ready (§09), and be ready for React specifics: re-render cost, server vs. UI state, forms.</td></tr>
+        <tr><td>Blank repo → something users depend on</td><td><span class="badge thin">Verify</span></td><td>Who were the users, how many, and how did you <em>know</em> they depended on it? If the honest answer is "mostly agents and me", say so and pick the closest story.</td></tr>
+        <tr><td>Embedding with non-engineering users</td><td><span class="badge thin">Verify</span></td><td>You need one story of watching someone work and changing what you built. If you don't have one, the 30-day plan in §07 is your substitute evidence.</td></tr>
+        <tr><td>Aerospace / manufacturing (PLM, MES, BOMs, config control)</td><td><span class="badge gap">Likely gap</span></td><td>The vocabulary is cheap credibility. Do §05 and §06; they are the highest-leverage hour on this page.</td></tr>
+        <tr><td>ITAR / EAR eligibility</td><td><span class="badge gap">Gate</span></td><td>This is eligibility, not skill. Know your one-sentence answer before the recruiter screen.</td></tr>
+      </table>
+
+      <div class="note">
+        <p><strong>The move for the domain gap:</strong> <em>name it</em>, then <em>give the nearest transferable thing</em>, then <em>say how you'd close it.</em> For example: "I haven't worked in aerospace. The nearest thing I've built is a system of record with many concurrent writers and a strict audit trail, where the hard part was never the CRUD. It was provenance and conflicting copies. I've learned the vocabulary, EBOM versus MBOM, effectivity, NCRs, and the rest I'd learn fastest by shadowing a tech for a week."</p>
+      </div>
+    </section>
+
+    <section id="domain">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Vocabulary</p>
+        <h2>The aerospace software stack, in one table</h2>
+      </div>
+
+      <p>"Six clicks to find a part number" and "twenty minutes a day copying part numbers between systems" describe one structural fact. <strong>The part number is the join key across three or four systems, and each system holds its own copy.</strong> Everything below hangs off that.</p>
+
+      <table>
+        <tr><th>Term</th><th>What it is</th><th>Why software cares</th></tr>
+        <tr><td><strong>PLM</strong> (Teamcenter, 3DEXPERIENCE, Windchill)</td><td>Designs, parts, revisions, the released engineering BOM</td><td>Source of truth for <em>what should be built</em>. Boom bought 3DEXPERIENCE in 2019.</td></tr>
+        <tr><td><strong>ERP</strong> (SAP, Oracle, …)</td><td>Purchasing, inventory, cost, MRP</td><td>Where parts become purchase orders, which means a second copy of every part number.</td></tr>
+        <tr><td><strong>MES</strong> (Solumina, Opcenter, DELMIA Apriso, …)</td><td>Runs the floor: work orders, digital work instructions, buyoffs, as-built capture</td><td>The "two years to roll out" system in the posting.</td></tr>
+        <tr><td><strong>Part number vs. revision</strong></td><td>Identity of a design. A change that breaks form, fit, or function (non-interchangeable) gets a <em>new part number</em>. An interchangeable change gets a new <em>revision</em>.</td><td>That rule decides whether old stock can still be installed. Get it wrong and the data model lies.</td></tr>
+        <tr><td><strong>EBOM vs. MBOM</strong></td><td>Engineering BOM is how it is designed. Manufacturing BOM is how it is built: it adds consumables and kits, and regroups items by station.</td><td>Two trees for one product. Who owns the MBOM is a long-running PLM-versus-ERP fight.</td></tr>
+        <tr><td><strong>Effectivity</strong></td><td>Which units a change applies to, by serial range, date, or lot</td><td>A BOM becomes a function of <em>which unit you ask about</em>. It is not a static tree.</td></tr>
+        <tr><td><strong>ECR → ECO → ECN</strong></td><td>Change request, then approved change order, then change notice</td><td>Changes are first-class objects. A released revision with no ECO behind it is a red flag.</td></tr>
+        <tr><td><strong>As-designed / as-planned / as-built / as-maintained</strong></td><td>Four views of the same product</td><td>The most valuable query in the factory is the <em>diff</em> between as-designed and as-built.</td></tr>
+        <tr><td><strong>Traveler / router / work instructions</strong></td><td>The step-by-step build record that travels with a unit</td><td>Each step's sign-off (a buyoff, or "stamp") is a legal record, not a checkbox.</td></tr>
+        <tr><td><strong>NCR → MRB → disposition</strong></td><td>A nonconformance report goes to the material review board, which decides: use-as-is, rework, repair, scrap, or return to vendor</td><td>A workflow with authority rules. Use-as-is and repair typically need engineering sign-off.</td></tr>
+        <tr><td><strong>FAI (AS9102)</strong></td><td>First article inspection: proof that the process produces the part to drawing</td><td>A document set generated from data you should already hold. Nobody should re-type it.</td></tr>
+        <tr><td><strong>AS9100</strong></td><td>The aerospace quality-management standard</td><td>Why records are append-only, attributable, and controlled.</td></tr>
+        <tr><td><strong>Traceability</strong> (serial, lot, heat, material certs)</td><td>Which raw material went into which part in which engine</td><td>A recall or escape investigation is a graph query. It has to be fast and complete.</td></tr>
+        <tr><td><strong>FAA certification</strong> (Part 25 aircraft, Part 33 engines; conformity)</td><td>Proof that the built article conforms to its type design</td><td>Boomie's records become certification evidence, so the software's correctness is part of the product.</td></tr>
+      </table>
+
+      <div class="note">
+        <p><strong>The observation almost nobody will bring:</strong> Boom says Superpower and Symphony share roughly 80% of their hardware. So one part number can sit in an FAA-certified engine program <em>and</em> in an industrial turbine that isn't FAA-certified, under different change-control regimes. Effectivity and configuration control <em>per product line on shared parts</em> is a genuinely hard modeling problem. Raise it as a question (§12), not as a claim about how they do it.</p>
+      </div>
+    </section>
+
+    <section id="datamodel">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Data model</p>
+        <h2>Parts, BOMs, and the unit you can hold in your hand</h2>
+      </div>
+
+      <p>If they give you a design problem, expect it here. The trap is modeling the BOM as a tree of part numbers. It is a <strong>DAG of revisions, conditioned by effectivity</strong>, and it is a separate structure from the <strong>tree of physical units</strong> actually built.</p>
+
+<pre><code>part           (id, part_number UNIQUE, name, make_or_buy, export_class)
+part_revision  (id, part_id, rev, status: draft|released|obsolete, eco_id)
+bom_edge       (parent_rev_id, child_rev_id, qty, find_no,
+                effective int4range)          -- serial-number effectivity
+eco            (id, number, reason, state, released_at, released_by)
+unit           (id, part_rev_id, serial_no, lot_no)        -- a physical thing
+install        (parent_unit_id, child_unit_id, work_order_step_id,
+                installed_at, removed_at, recorded_at, recorded_by)</code></pre>
+
+      <ul>
+        <li><strong>Surrogate keys.</strong> The part number is a natural key with a history. Part numbers get re-identified, and a primary key must never change.</li>
+        <li><strong>Design and physical are separate models.</strong> <code>bom_edge</code> is as-designed and <code>install</code> is as-built. <em>Conformity is the diff between them.</em> That one sentence tends to win the design round.</li>
+        <li><strong>Append-only, bitemporal.</strong> Never UPDATE a released revision or an install row. Supersede it. Keep both times: when it was true (<code>installed_at</code> / <code>removed_at</code>) and when it was recorded (<code>recorded_at</code>). That lets you answer "what did we believe on the day we shipped serial seven?"</li>
+        <li><strong>Export classification is a column, not a folder.</strong> It decides which people, and which agents, can read the row (§08).</li>
+        <li><strong>The ECO is first-class.</strong> Every released revision points to the change that released it.</li>
+      </ul>
+
+      <p>The core query: explode a BOM for a specific serial number, with rolled-up quantities and a cycle guard:</p>
+
+<pre><code>WITH RECURSIVE explode AS (
+  SELECT e.child_rev_id, e.qty::numeric AS qty, 1 AS depth,
+         ARRAY[e.parent_rev_id, e.child_rev_id] AS path
+    FROM bom_edge e
+   WHERE e.parent_rev_id = $1
+     AND e.effective @&gt; $2::int                 -- effective for this serial
+  UNION ALL
+  SELECT c.child_rev_id, x.qty * c.qty, x.depth + 1, x.path || c.child_rev_id
+    FROM explode x
+    JOIN bom_edge c ON c.parent_rev_id = x.child_rev_id
+   WHERE c.effective @&gt; $2::int
+     AND c.child_rev_id &lt;&gt; ALL (x.path)        -- a cycle is a data error; don't loop on it
+)
+SELECT child_rev_id, sum(qty) AS total_qty, max(depth) AS max_depth
+  FROM explode
+ GROUP BY child_rev_id;
+-- Postgres 14+ also has a native  CYCLE child_rev_id SET is_cycle USING path  clause.
+-- Where-used is the same walk in reverse: index bom_edge(child_rev_id).</code></pre>
+
+      <details class="drill">
+        <summary>"The as-built record for unit 12 shows a part at rev C, but the traveler called for rev B. How does your system prevent that, or at least make it loud?"</summary>
+        <p>The install is a <em>scan</em> against the work-order step, never a typed entry. The write validates the scanned unit's revision against the planned MBOM <em>effective for this serial</em>. On a mismatch, it neither records silently nor blocks silently: it refuses the install and opens a <em>draft</em> NCR pre-filled with the unit, the step, the expected rev, and the found rev, so the exception enters the real workflow. The history is append-only, so the record shows who scanned what, when. If rev C is genuinely interchangeable, that is an effectivity or MRB decision made by someone with authority, not a data-entry override.</p>
+      </details>
+
+      <details class="drill">
+        <summary>"Where-used for part X across every active build. How fast, and how do you keep it fast?"</summary>
+        <p>Reverse traversal on an index over <code>child_rev_id</code>. At the scale of one aircraft program (thousands to tens of thousands of parts), a recursive CTE in Postgres is typically fast enough, so <em>measure before you cache.</em> If it gets hot, add a closure table (ancestor, descendant, qty) that is rebuilt on ECO release. That is the only time the design graph changes, and it makes invalidation trivial. Say the measure-first part out loud; it is the instinct they're screening for.</p>
+      </details>
+
+      <details class="drill">
+        <summary>"Diff two revisions of a BOM."</summary>
+        <p>Key children by <code>(find_no, child part)</code>, not by position, then classify each as added, removed, quantity changed, or revision changed. Report revision-only changes separately. They are the interchangeability question in disguise, and the reviewer will care about them more than about a quantity change.</p>
+      </details>
+    </section>
+
+    <section id="integration">
+      <div class="sec-head">
+        <p class="eyebrow">07 · Systems of systems</p>
+        <h2>The first tool in daily use is almost certainly a read path</h2>
+      </div>
+
+      <p>The twenty-minutes-a-day copying problem is usually a <strong>lookup problem wearing a data-entry costume</strong>. A single search across PLM, ERP, and MES, joined on part number, with where-used and current stock alongside, removes the copying without touching a single write path. It is low risk, it gets used daily, and it earns you the trust you'll need for the write paths later.</p>
+
+      <ul>
+        <li><strong>Source of truth per field, not per system.</strong> PLM owns the revision, ERP owns on-hand quantity, MES owns install state. Write it down; most integration bugs are two systems each believing they own the same field.</li>
+        <li><strong>Sync you don't reconcile is sync you can't trust.</strong> Use idempotent sync keyed on (system, record, version), plus a reconciliation job that <em>reports disagreements</em> rather than silently picking a winner.</li>
+        <li><strong>Strangler fig.</strong> Wrap the vendor system before you replace it. Put an anti-corruption layer between the two so the vendor's data model doesn't leak into Boomie's.</li>
+        <li><strong>Every integration has a freshness contract.</strong> Say what "current" means for each field: real-time, a minute, or overnight. A stale inventory count with a timestamp is fine; one without a timestamp is a bug.</li>
+      </ul>
+
+      <table>
+        <tr><th>Week</th><th>Plan</th><th>Evidence you produce</th></tr>
+        <tr><td>1</td><td>Sit with three users. Stopwatch the workflow. Ship one small fix to anything they touch.</td><td>Code in production on day 3–5. A written list of their workarounds.</td></tr>
+        <tr><td>2</td><td>Pick the one pain with the biggest <em>minutes × people</em>. Build a v0 read path and put it in <em>one</em> person's hands.</td><td>One named user using it.</td></tr>
+        <tr><td>3</td><td>Iterate daily with that person. Add a second user. Instrument usage.</td><td>A daily-active count.</td></tr>
+        <tr><td>4</td><td>Daily use by the team. Report minutes saved, what's next, and what you decided <em>not</em> to build.</td><td>"In daily use" backed by a measurement, not an anecdote.</td></tr>
+      </table>
+
+      <div class="note">
+        <p><strong>The embedding technique: watch, don't interview.</strong> People describe the official process. What you need is the workaround: the spreadsheet on the desktop, the sticky note on the monitor, the second browser tab they keep open. <em>The workaround is the spec.</em> Saying this, with a real example, is the strongest answer to "comfort embedding with non-engineering users".</p>
+      </div>
+    </section>
+
+    <section id="agents">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Humans and agents</p>
+        <h2>"Equal footing" has a concrete test</h2>
+      </div>
+
+      <p>Can an agent do everything the UI can, <strong>through the same API, with the same permissions and the same audit trail?</strong> If the UI calls a private endpoint that the agent can't, you have built two systems, and the agent one will rot. The UI should be one client of the API, and the agent another.</p>
+
+      <table>
+        <tr><th>Principle</th><th>Why agents need it</th><th>Why humans benefit too</th></tr>
+        <tr><td>Bounded responses, with field selection</td><td>Context is finite; a 50 KB response is unusable</td><td>Faster pages, predictable payloads</td></tr>
+        <tr><td>Reject unknown arguments; never ignore them silently</td><td>A silently ignored filter reads as success</td><td>A typo'd filter can't quietly return the wrong parts</td></tr>
+        <tr><td>Errors that name the fix</td><td>The agent corrects itself on the next call</td><td>The message a support engineer needed anyway</td></tr>
+        <tr><td>Dry run by default for consequential writes; explicit confirm</td><td>The agent can preview an effect before committing it</td><td>"What will this ECO release change?" before it does</td></tr>
+        <tr><td>Idempotency keys</td><td>Agents retry</td><td>Double-clicks, and flaky Wi-Fi on the floor</td></tr>
+        <tr><td>Every write attributed: human, agent, and on whose behalf</td><td>Accountability for delegated actions</td><td>The AS9100 audit trail, for free</td></tr>
+        <tr><td>"Unknown" is a value, never coerced to false or zero</td><td>Agents act on defaults</td><td>A dashboard showing 0 when it means "not measured" misleads people too</td></tr>
+        <tr><td>Discovery instead of dumping the whole catalog</td><td>A large tool catalog doesn't fit in context</td><td>Same problem for a new hire</td></tr>
+      </table>
+
+      <div class="note">
+        <p><strong>This is where Papercusp is direct evidence.</strong> Its tool layer does each of these, and several exist <em>because</em> agents failed without them. That makes it a story about learning, not a list of features. Take exact figures, such as catalog size, from the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>, not from memory.</p>
+      </div>
+
+      <p>A sketch for the parts domain. Keep read tools broad and write tools narrow: agents <em>draft</em>, people <em>confirm</em>.</p>
+
+<pre><code>resources  part://{part_number}@{rev}          read-only snapshot, cacheable
+           unit://{serial}/as-built
+
+tools      parts.search(q, filters, limit, fields)
+           bom.explode(part_rev, serial?, depth?)          effectivity-aware
+           bom.where_used(part_rev, active_only = true)
+           conformity.diff(serial)                         as-designed vs as-built
+           ncr.draft(unit, step, description, photos[])    returns the NCR it WOULD open
+           ncr.submit(draft_id, idempotency_key)           requires a human confirmation</code></pre>
+
+      <p>Agents act with the <strong>delegating user's</strong> permissions, never through a service account that can see more than that person can.</p>
+
+      <div class="note critical">
+        <p><strong>The agent question that matters most in aerospace: export-controlled data.</strong> ITAR/EAR technical data sent to a model endpoint that isn't authorized for it can itself be an export problem. So the classification has to travel with the data through the agent layer. Rows carry their export class; the MCP server filters on the caller's authorization <em>and</em> on which model endpoint is on the other end of the session; tool results are tagged. Don't assert how Boom handles this. <strong>Ask</strong> (§12). Most candidates won't think to raise it, and it shows you understand where agents meet this industry.</p>
+      </div>
+    </section>
+
+    <section id="frontend">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Frontend</p>
+        <h2>A defensible state decision, and the factory floor</h2>
+      </div>
+
+      <p>"Defend an API design and a frontend state decision in the same conversation." Have one decision ready in this shape: <em>the decision → the alternatives → what forced it → what it cost → what would change your mind.</em></p>
+
+      <ul>
+        <li><strong>User-meaningful state lives in the URL, not in component state.</strong> That covers view, selection, filters, and which panel is open. Links become shareable, the back button works, and an agent can read and set the UI's state. Papercusp enforces this (nuqs), and the reason recorded there is Boom's reason exactly: state held in <code>useState</code> is invisible to agents. The cost is some URL design discipline and care with large selections.</li>
+        <li><strong>Server state and UI state are different species.</strong> Server data goes through one cache and sync layer. Hover, focus, and mid-edit drafts stay local.</li>
+        <li><strong>Push versus poll.</strong> Papercusp syncs over SSE everywhere, with polling only as a degraded fallback: many live queries polling against a browser's per-host connection cap starve each other. Take the exact figures from the Answer Bank.</li>
+        <li><strong>Optimism has limits.</strong> An optimistic update is right for a filter and wrong for an inspector's buyoff. A buyoff shows as recorded only when the server has it.</li>
+      </ul>
+
+      <table>
+        <tr><th>Floor constraint</th><th>Design response</th></tr>
+        <tr><td>Tablets, gloves</td><td>Big targets, few steps, nothing that needs precision tapping</td></tr>
+        <tr><td>Barcode scanners (keyboard-wedge input)</td><td>A scan is accepted from anywhere on the screen, validated immediately, and never lands in whatever field happened to have focus</td></tr>
+        <tr><td>Patchy factory Wi-Fi</td><td>An offline queue with idempotent replay, and "pending sync" shown explicitly</td></tr>
+        <tr><td>Loud, busy, interrupted</td><td>Resumable flows. State survives a closed tab, which is the URL rule paying off again</td></tr>
+        <tr><td>Photos as evidence</td><td>Camera capture attached to the step or NCR, never emailed around</td></tr>
+      </table>
+    </section>
+
+    <section id="aitools">
+      <div class="sec-head">
+        <p class="eyebrow">10 · AI dev tools</p>
+        <h2>Where they help, where they don't</h2>
+      </div>
+
+      <div class="script">
+        <p>"AI made <em>writing</em> software cheap. It didn't make <em>knowing it's correct</em> cheap. The job moved to verification."</p>
+      </div>
+
+      <p>That line agrees with Scholl's own thesis (AI makes custom tools affordable) and adds the part aerospace cares about. It is an opinion, which is what the posting asks for.</p>
+
+      <table>
+        <tr><th>Where they help</th><th>Where they hurt</th></tr>
+        <tr><td>Scaffolding forms, CRUD, and internal tools users can react to by Friday</td><td>Confident claims about numbers nobody traced back to the code that writes them</td></tr>
+        <tr><td>Translating between schemas and vendor export formats</td><td>Tests that have never failed, which is a false green (prove a test can fail before trusting it)</td></tr>
+        <tr><td>Exploring an unfamiliar API or codebase quickly</td><td>Library APIs remembered from a stale training cutoff (pull current docs)</td></tr>
+        <tr><td>Mechanical refactors across many files</td><td>Data migrations on records of truth</td></tr>
+        <tr><td>Test scaffolding and fixture generation</td><td>Anywhere "plausible" and "correct" diverge, which describes most of configuration management</td></tr>
+      </table>
+
+      <div class="note">
+        <p><strong>Your evidence is unusual:</strong> you have operated fleets of agents on a shared codebase, not just used an assistant. Have one concrete "we learned this the hard way" ready: a guard that had to be proven falsifiable, a metric agents kept misreading until the rule became "read the code that writes it". Also have one example of changing your mind about a tool. The posting explicitly wants "strong opinions, held loosely".</p>
+      </div>
+    </section>
+
+    <section id="drills">
+      <div class="sec-head">
+        <p class="eyebrow">11 · Drills</p>
+        <h2>Say these out loud once</h2>
+      </div>
+
+      <p>Boom hasn't published its interview loop, so ask the recruiter. The posting suggests you should prepare for three things: practical full-stack coding, designing a Boomie domain, and a conversation about users and judgment.</p>
+
+      <details class="drill">
+        <summary>"Tell me about taking a blank repo to something people depended on."</summary>
+        <p>Cover who used it, the moment you knew they depended on it (usually: they complained the day it broke), what you cut to ship it, and what you'd do differently. Dependence is proven by breakage, not by praise.</p>
+      </details>
+
+      <details class="drill">
+        <summary>"Tell me about a time you were proven wrong."</summary>
+        <p>They wrote "rather be proven wrong today than right in six months", so they will ask. The strong shape: you said it fast, you corrected the record where others would read it, and you changed something so that class of mistake can't recur. The recurrence guard is what separates a senior answer.</p>
+      </details>
+
+      <details class="drill">
+        <summary>"A user asks for feature X. After watching them, you think they need Y. What do you do?"</summary>
+        <p>Build the smallest version of Y that also solves the pain behind X, put it in their hands, and let their use settle the argument. Avoid a stakeholder debate. The posting spends a paragraph rejecting the review-board model; don't rebuild it in your answer.</p>
+      </details>
+
+      <details class="drill">
+        <summary>"Why not a big OEM, or configuring enterprise software?"</summary>
+        <p>Configuration optimizes for the vendor's model of your business. Building optimizes for the tech in front of you. Make the point without sneering at the vendors: they solved real problems for a different era and a different cost of software.</p>
+      </details>
+
+      <details class="drill">
+        <summary>Design: universal part search across PLM, ERP, and MES</summary>
+        <p>Clarify freshness needs per field, source of truth per field, and export-control filtering. Rank exact part-number matches first, then prefix and description. Show where-used and on-hand stock inline. Use an index fed by change events, with a reconciliation report. Ship the read path first.</p>
+      </details>
+
+      <details class="drill">
+        <summary>Design: a digital traveler for a floor tablet, with offline buyoffs</summary>
+        <p>Steps and required buyoffs come from the MBOM and routing. Scan-to-install is validated against effectivity. Buyoffs queue offline with idempotency keys, and are never shown as final until the server confirms. Nonconformances branch into a draft NCR. The record is append-only.</p>
+      </details>
+
+      <details class="drill">
+        <summary>Design: "which build slots are at risk from late purchase orders?" as an agent-facing tool</summary>
+        <p>Join the build schedule to the MBOM and then to open POs and supplier promise dates. Return bounded, ranked results that state their reasoning. Treat unknown promise dates as <em>unknown</em>, not on-time. Expose it as a read tool; the agent drafts expedite requests, and a person sends them.</p>
+      </details>
+
+      <details class="drill">
+        <summary>Code warm-ups</summary>
+        <p>BOM explosion with rolled-up quantities and cycle detection. Where-used. Diffing two BOM revisions. A topological sort for build order. An idempotent endpoint that survives a retried request. Do each once in the language you'd use live.</p>
+      </details>
+    </section>
+
+    <section id="questions">
+      <div class="sec-head">
+        <p class="eyebrow">12 · Questions</p>
+        <h2>Ask things that change your decision</h2>
+      </div>
+
+      <ul>
+        <li><strong>"Which Boomie domain would I own first, and who's the person I'd sit with in week one?"</strong> This tells you whether "embed with users" is real.</li>
+        <li><strong>"Does Boomie replace 3DEXPERIENCE or wrap it? Where does the released EBOM live today?"</strong> This tells you whether the job is building or integrating.</li>
+        <li><strong>"Superpower deliveries are targeted for 2027. Is the turbine production ramp Boomie's most urgent consumer right now?"</strong></li>
+        <li><strong>"Symphony and Superpower share most of their hardware. How do you handle configuration control when one part number serves an FAA program and an industrial product?"</strong></li>
+        <li><strong>"How do agents meet ITAR-controlled data today? Which model endpoints are authorized, and who decides?"</strong></li>
+        <li><strong>"Who are the agent consumers today: engineers' coding agents, internal copilots, or autonomous workflows?"</strong></li>
+        <li><strong>"How do you know a tool is 'in daily use'? What's one that didn't make it?"</strong></li>
+        <li><strong>"When Boomie's records feed certification evidence, how is the software itself validated?"</strong></li>
+        <li><strong>"Where would I be based, the Denver-area HQ, Greensboro, or both, and how much time on the floor?"</strong> Embedding implies being on site.</li>
+        <li><strong>"What level are you evaluating me for?"</strong> The title says Software Engineer and the posting describes Senior. The bands differ by $50k at the midpoint.</li>
+      </ul>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">13 · Checklist</p>
+        <h2>The day before, and ten minutes before</h2>
+      </div>
+
+      <ul class="checklist">
+        <li>Know your one-sentence ITAR/EAR eligibility answer.</li>
+        <li>Confirm the level (SWE or Senior) and the interview format with the recruiter.</li>
+        <li>Read §05 twice. EBOM/MBOM, effectivity, and "conformity is the diff" are the cheapest credibility on this page.</li>
+        <li>Be able to draw the §06 schema from memory and state the design-versus-physical split in one sentence.</li>
+        <li>Pick your frontend state decision (§09) and rehearse it in the five-part shape.</li>
+        <li>Have one real "watched a user, changed what I built" story. If you don't have one, lead with the 30-day plan (§07).</li>
+        <li>Pull every Papercusp number you'll quote from the Answer Bank, and nowhere else.</li>
+        <li>Rehearse the verification line (§10) and one proven-wrong story (§11).</li>
+        <li>Pick four questions from §12, including the ITAR one and the 3DEXPERIENCE one.</li>
+        <li>Know your number. Senior base is $180k–$225k plus equity. Decide your target before anyone asks.</li>
+        <li>Say the opener aloud once. Ninety seconds.</li>
+      </ul>
+
+      <div class="note">
+        <p><strong>If you remember one thing:</strong> they want someone who ships to a real user by Friday <em>and</em> knows which records must never be written carelessly, and who sees that an API built well for agents is simply a well-built API.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Prepared 22 September 2026 from the job posting and public reporting (sources in §02). There is no inside information about Boomie. Figures carry dates; re-check anything before you quote it. Papercusp specifics belong to the Answer Bank.</p>
+    <p><a href="#top">Back to top</a></p>
+  </footer>
+</div>
+</body>
+</html>

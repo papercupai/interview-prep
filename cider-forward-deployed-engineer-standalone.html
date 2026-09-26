@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Cider Consulting Forward Deployed Engineer interview prep: client discovery, engagement diagnosis, proposals and ROI, full-stack AI delivery, and adoption.">
+<title>Cider Consulting · Forward Deployed Engineer | Interview Prep</title>
+<style>
+  :root { color-scheme: light dark; --ground:#f7f6f2; --surface:#fff; --soft:#eee9df; --ink:#231f1a; --muted:#635d53; --accent:#884523; --rule:#ded8cc; --display:Archivo,"Helvetica Neue",Arial,sans-serif; --body:"Source Serif 4",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace; }
+  @media(prefers-color-scheme:dark) { :root { --ground:#171511; --surface:#211e19; --soft:#30291f; --ink:#f0e9df; --muted:#bdb2a2; --accent:#efb28c; --rule:#493d30; } }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--ground); color:var(--ink); font:17px/1.65 var(--body); }
+  a { color:var(--accent); text-underline-offset:3px; }
+  a:focus-visible,summary:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+  h1,h2,h3 { margin:0; font-family:var(--display); line-height:1.2; text-wrap:balance; }
+  h1 { font-size:clamp(2.2rem,5vw,3.5rem); letter-spacing:-.035em; }
+  h2 { font-size:1.6rem; }
+  h3 { font-size:1.05rem; }
+  p { margin:0; }
+  ul,ol { margin:0; padding-left:1.3rem; }
+  li+li { margin-top:.45rem; }
+  .wrap { width:min(100% - 2.5rem,72rem); margin:auto; padding:0 0 5rem; }
+  .skip-link { position:absolute; left:1rem; top:-5rem; z-index:30; padding:.6rem 1rem; background:var(--ink); color:var(--ground); }
+  .skip-link:focus { top:1rem; }
+  nav.sitenav { position:sticky; top:0; z-index:20; display:flex; gap:.25rem; overflow-x:auto; padding:.65rem .2rem; background:var(--ground); border-bottom:1px solid var(--rule); font:600 .8rem/1.5 var(--display); }
+  nav.sitenav a { flex:none; padding:.35rem .65rem; border:1px solid transparent; border-radius:3px; color:var(--muted); text-decoration:none; white-space:nowrap; }
+  nav.sitenav a:hover,nav.sitenav a[aria-current="page"] { color:var(--accent); background:var(--surface); border-color:var(--rule); }
+  nav.sitenav .sep { flex:1; }
+  .hero { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(17rem,.8fr); gap:2rem; padding:3rem 0 2rem; }
+  .hero h1 { margin:.6rem 0 1rem; }
+  .eyebrow,.tag { font:600 .72rem/1.5 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+  .lead { font-size:1.15rem; max-width:44rem; }
+  .hero-card,.card,details { background:var(--surface); border:1px solid var(--rule); border-radius:4px; }
+  .hero-card { padding:1.2rem; align-self:start; }
+  .hero-card dl { margin:.7rem 0 0; }
+  .hero-card dl>div+div { margin-top:.55rem; padding-top:.55rem; border-top:1px solid var(--rule); }
+  dt { font:600 .72rem/1.5 var(--mono); color:var(--muted); text-transform:uppercase; }
+  dd { margin:0; }
+  .toc { display:flex; flex-wrap:wrap; gap:.5rem; padding:1rem 0 2.5rem; }
+  .toc a { padding:.4rem .7rem; border-radius:3px; background:var(--soft); font:600 .82rem/1.4 var(--display); text-decoration:none; }
+  main { display:grid; gap:3rem; }
+  section { display:grid; gap:1rem; scroll-margin-top:5rem; }
+  .section-lead { max-width:54rem; color:var(--muted); }
+  .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+  .card { padding:1.2rem; display:grid; gap:.65rem; align-content:start; }
+  .note { background:var(--soft); border-left:3px solid var(--accent); padding:1rem 1.2rem; }
+  .steps { display:grid; gap:.8rem; }
+  .steps li { padding-left:.25rem; }
+  details { padding:0 1.2rem; }
+  details+details { margin-top:.7rem; }
+  summary { cursor:pointer; padding:1rem 0; font:600 1rem/1.4 var(--display); }
+  details>div { display:grid; gap:.7rem; padding-bottom:1.2rem; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--rule); border-radius:4px; }
+  table { width:100%; border-collapse:collapse; background:var(--surface); font-size:.95rem; }
+  caption { text-align:left; padding:1rem; font:600 .85rem/1.5 var(--display); }
+  th,td { text-align:left; vertical-align:top; padding:.8rem 1rem; border-top:1px solid var(--rule); }
+  th { font-family:var(--display); }
+  .flow { display:flex; flex-wrap:wrap; gap:.4rem; align-items:center; font:600 .82rem/1.5 var(--display); }
+  .flow span { padding:.55rem .8rem; border:1px solid var(--rule); border-radius:3px; background:var(--surface); }
+  .flow b { color:var(--muted); }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--rule); color:var(--muted); font-size:.9rem; }
+  @media(max-width:760px) { .wrap { width:calc(100% - 1.5rem); } .hero,.grid { grid-template-columns:1fr; } .hero { padding-top:2rem; gap:1.2rem; } th,td { padding:.65rem; } }
+  @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  @media print { nav.sitenav,.skip-link { display:none; } .hero,.grid { display:block; } .card { break-inside:avoid; margin-bottom:1rem; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to prep</a>
+<div class="wrap">
+  <div id="sitenav"></div><script src="sitenav.js"></script>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Cider Consulting · Interview preparation</p>
+      <h1>Forward Deployed Engineer</h1>
+      <p class="lead">Own the client problem, choose the right engagement, and stay accountable through delivery and adoption. Show that you can turn a vague lead into a sound business decision—even when the best outcome is a recommendation.</p>
+    </div>
+    <aside class="hero-card" aria-label="Facts from the supplied job description">
+      <h2>The role at a glance</h2>
+      <dl>
+        <div><dt>Clients &amp; workload</dt><dd>US clients, primarily New York; typically 2–3 engagements in parallel.</dd></div>
+        <div><dt>Experience</dt><dd>5+ years in production engineering, direct external-client work, and AI features shipped in products.</dd></div>
+        <div><dt>House stack</dt><dd>.NET/C# and Angular; other production stacks welcome.</dd></div>
+        <div><dt>Arrangement</dt><dd>Fully remote · W-2 or 1099 · $75–150/hour based on expertise.</dd></div>
+      </dl>
+    </aside>
+  </header>
+  <nav class="toc" aria-label="On this page">
+    <a href="#quick">Five-minute prep</a><a href="#pitch">Your pitch</a><a href="#engagements">Choose the engagement</a><a href="#discovery">Discovery</a><a href="#proposal">Proposal &amp; ROI</a><a href="#delivery">Production AI</a><a href="#portfolio">2–3 clients</a><a href="#stories">Proof stories</a><a href="#questions">Practice answers</a><a href="#ask">Ask Cider</a><a href="#rehearse">Rehearse</a>
+  </nav>
+  <main id="main">
+    <section id="quick">
+      <h2>If you have five minutes</h2>
+      <div class="note"><strong>Your central message:</strong> “I take responsibility for the outcome—from understanding the client's problem to deciding what is worth doing, delivering it, and making sure people use it.”</div>
+      <div class="grid">
+        <article class="card"><h3>Prepare three specific examples</h3><ol><li>A client conversation where the original request changed after discovery.</li><li>A production AI feature: users, your personal contribution, evaluation, and an operational failure.</li><li>An end-to-end delivery with a business result you can substantiate.</li></ol></article>
+        <article class="card"><h3>Lead with judgment</h3><ul><li>Ask what decision or workflow needs to improve before naming a technology.</li><li>Offer build, implementation, advisory, or audit based on evidence.</li><li>Explain cost, uncertainty, and adoption in plain language.</li><li>Separate AI in the delivered product from AI used to develop it.</li></ul></article>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <h2>A 60-second opening</h2>
+      <p class="section-lead">Use this as a draft, substituting a real client and outcome. The approach language is a proposed answer; the brackets are evidence to fill in, not accomplishments to claim.</p>
+      <div class="card"><p>“I'm a hands-on engineer who likes owning the whole problem. My starting point is understanding what the client is trying to change, how the work happens today, and what a useful result would be. Sometimes that means building software; sometimes it means implementing an existing tool or giving a clear recommendation.</p><p>In [real external-client engagement], I owned [specific discovery and delivery scope]. We chose [approach] because [business tradeoff], and the result was [verified outcome]. My work on Papercusp gives me concrete examples to discuss around agent workflows, permissions, evaluation, and operational visibility. I'd connect those to the parts I personally designed or operated.</p><p>What attracts me to Cider is that the engineer is responsible for the client conversation as well as the implementation. I want to use AI to shorten the path from a vague problem to something the client can use and maintain.”</p></div>
+      <p><strong>If asked why consulting:</strong> emphasize variety, close contact with users, commercial judgment, and accountability after a demo. Support that motivation with an actual example of working directly with a customer.</p>
+    </section>
+
+    <section id="engagements">
+      <h2>Diagnose the engagement before pricing a build</h2>
+      <p class="section-lead">A hot lead has a problem and an initial theory. Your job is to test that theory. These four paths come from the posting; an engagement can move between them after an explicit decision.</p>
+      <div class="grid">
+        <article class="card" id="engagement-build"><p class="tag">Build</p><h3>Custom software is justified</h3><p>The workflow and success measure are clear, and existing products leave a meaningful gap.</p><p><strong>Deliver:</strong> a bounded production capability, acceptance tests, deployment, operating ownership, and adoption plan.</p><p><strong>Example:</strong> a specialized approval workflow across several systems, with permissions and audit requirements that the current tools cannot support.</p></article>
+        <article class="card" id="engagement-implementation"><p class="tag">Hands-on AI implementation</p><h3>The missing piece is making available tools work</h3><p>An existing platform can do much of the job, but data access, configuration, integrations, controls, or staff training are missing.</p><p><strong>Deliver:</strong> a configured workflow, representative evaluation, integrations, training, and a named operator. Small amounts of custom code may still be needed.</p><p><strong>Example:</strong> connect an approved knowledge assistant to a curated document collection with access control and feedback.</p></article>
+        <article class="card" id="engagement-advisory"><p class="tag">Advisory / consulting</p><h3>The client needs a decision and can execute it</h3><p>The important facts are available and the client has implementation capacity. The value is judgment, options, or an architecture review.</p><p><strong>Deliver:</strong> a recommendation with reasons, tradeoffs, sequence, and a decision owner.</p><p><strong>Example:</strong> compare a vendor product with a custom approach and recommend the lower-risk path.</p></article>
+        <article class="card" id="engagement-audit"><p class="tag">Paid audit</p><h3>There is not enough evidence to commit</h3><p>Several automation opportunities compete, or the economics, data quality, and workflow are unknown.</p><p><strong>Deliver:</strong> a workflow inventory, measured baseline, ranked opportunities, constraints, estimated value/cost ranges, and a go/no-go recommendation.</p><p><strong>Example:</strong> observe operations and sample cases to establish where automation would actually save money.</p></article>
+      </div>
+      <div class="note"><strong>A useful redirect:</strong> “I can help you evaluate that build. Before you commit to it, I'd like to check whether the bottleneck is the software, the underlying data, or the process. Then I can recommend the smallest engagement that gets you a useful result.”</div>
+    </section>
+
+    <section id="discovery">
+      <h2>Run the first conversation</h2>
+      <p class="section-lead">Practice prompt: “We spend too much time answering customer requests. Can you build us an AI agent?” This is a hypothetical lead, not a Cider project.</p>
+      <ol class="steps">
+        <li><strong>Outcome · first 3 minutes.</strong> “What is happening that made this urgent? Is the problem response time, errors, staff effort, lost sales, or something else? What would be different if this worked?”</li>
+        <li><strong>Observe the workflow · next 5 minutes.</strong> “Walk me through the last real request. Who touched it? Which systems did they open? Where did they wait? Show me a difficult case as well as a routine one.”</li>
+        <li><strong>Measure · next 4 minutes.</strong> “How many requests arrive? How long does handling take, including rework? How often are answers wrong? What happens when a request is delayed? Do these numbers come from records or estimates?”</li>
+        <li><strong>Constraints · next 4 minutes.</strong> “Which data can we use, and who is allowed to see it? Which actions require approval? What systems and contracts must stay? Who will maintain the result? What budget and decision date should we work within?”</li>
+        <li><strong>Decision · last 4 minutes.</strong> Restate the problem in the client's language. Separate facts from assumptions. Recommend the next engagement, its deliverable, its cost boundary, and the decision it will unlock. Name the sponsor and next meeting.</li>
+      </ol>
+      <div class="grid">
+        <div class="card"><h3>If the client cannot provide a baseline</h3><p>Propose a small paid diagnostic: inspect a representative sample, time the current process, interview users, and identify access constraints. Explain the questions it answers and set a stop date. Do not turn unknowns into a confident fixed implementation quote.</p></div>
+        <div class="card"><h3>If the client insists on the original solution</h3><p>Respect their goal, show the assumption your recommendation challenges, and offer a limited comparison. “Let's try both on the same sample and decide using handling time and errors.” If you cannot support their desired outcome honestly, narrow the promise or decline that scope.</p></div>
+      </div>
+      <p><strong>Close-back:</strong> “The expensive part appears to be finding the right information, while sending the answer is quick. I'd first test an assistant that drafts a cited answer for your team. If that does not improve the whole workflow, we should not expand it into autonomous customer replies.”</p>
+    </section>
+
+    <section id="proposal">
+      <h2>Turn technical choices into a business proposal</h2>
+      <div class="grid">
+        <div class="card"><h3>A one-page proposal structure</h3><ol><li><strong>Problem and baseline:</strong> who is affected, current volume/time/errors, and evidence quality.</li><li><strong>Options:</strong> improve the process, adopt/configure a product, or build; include doing nothing.</li><li><strong>Recommendation:</strong> why this option earns its cost, and the assumption most likely to change it.</li><li><strong>Scope:</strong> deliverables, exclusions, data/access dependencies, and client responsibilities.</li><li><strong>Commercials:</strong> effort and cost range, billing assumptions, operating costs, milestones, and a change-control rule.</li><li><strong>Acceptance and adoption:</strong> measurable thresholds, decision owner, rollout, training, support, and a go/no-go date.</li></ol></div>
+        <div class="card"><h3>State uncertainty without sounding vague</h3><p>“The integration is the largest unknown. I can bound discovery now. After we inspect the API and test a sample, I'll give you an implementation range with its assumptions. If we encounter a new dependency, you'll see the cost and options before we expand the scope.”</p><p><strong>Change request:</strong> describe what changes, the impact on the existing goal, cost/date options, and what gets deferred. Get a decision from the client before spending against new scope.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <caption>Illustrative monthly business case — invented numbers for practice, not Cider pricing or your past results</caption>
+          <thead><tr><th scope="col">Input or calculation</th><th scope="col">Example</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Eligible requests</th><td>2,000 per month</td></tr>
+            <tr><th scope="row">Handling time</th><td>8 minutes today → 5 minutes after, including human review and corrections</td></tr>
+            <tr><th scope="row">Actual adoption</th><td>75% of eligible requests</td></tr>
+            <tr><th scope="row">Capacity released</th><td>2,000 × 3 minutes × 75% ÷ 60 = <strong>75 hours/month</strong></td></tr>
+            <tr><th scope="row">Illustrative loaded labor value</th><td>75 × $60/hour = $4,500/month of potential capacity value</td></tr>
+            <tr><th scope="row">Ongoing cost</th><td>$1,200/month for models, hosting, support, and maintenance</td></tr>
+            <tr><th scope="row">Net value proxy</th><td>$4,500 − $1,200 = <strong>$3,300/month</strong></td></tr>
+            <tr><th scope="row">One-time project cost</th><td>Assume $24,000 → approximately <strong>7.3 months</strong> simple payback, if the capacity value is realized</td></tr>
+            <tr><th scope="row">Sensitivity: only 50% adoption</th><td>50 hours/month; $1,800/month net value proxy → approximately <strong>13.3 months</strong> payback</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><strong>Capacity is not automatically cash savings.</strong> Ask whether the client can reduce overtime, avoid hiring, or use the time for work with demonstrable value. Count review, rework, support, and ongoing costs once. Validate volume and adoption in a pilot. The posted $75–150/hour is role compensation, not a quoted client billing rate.</div>
+      <p><strong>Say it to a client:</strong> “Under these assumptions, this gives the team about 75 hours a month back. Whether that is worth the investment depends on how you use those hours. Adoption is a major driver, so I'd validate it before you approve a broader rollout.”</p>
+    </section>
+
+    <section id="delivery">
+      <h2>Design a small production system you can own</h2>
+      <p class="section-lead">Continue the hypothetical customer-request case: build a staff-facing assistant that retrieves approved information, drafts an answer with citations, and requires a human to send it. Earn broader autonomy through evidence.</p>
+      <div class="flow" aria-label="Example delivery flow"><span>Staff UI</span><b aria-hidden="true">→</b><span>Authenticated API</span><b aria-hidden="true">→</b><span>Authorized retrieval</span><b aria-hidden="true">→</b><span>Draft + citations</span><b aria-hidden="true">→</b><span>Human approval</span><b aria-hidden="true">→</b><span>Audited CRM action</span></div>
+      <div class="grid">
+        <article class="card"><p class="tag">Choose the smallest useful mechanism</p><h3>Rules, RAG, or an agent?</h3><p>Use rules for stable structured decisions. Use RAG when the answer needs current or private source material. Use bounded agent tool selection when the next step varies and that flexibility improves the outcome. A single retrieval-and-draft workflow may be enough.</p><p>Keep critical business rules and permissions in application code. Never let a retrieved document redefine the system's instructions.</p></article>
+        <article class="card"><p class="tag">Own front to back</p><h3>Application, data, and operations</h3><p>Start with a maintainable application boundary: UI, authenticated API, relational records, document ingestion, and background jobs where needed. Add tenant and user authorization to retrieval and actions. Use scoped credentials, idempotency for writes, bounded retries, and explicit failure states.</p><p>Show the user sources, uncertainty, review status, and a manual fallback. Assign data freshness, retention, incident response, and support ownership.</p></article>
+        <article class="card"><p class="tag">Prove quality</p><h3>A release bar tied to the workflow</h3><p>Test APIs and integrations; use a representative, versioned evaluation set with normal requests, missing answers, stale sources, permission negatives, and injection attempts. Evaluate retrieval, grounded answers, correct tool use, and abstention separately.</p><p>Compare the full human workflow against the baseline: handling time including review, critical-error rate, task completion, cost per completed request, and latency. Agree on numerical acceptance limits with the client before running the pilot.</p></article>
+        <article class="card"><p class="tag">Ship and adopt</p><h3>A deployment is the start of operational ownership</h3><p>Use CI/CD with tests, environment configuration, migration discipline, and rollback. Pilot with a small group, train a client champion, and keep existing workflows available. Log model/source versions and action traces with sensitive-data controls.</p><p>Review adoption, overrides, failures, and business outcomes with users. Hand over a runbook, access inventory, known limits, support terms, and a measured next-step recommendation.</p></article>
+      </div>
+      <div class="note"><strong>AI development workflow:</strong> use Cursor, Claude Code, or your actual tools for exploration, implementation, review, tests, and documentation. Explain how you supply context, inspect diffs, verify execution, protect client data, and decide what is safe to automate. Faster code generation does not remove responsibility for correctness.</div>
+      <p><strong>House-stack bridge:</strong> explain how your backend experience maps to ASP.NET Core APIs, dependency injection, workers, authentication, and data access; how your frontend experience maps to Angular components, services, forms, and testing. State your actual .NET/C# and Angular experience accurately, then describe a concrete ramp-up path in an existing client codebase.</p>
+    </section>
+
+    <section id="portfolio">
+      <h2>Manage 2–3 engagements without making clients chase you</h2>
+      <div class="grid">
+        <div class="card"><h3>Keep one clear next decision per client</h3><p>Track outcome, stage, owner, next milestone, client dependency, remaining budget, and next decision date. Reserve focused build time and explicit discovery/demo slots. Keep data, credentials, and AI contexts separated by client.</p><p>Prioritize by impact, commitment, and what unblocks others. If two commitments conflict, surface the options early and negotiate the sequence with the affected clients and technical lead.</p></div>
+        <div class="card"><h3>A weekly update clients can act on</h3><p><strong>Outcome:</strong> what changed for users or what uncertainty was resolved.</p><p><strong>Evidence:</strong> demo, pilot result, or completed decision.</p><p><strong>Risk / decision:</strong> what needs attention, your recommendation, and the date needed.</p><p><strong>Next:</strong> the next milestone, cost-to-complete range, and who owns each dependency.</p></div>
+      </div>
+      <p><strong>Client-ready language:</strong> replace “the retrieval pipeline has low recall” with “the assistant is missing relevant policy documents, so some answers lack the evidence staff need. We're testing the search step on real requests before widening the pilot.” Then provide the technical details if asked.</p>
+    </section>
+
+    <section id="stories">
+      <h2>Bring evidence, not a list of tools</h2>
+      <p class="section-lead">Prepare one real story for each row. Use client context → ambiguity → your decision → tradeoff → delivery/adoption → measured result. Separate what you personally owned from what teammates or agents did.</p>
+      <div class="grid">
+        <article class="card"><h3>Discovery with an external client</h3><p>What did they initially ask for? What question or observation changed the diagnosis? Who made the commercial decision? What did you recommend, and how did the client respond?</p><p>If you do not have a strong external-client example, say so and offer the closest truthful experience; distinguish internal stakeholders from paying clients.</p></article>
+        <article class="card"><h3>Production AI inside a product</h3><p>Name actual users, the model/retrieval/tool boundary, data permissions, evaluation, rollout, and a failure you handled. Show the product's AI behavior, not only how you used an assistant to write it.</p><a href="papercusp-answer-bank-standalone.html#q-ai-eval">Answer Bank: evaluating AI</a></article>
+        <article class="card"><h3>End-to-end full-stack ownership</h3><p>Draw UI → API → data → background work → deployment. Explain a design decision, an operational issue, support after launch, and your personal contribution.</p><a href="papercusp-answer-bank-standalone.html#n-system-design">Answer Bank: system design</a></article>
+        <article class="card"><h3>Reliability and bounded autonomy</h3><p>Use Papercusp examples you can explain in detail: state and checkpoints, permissions, human decisions, traces, failure detection, or evaluation. Describe evidence and limitations rather than implying a proven client ROI.</p><a href="papercusp-answer-bank-standalone.html#g-permissions">Answer Bank: permissions</a><a href="papercusp-answer-bank-standalone.html#n-liveness">Answer Bank: recovery</a></article>
+        <article class="card"><h3>A recommendation that saved effort</h3><p>Prepare a truthful example of reusing an existing system, narrowing scope, or choosing not to build. Explain what the client gained and how you verified the decision.</p></article>
+        <article class="card"><h3>Trust under pressure</h3><p>Describe a missed assumption, delay, or disagreement. Show when you told the client, the options you presented, the revised commitment, and how you followed through.</p><a href="papercusp-answer-bank-standalone.html#n-leading">Answer Bank: leading through influence</a></article>
+      </div>
+    </section>
+
+    <section id="questions">
+      <h2>Practice the questions aloud</h2>
+      <p class="section-lead">Likely questions inferred from the posting, not a known interview script. Open each answer after trying a 60–90 second response. These are suggested approaches; add real evidence when asked about your experience.</p>
+      <div>
+        <details id="q-vague"><summary>1. A lead gives you two sentences and asks for an AI app. What do you do?</summary><div><p>“I'd clarify the business outcome, then walk through a real example of the current process. I'd establish volume, effort, failure cost, users, data access, and who can make a decision. I would summarize what we know and what is still an assumption, then recommend an engagement that reduces the important uncertainty. I would avoid committing to an implementation before those facts support it.”</p><p><strong>Follow-up:</strong> name the three questions you would ask first and the specific deliverable you would propose next.</p></div></details>
+        <details><summary>2. When would you recommend an audit or advisory engagement instead of software?</summary><div><p>“If the evidence is missing, I'd propose a bounded audit to establish the workflow, economics, data readiness, and ranked opportunities. If the facts are already clear and the client can execute, advisory may be enough. I would define a useful decision as the deliverable, with acceptance criteria and a decision owner. Neither needs to become a build to be successful.”</p></div></details>
+        <details><summary>3. How do you push back without losing the client's trust?</summary><div><p>“I acknowledge the outcome they want, explain the concern in terms of their cost or risk, and show an alternative. I'd say, ‘We can build that, but first let's test whether it addresses the delay we observed.’ Then I'd propose a small comparison and a decision date. The client should understand my reasoning and retain an informed choice.”</p></div></details>
+        <details><summary>4. How do you estimate work when the scope is unclear?</summary><div><p>“I'd separate discovery from implementation. I can price a bounded investigation around specific questions. For implementation, I would break the work into milestones, state dependencies and exclusions, provide a range, and identify what drives that range. Fixed commitments require a sufficiently clear boundary; changes need an explicit cost and schedule decision.”</p></div></details>
+        <details><summary>5. How would you explain ROI to a nontechnical client?</summary><div><p>“I'd start with the current workflow and calculate the difference we can actually measure: time, errors, throughput, or revenue. I'd include review effort, adoption, and ongoing operating costs, then show a base and a conservative case. If the benefit is capacity rather than reduced spending, I'd say that clearly. A pilot should validate the largest assumption before a larger commitment.”</p></div></details>
+        <details><summary>6. Tell me about AI you shipped into a live product.</summary><div><p>Use a real example: “The users were [who], and the AI performed [specific product capability]. I personally owned [scope]. We evaluated it against [baseline and test set], controlled [data/tool boundary], and rolled out through [process]. We observed [verified outcome]. One failure was [actual issue], and we changed [mechanism and recurrence check].”</p><p>Be ready to draw the architecture and explain what happened when the model was wrong. A story about generating code with an AI tool answers a different question.</p></div></details>
+        <details><summary>7. How do you choose between RAG, an agent, and ordinary automation?</summary><div><p>“I choose the simplest mechanism that passes the workflow's acceptance criteria. Structured, repeatable operations often need rules. Current private knowledge may need retrieval with permission checks and citations. Variable multi-step tasks may justify tool selection, but only with bounded actions, budgets, and recoverable state. I'd compare candidates on the same real cases before increasing complexity.”</p></div></details>
+        <details><summary>8. How do you use AI development tools while staying accountable?</summary><div><p>“I use AI across discovery, code, tests, review, and documentation, but I still own the result. I give it a bounded task and relevant context, review the changes, execute tests, verify integration behavior, and inspect risky paths directly. I follow the client's rules for source code and data. I can explain the system without relying on the assistant that helped build it.”</p><p>Add your actual tools and a specific example of a mistake your verification caught.</p></div></details>
+        <details><summary>9. How would you work in .NET and Angular if your strongest stack is different?</summary><div><p>“My strongest production stack is [actual stack]. The transferable work is API design, data modeling, authorization, UI state, testing, deployment, and operations. I'd start by tracing an existing request end to end, using the team's conventions, and delivering a small vertical slice with review. I'd be explicit about what I already know and where I need ramp-up rather than claiming experience I don't have.”</p></div></details>
+        <details><summary>10. How do you keep three engagements moving?</summary><div><p>“I keep a visible next milestone and next decision for each client, with budget, risks, and dependencies. I reserve focused delivery blocks and regular client touchpoints. I surface conflicts before a deadline is missed and bring a recommendation about sequencing. Experienced peers are thought partners for hard decisions, while I remain accountable for the engagement.”</p></div></details>
+        <details><summary>11. The pilot works, but nobody uses it. What do you do?</summary><div><p>“I'd observe users doing the work and look at where they abandon or override the tool. The issue may be trust, extra steps, missing integrations, or a mismatch with the real job. I'd fix the workflow with a client champion, train users, and measure end-to-end outcomes. If the tool still does not improve the job, I'd recommend stopping or changing direction.”</p></div></details>
+        <details><summary>12. What if you ship a mistake or the client changes priorities?</summary><div><p>“I would contain the impact, explain what is known and unknown, and give the client a clear next update. For a production incident, I'd use rollback or the manual path and investigate the cause with a recurrence check. For changed priorities, I'd restate the goal and present scope, cost, and timing options. I would not quietly absorb new work and let the original commitment fail.”</p></div></details>
+      </div>
+    </section>
+
+    <section id="ask">
+      <h2>Questions to ask Cider</h2>
+      <div class="grid">
+        <div class="card"><h3>Engagements and authority</h3><ul><li>What proportion of engagements become builds, implementations, advisory work, or paid audits?</li><li>Who decides the engagement type and owns the proposal, pricing, and scope changes?</li><li>What distinguishes a successful first 90 days in this role?</li></ul></div>
+        <div class="card"><h3>Delivery and support</h3><ul><li>What does “2–3 engagements” mean in typical weekly effort and overlap?</li><li>How do engineers get design/code review and a second opinion on commercial or technical risk?</li><li>Who supports a system after launch, and how is adoption measured?</li></ul></div>
+        <div class="card"><h3>AI and stack</h3><ul><li>Which production AI use cases have delivered the clearest client value?</li><li>Which model, client-data, security, and evaluation standards are already established?</li><li>How often does a project require .NET/Angular versus choosing a stack around the client's needs?</li></ul></div>
+        <div class="card"><h3>Working arrangement</h3><ul><li>What New York overlap hours and client-meeting availability are expected?</li><li>For W-2 versus 1099, how do benefits, equipment, guaranteed hours, and nonbillable discovery time differ?</li><li>How are hours, payment terms, and after-launch availability agreed?</li></ul></div>
+      </div>
+      <p><strong>Rate discussion:</strong> connect your rate to the scope you can own and evidence of relevant delivery. Confirm the arrangement and expected hours before comparing compensation. Treat the posting's range as a conversation boundary, not a promise of a specific offer.</p>
+    </section>
+
+    <section id="rehearse">
+      <h2>A 30-minute mock engagement</h2>
+      <ol class="steps"><li><strong>3 minutes:</strong> deliver your opening with one real client story.</li><li><strong>7 minutes:</strong> discover the vague customer-request problem. Ask questions before offering technology.</li><li><strong>5 minutes:</strong> recommend one of the four engagement types; explain the rejected alternatives.</li><li><strong>5 minutes:</strong> present a proposal and the worked ROI example, including its weakest assumption.</li><li><strong>7 minutes:</strong> draw the production design and explain testing, rollback, adoption, and ownership.</li><li><strong>3 minutes:</strong> ask two questions and summarize the next decision.</li></ol>
+      <div class="note"><strong>Score yourself:</strong> Did you identify an outcome? Did you test the client's framing? Did you compare options and cost? Did you define what proves success? Did you name the human owner and next step? Did every personal claim have real supporting evidence?</div>
+    </section>
+  </main>
+  <footer>Prepared from the Cider Consulting job description supplied by Avraham on 24 September 2026. Company and role facts come from that posting; scenarios, estimates, and likely questions are practice material. Confirm the interview format, client mix, current architecture, and commercial terms with Cider.</footer>
+</div>
+</body>
+</html>

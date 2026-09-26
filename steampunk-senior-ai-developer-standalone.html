@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steampunk Senior AI Developer — Interview Prep</title>
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); overflow-wrap: anywhere; }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+
+main.stack{min-width:0} .drill-body>*, .masthead>*{min-width:0} button:focus-visible{outline:2px solid var(--accent)}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+<header class="masthead">
+  <div class="mastcopy">
+    <p class="eyebrow">Steampunk · Senior AI Developer · Job 8180</p>
+    <h1>Show how you turn AI into dependable software.</h1>
+    <p class="standfirst">Lead with the systems you have built: agent orchestration, retrieval, typed APIs, evaluation, and recovery. Connect each technical decision to the people relying on it. This role spans predictive ML, generative AI, and production delivery for federal missions.</p>
+  </div>
+  <aside class="join-card" aria-label="Steampunk interview details">
+    <p class="eyebrow">Your scheduled interview</p>
+    <p><strong>Wednesday, September 16, 2026</strong><br><time datetime="2026-09-16T12:15:00-04:00">12:15 PM</time>–<time datetime="2026-09-16T12:45:00-04:00">12:45 PM EDT</time><br>Mindy Trzcinski · 30 minutes</p>
+    <p><strong>Join through your calendar invitation.</strong> The pasted invitation contains no conferencing URL.</p>
+    <p class="small">Camera on throughout. Remove virtual backgrounds. Steampunk may capture an identity-verification screenshot. If video is unavailable, the invitation asks you to notify them in advance to reschedule.</p>
+  </aside>
+</header>
+<dl class="facts" aria-label="Steampunk role facts">
+  <div class="fact"><dt>Location</dt><dd>McLean, Virginia</dd></div>
+  <div class="fact"><dt>Posted salary</dt><dd>$140,000–$190,000</dd></div>
+  <div class="fact"><dt>Requirement</dt><dd>Ability to hold Public Trust</dd></div>
+  <div class="fact"><dt>Practice</dt><dd>AI &amp; Data Exploitation</dd></div>
+  <div class="fact"><dt>Posted</dt><dd>September 10, 2026</dd></div>
+</dl>
+<nav class="toc" aria-label="Steampunk preparation sections">
+  <p class="eyebrow">Prepare in this order</p>
+  <ol>
+    <li><span class="n">01</span><a href="#quick-start">Five-minute briefing</a></li>
+    <li><span class="n">02</span><a href="#pitch">Your opening pitch</a></li>
+    <li><span class="n">03</span><a href="#screen">Screening answers</a></li>
+    <li><span class="n">04</span><a href="#fit">Role-to-evidence map</a></li>
+    <li><span class="n">05</span><a href="#stories">Three stories to rehearse</a></li>
+    <li><span class="n">06</span><a href="#design">A mission-focused design answer</a></li>
+    <li><span class="n">07</span><a href="#technical">Technical practice</a></li>
+    <li><span class="n">08</span><a href="#questions">Questions for Mindy</a></li>
+    <li><span class="n">09</span><a href="#checklist">Before joining</a></li>
+    <li><span class="n">10</span><a href="#sources">Sources and boundaries</a></li>
+  </ol>
+</nav>
+<main id="main" class="stack" style="gap:3.6rem">
+<section id="quick-start">
+  <div class="sec-head"><p class="eyebrow">01 · Five-minute briefing</p><h2>The message to leave with Mindy</h2></div>
+  <div class="note"><p><strong>I can own the engineering between a promising model and a system people can rely on.</strong> I have built the application, API, durable workflow, evaluation, and operational pieces together, and I can explain the tradeoffs plainly.</p></div>
+  <div class="two-col">
+    <article class="card"><h3>What to emphasize</h3><ul>
+      <li>PaperCusp: coordinating agents, preserving state across interruptions, retrieval, tool contracts, and evaluating actual outcomes.</li>
+      <li>Store Wolf: owning software and daily operations with a small team; business constraints drove the engineering.</li>
+      <li>Reusable components and clear handoffs with data science, LLMOps, product, and design.</li>
+      <li>Start with the user's workflow and a measurable improvement. Explain when a simpler model or deterministic code is enough.</li>
+    </ul></article>
+    <article class="card"><span class="badge inference">Working assumption</span><h3>Prepare for a screening conversation</h3><p>A 30-minute appointment with one named contact is consistent with an initial screen, but the invitation does not identify Mindy's function or confirm the format. Have a concise career story and two technical examples ready; there is no supplied evidence of a coding assessment.</p><p><strong>Opening check:</strong> “Would it be most useful to start with my background, or go straight into the AI systems I've built?”</p></article>
+  </div>
+  <div class="note info"><h3>Why this company</h3><p>Steampunk's <a href="https://steampunk.com/our-framework/" target="_blank" rel="noreferrer">Design Intelligence framework</a> combines user research, technical delivery, and iteration. Its <a href="https://steampunk.com/ai-data-exploitation/" target="_blank" rel="noreferrer">AI &amp; Data Exploitation practice</a> covers the data foundation, predictive and generative applications, and operations. Connect that to your experience owning the whole workflow, including how people inspect and recover from failures.</p></div>
+</section>
+<section id="pitch">
+  <div class="sec-head"><p class="eyebrow">02 · Rehearse aloud</p><h2>Your 60-second introduction</h2></div>
+  <div class="script short"><p class="say">I'm a software engineer and founder with over thirteen years building and operating production systems. I spent twelve years building Store Wolf, an automated commerce business that ran with a two-engineer team. I owned the software from inventory and pricing through fulfillment and day-to-day reliability. More recently I've been building PaperCusp, a platform that coordinates AI agents working on software. My work includes the TypeScript API and React application, durable work queues, model routing, retrieval, and evaluation. The interesting part for me is what happens after the first successful demo: how you recover from a failed run, control what a tool can do, and prove the result is useful. This role caught my attention because it brings those engineering problems together with real user workflows and a team that includes data science, design, and LLMOps.</p></div>
+  <p class="small muted">Practice the shape, not a memorized recital. If she asks for detail, use one story below. Save the long architecture tour for a follow-up.</p>
+  <div class="script"><h3>“Why Steampunk?” · 25 seconds</h3><p class="say">The role is about building complete AI capabilities, from the data and retrieval through the application and operations. That's the work I enjoy. I also like that your delivery approach starts with the people using the system. At Store Wolf I lived with the operational consequences of the software I built, and I want to bring that ownership to a team solving concrete mission problems.</p></div>
+</section>
+<section id="screen">
+  <div class="sec-head"><p class="eyebrow">03 · Likely screening questions</p><h2>Be specific where you have evidence</h2></div>
+  <details class="drill" open><summary>How much AI/ML experience do you have?</summary><div class="drill-body"><div class="stack"><p><strong>Answer:</strong> “My software engineering background is over thirteen years. My current work is concentrated on LLM applications and agent infrastructure. Earlier work included predictive pricing and structured product matching. I can walk you through when those projects happened and what I personally implemented.”</p><p>The posting requests at least two years focused on AI/ML, generative AI, or LLM applications. Your résumé dates PaperCusp to <strong>March 2026</strong>. It does not by itself establish two years of LLM engineering. Establish the actual dates of earlier ML work before adding a duration.</p></div><div class="probe"><strong>Expect:</strong> When did the predictive project start? How much was hands-on? What model did you use? Separate classical ML from LLM applications and from the rest of your engineering tenure.</div></div></details>
+  <details class="drill"><summary>How strong are you in Python, PyTorch, and the named frameworks?</summary><div class="drill-body"><p>Your deepest recent production stack is TypeScript/Node/React/PostgreSQL. For Python, discuss the specific predictive-model integration described in the existing prep notes. Distinguish using XGBoost and data-processing utilities from training neural networks in PyTorch or TensorFlow. LangChain, LlamaIndex, and Hugging Face experience should be described only to the depth you have actually used them.</p><div class="probe"><strong>Bridge:</strong> “The orchestration concepts are familiar: state, tool schemas, retries, retrieval, tracing, and evaluation. I'd map those to the team's framework rather than assume my own runtime is the right answer.” Do not turn familiarity with a concept into a claimed production deployment.</div></div></details>
+  <details class="drill"><summary>Why move from founder work to this role?</summary><div class="drill-body"><div class="stack"><p><strong>Possible framing, if it reflects your intent:</strong> “I want to focus my time on hands-on AI engineering in a team where I can own delivery and learn a new problem domain. The founder experience taught me to connect technical choices to users and operational outcomes.”</p><p>Be ready to explain the actual status of PaperCusp, your availability, and how you would handle any continuing outside work. Decide those answers yourself before the call.</p></div><div class="probe">Do not promise to close a business, transfer IP, stop a project, or start on a date you have not decided. A factual answer about commitment is stronger than an invented transition story.</div></div></details>
+  <details class="drill"><summary>Public Trust, location, and start date</summary><div class="drill-body"><div class="stack"><p>The role requires the <strong>ability to hold a position of public trust</strong>. The supplied materials do not establish an existing determination. State your real status and ask which onboarding process this role requires; don't say you are already cleared unless that is true.</p><p>Your résumé lists <strong>Northampton, Massachusetts</strong>. The posting lists McLean, Virginia but does not establish remote or hybrid eligibility.</p><p><strong>Ask:</strong> “What is the expected work location and onsite cadence for this position, including any client-site travel?”</p></div><div class="probe">Have truthful answers ready on work authorization, current location, relocation willingness, availability, and any process you have already completed. None is inferred from your name or address.</div></div></details>
+  <details class="drill"><summary>What are your compensation expectations?</summary><div class="drill-body"><div class="stack"><p><strong>Low-commitment answer:</strong> “I saw the posted range of $140,000 to $190,000. I'd like to understand the responsibilities and total package. Is that the range budgeted for this particular opening?”</p><p>Your prior search floor was $150,000. If you want to state an expectation, choose it before the call; the listing's upper bound is not an offer.</p></div><div class="probe"><strong>Invitation instruction:</strong> Do not share salary history. Discuss expectations for this role and total compensation. The page repeats the employer's instruction, not a legal interpretation.</div></div></details>
+</section>
+<section id="fit">
+  <div class="sec-head"><p class="eyebrow">04 · Evidence, relevance, boundary</p><h2>How your experience maps to the role</h2></div>
+  <div class="matrix-wrap" role="region" aria-label="Steampunk role and candidate evidence" tabindex="0"><table class="matrix">
+    <thead><tr><th>They need</th><th>Your best example</th><th>Boundary to keep clear</th></tr></thead><tbody>
+    <tr><td>Production AI applications</td><td>PaperCusp's TypeScript/Hono API, React/Tauri interface, PostgreSQL state, and agent execution workflows.</td><td>No claim of federal deployment.</td></tr>
+    <tr><td>Multi-agent orchestration</td><td>Work ownership, dependency-aware queues, file claims, event-driven wakes, and restart recovery.</td><td>Explain a concrete failure and its control; avoid absolute safety claims.</td></tr>
+    <tr><td>RAG and context</td><td>Hybrid semantic and lexical retrieval, embeddings, reranking, and context budgets described in your résumé.</td><td>Separate retrieval from any older deterministic product matcher.</td></tr>
+    <tr><td>Reusable AI components</td><td>One typed tool contract exposed through MCP, HTTP, and IPC; explicit inputs, outputs, and errors.</td><td>Explain what is shared and what remains domain-specific.</td></tr>
+    <tr><td>Predictive models</td><td>The existing Store Wolf prep documents a Python XGBoost pricing path and the feature contract between Node and Python.</td><td>Do not describe it as deep learning or a model-training platform.</td></tr>
+    <tr><td>Inference and LLMOps</td><td>Provider routing, recovery, tracing, test gates, and guarded release workflows.</td><td>Provider API routing is different from operating GPU serving clusters.</td></tr>
+    <tr><td>Trustworthy AI</td><td>Discuss actual permission boundaries, auditing, evaluation, and the remaining bypass paths identified in your Answer Bank.</td><td>No blanket claim of complete confinement or compliance certification.</td></tr>
+    <tr><td>Mentoring and collaboration</td><td>Code review, onboarding, and knowledge transfer with the second Store Wolf engineer; translating operational needs into software.</td><td>A small team, not an invented large engineering organization.</td></tr>
+    <tr><td>Cloud and containers</td><td>Concrete Docker, Linux, deployment, and cloud work you can demonstrate.</td><td>Kubernetes production depth is not established by the résumé.</td></tr>
+    </tbody></table></div>
+</section>
+<section id="stories">
+  <div class="sec-head"><p class="eyebrow">05 · Three stories</p><h2>Problem → decision → evidence → lesson</h2></div>
+  <div class="two-col">
+    <article class="card"><h3>1. Agents sharing a codebase</h3><p><strong>Problem:</strong> parallel agents need clear ownership, durable state, and recovery when a session disappears.</p><p><strong>Your decisions:</strong> persist work records, express dependencies, arbitrate conflicting edits, and tie completion to evidence.</p><p><strong>Outcome to explain:</strong> who owns the task after interruption, how duplicate work is prevented, and what proves the resumed task actually finished.</p><p><strong>Steampunk connection:</strong> workflows may span models, APIs, approvals, and external systems; recovery is part of the product.</p></article>
+    <article class="card"><h3>2. Predictive pricing across a process boundary</h3><p><strong>Existing prep evidence:</strong> Node sends JSON commands to a long-running Python sidecar. The model is an XGBoost regressor; pandas prepares features, and scikit-learn supplies an imputer and a split.</p><p><strong>The engineering decision:</strong> preserve feature names and ordering between training and prediction. A matching shape alone doesn't prove matching meaning.</p><p><strong>Lesson:</strong> define preprocessing as part of the model artifact; evaluate with splits that represent the actual deployment, and don't present a random split's score as production impact.</p></article>
+  </div>
+  <article class="card"><h3>3. Operational software with a measurable result</h3><p>Your résumé describes a fulfillment optimizer over 100K+ SKUs using bitmap indexing to evaluate millions of paths in about a minute, reducing fulfillment cost per order by 15%. Explain the constraints, why the representation made search practical, and how the result was measured. If the measurement period or denominator is not at hand, say so.</p><p><strong>Steampunk connection:</strong> a mission need may call for an optimizer, a predictive model, or deterministic logic. Choosing the appropriate method is part of senior AI engineering.</p></article>
+  <div class="note warn"><h3>Keep the corrections in your existing prep</h3><p>The ServiceNow guide's Store Wolf section corrects an overly broad AI narrative: much of the matching was structured entity resolution and rules; the pricing model was gradient-boosted trees. The Answer Bank also distinguishes implemented permission controls from complete enforcement. Those narrower, concrete explanations are your strongest follow-up answers.</p><p><a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Read the existing Store Wolf section</a> · <a href="papercusp-answer-bank-standalone.html">Open the Answer Bank</a></p></div>
+</section>
+<section id="design">
+  <div class="sec-head"><p class="eyebrow">06 · Hypothetical system design</p><h2>“Build an assistant for a federal caseworker.”</h2></div>
+  <p class="muted">This is a practice scenario, not a disclosed Steampunk project. Start by asking what decision the caseworker makes, which sources they can access, and which actions require human authorization.</p>
+  <ol class="timeline">
+    <li><div><h3>Define the workflow and baseline</h3><p>Observe how a caseworker answers a policy question today. Measure time, accuracy, and rework. Begin with a narrow read-only task and agree on acceptance examples with users.</p></div></li>
+    <li><div><h3>Ingest approved documents</h3><p>Parse text and tables, preserve version and source references, attach access-control metadata, and test extraction quality. Handle deletions and superseded policies as explicit updates.</p></div></li>
+    <li><div><h3>Retrieve authorized evidence</h3><p>Filter by the caller's permissions before selecting context. Combine keyword and vector retrieval when useful, rerank candidates, preserve citations, and return insufficient evidence when coverage is weak.</p></div></li>
+    <li><div><h3>Generate a bounded answer</h3><p>Keep retrieved text as data, not instructions. Ask for cited answers tied to current sources. Validate structured outputs, limit context, and make uncertainty visible to the user.</p></div></li>
+    <li><div><h3>Add actions only with enforceable checks</h3><p>Use typed tools, server-side authorization, scoped credentials, idempotency keys, and persisted workflow state. Require approval for consequential actions; a model-generated plan cannot grant itself permissions.</p></div></li>
+    <li><div><h3>Evaluate and operate with LLMOps</h3><p>Measure retrieval coverage, supported-answer rate, task success, unauthorized-action attempts, p95 latency, and cost per successful task. Version models, prompts, retrieval settings, and data; release gradually with rollback and a known owner.</p></div></li>
+  </ol>
+  <div class="note"><p><strong>Close with the tradeoff:</strong> “I'd start with one well-evaluated workflow. I would introduce multiple agents only when specialization or independently checkable parallel work improves the result enough to justify coordination cost.”</p></div>
+</section>
+<section id="technical">
+  <div class="sec-head"><p class="eyebrow">07 · Technical practice</p><h2>Short answers with a useful follow-up</h2></div>
+  <details class="drill"><summary>RAG, fine-tuning, or a predictive model?</summary><div class="drill-body"><p>Use retrieval when the answer depends on changing or permissioned knowledge. Consider fine-tuning for a repeatable behavior or format problem with suitable examples, after measuring a baseline. Use a supervised model for a stable, bounded prediction task with reliable labels. These can coexist in one application.</p><div class="probe"><strong>Follow-up:</strong> Fine-tuning does not replace access controls or guarantee factual recall. What specific measured failure would justify its cost?</div></div></details>
+  <details class="drill"><summary>How do you improve a weak RAG answer?</summary><div class="drill-body"><p>Separate retrieval failures from generation failures. Check document extraction, freshness, chunk boundaries, query coverage, metadata filters, reranking, and whether the answer-bearing passage was in context. Maintain a small labeled set of questions with expected evidence and negative cases.</p><div class="probe"><strong>Measures:</strong> retrieval recall at k, evidence correctness, citation support, task success, abstention behavior, and latency. A fluent answer is not a retrieval metric.</div></div></details>
+  <details class="drill"><summary>How do you prevent prompt injection and unsafe tool use?</summary><div class="drill-body"><p>Treat documents and tool results as untrusted data. Enforce permissions and argument validation outside the model. Minimize credential scope and data returned, constrain network destinations where needed, and require explicit approval for high-impact operations. Test malicious documents and tool outputs as part of evaluation.</p><div class="probe"><strong>Follow-up:</strong> Input sanitization and content filtering help with particular threats; neither substitutes for authorization. Explain the remaining exposure honestly.</div></div></details>
+  <details class="drill"><summary>What state belongs outside the context window?</summary><div class="drill-body"><p>Workflow status, approved actions, ownership, tool receipts, retry counts, durable identifiers, and recovery checkpoints belong in persistent storage. The prompt contains the bounded context needed for the next step. After a timeout, read authoritative state before retrying an external side effect.</p><div class="probe"><strong>Example:</strong> A service accepts a request, then the worker crashes before recording success. Recover using the idempotency key or receipt, not a blind second request.</div></div></details>
+  <details class="drill"><summary>How would you evaluate predictive ML?</summary><div class="drill-body"><p>Define the decision, label, loss, and baseline. Split by time or entity when that matches deployment, keep preprocessing fitted only on training data, and check leakage. Pick metrics based on error costs: regression error in business units; precision/recall and calibration for classification; relevant subgroup performance where justified.</p><div class="probe"><strong>Follow-up:</strong> Compare offline gains with real workflow impact. Monitor input and outcome changes; retraining is a decision backed by evidence, not a timer alone.</div></div></details>
+  <details class="drill"><summary>How do you make inference faster and cheaper?</summary><div class="drill-body"><p>Measure where time goes: retrieval, queues, model calls, and tools. Reduce unnecessary context and serial calls, cache safely with permission-aware keys, route simpler tasks to smaller models, and limit concurrency and retries. Use streaming when it improves the user's experience, while measuring total completion time separately.</p><div class="probe"><strong>Boundary:</strong> GPU batching, quantization, and serving engines are design options to discuss with LLMOps. Don't imply that provider-routing experience proves hands-on GPU optimization.</div></div></details>
+  <details class="drill"><summary>How would you work with design, product, and mission stakeholders?</summary><div class="drill-body"><p>Observe the current workflow, agree on the costly failure cases, and build a small prototype users can react to. Include citations, error states, escalation, and approval paths in the design. Translate feedback into measurable acceptance criteria and a versioned evaluation set.</p><div class="probe"><strong>Concrete question:</strong> “What does the user do when the assistant is unsure, and can they finish the task without it?”</div></div></details>
+  <details class="drill"><summary>What would your first month look like?</summary><div class="drill-body"><p><strong>Proposed approach:</strong> learn the mission, data restrictions, delivery process, and existing architecture; reproduce the current baseline; pair with users and LLMOps; ship one narrow improvement with evaluation, monitoring, and a rollback path. Document a reusable component only after proving it in the workflow.</p><div class="probe">Ask what is already built before proposing a replacement. The actual client, cloud, framework, and first assignment remain unknown.</div></div></details>
+</section>
+<section id="questions">
+  <div class="sec-head"><p class="eyebrow">08 · Choose three</p><h2>Questions worth asking Mindy</h2></div>
+  <ol class="question-list">
+    <li><strong>“Is this position tied to a particular client program, or is the initial assignment within the AI &amp; Data Exploitation practice?”</strong> Establish the mission and how firm the opening is.</li>
+    <li><strong>“Where is the biggest need today: LLM application engineering, predictive ML, agent workflows, or inference operations?”</strong> Learn how they weight your strongest areas.</li>
+    <li><strong>“What would success in the first 90 days look like, and who would I work with most closely?”</strong> Ask about data science, evaluation scientists, designers, and LLMOps.</li>
+    <li><strong>“What are the onsite and travel expectations, and how does the Public Trust process affect the start timeline?”</strong> Clarify logistics without promising an arrangement.</li>
+    <li><strong>“What should I prepare for the next interview: Python coding, system design, model evaluation, or a project discussion?”</strong> Get the actual format.</li>
+    <li><strong>“Does the posted compensation range apply to this assignment, and how are level and total compensation determined?”</strong> Keep the discussion about this role.</li>
+  </ol>
+  <div class="script short"><h3>A useful close</h3><p class="say">The application and agent infrastructure side looks like a strong match for what I've been building. Is there an area of my background you'd want me to clarify before the next round?</p></div>
+</section>
+<section id="checklist">
+  <div class="sec-head"><p class="eyebrow">09 · Before 12:15 PM EDT</p><h2>Make the call easy to start</h2></div>
+  <ul class="checklist">
+    <li>Open the actual conferencing link from Mindy's invitation; it was not included in the pasted text.</li>
+    <li>Test camera and microphone. Keep the camera on for the full interview and remove virtual backgrounds.</li>
+    <li>Use a plain physical background and front lighting. The invitation says an identity screenshot may be taken.</li>
+    <li>Have your résumé, the role, and three questions ready. Follow the interviewer's rules about notes and tools.</li>
+    <li>Rehearse the 60-second introduction and one two-minute example.</li>
+    <li>Decide your truthful location, availability, compensation expectations, and Public Trust status answers.</li>
+    <li>Do not volunteer salary history, as requested in the invitation.</li>
+    <li>Join a few minutes early. If video cannot work, contact Mindy in advance as the invitation requests.</li>
+  </ul>
+</section>
+<section id="sources">
+  <div class="sec-head"><p class="eyebrow">10 · Prepared September 16, 2026</p><h2>What this preparation is based on</h2></div>
+  <ul class="source-list">
+    <li><strong>Owner-supplied posting:</strong> Senior AI Developer, job 8180, McLean VA, posted September 10, 2026; responsibilities, qualifications, Public Trust requirement, and $140,000–$190,000 range. The public job endpoint could not be independently loaded; the supplied full text is the role source.</li>
+    <li><strong>Owner-supplied invitation:</strong> September 16, 12:15–12:45 PM EDT, Mindy Trzcinski; camera on, no virtual backgrounds, possible identity screenshot, and no salary-history disclosure. The invitation does not specify interview format, Mindy's title, or a conferencing URL.</li>
+    <li><a href="https://steampunk.com/our-framework/" target="_blank" rel="noreferrer">Steampunk: Our Framework</a> · company-authored delivery approach, checked September 16.</li>
+    <li><a href="https://steampunk.com/ai-data-exploitation/" target="_blank" rel="noreferrer">Steampunk: AI &amp; Data Exploitation</a> · company-authored practice description, checked September 16.</li>
+    <li><strong>Candidate evidence:</strong> Avraham_Weiss_SWE_Papercusp_Clera.pdf; the existing <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Store Wolf correction</a>; and <a href="papercusp-answer-bank-standalone.html">PaperCusp Answer Bank</a>. Repository details here are carried from those source-checked prep notes, not a new audit of the code.</li>
+  </ul>
+  <p class="small muted">Sample answers and the caseworker architecture are preparation exercises. They do not claim that you have built a particular federal system, hold a specific clearance, or have agreed to compensation or relocation.</p>
+</section>
+</main>
+<footer><p>Steampunk role overlay for Avraham Weiss. Use the neighboring tabs for the broader story bank and previous interview preparation.</p><p><a href="#top">Back to top</a></p></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Flosum AI GTM Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+  :root {
+    --paper:      #F2F4F6;
+    --surface:    #FFFFFF;
+    --ink:        #14203A;
+    --ink-soft:   #3A4762;
+    --muted:      #6B7791;
+    --rule:       #DCE1E8;
+    --rule-firm:  #BFC8D5;
+    --accent:     #8A6212;
+    --accent-ink: #6F4E0C;
+    --accent-soft:#F5EBD6;
+    --on-accent:  #F2F4F6;
+    --teach:      #1C5A85;
+    --teach-soft: #E2EDF4;
+    --flag:       #93263A;
+    --flag-soft:  #F7E5E8;
+
+    --display: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --sans:    "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --serif:   "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    --measure: 68ch;
+    --pad: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #0E1522;
+      --surface:    #16202F;
+      --ink:        #E6EBF2;
+      --ink-soft:   #B9C4D4;
+      --muted:      #8290A6;
+      --rule:       #232F42;
+      --rule-firm:  #35445C;
+      --accent:     #D9A84E;
+      --accent-ink: #E8BE72;
+      --accent-soft:#2B2213;
+      --on-accent:  #0E1522;
+      --teach:      #6CB2DC;
+      --teach-soft: #112737;
+      --flag:       #E0899A;
+      --flag-soft:  #301820;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:      #0E1522;
+    --surface:    #16202F;
+    --ink:        #E6EBF2;
+    --ink-soft:   #B9C4D4;
+    --muted:      #8290A6;
+    --rule:       #232F42;
+    --rule-firm:  #35445C;
+    --accent:     #D9A84E;
+    --accent-ink: #E8BE72;
+    --accent-soft:#2B2213;
+    --on-accent:  #0E1522;
+    --teach:      #6CB2DC;
+    --teach-soft: #112737;
+    --flag:       #E0899A;
+    --flag-soft:  #301820;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 1.64;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 62rem; margin: 0 auto; padding: var(--pad) var(--pad) 5rem; }
+
+  h1, h2, h3, h4 { text-wrap: balance; margin: 0; font-family: var(--display); }
+  p { margin: 0; }
+  a { color: var(--teach); text-underline-offset: 0.18em; }
+  :focus-visible { outline: 2px solid var(--teach); outline-offset: 3px; }
+  strong { font-weight: 600; color: var(--ink); }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  }
+
+  .masthead {
+    display: flex; flex-direction: column; gap: 1.2rem;
+    padding-bottom: 1.75rem; border-bottom: 3px solid var(--ink);
+  }
+
+  .masthead h1 {
+    font-size: clamp(2rem, 5.4vw, 3rem); font-weight: 700;
+    line-height: 1.04; letter-spacing: -0.02em; margin-top: 0.4rem;
+  }
+
+  .masthead .sub { font-size: 1.15rem; color: var(--ink-soft); font-style: italic; max-width: 46ch; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
+
+  .chip {
+    font-family: var(--mono); font-size: 0.71rem; letter-spacing: 0.05em;
+    color: var(--ink-soft); border: 1px solid var(--rule-firm);
+    padding: 0.3rem 0.6rem; white-space: nowrap;
+  }
+
+  .chip.hot { color: var(--accent-ink); border-color: var(--accent); background: var(--accent-soft); }
+
+  section { margin-top: 4rem; }
+
+  .sec-head {
+    display: flex; align-items: baseline; gap: 1rem;
+    padding-bottom: 0.8rem; border-bottom: 1px solid var(--rule-firm); margin-bottom: 1.75rem;
+  }
+
+  .sec-head h2 {
+    font-size: clamp(1.4rem, 3.3vw, 1.85rem);
+    font-weight: 700; letter-spacing: -0.015em; line-height: 1.15;
+  }
+
+  .sec-head .eyebrow { margin-left: auto; white-space: nowrap; }
+
+  .lede { max-width: var(--measure); color: var(--ink-soft); margin-bottom: 1.5rem; }
+  .lede + .lede { margin-top: -0.6rem; }
+
+  /* ---- funnel ---- */
+  .funnel { display: flex; flex-direction: column; gap: 2px; margin: 1.75rem 0 2rem; }
+
+  .stage {
+    display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+    gap: 0.4rem 1.75rem; background: var(--surface);
+    border-left: 3px solid var(--teach); padding: 1rem 1.15rem;
+  }
+
+  .stage .who {
+    font-family: var(--display); font-weight: 700; font-size: 1.02rem; color: var(--ink);
+  }
+
+  .stage .who span {
+    display: block; font-family: var(--mono); font-size: 0.66rem; font-weight: 400;
+    letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem;
+  }
+
+  .stage .what { color: var(--ink-soft); font-size: 0.99rem; }
+
+  @media (max-width: 44rem) { .stage { grid-template-columns: 1fr; gap: 0.5rem; } }
+
+  /* ---- glossary ---- */
+  .gloss {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.35rem 2.25rem; margin-top: 0.5rem;
+  }
+
+  .gloss dt {
+    font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+    color: var(--teach); letter-spacing: 0.02em;
+  }
+
+  .gloss dd { margin: 0.3rem 0 0; color: var(--ink-soft); font-size: 0.97rem; line-height: 1.55; }
+
+  /* ---- math ---- */
+  .math {
+    background: var(--surface); border: 1px solid var(--rule-firm);
+    border-left: 3px solid var(--accent);
+    padding: clamp(1.2rem, 3vw, 1.9rem);
+    display: flex; flex-direction: column; gap: 1rem; margin: 1.75rem 0;
+  }
+
+  .calc {
+    font-family: var(--mono); font-size: 0.95rem; line-height: 2;
+    font-variant-numeric: tabular-nums; color: var(--ink); overflow-x: auto;
+  }
+
+  .calc b { color: var(--accent-ink); font-weight: 500; }
+
+  .punch {
+    font-family: var(--display); font-size: clamp(1.1rem, 2.6vw, 1.35rem);
+    font-weight: 700; color: var(--accent-ink); line-height: 1.3;
+  }
+
+  /* ---- script ---- */
+  .script {
+    background: var(--surface); border: 1px solid var(--rule-firm);
+    border-left: 3px solid var(--teach);
+    padding: clamp(1.15rem, 3vw, 1.75rem);
+    display: flex; flex-direction: column; gap: 0.95rem;
+  }
+
+  .script p { font-size: 1.08rem; line-height: 1.55; max-width: 60ch; }
+
+  .script .attrib {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  /* ---- q rows ---- */
+  .qs { display: flex; flex-direction: column; }
+
+  .qrow {
+    display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+    gap: 0.5rem 2.25rem; padding: 1.4rem 0; border-top: 1px solid var(--rule);
+  }
+
+  .qrow:first-child { border-top: none; padding-top: 0; }
+
+  .qrow .ask { font-family: var(--display); font-weight: 600; font-size: 1.02rem; color: var(--ink); line-height: 1.35; }
+  .qrow .ans { color: var(--ink-soft); }
+  .qrow .ans strong { color: var(--ink); }
+
+  @media (max-width: 46rem) { .qrow { grid-template-columns: 1fr; gap: 0.6rem; } }
+
+  /* ---- boxes ---- */
+  .flagbox {
+    background: var(--flag-soft); border: 1px solid var(--flag);
+    padding: clamp(1.15rem, 3vw, 1.75rem);
+    display: flex; flex-direction: column; gap: 0.85rem; max-width: 54rem;
+  }
+
+  .flagbox h3 { font-size: 1.2rem; font-weight: 700; color: var(--flag); }
+  .flagbox p { color: var(--ink-soft); }
+  .flagbox p strong { color: var(--ink); }
+
+  .checks { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; max-width: var(--measure); }
+
+  .checks li {
+    padding: 0.85rem 0 0.85rem 1.5rem; border-top: 1px solid var(--rule);
+    position: relative; color: var(--ink-soft);
+  }
+
+  .checks li:first-child { border-top: none; }
+
+  .checks li::before {
+    content: ""; position: absolute; left: 0; top: 1.3rem;
+    width: 0.45rem; height: 0.45rem; background: var(--teach);
+  }
+
+  .checks li strong { color: var(--ink); }
+
+  .endnote {
+    margin-top: 4rem; padding-top: 1.4rem; border-top: 1px solid var(--rule);
+    color: var(--muted); font-size: 0.92rem; max-width: var(--measure);
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin: calc(var(--pad) * -1) -0.4rem 2.25rem;
+    padding: 0.55rem 0.4rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 0.83rem;
+    font-weight: 600;
+  }
+
+  nav.sitenav a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.3rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  nav.sitenav a:hover { color: var(--ink); background: var(--rule); }
+
+  nav.sitenav a[aria-current="page"] {
+    color: var(--on-accent);
+    background: var(--accent);
+  }
+
+  nav.sitenav .sep { flex: 1; }
+</style>
+
+<div class="wrap">
+
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div>
+      <span class="eyebrow">Hireflix &middot; async one-way video</span>
+      <h1>Flosum &mdash; AI Go-to-Market Engineer</h1>
+      <p class="sub">You record answers alone, to questions on a screen, with nobody to read. That changes the preparation more than the subject does.</p>
+      <div class="chips">
+        <span class="chip hot">Reports to the CEO</span>
+        <span class="chip">~$4M ARR</span>
+        <span class="chip">Salesforce-native DevOps</span>
+        <span class="chip">&ldquo;We are in wartime&rdquo;</span>
+        <span class="chip">Builder role, not prompt engineering</span>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <h2>The format is the first constraint</h2>
+      <span class="eyebrow">Hireflix</span>
+    </div>
+    <p class="lede">
+      Hireflix is asynchronous one-way video: the employer sets the questions once, you record your
+      answers whenever you like, on any device, with no app or signup. Per-question time limits are
+      optional and configurable, so you will not know the limits until you open it &mdash; open the link
+      early to see the question count and any timers <em>before</em> you are recording.
+    </p>
+    <ul class="checks">
+      <li>
+        <strong>There is no interviewer to read.</strong> Every instinct that serves you in a conversation
+        &mdash; reading the room, adjusting mid-answer, being asked a follow-up that rescues a weak start
+        &mdash; is gone. Whatever you say stands alone.
+      </li>
+      <li>
+        <strong>Answer in 60&ndash;90 seconds unless told otherwise.</strong> Lead with the answer, then
+        one concrete example, then stop. Reviewers watch these at speed and often bail after the first
+        twenty seconds, so the first sentence carries disproportionate weight.
+      </li>
+      <li>
+        <strong>Do not script it word for word.</strong> Reading off-screen is obvious on camera and reads
+        as evasive. Prepare the <em>first sentence</em> of each likely answer and the example you will
+        reach for; improvise the connective tissue.
+      </li>
+      <li>
+        <strong>Check retakes before you start.</strong> Hireflix lets employers allow or forbid them, and
+        the setting is not visible from outside. Assume one take until the platform tells you otherwise.
+      </li>
+      <li>
+        <strong>Mechanics matter more than they should.</strong> Camera at eye level, light in front of
+        you not behind, a quiet room, and look at the lens rather than your own preview window.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>What an SDR or BDR actually is</h2>
+      <span class="eyebrow">Start here</span>
+    </div>
+    <p class="lede">
+      The job description assumes this vocabulary completely and never defines any of it. It is not
+      complicated &mdash; it is a division of labour on a sales team &mdash; but every question you get
+      will be phrased in it, so it has to be automatic before you record.
+    </p>
+    <p class="lede">
+      <strong>SDR</strong> (Sales Development Rep) and <strong>BDR</strong> (Business Development Rep) are
+      the same job under two names. Some companies use BDR for outbound and SDR for inbound; many use them
+      interchangeably. Flosum's posting uses both. The role is the <em>front</em> of the sales team:
+      find or catch potential customers, have a short conversation to work out whether they are worth a
+      salesperson's time, and book the meeting. An SDR does not close deals and does not negotiate. They
+      hand qualified prospects to someone who does.
+    </p>
+
+    <div class="funnel">
+      <div class="stage">
+        <div class="who">Marketing<span>Marketo</span></div>
+        <div class="what">Runs campaigns and the website. Produces <strong>leads</strong> &mdash; anyone who filled a form, downloaded something, or showed up. A lead marketing believes is worth calling is an <strong>MQL</strong>, a Marketing Qualified Lead.</div>
+      </div>
+      <div class="stage">
+        <div class="who">SDR / BDR<span>Outreach, Qualified</span></div>
+        <div class="what">Works the top of the funnel. <strong>Outbound:</strong> researches target accounts and reaches out cold across email, LinkedIn and phone in sequences. <strong>Inbound:</strong> responds fast to form fills and website chat. Either way they qualify &mdash; is this a real buyer, is there budget, is there a reason to act now &mdash; and book a meeting.</div>
+      </div>
+      <div class="stage">
+        <div class="who">AE<span>Account Executive</span></div>
+        <div class="what">Takes the qualified prospect &mdash; now an <strong>SQL</strong>, Sales Qualified Lead &mdash; and runs the actual sale: demos, proposals, negotiation, close. Carries the quota. This is whose time the job description wants to protect, and the person Gong is recording.</div>
+      </div>
+      <div class="stage">
+        <div class="who">Customer Success<span>Terry's team</span></div>
+        <div class="what">After the deal is signed (<strong>closed-won</strong>), keeps the customer: onboarding, renewals, and selling them more (<strong>expansion</strong>). Their enemy is <strong>churn</strong> &mdash; customers leaving. The health-scoring and churn-prediction bullet in the posting is aimed here.</div>
+      </div>
+    </div>
+
+    <p class="lede">
+      So when the posting says the AI SDR agent must <em>&ldquo;outperform the bottom half of the human
+      BDR bench&rdquo;</em>: the <strong>bench</strong> is simply the roster of BDRs on staff, and the bar
+      is that the agent should book more qualified meetings than their weaker half. It is a deliberately
+      modest, measurable target &mdash; and the fact that they set it that precisely is a good sign about
+      how they think.
+    </p>
+
+    <div class="sec-head" style="margin-top: 2.75rem;">
+      <h2>An AI SDR agent, concretely</h2>
+      <span class="eyebrow">What you would build</span>
+    </div>
+    <p class="lede">
+      Software that does the SDR job end to end: researches an account (headcount, tech stack, recent
+      news, hiring signals), decides whether it matches the target profile, writes genuinely personalised
+      outreach rather than mail-merge, sends it through the sequencing tool across several channels over
+      days or weeks, reads and classifies the replies, answers the easy ones, and books the meeting on an
+      AE's calendar &mdash; writing every touch back to the CRM as it goes.
+    </p>
+    <p class="lede">
+      <strong>Homework before you record:</strong> spend ten minutes finding the two or three AI SDR
+      vendors people are actually deploying right now and skim what they claim. That market moves fast
+      enough that naming a stale one is worse than naming none, so get it current yourself rather than
+      relying on a list. Being able to say &ldquo;I would run a bakeoff between X and Y&rdquo; matches
+      the posting's own structured-bakeoff requirement exactly.
+    </p>
+
+    <div class="sec-head" style="margin-top: 2.75rem;">
+      <h2>The rest of the vocabulary</h2>
+      <span class="eyebrow">Glossary</span>
+    </div>
+    <dl class="gloss">
+      <div><dt>ICP</dt><dd>Ideal Customer Profile &mdash; the written description of who you should target. Flosum's signals: Salesforce team size, current DevOps tooling, compliance requirements.</dd></div>
+      <div><dt>Pipeline</dt><dd>The total value of open deals in progress. &ldquo;Pipeline generation&rdquo; is the first of their three stated problems.</dd></div>
+      <div><dt>Win rate</dt><dd>Share of qualified opportunities that become customers. Theirs is stated at 20%.</dd></div>
+      <div><dt>ASP / ACV / &ldquo;ASD&rdquo;</dt><dd>Average Selling Price and Annual Contract Value &mdash; average deal size. The posting writes &ldquo;$75K ASD,&rdquo; almost certainly a typo for ASP. Understand it, do not correct them.</dd></div>
+      <div><dt>Sales cycle</dt><dd>Time from first contact to closed-won. Compressing it is worth as much as adding leads.</dd></div>
+      <div><dt>Ramp</dt><dd>How long a new rep takes to become productive. The implicit argument for agents: they ramp in days, not quarters.</dd></div>
+      <div><dt>Sequence / cadence</dt><dd>A scripted multi-step, multi-channel series of touches over days or weeks. Outreach and Salesloft exist to run these.</dd></div>
+      <div><dt>Speed-to-lead</dt><dd>How fast someone responds to an inbound enquiry. Minutes matter enormously, which is what &ldquo;no lead waits&rdquo; means.</dd></div>
+      <div><dt>PLG</dt><dd>Product-Led Growth &mdash; users try the product themselves before talking to sales. Their PLG motion is described as still maturing.</dd></div>
+      <div><dt>CRM hygiene</dt><dd>Keeping Salesforce records accurate and current. Universally hated admin work, and the single biggest drain on the AE time the role must reclaim.</dd></div>
+      <div><dt>ARR</dt><dd>Annual Recurring Revenue. Flosum states roughly $4M &mdash; small, which is why there is no support staff.</dd></div>
+      <div><dt>DORA</dt><dd>EU Digital Operational Resilience Act &mdash; financial-sector operational-resilience rules. Cited as an ICP signal because it forces regulated Salesforce customers to buy exactly what Flosum sells.</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Their pipeline math is not hypothetical</h2>
+      <span class="eyebrow">Do this one out loud</span>
+    </div>
+    <p class="lede">
+      The posting gives you a worked example: <em>&ldquo;we need 67 SQLs per quarter at 20% win rate and
+      $75K ASD.&rdquo;</em> It is framed as an illustration of the reasoning they want. Run the arithmetic
+      and it stops being an illustration.
+    </p>
+
+    <div class="math">
+      <div class="calc">
+        67 SQLs &times; <b>20%</b> win rate &nbsp;=&nbsp; <b>13.4</b> closed-won deals per quarter<br>
+        13.4 deals &times; <b>$75,000</b> &nbsp;=&nbsp; <b>$1.005M</b> per quarter<br>
+        $1.005M &times; 4 quarters &nbsp;=&nbsp; <b>~$4.0M</b> per year
+      </div>
+      <p class="punch">Which is exactly the ~$4M ARR they state elsewhere in the same posting.</p>
+      <p style="color: var(--ink-soft);">
+        Those are not made-up teaching numbers. That is their actual business, and the arithmetic closes
+        to the dollar. Saying so in one of your answers demonstrates the precise skill the requirement
+        asks for &mdash; working backward from a revenue target &mdash; while also proving you read
+        carefully. It is the single highest-return sentence available to you on this whole page.
+      </p>
+    </div>
+
+    <p class="lede">
+      Then show where AI moves each term, because that is the actual question underneath:
+    </p>
+    <ul class="checks">
+      <li><strong>More SQLs into the top.</strong> Their own target is 10&times; personalised outbound volume without proportional headcount &mdash; that is the numerator.</li>
+      <li><strong>Speed-to-lead on inbound.</strong> Real-time capture, scoring and routing so nothing sits in a queue. Cheapest conversion gain available to almost any company.</li>
+      <li><strong>Higher conversion per stage.</strong> The closed-loop feedback bullet: let actual outcomes retrain targeting and messaging weekly instead of guessing.</li>
+      <li><strong>More selling hours.</strong> Moving AE revenue-generating time from ~25% to 50%+ is a doubling of effective sales capacity at zero headcount &mdash; arguably the largest single number in the posting.</li>
+      <li><strong>Protect the base.</strong> Churn prediction defends revenue you already have, which at $4M ARR is worth more than any new-logo improvement.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Your actual edge</h2>
+      <span class="eyebrow">Lead with this</span>
+    </div>
+    <p class="lede">
+      Read these requirements again, with the agentic-platform work in mind. The posting asks for
+      <em>&ldquo;AI agent orchestration &mdash; managing multiple AI agents working different segments or
+      functions simultaneously, resolving conflicts, preventing duplicate outreach, and maintaining data
+      quality in the hub&rdquo;</em> and for <em>&ldquo;prompt libraries, training datasets, and
+      refinement workflows &mdash; treating agent training as a discipline, not a one-time setup.&rdquo;</em>
+    </p>
+    <p class="lede">
+      That is a description of running an agent fleet, written by someone who has been burned by one.
+      Preventing duplicate outreach is a coordination problem &mdash; two agents claiming the same account
+      is the same defect as two agents editing the same file. Maintaining data quality in the hub is
+      write-conflict discipline. Most applicants for this role will be GTM operators who have configured
+      a vendor tool; very few will have built the coordination layer underneath.
+    </p>
+
+    <div class="script">
+      <p>
+        &ldquo;The part of this I have actually lived is the orchestration layer. Once you have more than
+        one agent working the same shared state, the interesting problems stop being about the prompt and
+        start being about coordination &mdash; who owns this record, what happens when two agents reach
+        the same account, how you keep the hub clean when several writers are working at once. You end up
+        needing claims and ownership, not just better instructions.
+      </p>
+      <p>
+        And the failure mode that costs you is never obvious breakage. It is an agent that reports
+        success and is quietly wrong &mdash; which in this context means a confidently personalised email
+        sent to the wrong person at the wrong account. That is why I would not measure an SDR agent on
+        volume. I would measure it on reply quality and on how much human correction each meeting booked
+        actually cost.&rdquo;
+      </p>
+      <p class="attrib">Their own line: bad AI automation destroys deals faster than no automation</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Questions the ten deliverables imply</h2>
+      <span class="eyebrow">Prepare first sentences</span>
+    </div>
+    <div class="qs">
+      <div class="qrow">
+        <div class="ask">Walk me through your first 30 days.</div>
+        <div class="ans">They have written the answer for you: one AI SDR agent deployed and personally trained, on <strong>either</strong> inbound qualification or outbound. Pick one and justify the pick &mdash; inbound is faster to show a number because the traffic already exists and speed-to-lead is the easiest win. Then describe the weekly refinement loop, because &ldquo;continuously optimize&rdquo; is in the title of the role.</div>
+      </div>
+      <div class="qrow">
+        <div class="ask">How do you know the agent is working?</div>
+        <div class="ans">The bar is stated: beat the bottom half of the human BDR bench. Name the metrics &mdash; qualified meetings booked, reply rate, meetings that survive to a real opportunity, and the correction cost per booking. <strong>Volume alone is the wrong metric</strong> and saying so is a differentiator.</div>
+      </div>
+      <div class="qrow">
+        <div class="ask">How would you pick a vendor?</div>
+        <div class="ans">They have prescribed a method: no more than two vendors per use case, structured bakeoff, reference checks by email, a conversation with a forward-deployed engineer before signing, and a 30-day training commitment. Echo the structure and add what you would measure in the bakeoff &mdash; same account list, same window, compare qualified meetings, not activity.</div>
+      </div>
+      <div class="qrow">
+        <div class="ask">When should AI <em>not</em> replace a human here?</div>
+        <div class="ans">An explicit requirement, and the one where judgment shows. Late-stage deals, anything with pricing or contract terms, and any at-risk account &mdash; the cost of a wrong automated touch scales with deal stage. Automate the top of the funnel and the admin; keep humans where the relationship is.</div>
+      </div>
+      <div class="qrow">
+        <div class="ask">Why do you want this / why Flosum?</div>
+        <div class="ans">Be concrete. A team at ~$4M ARR, reporting to a technical CEO, where you can ship and see the revenue number move within a quarter &mdash; that is a genuinely different proposition from the same work inside a large company. The Salesforce-ecosystem angle is real too: their buyers are DevOps and compliance people, which is a technical audience you can speak to honestly.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>The gap &mdash; name it, do not paper over it</h2>
+      <span class="eyebrow">Honesty is the play</span>
+    </div>
+    <div class="flagbox">
+      <h3>&ldquo;Hands-on deploying and training AI SDR agents in a real B2B sales environment&rdquo;</h3>
+      <p>
+        The posting is unusually explicit: <em>&ldquo;not evaluating, not advising, actually deploying and
+        iterating weekly for at least 90 days.&rdquo;</em> If you have not done that in a revenue
+        organisation, <strong>do not imply that you have.</strong> A CEO who wrote that sentence will test
+        it in the next conversation, and being caught costs you more than the gap does.
+      </p>
+      <p>
+        The honest framing is also the stronger one: you have built the layer <em>underneath</em> these
+        tools &mdash; multi-agent orchestration, conflict resolution, evaluation and refinement as an
+        ongoing discipline &mdash; which is the scarcer half. What you would need to pick up is the GTM
+        stack and the pipeline math, and you can demonstrate the second one already, in this interview,
+        using their own 67-SQL example.
+      </p>
+      <p>
+        Say it in roughly that order: what you have not done, what you have done that transfers, and how
+        fast you would close the difference. <strong>Then stop</strong> &mdash; do not over-explain a gap
+        on camera. In a one-way video, a candidate who talks past the end of an answer sounds unsure of it.
+      </p>
+    </div>
+  </section>
+
+  <p class="endnote">
+    Role details, the ten deliverables and every quoted requirement come from the job posting you supplied.
+    The Hireflix format notes come from hireflix.com as of 11 September 2026 &mdash; per-question time
+    limits and retakes are employer-configurable, so confirm both in the link itself before recording. The
+    pipeline arithmetic is done from their own stated figures. The vendor landscape is deliberately left
+    for you to check fresh, because it turns over fast enough that any list here would be stale by the
+    time you record.
+  </p>
+
+</div>
+</body>
+</html>

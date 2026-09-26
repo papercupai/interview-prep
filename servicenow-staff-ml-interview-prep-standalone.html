@@ -1,0 +1,1235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>ServiceNow Staff Machine Learning Engineer — Interview Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); overflow-wrap: anywhere; }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+</style>
+
+<a class="skip-link" href="#main">Skip to preparation</a>
+
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Staff Machine Learning Engineer · ServiceNow · CPQ AI · prepared 7 Sep 2026</p>
+      <h1>Think out loud like the Staff engineer they need.</h1>
+      <p class="standfirst">This is a live coding round, so the code is the medium—but the judgment is the product. They are hiring someone who can make an agent runtime interruptible, observable, and safe across tenants, then cross the Python, Java, and frontend boundaries needed to ship it. Solve the problem, and narrate the reasoning that would make you the person who owns that runtime.</p>
+    </div>
+    <aside class="join-card" aria-label="Interview meeting link">
+      <p class="eyebrow">Owner-supplied meeting</p>
+      <p><strong>1:15–2:00 PM Eastern</strong><br><span class="muted">Date was not included in the supplied calendar text.</span></p>
+      <p><strong class="hot">Live HackerRank CodePair round.</strong><br><span class="muted">You will be coding in a shared editor. Start at <a href="#codepair">section 02</a>.</span></p>
+      <a class="button" href="https://servicenow.zoom.us/j/95482278671" target="_blank" rel="noreferrer">Open Zoom meeting ↗</a>
+      <p class="small muted">Test the link beforehand. Close this prep page when the interview begins unless the interviewers explicitly allow notes.</p>
+    </aside>
+  </header>
+
+  <dl class="facts" aria-label="Interview and role facts">
+    <div class="fact"><dt>Role</dt><dd>Staff ML Engineer</dd></div>
+    <div class="fact"><dt>Likely team</dt><dd>CPQ AI <span class="badge inference">Inference</span></dd></div>
+    <div class="fact"><dt>Participants</dt><dd>Sharan + Kaitlan</dd></div>
+    <div class="fact"><dt>Format</dt><dd>Live CodePair</dd></div>
+    <div class="fact"><dt>Time</dt><dd>1:15–2:00 PM ET</dd></div>
+    <div class="fact"><dt>Date</dt><dd class="hot">Not supplied</dd></div>
+  </dl>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#first">Read this first</a></li>
+      <li><span class="n">02</span><a href="#codepair">The coding round</a></li>
+      <li><span class="n">03</span><a href="#thesis">Role thesis</a></li>
+      <li><span class="n">04</span><a href="#opener">Your opener</a></li>
+      <li><span class="n">05</span><a href="#coverage">Role coverage map</a></li>
+      <li><span class="n">06</span><a href="#drills">Technical drills</a></li>
+      <li><span class="n">07</span><a href="#stack">The Storewolf system</a></li>
+      <li><span class="n">08</span><a href="#why">Why ServiceNow?</a></li>
+      <li><span class="n">09</span><a href="#questions">Questions for them</a></li>
+      <li><span class="n">10</span><a href="#strategy">45-minute strategy</a></li>
+      <li><span class="n">11</span><a href="#checklist">Last-minute checklist</a></li>
+      <li><span class="n">12</span><a href="#sources">Sources + confidence</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="first">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Read this first</p>
+        <h2>This is a live coding round — prepare for that first</h2>
+      </div>
+      <div class="priority-grid">
+        <article class="priority">
+          <span class="num">01 / FLUENCY</span>
+          <h3>LeetCode Medium, in Python</h3>
+          <p>Hashmaps and arrays, strings, graphs with BFS/DFS, basic DP. Expect two problems in 45 minutes. See <a href="#codepair">the coding round</a>.</p>
+        </article>
+        <article class="priority">
+          <span class="num">02 / NARRATION</span>
+          <h3>Thinking aloud, rehearsed</h3>
+          <p>Explanation and complexity analysis outscore compiling code. It is a separate skill from solving—practise it out loud, not silently.</p>
+        </article>
+        <article class="priority">
+          <span class="num">03 / SETUP</span>
+          <h3>Environment settled early</h3>
+          <p>Confirm your language is offered, expect sparse libraries, know the REPL. Ask up front what tooling is permitted—then abide by the answer.</p>
+        </article>
+        <article class="priority">
+          <span class="num">04 / MARGINS</span>
+          <h3>The bookends still count</h3>
+          <p>A short <a href="#opener">opener</a>, one <a href="papercusp-answer-bank-standalone.html">Answer Bank</a> story if design comes up, and <a href="#questions">two real questions</a> at the close. Minutes, not the main event.</p>
+        </article>
+      </div>
+      <div class="note crit">
+        <p class="eyebrow">Interview integrity</p>
+        <p>ServiceNow encourages thoughtful AI use while preparing, but says interviews, tests, and technical evaluations must be completed independently without AI or outside help unless ServiceNow explicitly says otherwise. Use this page to rehearse; do not use it as a covert live copilot.</p>
+      </div>
+    </section>
+
+    <section id="codepair">
+      <div class="sec-head">
+        <p class="eyebrow">02 · The coding round</p>
+        <h2>This session is a shared editor, not a conversation</h2>
+      </div>
+
+      <div class="note crit">
+        <p class="eyebrow">Format — owner-supplied</p>
+        <p><strong>The 45 minutes on the Zoom is a live HackerRank CodePair round.</strong> You will write code in a shared editor while the interviewer watches and talks to you. Everything else on this page—the opener, the stories, the questions—still applies, but it now lives in the margins of the session rather than filling it. Prepare accordingly.</p>
+      </div>
+
+      <div class="stack">
+        <h3>What CodePair gives you, and takes away</h3>
+        <ul>
+          <li><strong>A shared IDE with live execution.</strong> Both of you see every keystroke. You can run code, and REPL support lets you execute one block at a time instead of writing everything and hoping.</li>
+          <li><strong>Deliberately sparse libraries.</strong> HackerRank supports 30+ languages but keeps the available libraries thin on purpose, so raw skill is what gets measured. Plan to hand-roll structures rather than import them—and confirm your language is offered before the clock starts.</li>
+          <li><strong>Diagram questions are in-format.</strong> CodePair supports architecture sketches as well as code, so an ML-system-design detour is a normal part of the tool, not a derailment.</li>
+          <li><strong>Continuity from earlier rounds.</strong> Interviewers can import code from a previous screen and raise its complexity live. Anything you have already submitted to ServiceNow can come back with a twist.</li>
+          <li><strong>Every keystroke is visible.</strong> A long silent pause reads as being stuck. Narration is not a nicety here—it is the only channel the interviewer has into your reasoning.</li>
+        </ul>
+      </div>
+
+      <div class="two-col">
+        <article class="card">
+          <h3>The reported question profile</h3>
+          <p>Candidate accounts of ServiceNow senior/staff CodePair rounds converge on: <strong>two problems, LeetCode medium to medium-hard.</strong> One 45-minute account describes a hashmap design problem with extended edge-case discussion, plus conceptual follow-ups—<em>BFS vs DFS, how a hash table works, and what its downsides are.</em> Recurring topic areas across reports: arrays and hashmaps, strings, graphs and BFS/DFS, and basic dynamic programming.</p>
+        </article>
+        <article class="card">
+          <h3>The ML-coding variant</h3>
+          <p>For ML-engineer roles the round sometimes swaps LeetCode for <strong>implement-from-scratch</strong> work: linear or logistic regression with gradient descent, k-means, KNN, or a metric like AUC or precision@k. Reports on this are inconsistent, and in at least one documented case the recruiter's description of the format was simply wrong. Prepare a thin layer of both rather than betting on either.</p>
+        </article>
+      </div>
+
+      <div class="note">
+        <p class="eyebrow">The thing that is actually scored</p>
+        <p>The most consistent signal across every account: <strong>explanation and complexity analysis matter more than getting the code to compile.</strong> One candidate reported a round where execution was beside the point and the discussion was effectively language-agnostic. At Staff level this is doubly true—they are buying judgment, and the code is the medium it arrives in.</p>
+      </div>
+
+      <details class="drill" open>
+        <summary>The first ninety seconds — buy yourself the whole round</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Ask before you type</h3>
+            <ul>
+              <li><strong>“Is it useful if I think out loud, or would you rather I work quietly and explain after?”</strong> Almost always the former—and now it is sanctioned rather than assumed.</li>
+              <li><strong>“What can I use here—autocomplete, docs, any AI assist?”</strong> Ask once, explicitly, and abide by the answer. HackerRank runs AI-usage detection, and ServiceNow's own policy requires technical evaluations be completed independently unless they say otherwise.</li>
+              <li><strong>“Do you want the brute force first, or should I go straight for the optimal?”</strong> Staff-level framing, and it protects you from spending twenty minutes on an optimization they did not want.</li>
+              <li><strong>Restate the problem in your own words and name one edge case</strong> before writing a line. This is the cheapest competence signal in the round.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Then work the loop:</strong> state the approach → state its complexity → write it → run a small case in the REPL → improve it. Validate incrementally rather than writing the whole thing and hitting run once.</p>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>What to drill beforehand, in priority order</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Highest value first</h3>
+            <ul>
+              <li><strong>LeetCode Medium in Python</strong>—hashmaps and arrays, strings, graphs with BFS/DFS, and basic DP. This is the single most-cited bar for the ServiceNow screen.</li>
+              <li><strong>Narrating aloud while coding.</strong> Genuinely rehearse it; it is a separate skill from solving, and it degrades badly under observation if untrained.</li>
+              <li><strong>The conceptual quickies</strong>—hash table internals and their downsides, BFS vs DFS and when each is correct. Directly reported from a ServiceNow round.</li>
+              <li><strong>One from-scratch ML implementation</strong>—logistic regression with gradient descent is the highest-leverage single choice; it touches the loss, the update rule, and the metric in one exercise.</li>
+              <li><strong>A SQL refresher</strong> (CASE, window functions) and one RAG or LLM-serving design sketch. Both have surfaced in recent ServiceNow-adjacent assessments, and CPQ AI makes them plausible here.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Where your existing prep still pays:</strong> if the round includes a diagram question or drifts into system design, the interruptible-session and Harness/MCP-boundary material in section 06 is directly on target. Do not discard it—just stop treating it as the main event.</p>
+        </div>
+      </details>
+
+      <div class="note">
+        <p class="eyebrow">Confidence — read this before you rely on the above</p>
+        <p>The format is <strong>owner-supplied and treated as fact.</strong> Everything about the <em>question profile</em> is inference from crowd-sourced candidate reports on Blind, Glassdoor, Medium and interview-guide sites, of varying age and not all for this role or level. The pattern is consistent enough to prepare against; no single account should be treated as your format. Two independent reports also mention <strong>down-leveling</strong>—clearing the loop and being offered a lower level—with advice to confirm the level with the recruiter beforehand.</p>
+      </div>
+    </section>
+
+    <section id="thesis">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Role thesis</p>
+        <h2>What they are actually hiring</h2>
+      </div>
+      <div class="note">
+        <p class="eyebrow">The one-sentence read</p>
+        <p><strong>A technical owner for the CPQ agent execution layer:</strong> someone who can set architecture, preserve correctness through interruption and streaming, choose the right interoperability boundary, and still debug the service or UI at the other end.</p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>The visible problem</h3>
+          <p>Let users configure products, plan multi-product quotes, and edit transactions through natural language instead of forms.</p>
+          <p class="muted">That creates long-lived, stateful work where partial progress, approvals, retries, and customer-specific rules all matter.</p>
+        </article>
+        <article class="card">
+          <h3>The hidden problem</h3>
+          <p>Make that behavior dependable under interruption, backpressure, cancellation, multi-tenancy, changing context, and multiple agents working in parallel.</p>
+          <p class="muted">The Staff bar is the quality of the invariants and tradeoffs—not the number of frameworks named.</p>
+        </article>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">The role is confirmed—the team is still an inference</p>
+        <p>The owner supplied the Staff Machine Learning Engineer posting at <span class="mono">744000146824899</span> directly, so the <strong>role is a confirmed fact</strong> and everything on this page derived from that posting can be relied on.</p>
+        <p>What is <em>not</em> confirmed is the <strong>team</strong>. CPQ AI rests on Sharan’s public statement that he leads it, lining up with the supplied calendar—strong, but still an inference. Do not walk in asserting the team as settled; let them name it, or ask.</p>
+      </div>
+    </section>
+
+    <section id="opener">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Your opener</p>
+        <h2>A 60–75 second answer that earns the technical conversation</h2>
+      </div>
+      <div class="script short">
+        <p class="eyebrow">Draft—keep only claims you can prove</p>
+        <p class="say">I’m a senior engineer focused on turning agentic and machine-learning systems into dependable products. The through-line in my work is not just getting a model to produce an answer—it is building the execution, state, evaluation, and operational controls that let a real user trust the result. I’m most useful where architecture crosses boundaries: agents and tools, synchronous requests and durable work, backend services and the UI that exposes progress. This role stood out because the CPQ AI team is tackling those exact problems in a domain where correctness and interruption matter, while expecting the Staff engineer to stay credible across the whole stack.</p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <p class="eyebrow">Then prove it</p>
+          <h3>Pick one Answer Bank story</h3>
+          <ul>
+            <li>Name the user or operational failure, not merely the technology.</li>
+            <li>State the invariant you chose to protect.</li>
+            <li>Explain one rejected alternative and why.</li>
+            <li>End with a verified outcome or the measurement you used.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Avoid</p>
+          <h3>Framework autobiography</h3>
+          <ul>
+            <li>Do not lead with a list of LLM libraries.</li>
+            <li>Do not claim CPQ expertise you do not have.</li>
+            <li>Do not invent scale, latency, revenue, or team-size numbers.</li>
+            <li>Do not say “I built everything” when the real story was collaborative.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="coverage">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Role coverage map</p>
+        <h2>Translate the posting into evidence, not buzzwords</h2>
+      </div>
+      <div class="matrix-wrap" role="region" aria-label="Role coverage matrix" tabindex="0">
+        <table class="matrix">
+          <thead><tr><th scope="col">Role asks</th><th scope="col">What a strong answer demonstrates</th><th scope="col">Priority</th></tr></thead>
+          <tbody>
+            <tr><td>Custom agent harness <span class="mono small">LangChain · LangGraph · ReAct</span></td><td>State ownership, typed events, interruption, resumability, idempotency, and why a bespoke runtime earns its maintenance cost. The posting names all three alongside the Harness and says they run <em>concurrently</em>—so the credible answer is why they coexist and what each is load-bearing for, never which one wins.</td><td><span class="tag lead">Lead</span></td></tr>
+            <tr><td>Multi-agent orchestration</td><td>A real coordination model: work decomposition, ownership, dependency gates, conflict control, independent verification, and convergence.</td><td><span class="tag lead">Lead</span></td></tr>
+            <tr><td>MCP boundary</td><td>Tools and external interoperability belong on a stable typed surface; internal runtime state need not be forced through that protocol.</td><td><span class="tag lead">Lead</span></td></tr>
+            <tr><td>A2A delegation</td><td>Task identity, capability discovery, authentication, streaming, cancellation, retries, and responsibility across independently owned agents.</td><td><span class="tag prepare">Prepare</span></td></tr>
+            <tr><td>Async Python <span class="mono small">FastAPI · asyncio · WebSockets</span></td><td>Structured concurrency, backpressure, disconnect semantics, resource cleanup, timeouts, and observability for long-lived sessions. The posting names these three by name and asks for the <em>failure modes</em> of long-lived stateful connections—reconnect, half-open sockets, and what happens to in-flight work.</td><td><span class="tag lead">Lead</span></td></tr>
+            <tr><td>RAG + context <span class="mono small">embeddings · vector &amp; knowledge-graph retrieval</span></td><td>Retrieval quality, provenance, context budgets, tenant isolation, freshness, and evaluation beyond anecdotal demos. Their concrete shape is tenant-uploaded document ingestion → categorization → aggregation into agent context, and they call out <strong>prefix-cacheable prompt design</strong> for cost and latency—know why stable prefixes win and what invalidates them.</td><td><span class="tag prepare">Prepare</span></td></tr>
+            <tr><td>Cost + latency</td><td>Stage-level budgets, cache design, model routing, quality floors, graceful degradation, and measurements tied to user-visible outcomes.</td><td><span class="tag prepare">Prepare</span></td></tr>
+            <tr><td>Classical ML judgment <span class="mono small">PyTorch · scikit-learn</span></td><td>A decision rule for when a supervised model is cheaper, faster, more stable, or easier to evaluate than an LLM workflow. The posting names both by name, so be ready to say what you would actually reach for: scikit-learn for tabular baselines and calibration, PyTorch where a custom objective or representation earns the cost. Naming the baseline you would try <em>first</em> reads as stronger than naming the deepest tool.</td><td><span class="tag prepare">Prepare</span></td></tr>
+            <tr><td>Java + frontend range <span class="mono small">Spring Boot · TypeScript</span></td><td>How you trace one failure through Python orchestration, a <strong>Spring Boot</strong> service contract, and <strong>TypeScript</strong> React/Lit state without waiting for a handoff. You are not asked to be strongest here—you are asked to be unblocked here. Say plainly what you have shipped in each and where you would ask for review.</td><td><span class="tag support">Support</span></td></tr>
+            <tr><td>Forward Deployed Engineering</td><td>Learning from live customer constraints without creating bespoke forks; turning incidents into reusable product capability and tests.</td><td><span class="tag prepare">Prepare</span></td></tr>
+            <tr><td>CPQ domain</td><td>Respect for constraint-heavy transactions: validity, pricing/rule provenance, approval boundaries, auditability, and deterministic fallbacks.</td><td><span class="tag prepare">Prepare</span></td></tr>
+            <tr><td>Staff leadership</td><td>How you frame ambiguous problems, write decision criteria, raise the quality bar, align teams, and know when to simplify.</td><td><span class="tag lead">Lead</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">For personal examples, rehearse from the <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a>. This page deliberately does not manufacture a project history for you.</p>
+    </section>
+
+    <section id="drills">
+      <div class="sec-head">
+        <p class="eyebrow">06 · Technical drills</p>
+        <h2>Likely probes and the shape of a Staff-level answer</h2>
+      </div>
+
+      <details class="drill" open>
+        <summary>1. Why do three agent architectures run side by side—and what governs which one you reach for?</summary>
+        <div class="drill-body">
+          <div class="note crit">
+            <p class="eyebrow">Do not walk in with “framework vs custom”</p>
+            <p>The posting is explicit that they run <strong>multiple production agent architectures concurrently</strong>: ReAct-style tool-calling agents, hand-rolled LangGraph state machines, <em>and</em> the Harness. So this is not a question about which one wins. It is a question about <strong>why a mature system tolerates three</strong>, and what decides the boundary between them. Answering “custom beats the framework” reads as not having read the job.</p>
+          </div>
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>Three coexisting runtimes is usually a <em>correct</em> outcome, not debt: they sit at different points on the control/ceremony curve, and forcing one to cover all three costs more than maintaining three.</li>
+              <li>Name the selector. ReAct for short bounded tool loops where the model's own control flow is good enough; a LangGraph state machine where the transitions are known and worth making explicit; the Harness where you need interruption, durable state, and concurrency the framework's hidden control flow will not let you test.</li>
+              <li>Say what would make you <em>collapse</em> two of them—the real Staff answer. Convergent semantics, a maintenance cost that outgrows the benefit, or a framework that finally exposes the extension point you were working around.</li>
+              <li>Start from required semantics: interruption, durable state, concurrent work, observability, latency, and evolution.</li>
+              <li>Use a framework when its execution model matches those semantics and its extension points remain honest.</li>
+              <li>Build the narrow custom layer only where a framework’s hidden control flow makes invariants untestable or forces expensive workarounds.</li>
+              <li>Keep portable pieces—tool contracts, event schemas, evaluation, persistence—separate from the scheduler so the choice is reversible.</li>
+              <li>Measure operational complexity and failure recovery, not just first-demo velocity.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Expect the follow-up:</strong> “What invariant would justify owning a runtime?” Pick one concrete example such as exactly-once state transition, interrupt latency, or resuming parallel work without duplicating side effects.</p>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>2. How would you design a full-duplex, interruptible agent session?</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>Give every run, task, tool call, and emitted chunk a stable identity.</li>
+              <li>Persist state transitions before acknowledging externally visible progress.</li>
+              <li>Treat interruption as a typed event with an ordering rule—not an arbitrary prompt appended to a buffer.</li>
+              <li>Use structured cancellation: stop accepting new side effects, cancel safe children, checkpoint unsafe ones, and report what completed.</li>
+              <li>Separate transport backpressure from execution backpressure; bound queues and define shedding behavior.</li>
+              <li>Make resume idempotent with dedupe keys and replayable event history.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Failure drill:</strong> the user redirects while two tools are running and one has already committed. Explain which work is cancelled, which result is retained, and how the next turn learns the truth without replaying the side effect.</p>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>3. They have already drawn the Harness/MCP boundary—defend it, then name its cost</summary>
+        <div class="drill-body">
+          <div class="note crit">
+            <p class="eyebrow">They have already published their answer—open by acknowledging it</p>
+            <p>The posting states the direction plainly: the Harness is becoming <strong>primary for internal agents</strong>, with MCP retained as <em>“the secondary, standards-based surface for external interop.”</em> Arriving with a freshly-derived answer to a question they have already settled reads as not having done the reading. Say their direction back, say why it is the right call, then earn the conversation by naming what it <em>costs</em>—two surfaces to keep honest, and a versioning burden on the external one.</p>
+            <p class="small">Also aim at the qualification bullet directly: they want someone <em>“ideally having built an MCP server, not just consumed one.”</em> Lead with the server side—schema design, capability discovery, auth at the boundary, and what you learned that a consumer never sees.</p>
+          </div>
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>The harness owns execution semantics: lifecycle, state, scheduling, interruption, retries, checkpoints, and progress.</li>
+              <li>MCP is a stable capability boundary: discoverable tools/resources with typed inputs and outputs, especially across teams or systems.</li>
+              <li>Do not leak scheduler internals into every tool contract or force chatty internal event streams through a request/response surface.</li>
+              <li>Put authorization and validation near the system of action; the harness must not become a privilege bypass.</li>
+              <li>Version contracts, bound payloads, make idempotency explicit, and instrument end-to-end latency across the seam.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Decision test:</strong> if a capability must be callable by third-party agents, MCP-first is attractive. If it exists only to coordinate internal resumable tasks at sub-second cadence, a native harness interface may be cleaner.</p>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>4. How is A2A different from a tool call?</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>A tool exposes a bounded capability; an agent owns reasoning, state, and a task lifecycle.</li>
+              <li>Discovery needs a capability/agent card; delegation needs authenticated identity and explicit authority.</li>
+              <li>Model submitted, working, blocked, completed, failed, and cancelled states; make updates replayable.</li>
+              <li>Define responsibility for retries and deduplication at the boundary so both peers do not repeat work.</li>
+              <li>Stream progress as advisory; terminal state and committed side effects require authoritative receipts.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>ServiceNow connection:</strong> its public product material describes A2A for communication among ServiceNow and third-party agents, while MCP connects agents to external tools, data, and systems.</p>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>5. How would you build tenant-safe RAG and context assembly?</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>Enforce tenant identity in storage, retrieval, caches, queues, and telemetry—not only in the prompt.</li>
+              <li>Separate ingestion lineage from retrieval ranking; preserve source, version, permissions, and observed-at time.</li>
+              <li>Use deterministic filters before semantic retrieval and re-check authorization at read time.</li>
+              <li>Budget context by information value; cache stable prefixes while keeping user- and tenant-specific material out of shared cache keys.</li>
+              <li>Evaluate retrieval recall, answer grounding, permission leakage, stale-document behavior, latency, and cost independently.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Expect the follow-up:</strong> “What happens when permissions change?” The answer needs invalidation or read-time enforcement; an old embedding index cannot be the authority.</p>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>6. How do you evaluate an agent system before and after launch?</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>Decompose quality: task success, constraint adherence, tool correctness, recovery, latency, cost, and user intervention.</li>
+              <li>Build a frozen representative corpus plus adversarial and mutation cases that prove guards can fail.</li>
+              <li>Evaluate components and end-to-end traces; aggregate scores must not hide one critical failure class.</li>
+              <li>Use deterministic assertions where possible and calibrated human review where judgment is unavoidable.</li>
+              <li>In production, sample traces, watch cohort drift, preserve privacy, and connect incidents back into the regression set.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Staff signal:</strong> name the release decision rule. “We monitor it” is not a gate; define what blocks, what degrades gracefully, and who owns the response.</p>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>7. How do you reason about cost, latency, and backpressure?</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>Set an end-to-end user budget, then allocate it across retrieval, model calls, tools, and rendering.</li>
+              <li>Measure p50/p95/p99 and queue time separately; averages hide overload and tail failures.</li>
+              <li>Use prefix caching, smaller decision models, speculative parallelism only when cancellable, and bounded concurrency.</li>
+              <li>Propagate deadlines and cancellation; a timed-out parent must not leave expensive orphan work.</li>
+              <li>Choose degradation deliberately: partial result, bounded workflow, queued completion, or explicit refusal.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Bad answer:</strong> “Use a faster model.” A Staff answer identifies the critical path, queue ownership, accuracy floor, and how the system behaves when demand exceeds capacity.</p>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>8. When is classical ML better than an LLM?</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>Prefer a supervised model when the label is stable, data is plentiful, output space is bounded, and latency/cost or calibration matters.</li>
+              <li>Prefer an LLM when language understanding, open-ended synthesis, or rapidly changing instructions dominate.</li>
+              <li>Consider a hybrid: classical candidate/risk model, rules for hard constraints, LLM for explanation or ambiguous long-tail cases.</li>
+              <li>Compare on the same offline set and production objective, including abstention, maintenance cost, drift, and observability.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>CPQ example:</strong> field-value prediction may be a calibrated classifier problem; translating a user’s ambiguous configuration intent into a multi-step plan may favor an LLM plus deterministic rule validation.</p>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>9. How do you turn Forward Deployed work into product leverage?</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>Begin with the customer workflow and failure cost; observe the real constraints rather than accepting a feature request literally.</li>
+              <li>Instrument before customizing so you can distinguish a product gap from bad configuration or missing data.</li>
+              <li>Ship the smallest safe adapter behind stable contracts, with rollback and explicit ownership.</li>
+              <li>Extract recurring patterns into core capability, fixtures, and tests; avoid permanent customer-specific branches.</li>
+              <li>Close the loop with product, support, and engineering using evidence from the deployment.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Ask back:</strong> how much of this role’s FDE work is discovery, incident response, implementation, or platformization? That reveals the operating model without sounding resistant to customers.</p>
+        </div>
+      </details>
+
+      <details class="drill" open>
+        <summary>10. What changes when the agent edits a CPQ transaction?</summary>
+        <div class="drill-body">
+          <div class="stack">
+            <h3>Answer spine</h3>
+            <ul>
+              <li>A generated plan is a proposal; pricing, compatibility, entitlements, and approval rules remain authoritative.</li>
+              <li>Use staged changes with validation and a human-visible diff before committing consequential edits.</li>
+              <li>Attach provenance: user intent, retrieved context, rule version, tool calls, approvals, and final transaction version.</li>
+              <li>Make operations idempotent and protect against concurrent edits with version checks.</li>
+              <li>Design recovery around business semantics: a partially applied quote is not equivalent to a failed chat response.</li>
+            </ul>
+          </div>
+          <p class="probe"><strong>Domain humility:</strong> say what you would learn from CPQ experts—constraint models, pricing/approval semantics, and common deployment failure modes—then show the systems principles you already bring.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="stack">
+      <div class="sec-head">
+        <p class="eyebrow">07 · The Storewolf system</p>
+        <h2>What you actually built — and exactly what you can claim</h2>
+      </div>
+
+      <div class="note crit">
+        <p class="eyebrow">Read this before you tell any Storewolf story</p>
+        <p><strong>This system has almost no LLM in it, and the winning move is to stop trying to make it sound like it does.</strong> What it has instead is a structured entity-resolution engine with a substitutability partial order, and a gradient-boosted pricing model wired across a process boundary. Told accurately those are <em>stronger</em> than a retrieval-pipeline story, because almost every candidate has the retrieval story and almost none has these. Inventing an embedding layer collapses on the first follow-up; the material below is what survives one.</p>
+      </div>
+
+      <h3>Part one — the honest inventory</h3>
+
+      <div class="matrix-wrap" role="region" aria-label="What the repository actually contains" tabindex="0">
+        <table class="matrix">
+          <thead>
+            <tr><th>Claim</th><th>What is actually there</th><th>Verdict</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>LLM usage</td><td>Exactly one live call site: a batch script asking GPT to convert Dell spec strings to JSON via <code>Castle.Client.res("OpenAI", "chat")</code>. The <span class="mono">OpenAI</span> service is not defined in this repository and is reached remotely, so which model backs it is not answerable from the code.</td><td><span class="badge inference">Marginal</span></td></tr>
+            <tr><td>ChatGPT elsewhere</td><td>Comments only — “Generated by ChatGPT. Take with grain of salt.” A development aid, never a runtime dependency.</td><td><span class="badge unknown">Not a claim</span></td></tr>
+            <tr><td>Agent frameworks, RAG, vectors</td><td>Zero. No Anthropic SDK, no LangChain, LangGraph or LlamaIndex, no embeddings, no vector store, no tokenizer, no local inference.</td><td><span class="badge unknown">Absent</span></td></tr>
+            <tr><td>Deep learning</td><td>Zero. No PyTorch, no TensorFlow. Gradient-boosted trees over tabular features is the entire model surface.</td><td><span class="badge unknown">Absent</span></td></tr>
+            <tr><td>Entity resolution</td><td>A 10,206-line attribute extractor and a 2,071-line comparator producing a dominance partial order over product specs.</td><td><span class="badge fact">Your real story</span></td></tr>
+            <tr><td>Data engineering</td><td>Rust-backed Polars dataframes in Node, roaring bitmaps and bitsets for set algebra, LMDB, a custom shared-memory map layer, and Nim compiled to JS/WASM/C for hot paths.</td><td><span class="badge fact">Claimable</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note warn">
+        <p class="eyebrow">Three name collisions that will embarrass you</p>
+        <p>Each of these reads as AI in a repository listing and is not. If you misremember one in the room, or an interviewer skims the tree, the correction is expensive.</p>
+        <ul>
+          <li><span class="mono">claude-cowork-linux/</span> is a <strong>vendored Claude-Desktop-on-Linux installer</strong> — third-party developer tooling, not product code. It accounts for essentially every Anthropic reference in the tree.</li>
+          <li><span class="mono">Services/Diffusion</span> is <strong>Push Technology Diffusion</strong> (<span class="mono">diffusion@6.7.7</span>), a real-time pub/sub streaming client. It is not Stable Diffusion and has nothing to do with generative models.</li>
+          <li><span class="mono">Services/Agent</span> is a <strong>scheduled-automation service</strong> and <span class="mono">Services/Transformer</span> is a <strong>spec-transformation service</strong>. Neither is an LLM agent; neither is HuggingFace transformers.</li>
+        </ul>
+      </div>
+
+      <h3>Part two — the Python scoring stack</h3>
+
+      <div class="note info">
+        <p class="eyebrow">The one-sentence answer</p>
+        <p><strong>pandas, scikit-learn and XGBoost are three layers of a single prediction path; <span class="mono">compute-regression.py</span> is not a fourth library but the process that hosts them.</strong> pandas owns how the data is represented, scikit-learn contributes two utilities and the <code>fit</code>/<code>predict</code> convention everything conforms to, XGBoost is the only component that actually learns, and the script is a long-lived sidecar holding the trained model in memory while it answers JSON commands from the Node service.</p>
+      </div>
+
+      <div class="matrix-wrap" role="region" aria-label="Scoring stack layers" tabindex="0">
+        <table class="matrix">
+          <thead>
+            <tr><th>Layer</th><th>What it owns</th><th>What it is not</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="mono">compute-regression.py</span></td><td>Process and transport. Spawned as <code>python3 -u</code>, reads one JSON object per line from stdin, dispatches on <code>command: train | predict</code>, writes one JSON line back. Loads the model once at start so 10,000-row batches amortize it.</td><td>Not a model, not a library, not an HTTP service.</td></tr>
+            <tr><td>pandas</td><td>Representation and encoding. <code>read_sql_query</code> pulls training rows from SQLite, <code>DataFrame(rows)</code> wraps the JSON batch arriving from Node, and <code>get_dummies</code> expands categoricals into the real feature space.</td><td>Not the encoder of record — the expanded column list must be persisted separately.</td></tr>
+            <tr><td>scikit-learn</td><td>Exactly two things: <code>SimpleImputer(strategy='constant', fill_value=0)</code> and <code>train_test_split(test_size=0.2, random_state=374)</code> — plus the estimator convention the rest of the stack conforms to.</td><td>Not the modeling framework. No <code>Pipeline</code>, no <code>ColumnTransformer</code>, no <code>OneHotEncoder</code>.</td></tr>
+            <tr><td>XGBoost</td><td>The model, and the only one. <code>XGBRegressor(n_estimators=100, gamma=1.5, subsample=0.6, max_depth=10)</code> fit on the encoded matrix and serialized to <span class="mono">xgb_predictive_&lt;model&gt;.json</span>.</td><td>Not driven through its native <code>DMatrix</code> / <code>xgb.train</code> API.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="stack">
+        <h3>The contract that makes them compose</h3>
+        <p>The reason scikit-learn utilities work on an XGBoost model at all is that <code>XGBRegressor</code> is XGBoost's <strong>scikit-learn-compatible wrapper</strong> around its native booster. It implements the estimator interface, so <code>train_test_split</code> can feed it, <code>.score()</code> returns R² by sklearn's convention, and the imputer's output drops straight in. Had the code used <code>xgb.DMatrix</code> with <code>xgb.train</code>, none of those pieces would have fitted together.</p>
+        <p>That contract is not an assertion about the code — it is recorded in the artifact. The saved model file carries <span class="mono">attributes.scikit_learn = {"_estimator_type": "regressor"}</span>, which is XGBoost noting that it was driven through the sklearn interface.</p>
+      </div>
+
+      <div class="stack">
+        <h3>Where the feature schema lives — and why that is the hard part</h3>
+        <p><code>get_dummies</code> derives its columns <em>from whatever data is in front of it</em>. At inference a batch may lack categories the model saw during training and may carry categories it never saw, so the one-hot column set silently diverges from the fitted matrix. That is the standard way a tabular model begins returning confident nonsense.</p>
+        <p>The schema therefore has to be reconciled across four places it independently lives:</p>
+        <ul>
+          <li><strong>TypeScript</strong> — <code>ASIN_OFFER_COLUMNS</code> declares the features once and drives the SQLite <code>CREATE TABLE</code>, the row serialization order, and the <code>columns</code> array in the predict payload.</li>
+          <li><strong>SQLite</strong> — the physical training table built from that declaration.</li>
+          <li><strong>The persisted column list</strong> — training writes <span class="mono">dummy_columns_&lt;model&gt;.json</span>, the exact post-one-hot column names; inference re-adds any missing ones as zero-filled columns.</li>
+          <li><strong>The booster itself</strong> — inference then reindexes with <code>X = X[model.get_booster().feature_names]</code>, so a correct set in the wrong order is corrected too.</li>
+        </ul>
+        <p>Two independent guards against one failure mode. That redundancy is the design decision worth narrating.</p>
+      </div>
+
+      <div class="two-col">
+        <article class="card">
+          <span class="badge fact">Say this</span>
+          <h3>The framing that travels</h3>
+          <p>“We hand-rolled what <code>ColumnTransformer</code> and <code>Pipeline</code> give you for free — because the transform boundary was a <em>process</em> boundary. The fitted encoder lived in Python and the feature schema lived in TypeScript, so the column contract had to be an artifact on disk rather than an object in memory. Given the same problem now I would persist a fitted Pipeline and make that the model artifact.”</p>
+          <p class="small muted">It names the trade-off, its cause, and the revision — which is the staff-level shape of the answer.</p>
+        </article>
+        <article class="card">
+          <span class="badge unknown">Do not overclaim</span>
+          <h3>What the sklearn footprint really is</h3>
+          <p>“We used scikit-learn” invites “which estimators? did you use <code>Pipeline</code>?” — and the honest answer is an imputer and a train/test split. Claim the <em>integration</em>, not a modeling framework that was never used here.</p>
+          <p>There is likewise no PyTorch, no TensorFlow and no deep learning anywhere in this path. Gradient-boosted trees over tabular features is the entire model.</p>
+        </article>
+      </div>
+
+      <div class="note warn">
+        <p class="eyebrow">Weaknesses to volunteer before they are found</p>
+        <ul>
+          <li><strong>The imputer re-fits at inference.</strong> The transform function is shared by both paths, so <code>fit_transform</code> runs on every prediction batch. It is harmless only because <code>strategy='constant'</code> learns nothing from the data — change it to <code>'mean'</code> and predictions start depending on batch composition. A good answer to “what would you fix first.”</li>
+          <li><strong>Prediction rows carry a dummy <code>price = 0</code></strong>, because that shared function unconditionally splits out the target column.</li>
+          <li><strong>Evaluation is thin.</strong> The only metric is <code>print(model.score(X_test, y_test))</code> — R² on a single 80/20 split with a fixed seed, printed and never persisted. No cross-validation, no hyperparameter search, no metric history.</li>
+        </ul>
+        <p>If asked how you knew the model was good: its output fed a downstream buying decision, so bad predictions surfaced as bad economics rather than as a metric regression. Present that as a deliberate reliance on downstream signal — then say what you would add now.</p>
+      </div>
+
+      <h3>Part three — cross-marketplace product matching</h3>
+
+      <div class="note info">
+        <p class="eyebrow">The frame that wins this question</p>
+        <p>“How would you match product descriptions across marketplaces?” reads as a text-similarity problem and is not one. <strong>Marketplace titles are keyword-stuffed and adversarial, and the discriminative signal is a handful of discrete attributes</strong> — so treat it as entity resolution, not similarity. That reframe is the answer; everything below is evidence you actually did it.</p>
+      </div>
+
+      <div class="stack">
+        <h4>The five stages, with the code behind each</h4>
+        <ul>
+          <li><strong>Attribute extraction from free text</strong> — <span class="mono">Services/Matcher/</span>, 10,206 lines across <span class="mono">Matcher.js</span>, <span class="mono">Config.js</span> and <span class="mono">LIB.js</span>. Regex/config-driven extraction of family, series, model, cpu, ram, resolution and condition; <code>allFamiliesRegex</code> alone enumerates roughly seventy product families across Dell, HP, Lenovo, Acer and Asus.</li>
+          <li><strong>Inference and disambiguation</strong> — <code>applyImplicationsForPropMap</code> propagates attributes the seller never stated (series implies panel and resolution); <code>chooseBiggers</code>, <code>chooseAllSameCharactersButMore</code> and <code>chooseWorsts</code> resolve competing candidate values when a title supports several readings. This is what turns a messy string into one defensible spec object.</li>
+          <li><strong>Canonicalization</strong> — <code>getStrippedSpecObj</code> and <code>groupSpecObjsByStrippedSku</code> strip a spec object to its identity-defining attributes and group on the result. That <em>group</em> is the canonical product entity; every marketplace listing resolves into one.</li>
+          <li><strong>The comparison relation</strong> — <span class="mono">Services/Transformer/SpecObjComparator.js</span>, 2,071 lines. Per-property ordinal scales loaded from a curated ranking CSV (<code>getCleanRankingCsvJson</code> → <code>createRankGraphMap</code>), composed into a dominance relation materialized as <code>betterThanGroupIdBitSets</code> (<span class="mono">SKUTransformer.js:1768</span>), alongside weighted <code>fromToEdgeCosts</code> between SKUs.</li>
+          <li><strong>Economic validation and linking</strong> — the XGBoost model in part two prices a group from its specs, and group-to-ASIN links persist as bidirectional LMDB maps (<span class="mono">KEYS_asin_groupId</span> / <span class="mono">KEYS_groupId-asin</span>).</li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <p class="eyebrow">Spend your time here — this is the differentiator</p>
+        <p><strong>You did not stop at binary match.</strong> Binary matching is a classification problem any candidate can describe. A <em>partial order with edge costs</em> is a modeling decision, and it answers the question the business actually had — not “are these the same product” but <strong>“can this item satisfy this obligation, and what does the upgrade cost.”</strong></p>
+        <p>It also hands you a ready answer to “what was hard”: the relation is <em>partial</em>. 16GB/256GB versus 8GB/512GB is genuinely incomparable, so the system has to represent incomparability rather than force a total order.</p>
+      </div>
+
+      <div class="stack">
+        <h4>The ninety-second spoken version</h4>
+        <p>“Cross-marketplace matching looks like a text-similarity problem and isn't. Marketplace titles are keyword-stuffed and adversarial, and the discriminative signal is a handful of discrete attributes — so we treated it as entity resolution, not similarity.</p>
+        <p>We extracted a typed spec object from each listing, applied implication rules to fill in attributes the seller left out, and resolved ambiguity when a title supported several readings. Then we stripped each spec object down to its identity-defining attributes and grouped on that — the group became our canonical product entity, and every marketplace listing resolved into one.</p>
+        <p>The part I'd call the actual design decision: we didn't stop at binary match. We built a partial order over spec vectors — per-attribute ordinal scales composed into a dominance relation, stored as bitsets so comparison was a set operation rather than pairwise scoring. That let us answer the question the business really had, which wasn't ‘are these the same product' but ‘can this item satisfy this obligation, and what does the upgrade cost.'”</p>
+      </div>
+
+      <div class="note warn">
+        <p class="eyebrow">When they push on embeddings — and they will</p>
+        <p>Do not get defensive. Argue the cost structure: <strong>“Embedding similarity is least reliable exactly where our cost was highest.</strong> The same laptop with 256GB versus 512GB is near-identical in embedding space and economically completely different — and a false positive meant buying or listing the wrong item, so it cost real money plus marketplace account health, while a false negative was only a missed opportunity. That asymmetry pushed us to a representation where a match was auditable: I could point at which attribute drove it. Where we did want fuzzy — aligning the same listing across regional sites — we used Jaro-Winkler on titles, which was proportionate.”</p>
+        <p>That last clause is true (<span class="mono">MarketplaceStuff.js:1582</span>) and it matters: “I used the fuzzy method where fuzzy was appropriate” is far stronger than “fuzzy methods are bad.”</p>
+      </div>
+
+      <div class="two-col">
+        <article class="card">
+          <span class="badge unknown">Own this gap</span>
+          <h3>There is no labelled benchmark</h3>
+          <p>No precision or recall was ever measured. The Transformer golden files are thin and stale — one stored result is literally an error payload. Say so first: <em>“our ground truth was operator corrections, and the first thing I'd build again is a labelled pair set so I could state precision at a threshold.”</em></p>
+          <p>The real feedback loop was human-in-the-loop: manual spec overrides by group id (<code>getManualSpecObjs</code>) and an ops-curated blacklist pulled from a Google Sheet (<span class="mono">Matcher.js:939</span>). That is a legitimate answer — volunteering it reads as senior; being caught without it does not.</p>
+        </article>
+        <article class="card">
+          <span class="badge fact">Your LLM bridge</span>
+          <h3>The 7,272-line rule config</h3>
+          <p>Hand-maintained extraction rules are fine for the head of the distribution and brutal for the tail — every new product family was a config change. That is the honest weakness, and it is where LLMs enter your story legitimately:</p>
+          <p><em>“I'd keep the deterministic path for the head, where it's auditable and cheap, and use an LLM for the tail: extract structured attributes from listings the rules don't cover, then treat those as labels to generate new rules or distil a small extractor. The expensive model proposes, the deterministic layer verifies — and the verification is the existing spec comparator, so a bad extraction fails a check instead of silently entering the graph.”</em></p>
+        </article>
+      </div>
+
+      <div class="note info">
+        <p class="eyebrow">If the posting's knowledge-graph line comes up</p>
+        <p>Lead with that vocabulary rather than “product matching.” Canonical entities resolved from heterogeneous sources, typed attributes, and a weighted relation graph between entities — including <code>graph-data-structure</code> backing the rank graphs — <strong>is</strong> a product knowledge graph. That is an accurate description of what is in the repository, not a stretch.</p>
+      </div>
+
+      <div class="note crit">
+        <p class="eyebrow">Before you claim any of it</p>
+        <p><strong>Confirm which parts were your own work.</strong> The repository has several contributors — it carries per-developer configs for BEN, ELI and JAMES — and the older <span class="mono">Services/Parser/Pricing/</span> pipeline carries another author's name and a 2019 date. Check ownership of Matcher, Transformer and Scorer specifically.</p>
+        <p><strong>Bring numbers you can source.</strong> Listing volume, group count, match rate. “We used bitsets so comparison was cheap” invites “how many comparisons?” — and you want a real figure there, not an estimate improvised in the room.</p>
+      </div>
+
+      <p class="small muted">Verified 15 Sep 2026 by reading source in <span class="mono">storewolf-central-server</span>, not from recall: <span class="mono">Services/Scorer/</span> (<span class="mono">compute-regression.py</span>, <span class="mono">GradientBoost.py</span>, <span class="mono">Scorer.ts</span>, <span class="mono">DataProcessors.ts</span>), <span class="mono">Services/Matcher/</span>, <span class="mono">Services/Transformer/</span>, and a dependency census across the checked-out tree and all forty submodules. The claim that scikit-learn use is only <code>SimpleImputer</code> and <code>train_test_split</code> rests on enumerating every sklearn import site in the repository; the absence claims for LangChain, embeddings, vector stores and PyTorch were re-run with corrected pattern alternation plus positive and negative controls, after a first pass using <code>grep -E</code> with escaped pipes returned false zeros.</p>
+    </section>
+
+    <section id="why">
+      <div class="sec-head">
+        <p class="eyebrow">08 · Why ServiceNow?</p>
+        <h2>Make the answer specific enough that it could not fit another company</h2>
+      </div>
+      <div class="script short">
+        <p class="eyebrow">Concise · about 40 seconds</p>
+        <p class="say">Three things make this unusually compelling to me. First, ServiceNow sits where enterprise data, workflows, permissions, and action meet, so agentic AI can move beyond demos into governed work at real scale. Second, this team is building the hard runtime layer—interruptible sessions, streaming and backpressure, context and state, and the boundary between a custom Harness, MCP, and A2A—not just wrapping a model API. Third, bringing Logik.ai’s CPQ depth into ServiceNow creates a concrete, constraint-heavy customer problem. I like roles where deep systems work, direct customer learning, and broad product distribution reinforce each other.</p>
+      </div>
+      <div class="script long">
+        <p class="eyebrow">Expanded · about 80 seconds</p>
+        <p class="say">ServiceNow has a combination I rarely see. The platform already owns meaningful enterprise workflows, data, and security boundaries, which gives an AI system both a path to action and a responsibility to be governed. The public AI strategy is also aligned with the architecture questions I care about: coordinated agent teams, a control plane, MCP for tools and external systems, and A2A for independently owned agents. Then this particular CPQ role goes one layer deeper. It is building a full-duplex execution Harness where users can interrupt or redirect work while other tasks keep streaming, and it expects someone to make judgment calls about state, cancellation, context, cost, and the protocol boundary. The Logik.ai acquisition gives that runtime a demanding business domain—configuration, pricing, quoting, and live customer constraints—rather than an abstract platform exercise. That mix of hard infrastructure, whole-stack ownership, and Forward Deployed feedback is exactly where I want to contribute.</p>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3>Why this team</h3>
+          <ul>
+            <li>They explicitly own a from-scratch execution runtime.</li>
+            <li>Architecture choices are still open enough for Staff-level influence.</li>
+            <li>CPQ supplies hard correctness and workflow constraints.</li>
+            <li>FDE creates a fast evidence loop from real deployments.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Why ServiceNow</h3>
+          <ul>
+            <li>Enterprise distribution through existing workflows.</li>
+            <li>Governance and security are part of the product surface.</li>
+            <li>AI Agent Orchestrator, Control Tower, MCP, and A2A form a coherent strategy.</li>
+            <li>The People Pact connects purpose, strong work, and sustainable lives.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">Personalize before speaking</p>
+        <p>Replace one abstract sentence with a true bridge from your own work: a runtime invariant you care about, a customer workflow you learned from, or a moment when a protocol boundary determined reliability. Do not add an unverified metric just to make the answer sound concrete.</p>
+      </div>
+    </section>
+
+    <section id="questions">
+      <div class="sec-head">
+        <p class="eyebrow">09 · Questions for them</p>
+        <h2>Ask questions that improve your model of the job</h2>
+      </div>
+      <div class="question-grid">
+        <article class="card">
+          <p class="rank">Ask Sharan · choose 2–3</p>
+          <h3>Technical, team, and strategy</h3>
+          <ol class="question-list">
+            <li><strong>“What is the hardest invariant the Harness still does not protect as well as you want?”</strong> Follow with interruption, side effects, or recovery only if useful.</li>
+            <li><strong>“Where have you drawn the Harness-versus-MCP boundary today, and what evidence would cause you to move it?”</strong></li>
+            <li><strong>“When a user redirects a live quote-planning session, what work should continue, what should cancel, and what must be durable?”</strong></li>
+            <li><strong>“Which CPQ failure modes have most changed the agent architecture once it met real customers?”</strong></li>
+            <li><strong>“What would you expect this Staff engineer to make materially better in the first six months?”</strong></li>
+            <li><strong>“How do you evaluate agent changes before they reach a customer deployment? What is the release-blocking bar?”</strong></li>
+            <li><strong>“Where do LangGraph and the custom Harness coexist well, and where has the abstraction fought you?”</strong></li>
+            <li><strong>“How much authority does this role have to simplify the architecture or retire a path?”</strong></li>
+            <li><strong>“How does FDE evidence get converted into reusable platform capability rather than customer-specific forks?”</strong></li>
+            <li><strong>“What distinguishes someone who is strong in this role from someone who only interviews well for it?”</strong></li>
+          </ol>
+        </article>
+        <article class="card">
+          <p class="rank">Ask Kaitlan · choose 2–3</p>
+          <h3>Scope, process, and logistics</h3>
+          <ol class="question-list">
+            <li><strong>“How is the scope and level of this Staff role calibrated across the interview loop?”</strong></li>
+            <li><strong>“What are the remaining stages, and what is each conversation intended to evaluate?”</strong></li>
+            <li><strong>“Is there anything from the first round that the team would like me to go deeper on?”</strong></li>
+            <li><strong>“How is the team organized across the CPQ AI runtime, product, and Forward Deployed work?”</strong></li>
+            <li><strong>“What work persona and location expectations apply to this specific opening?”</strong></li>
+            <li><strong>“What does a typical timeline look like from this conversation to a decision?”</strong></li>
+            <li><strong>“Are there any technical exercise or presentation constraints I should prepare for?”</strong></li>
+          </ol>
+          <div class="note warn">
+            <p class="eyebrow">Confidence boundary</p>
+            <p>Kaitlan’s job function was not independently verified. Keep these questions role-neutral; do not call her the recruiter unless she identifies herself that way.</p>
+          </div>
+        </article>
+      </div>
+      <div class="note">
+        <p class="eyebrow">Best closing question</p>
+        <p><strong>“Based on what we discussed, is there a part of my background or approach you would like me to clarify before we finish?”</strong> This gives you a chance to address doubt without asking them to deliver a verdict on the call.</p>
+      </div>
+    </section>
+
+    <section id="strategy">
+      <div class="sec-head">
+        <p class="eyebrow">10 · 45-minute strategy</p>
+        <h2>Budget the clock for two problems, not for a conversation</h2>
+      </div>
+      <div class="note">
+        <p class="eyebrow">Assumes two problems</p>
+        <p>If they open with only one problem, expect it to go deeper and to absorb the whole middle of the session—stretch the loop rather than rushing to finish early. If a diagram or design question replaces the second problem, section 06 is your material.</p>
+      </div>
+      <ol class="timeline">
+        <li><div><h3>0–3 min · Set the terms</h3><p class="muted">Short greeting, then ask the three opening questions from section 02: think aloud or not, what tooling is permitted, brute force first or straight to optimal. Confirm your language is available.</p></div></li>
+        <li><div><h3>3–6 min · Restate before you type</h3><p class="muted">Say the problem back in your own words, name one edge case and one assumption, and state the approach you intend plus its complexity. Get a nod before writing.</p></div></li>
+        <li><div><h3>6–20 min · First problem</h3><p class="muted">Write it, run small cases in the REPL as you go rather than at the end, and keep narrating. If you see the optimization, say so out loud even if you implement the simple version first.</p></div></li>
+        <li><div><h3>20–23 min · Close it properly</h3><p class="muted">State final time and space complexity, name the edge cases you handled, and say what you would test next. This is the part candidates skip and interviewers score.</p></div></li>
+        <li><div><h3>23–40 min · Second problem</h3><p class="muted">Same loop, faster. Expect the conceptual follow-ups here—hash table internals and downsides, BFS vs DFS—and answer them in a sentence each rather than lecturing.</p></div></li>
+        <li><div><h3>40–45 min · Your two questions</h3><p class="muted">Pick from section 08. One about the actual system, one about the role. If time collapsed, ask one good question rather than two rushed ones, and thank them by name.</p></div></li>
+      </ol>
+      <div class="two-col">
+        <article class="card">
+          <h3>When you are stuck</h3>
+          <p>Say so in structure, not in silence: name what you have, name what is blocking, state the smallest thing that would unblock you. “I have the O(n²) version and I can see the repeated work—I think a hashmap on the prefix sums removes it, let me try that” keeps the round moving. A long quiet pause is the only genuinely bad outcome.</p>
+        </article>
+        <article class="card">
+          <h3>When they interrupt or nudge</h3>
+          <p>Treat it as data, not criticism—interviewers nudge when they can see where you are heading. Stop, restate what you now understand the constraint to be, say which part of your approach it changes, and adjust in public. Defending the first idea past a hint is the expensive mistake.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <div class="sec-head">
+        <p class="eyebrow">11 · Last-minute checklist</p>
+        <h2>Ten minutes before the call</h2>
+      </div>
+      <ul class="checklist">
+        <li>Confirm the actual interview date in the calendar; this page intentionally does not guess it.</li>
+        <li>Test camera, microphone, headphones, power, network, and the supplied Zoom URL.</li>
+        <li>Open the CodePair link early if you have one—check the language list and that the editor and run button work before the interviewer joins.</li>
+        <li>Warm up on one easy problem in the half hour before. Cold-starting a shared editor in front of someone is the avoidable version of freezing.</li>
+        <li>Close notifications and every AI assistant, autocomplete overlay, and live transcription not explicitly authorized. Ask once at the start; abide by the answer.</li>
+        <li>Have paper for the problem statement, constraints, and edge cases—not a second screen of scripts.</li>
+        <li>Rehearse the first ninety seconds aloud: restate, name an edge case, state the approach and its complexity.</li>
+        <li>Put the short “Why ServiceNow?” answer in your own voice—do not memorize punctuation. It may get sixty seconds.</li>
+        <li>Keep one Answer Bank story and the Harness/MCP boundary loaded in case a design or diagram question appears.</li>
+        <li>Pick two questions for the close. The role is confirmed; the <em>team</em> is not—do not present CPQ AI as settled.</li>
+        <li>Join two or three minutes early, then close this page unless notes are explicitly allowed.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <div class="sec-head">
+        <p class="eyebrow">12 · Sources and confidence</p>
+        <h2>Know what is fact, inference, owner-supplied, or unknown</h2>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <span class="badge fact">Verified public fact</span>
+          <h3>Role and company context</h3>
+          <ul>
+            <li>The live posting describes the CPQ AI layer, custom Harness, MCP/A2A, async Python, RAG/context, classical ML, whole-stack fluency, multi-tenancy, and FDE.</li>
+            <li>ServiceNow announced the Logik.ai acquisition to expand AI-powered CPQ and Sales and Order Management.</li>
+            <li>ServiceNow publicly positions AI Agent Orchestrator, AI Control Tower, MCP, and A2A as parts of its enterprise agent platform.</li>
+            <li>Sharan’s public LinkedIn profile says he leads CPQ AI at ServiceNow.</li>
+            <li>ServiceNow’s People Pact centers on doing your best work, living your best life, and fulfilling purpose together.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="badge owner">Owner-supplied fact</span>
+          <h3>Meeting details</h3>
+          <ul>
+            <li>Candidate: Avraham Weiss.</li>
+            <li>Participants: Sharan Duggirala and Kaitlan Campos Madriz.</li>
+            <li>Time: 1:15–2:00 PM Eastern.</li>
+            <li>Meeting: supplied ServiceNow Zoom link.</li>
+            <li><strong>Format: a live HackerRank CodePair coding round.</strong></li>
+          </ul>
+          <p><strong>Role: the Staff Machine Learning Engineer posting at <span class="mono">744000146824899</span></strong>, supplied directly by the owner as “the full job.” Base pay band <strong>$176,100–$308,200</strong>, Santa Clara, work persona Flexible, bar stated as <strong>8+ years</strong> production software. This page previously hedged the role match as an inference; the owner has now confirmed it, so it is fact.</p>
+          <span class="badge inference">Evidence-based inference</span>
+          <p><strong>The question profile in section 02</strong>—two problems, LeetCode medium to medium-hard, hashmap and graph themes, conceptual DSA follow-ups—is drawn from crowd-sourced candidate reports on Blind, Glassdoor, Medium and interview-guide sites. Those reports vary in age, role and level, and none is ServiceNow documentation. The pattern is consistent enough to prepare against; treat no single account as your format.</p>
+          <span class="badge unknown">Not verified</span>
+          <p>The interview date and Kaitlan’s job function. Ask or check the calendar; do not infer either. Also unverified: whether this round uses one problem or two, and whether an ML implement-from-scratch question replaces a LeetCode-style one.</p>
+        </article>
+      </div>
+      <ol class="source-list">
+        <li><a href="https://jobs.smartrecruiters.com/ServiceNow/744000146824899-staff-machine-learning-engineer" target="_blank" rel="noreferrer">ServiceNow — Staff Machine Learning Engineer posting <span class="mono">744000146824899</span></a> · primary role source, supplied by the owner and confirmed.</li>
+        <li><a href="https://www.linkedin.com/in/sharan-duggirala-b8989860" target="_blank" rel="noreferrer">Sharan Duggirala — public LinkedIn profile</a> · public person-authored team context.</li>
+        <li><a href="https://www.servicenow.com/uk/company/media/press-room/servicenow-to-acquire-logik-ai.html" target="_blank" rel="noreferrer">ServiceNow — acquisition of Logik.ai</a> · first-party CPQ strategy source.</li>
+        <li><a href="https://www.servicenow.com/products/ai-agents.html" target="_blank" rel="noreferrer">ServiceNow AI Agents</a> · first-party Orchestrator, Control Tower, MCP, and A2A overview.</li>
+        <li><a href="https://www.servicenow.com/platform/action-fabric.html" target="_blank" rel="noreferrer">ServiceNow Action Fabric</a> · first-party governed MCP/A2A action layer.</li>
+        <li><a href="https://careers.servicenow.com/how-we-hire/" target="_blank" rel="noreferrer">ServiceNow Careers — How we hire</a> · interview process and evaluation context.</li>
+        <li><a href="https://www.teamblind.com/post/servicenow-senior-staff-hackerrank-interview-adempvqh" target="_blank" rel="noreferrer">Blind — ServiceNow Senior Staff HackerRank interview</a> · crowd-sourced; the “LeetCode Medium” bar for the staff screen.</li>
+        <li><a href="https://www.teamblind.com/post/servicenow-staff-software-engineer-interview-d52iqozr" target="_blank" rel="noreferrer">Blind — ServiceNow Staff Software Engineer interview</a> · crowd-sourced; two problems, medium to medium-hard, panel composition.</li>
+        <li><a href="https://www.interviewquery.com/interview-guides/servicenow-machine-learning-engineer" target="_blank" rel="noreferrer">InterviewQuery — ServiceNow ML Engineer guide</a> · aggregated; the ~45-minute coding-plus-ML round shape.</li>
+        <li><a href="https://www.hackerrank.com/blog/remote-interview-best-practices-codepair/" target="_blank" rel="noreferrer">HackerRank — Remote interview best practices, CodePair</a> · first-party; sparse libraries, language list, REPL, diagram questions.</li>
+        <li><a href="https://www.hackerrank.com/writing/ai-tools-ethical-hackerrank-codepair-interview-2025-best-practices" target="_blank" rel="noreferrer">HackerRank — Using AI tools ethically in CodePair</a> · first-party; AI-usage detection and clarifying permissions up front.</li>
+        <li><a href="https://careers.servicenow.com/life-at-servicenow/" target="_blank" rel="noreferrer">ServiceNow Careers — Life at ServiceNow</a> · People Pact and culture.</li>
+        <li><a href="https://careers.servicenow.com/using-ai-during-the-hiring-process/" target="_blank" rel="noreferrer">ServiceNow Careers — Using AI during the hiring process</a> · preparation and interview-integrity guidance.</li>
+      </ol>
+      <p class="small muted">Research refreshed 7 Sep 2026. Public pages can change; verify the posting before a later interview round.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p class="eyebrow">Local interview-prep collection</p>
+    <p>Use the <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a> for verified personal stories. This page supplies the ServiceNow role overlay and deliberately avoids inventing experience, dates, or interviewer roles.</p>
+    <p><a href="#top">Back to top</a></p>
+  </footer>
+</div>
+</body>
+</html>

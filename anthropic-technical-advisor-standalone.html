@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anthropic Technical Advisor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --paper:      #F2F4F3;
+    --surface:    #FAFBFA;
+    --ink:        #151A1C;
+    --ink-soft:   #3A4346;
+    --muted:      #69757A;
+    --rule:       #DADFDE;
+    --rule-firm:  #BFC7C5;
+    --accent:     #2D4EC9;
+    --accent-ink: #223EA6;
+    --accent-soft:#E4E9F9;
+    --on-accent:  #F2F4F3;
+    --flag:       #9A4A0E;
+    --flag-soft:  #F8EBDD;
+
+    --sev-block:  #A3261E;
+    --sev-major:  #B25A00;
+    --sev-minor:  #3E6C86;
+    --sev-nit:    #6C7A70;
+    --add-soft:   #E0F0E3;
+    --add-ink:    #1F6B34;
+    --del-soft:   #F6E1E1;
+    --del-ink:    #8F2020;
+
+    --display: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --sans:    "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    --serif:   "Literata", "Iowan Old Style", Georgia, "Times New Roman", serif;
+    --mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    --measure: 66ch;
+    --pad: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #121618;
+      --surface:    #191F22;
+      --ink:        #E7EBEA;
+      --ink-soft:   #BCC5C3;
+      --muted:      #8C9895;
+      --rule:       #28302F;
+      --rule-firm:  #3B4644;
+      --accent:     #7E9BFF;
+      --accent-ink: #9DB3FF;
+      --accent-soft:#1B2440;
+      --on-accent:  #121618;
+      --flag:       #E0A064;
+      --flag-soft:  #33261A;
+      --sev-block:  #F08A80;
+      --sev-major:  #E0A064;
+      --sev-minor:  #8FB3C9;
+      --sev-nit:    #9AA79A;
+      --add-soft:   #1B3323;
+      --add-ink:    #8FD3A3;
+      --del-soft:   #3A1F1F;
+      --del-ink:    #F0A0A0;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:      #121618;
+    --surface:    #191F22;
+    --ink:        #E7EBEA;
+    --ink-soft:   #BCC5C3;
+    --muted:      #8C9895;
+    --rule:       #28302F;
+    --rule-firm:  #3B4644;
+    --accent:     #7E9BFF;
+    --accent-ink: #9DB3FF;
+    --accent-soft:#1B2440;
+    --on-accent:  #121618;
+    --flag:       #E0A064;
+    --flag-soft:  #33261A;
+    --sev-block:  #F08A80;
+    --sev-major:  #E0A064;
+    --sev-minor:  #8FB3C9;
+    --sev-nit:    #9AA79A;
+    --add-soft:   #1B3323;
+    --add-ink:    #8FD3A3;
+    --del-soft:   #3A1F1F;
+    --del-ink:    #F0A0A0;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 60rem; margin: 0 auto; padding: var(--pad) var(--pad) 5rem; }
+
+  h1, h2, h3, h4 { text-wrap: balance; margin: 0; font-family: var(--display); }
+  p { margin: 0; }
+  a { color: var(--accent-ink); text-underline-offset: 0.18em; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  strong { font-weight: 600; color: var(--ink); }
+  code { font-family: var(--mono); font-size: 0.88em; color: var(--ink); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    display: flex; flex-direction: column; gap: 1.25rem;
+    padding-bottom: 1.75rem; border-bottom: 3px solid var(--accent);
+  }
+
+  .masthead h1 {
+    font-size: clamp(2.1rem, 5.5vw, 3.1rem);
+    font-weight: 700; line-height: 1.04; letter-spacing: -0.02em;
+    margin-top: 0.4rem;
+  }
+
+  .masthead .sub {
+    font-family: var(--serif); font-size: 1.15rem;
+    color: var(--ink-soft); font-style: italic; max-width: 40rem;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
+
+  .chip {
+    font-family: var(--mono); font-size: 0.71rem; letter-spacing: 0.05em;
+    color: var(--ink-soft); border: 1px solid var(--rule-firm);
+    padding: 0.3rem 0.6rem; white-space: nowrap;
+  }
+
+  .chip.hot { color: var(--accent-ink); border-color: var(--accent); background: var(--accent-soft); }
+
+  /* ---------- sections ---------- */
+
+  section { margin-top: 3.75rem; }
+
+  .sec-head {
+    display: flex; align-items: baseline; gap: 1rem;
+    padding-bottom: 0.8rem; border-bottom: 1px solid var(--rule-firm);
+    margin-bottom: 1.75rem;
+  }
+
+  .sec-head h2 {
+    font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+    font-weight: 700; letter-spacing: -0.015em; line-height: 1.15;
+  }
+
+  .sec-head .eyebrow { margin-left: auto; white-space: nowrap; }
+
+  .lede { max-width: var(--measure); color: var(--ink-soft); }
+  .lede + .lede { margin-top: 1rem; }
+  .lede + .checks, .lede + .tmpl, .lede + .scroll, .lede + .audit, .lede + .qa, .lede + .flagbox { margin-top: 1.5rem; }
+
+  h3.sub-head {
+    font-size: 1.1rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 0.9rem;
+  }
+
+  /* ---------- checklists ---------- */
+
+  .checks { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; max-width: var(--measure); }
+
+  .checks li {
+    padding: 0.85rem 0 0.85rem 1.5rem; border-top: 1px solid var(--rule);
+    position: relative; color: var(--ink-soft);
+  }
+
+  .checks li:first-child { border-top: none; }
+
+  .checks li::before {
+    content: ""; position: absolute; left: 0; top: 1.3rem;
+    width: 0.45rem; height: 0.45rem; background: var(--accent);
+  }
+
+  .checks li strong { color: var(--ink); }
+
+  /* ---------- fillable template ---------- */
+
+  .tmpl {
+    background: var(--surface);
+    border: 1px solid var(--rule-firm);
+    border-left: 3px solid var(--accent);
+    padding: clamp(1.1rem, 3vw, 1.6rem);
+    font-family: var(--mono);
+    font-size: 0.86rem;
+    line-height: 1.75;
+    overflow-x: auto;
+  }
+
+  .tmpl .slot {
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    padding: 0.05em 0.3em;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .tmpl .fieldname { color: var(--ink); font-weight: 500; }
+  .tmpl p { margin: 0; }
+  .tmpl p + p { margin-top: 0.5rem; }
+
+  .tmpl .prose {
+    font-family: var(--serif);
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: normal;
+    max-width: 62ch;
+  }
+
+  /* ---------- rehearsal questions ---------- */
+
+  details.qa { border-top: 1px solid var(--rule); }
+  details.qa:last-of-type { border-bottom: 1px solid var(--rule); }
+
+  details.qa summary {
+    cursor: pointer; list-style: none;
+    display: flex; gap: 0.9rem; align-items: baseline;
+    padding: 1rem 0;
+    font-family: var(--display); font-weight: 600; font-size: 1.05rem; line-height: 1.35;
+    color: var(--ink);
+  }
+
+  details.qa summary::-webkit-details-marker { display: none; }
+
+  details.qa summary::before {
+    content: "+"; font-family: var(--mono); font-weight: 500;
+    color: var(--accent-ink); width: 1.1rem; flex: none;
+  }
+
+  details.qa[open] summary::before { content: "\2013"; }
+
+  details.qa summary .tag {
+    margin-left: auto; flex: none;
+    font-family: var(--mono); font-size: 0.66rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+  }
+
+  details.qa .body {
+    padding: 0.1rem 0 1.5rem 2rem;
+    display: flex; flex-direction: column; gap: 0.9rem;
+  }
+
+  .say {
+    font-family: var(--serif); font-size: 1.02rem; color: var(--ink);
+    border-left: 2px solid var(--accent); padding-left: 1rem;
+    max-width: var(--measure);
+  }
+
+  .say .slot {
+    background: var(--accent-soft); color: var(--accent-ink);
+    font-family: var(--mono); font-size: 0.82em; padding: 0.05em 0.3em; font-weight: 500;
+  }
+
+  .why { font-family: var(--sans); font-size: 0.9rem; color: var(--muted); max-width: var(--measure); }
+  .why b { color: var(--ink-soft); font-weight: 600; }
+
+  /* ---------- tables ---------- */
+
+  .scroll { overflow-x: auto; }
+
+  table { border-collapse: collapse; width: 100%; font-family: var(--sans); font-size: 0.95rem; }
+
+  th {
+    text-align: left; font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    padding: 0 0.9rem 0.6rem 0; border-bottom: 1px solid var(--rule-firm);
+  }
+
+  td {
+    vertical-align: top; padding: 0.85rem 0.9rem 0.85rem 0;
+    border-bottom: 1px solid var(--rule); color: var(--ink-soft);
+  }
+
+  th:last-child, td:last-child { padding-right: 0; }
+
+  table.map td:first-child { font-family: var(--serif); color: var(--ink); width: 38%; min-width: 14rem; }
+  table.map td .slot, table.ledger td .slot {
+    background: var(--accent-soft); color: var(--accent-ink);
+    font-family: var(--mono); font-size: 0.8em; padding: 0.05em 0.3em; font-weight: 500;
+  }
+
+  table.ledger td:first-child { width: 8.5rem; min-width: 8.5rem; }
+  table.ledger td { min-width: 12rem; }
+
+  .sev {
+    display: inline-block; font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.18rem 0.5rem; border: 1px solid currentColor; white-space: nowrap;
+  }
+
+  .sev.block { color: var(--sev-block); }
+  .sev.major { color: var(--sev-major); }
+  .sev.minor { color: var(--sev-minor); }
+  .sev.nit   { color: var(--sev-nit); }
+
+  table.money { max-width: 34rem; font-variant-numeric: tabular-nums; }
+  table.money td:last-child { text-align: right; font-family: var(--mono); font-size: 0.9rem; color: var(--ink); white-space: nowrap; }
+  table.money tr.total td { border-bottom: 2px solid var(--rule-firm); }
+
+  /* ---------- four-column audit ---------- */
+
+  .audit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1px; background: var(--rule-firm); border: 1px solid var(--rule-firm);
+  }
+
+  .audit > div { background: var(--paper); padding: 1.3rem; display: flex; flex-direction: column; gap: 0.7rem; }
+
+  .audit h4 {
+    font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink);
+  }
+
+  .audit p { font-family: var(--sans); font-size: 0.93rem; color: var(--ink-soft); }
+
+  .audit ul {
+    margin: 0; padding-left: 1.1rem; font-family: var(--sans); font-size: 0.92rem;
+    color: var(--ink-soft); display: flex; flex-direction: column; gap: 0.35rem;
+  }
+
+  /* ---------- diff sample ---------- */
+
+  pre.diff {
+    margin: 0; font-family: var(--mono); font-size: 0.82rem; line-height: 1.6;
+    background: var(--surface); border: 1px solid var(--rule-firm);
+    padding: 0.9rem 0; overflow-x: auto; color: var(--ink-soft);
+  }
+
+  pre.diff span { display: block; padding: 0 1.1rem; white-space: pre; }
+  pre.diff .add { background: var(--add-soft); color: var(--add-ink); }
+  pre.diff .del { background: var(--del-soft); color: var(--del-ink); }
+  pre.diff .note { color: var(--muted); font-style: italic; }
+
+  .finding {
+    margin-top: 1rem; background: var(--surface); border: 1px solid var(--rule-firm);
+    padding: clamp(1rem, 3vw, 1.4rem); display: flex; flex-direction: column; gap: 0.7rem;
+    max-width: 54rem;
+  }
+
+  .finding .head { display: flex; gap: 0.8rem; align-items: baseline; flex-wrap: wrap; }
+  .finding .head h4 { font-size: 1rem; font-weight: 700; }
+  .finding p { color: var(--ink-soft); font-size: 1rem; }
+
+  /* ---------- flag box ---------- */
+
+  .flagbox {
+    background: var(--flag-soft); border: 1px solid var(--flag);
+    padding: clamp(1.1rem, 3vw, 1.6rem);
+    display: flex; flex-direction: column; gap: 0.9rem; max-width: 54rem;
+  }
+
+  .flagbox h3 { font-size: 1.15rem; font-weight: 700; color: var(--flag); }
+  .flagbox p { color: var(--ink-soft); }
+  .flagbox p strong { color: var(--ink); }
+
+  /* ---------- endnote ---------- */
+
+  .sources {
+    margin: 1rem 0 0; padding-left: 1.1rem; font-family: var(--sans); font-size: 0.88rem;
+    color: var(--muted); display: flex; flex-direction: column; gap: 0.3rem; max-width: var(--measure);
+  }
+
+  .endnote {
+    margin-top: 4rem; padding-top: 1.4rem; border-top: 1px solid var(--rule);
+    color: var(--muted); font-size: 0.92rem; max-width: var(--measure);
+  }
+
+  @media (max-width: 40rem) {
+    .sec-head { flex-wrap: wrap; row-gap: 0.35rem; }
+    .sec-head .eyebrow { margin-left: 0; width: 100%; }
+    details.qa summary { flex-wrap: wrap; row-gap: 0.3rem; }
+    details.qa summary .tag { margin-left: 2rem; width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin: calc(var(--pad) * -1) -0.4rem 2.25rem;
+    padding: 0.55rem 0.4rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 0.83rem;
+    font-weight: 600;
+  }
+
+  nav.sitenav a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.3rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  nav.sitenav a:hover { color: var(--ink); background: var(--rule); }
+
+  nav.sitenav a[aria-current="page"] {
+    color: var(--on-accent);
+    background: var(--accent);
+  }
+
+  nav.sitenav .sep { flex: 1; }
+</style>
+
+<div class="wrap">
+
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="masthead">
+    <div>
+      <span class="eyebrow">Role prep &middot; recruiter-screen reference</span>
+      <h1>Anthropic &mdash; Software Engineer, Technical&nbsp;Advisor</h1>
+      <p class="sub">A staffing recruiter&rsquo;s qualification call for a vendor seat. Ten minutes decides whether he submits you. The client decides the rest.</p>
+      <div class="chips">
+        <span class="chip hot">Via Source One, not Anthropic</span>
+        <span class="chip">$150/hr &middot; W-2</span>
+        <span class="chip">6 months, likely extension</span>
+        <span class="chip">Remote</span>
+        <span class="chip hot">Written work: no AI</span>
+      </div>
+    </div>
+  </header>
+
+  <section id="assessment-next" class="flagbox" aria-labelledby="assessment-next-title">
+    <span class="eyebrow">Next step &middot; invitation received September 18, 2026</span>
+    <h2 id="assessment-next-title">Prepare for the CodeSignal assessment</h2>
+    <p>Rob&rsquo;s invitation: <strong>90 minutes, one sitting, 500+ required on a 200&ndash;600 scale</strong>, with proctoring and photo ID. The linked role FAQ explicitly identifies the <strong>Industry Coding Assessment</strong>.</p>
+    <p><a href="anthropic-codesignal-assessment-standalone.html"><strong>Open the assessment prep page &rarr;</strong></a> Four-level practice project, Python exercises and solutions, a 90-minute mock timer, and a test-day checklist.</p>
+    <p>The <a href="https://docs.google.com/document/d/1Raj454exEG-fwL6fZiGFtpSOLcDuAMBXZvrpy58ufuo/edit?usp=sharing" target="_blank" rel="noopener noreferrer">role FAQ</a> names <strong>HireArt as employer of record</strong> and describes a paid two-week trial with two internal assessments after CodeSignal. The recruiter-screen material below is earlier-stage reference; this update supersedes its assumptions about the next step.</p>
+  </section>
+
+  <section id="read">
+    <div class="sec-head">
+      <h2>Read the email before answering it</h2>
+      <span class="eyebrow">Context</span>
+    </div>
+    <ul class="checks">
+      <li>
+        <strong>The sender is a staffing agency.</strong> Rob Uhrig works for Source One Technical Solutions
+        in Whitehouse, NJ. He is filling a vendor requisition; Anthropic is his client. If this goes ahead,
+        The current role FAQ names HireArt as employer of record. Rob screens whether your profile
+        matches the req&rsquo;s checklist closely enough to submit.
+      </li>
+      <li>
+        <strong>Ten minutes is a checklist, not a conversation.</strong> He will confirm you are who the
+        resume says, tick the named skills, and check rate, W-2, availability and location. Answer in the
+        job description&rsquo;s own words &mdash; <em>code review</em>, <em>agent session logs</em>,
+        <em>Docker</em>, <em>polyglot</em> &mdash; so his notes match the req when the client reads them.
+      </li>
+      <li>
+        <strong>The reply needs two things: a yes and a time.</strong> Put both in the first two lines.
+        Anything you want to ask goes after, and it should be short. A recruiter running a bulk req
+        rewards the candidate who is easy to schedule.
+      </li>
+      <li>
+        <strong>The rate is the req&rsquo;s rate.</strong> $150/hr W-2 was set by the client contract, not
+        by Rob. Negotiating it on a first screen mostly gets you deprioritised. Spend your questions on
+        hours, benefits and terms instead.
+      </li>
+      <li>
+        <strong>Expect a right-to-represent form.</strong> Staffing firms ask you to sign an RTR before
+        they submit you, so the client knows which agency owns your candidacy. It is normal. Sign it for
+        <em>this requisition only</em>, not blanket exclusivity, and keep a copy: if a second agency pitches
+        the same req later, the first RTR wins and you cannot be submitted twice.
+      </li>
+      <li>
+        <strong>The JD is the client&rsquo;s text; the paragraph around it is Rob&rsquo;s.</strong> Prepare for
+        the JD. Treat the rest as logistics. The line that matters most is the one most people skim:
+        <em>all written work must be self-authored without AI text generators.</em>
+      </li>
+    </ul>
+  </section>
+
+  <section id="reply">
+    <div class="sec-head">
+      <h2>The reply</h2>
+      <span class="eyebrow">Fill the slots</span>
+    </div>
+    <p class="lede">
+      Highlighted slots are facts only you have. The fit sentence is drafted from the agentic-platform
+      work in this workspace &mdash; <strong>read it critically and cut anything that overstates</strong>,
+      because it goes out as your claim, in your own words.
+    </p>
+
+    <div class="tmpl">
+      <p><span class="fieldname">Subject:</span> Re: Software Engineer &ndash; Technical Advisor (Anthropic) &ndash; confirming interest</p>
+      <p>&nbsp;</p>
+      <p>Hi Rob,</p>
+      <p>&nbsp;</p>
+      <p class="prose">Yes, I&rsquo;m interested in exploring this. I&rsquo;m available for the 10-minute video screen at any of:</p>
+      <p>&nbsp;</p>
+      <p>&middot; <span class="slot">Day, HH:MM&ndash;HH:MM TZ</span></p>
+      <p>&middot; <span class="slot">Day, HH:MM&ndash;HH:MM TZ</span></p>
+      <p>&middot; <span class="slot">Day, HH:MM&ndash;HH:MM TZ</span></p>
+      <p>&nbsp;</p>
+      <p class="prose">If none of those work I can move things around for yours.</p>
+      <p>&nbsp;</p>
+      <p class="prose">
+        Short version of the fit: most of my recent work is building and operating a multi-agent AI
+        engineering platform, which means a large share of every week is spent reviewing model-written
+        pull requests and reading full agent session logs to find where the model verified, assumed, or
+        skipped &mdash; the activity the role describes. Production Python and TypeScript, Docker and git
+        daily, comfortable in unfamiliar codebases. <span class="slot">One clause on human-team code review, if you have it</span>.
+      </p>
+      <p>&nbsp;</p>
+      <p class="prose">
+        Two quick logistics questions, whenever convenient: how does Source One coordinate with HireArt,
+        the employer of record named in the FAQ, and what are the timing and expectations for the
+        paid two-week trial after CodeSignal?
+      </p>
+      <p>&nbsp;</p>
+      <p class="prose">Resume attached. <span class="slot">Your mobile</span> is the best number for me.</p>
+      <p>&nbsp;</p>
+      <p>Best,<br>Avi</p>
+    </div>
+  </section>
+
+  <section id="screen">
+    <div class="sec-head">
+      <h2>The ten minutes</h2>
+      <span class="eyebrow">Rehearse aloud</span>
+    </div>
+    <p class="lede">
+      What a staffing recruiter asks on a first video screen, in roughly the order he asks it. The blocks
+      under each question are drafts to speak from, not scripts to read; a role about written judgement is
+      partly screened on how you talk. Slots are yours to fill and to make true.
+    </p>
+
+    <details class="qa" id="q-background">
+      <summary>Tell me about your background.<span class="tag">60 seconds</span></summary>
+      <div class="body">
+        <p class="say">
+          I&rsquo;ve been a production engineer for <span class="slot">N</span> years, mostly Python and
+          TypeScript, across <span class="slot">the domains on your resume</span>. For the last
+          <span class="slot">N</span> I&rsquo;ve built and run a multi-agent engineering platform: on the order
+          of a hundred autonomous coding agents working against one shared codebase, plus the coordination,
+          verification gates and evaluation harnesses that make that survivable. In practice that means a large
+          part of my week is reading model-written pull requests and full session logs and deciding whether
+          the work is real. The failure modes are consistent: the model narrows the task, asserts something
+          it never checked, or reports done without evidence. So this role is close to what I already do,
+          against production repositories, with the findings written up properly.
+        </p>
+        <p class="why"><b>Why he asks.</b> He is matching you to the &ldquo;target profile&rdquo; paragraph. Land the words <em>code review</em>, <em>session logs</em>, <em>Python and TypeScript</em>, <em>unfamiliar codebases</em> inside the first minute.</p>
+      </div>
+    </details>
+
+    <details class="qa" id="q-years">
+      <summary>How many years of production engineering experience?<span class="tag">One number</span></summary>
+      <div class="body">
+        <p class="say">
+          <span class="slot">N</span> years in production roles, counting from <span class="slot">first shipping job</span>.
+        </p>
+        <p class="why"><b>Why he asks.</b> The req says &ldquo;8+ preferred&rdquo;. Give one number, make it match the resume, and do not pad it. If you are under eight, say the number and move on; <em>preferred</em> is not a gate, and inflated years are the quiet reason candidates get dropped after submission when the client diffs the resume.</p>
+      </div>
+    </details>
+
+    <details class="qa" id="q-review">
+      <summary>Tell me about your code review experience.<span class="tag">The core skill</span></summary>
+      <div class="body">
+        <p class="say">
+          Two kinds. <span class="slot">Human-team review culture: where, how strict, what you enforced and how many reviewers a change needed</span>.
+          And for the last <span class="slot">N</span> I&rsquo;ve reviewed agent-written changes at volume,
+          roughly <span class="slot">N</span> a week, behind acceptance gates I wrote. The first thing I check
+          is whether the diff matches the claim: does the description describe the change that is actually
+          there, do the tests exercise the behaviour or only the happy path, and what did the author never
+          open. Then correctness, then design.
+        </p>
+        <p class="why"><b>Why he asks.</b> &ldquo;Extensive hands-on code review experience&rdquo; and &ldquo;strict code review culture&rdquo; are both in the profile. He wants a yes with texture. The claim-versus-diff framing is the one the client&rsquo;s own JD uses: <em>separate genuinely good engineering from plausible, superficial AI code.</em></p>
+      </div>
+    </details>
+
+    <details class="qa" id="q-languages">
+      <summary>Which languages are you strongest in, and how do you handle ones you don&rsquo;t know?<span class="tag">Polyglot</span></summary>
+      <div class="body">
+        <p class="say">
+          Python and TypeScript day to day. I&rsquo;ve shipped <span class="slot">the others you have actually shipped: Go, Rust, Bash, SQL&hellip;</span>.
+          Dropping into unfamiliar code is most of what the agents I run do, so I&rsquo;ve had to get good at
+          reviewing changes in languages I don&rsquo;t write daily: read the tests first, find the callers,
+          run it locally. <span class="slot">One concrete time you picked up an unfamiliar language or codebase fast and what you found</span>.
+        </p>
+        <p class="why"><b>Why he asks.</b> The req says &ldquo;comfortable dropping into unfamiliar languages weekly&rdquo;. Name only languages you could review in on camera next week.</p>
+      </div>
+    </details>
+
+    <details class="qa" id="q-tooling">
+      <summary>Docker, git, terminal debugging &mdash; how hands-on are you?<span class="tag">Core tooling</span></summary>
+      <div class="body">
+        <p class="say">
+          Daily. <span class="slot">The containerised services you actually run, and the CI gating around them</span>.
+          My rule for reviewing is <em>reproduce before you rate</em>: if I can&rsquo;t make it fail locally,
+          I don&rsquo;t call it a bug, I call it a question. That habit matters more here than any one tool.
+        </p>
+        <p class="why"><b>Why he asks.</b> The JD says findings are reproduced locally. He is checking that you will not review from the diff alone.</p>
+      </div>
+    </details>
+
+    <details class="qa" id="q-agents">
+      <summary>What&rsquo;s your experience with AI coding agents and LLMs?<span class="tag">Your edge</span></summary>
+      <div class="body">
+        <p class="say">
+          That is the centre of my recent work. I run these models as engineers all day, and I&rsquo;ve built the
+          lints and gates that catch their characteristic mistakes. A concrete one: an agent searches a path
+          that doesn&rsquo;t exist, gets empty output, and reports &ldquo;X does not exist&rdquo; as a confident
+          fact &mdash; I built a guard for exactly that. Another: a wrapper shell exits and the agent reports
+          &ldquo;task completed&rdquo; while the real job is still running. The pattern underneath all of them
+          is confident wrongness, and documenting exactly where that happens is what this role is.
+        </p>
+        <p class="why"><b>Why he asks.</b> The JD calls this &ldquo;a plus&rdquo;. For you it is the differentiator, so spend the extra thirty seconds here and nowhere else. Keep the examples specific and short; a recruiter will write down the phrase <em>confident wrongness</em>.</p>
+      </div>
+    </details>
+
+    <details class="qa" id="q-writing">
+      <summary>The written work has to be your own, with no AI text generators. Is that a problem?<span class="tag">Answer plainly</span></summary>
+      <div class="body">
+        <p class="say">
+          Not a problem, and I&rsquo;d expect you to check. I use these tools heavily, which is exactly why I
+          know what they get wrong. The reviews and the rationales will be mine.
+        </p>
+        <p class="why"><b>Why he asks.</b> It is in the JD in bold, which means the client has been burned. Say yes without qualification, and mean it: assume a hand-written sample is coming at the client stage, and practise one before then (see <a href="#after">the client&rsquo;s bar</a>).</p>
+      </div>
+    </details>
+
+    <details class="qa" id="q-logistics">
+      <summary>Rate is $150/hr W-2, six months, remote. Does that work? When can you start, and where are you based?<span class="tag">Logistics</span></summary>
+      <div class="body">
+        <p class="say">
+          Yes on the rate and on W-2. I could start <span class="slot">date, or &ldquo;on two weeks&rsquo; notice&rdquo;</span>.
+          I&rsquo;m in <span class="slot">City, State</span>, <span class="slot">work authorisation</span>. Fully remote is
+          fine, and I can keep <span class="slot">Pacific overlap you can actually commit to</span>.
+        </p>
+        <p class="why"><b>Why he asks.</b> Four checkboxes. Answer all four in one breath so he does not have to pull them out of you. State matters for W-2 payroll; if he hesitates at yours, ask which states the program can employ in.</p>
+      </div>
+    </details>
+
+    <details class="qa" id="q-why">
+      <summary>Why this role?<span class="tag">Not a stepping stone</span></summary>
+      <div class="body">
+        <p class="say">
+          Because verification of AI-written code is the hard problem right now, and this is that problem
+          at the frontier, on real repositories, with the findings actually used. I would rather be the
+          person deciding whether the code is right than one more person generating it.
+        </p>
+        <p class="why"><b>Why he asks.</b> He needs to know you will last six months in a role that is judging, not shipping. Research for this page found no documented path from a vendor evaluation seat to a full-time Anthropic role (see <a href="#way-in">below</a>), so pitching the seat as a stepping stone reads as a flight risk.</p>
+      </div>
+    </details>
+
+    <details class="qa" id="q-elsewhere">
+      <summary>Are you interviewing elsewhere? Any offers pending?<span class="tag">Honest, brief</span></summary>
+      <div class="body">
+        <p class="say">
+          I&rsquo;m in a few processes. This is one of the better fits for what I actually do, and I can move
+          quickly on it.
+        </p>
+        <p class="why"><b>Why he asks.</b> He is judging how fast to push the submission. &ldquo;A few processes&rdquo; is true, creates mild urgency, and commits you to nothing.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="map">
+    <div class="sec-head">
+      <h2>Map the JD to what you have actually done</h2>
+      <span class="eyebrow">Evidence, not adjectives</span>
+    </div>
+    <p class="lede">
+      Each line of the job description, next to the evidence you can stand behind. Slots mark where only
+      you know the fact. If a row stays empty, do not claim it on the call.
+    </p>
+    <div class="scroll">
+      <table class="map">
+        <thead>
+          <tr><th>The JD says</th><th>Your evidence</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Review model-written PRs against real production repositories, documenting bugs, edge cases and architectural issues with severity ratings.</td>
+            <td>Agent-written changes reviewed behind graded acceptance gates on a shared codebase; <span class="slot">rough weekly volume</span>; the severity vocabulary in <a href="#after">the ledger below</a>.</td>
+          </tr>
+          <tr>
+            <td>Evaluate full coding-agent sessions to analyse what the model investigated, verified, assumed, or skipped.</td>
+            <td>Session transcripts are indexed and searched as a matter of routine; turns carry provenance stamps; guards exist for false-absence claims from wrong-path searches and for &ldquo;completed&rdquo; reported on a wrapper shell while the child still runs.</td>
+          </tr>
+          <tr>
+            <td>Design and build container-based (Docker) technical benchmarks.</td>
+            <td>Containerised services with automated release gating in CI; <span class="slot">any benchmark or hermetic test environment you have actually built</span>.</td>
+          </tr>
+          <tr>
+            <td>Write clear, original technical rationales explaining why code fails &mdash; self-authored.</td>
+            <td><span class="slot">Writing you did yourself: design docs, incident write-ups, review comments you are proud of</span>. Do not cite documents an agent drafted.</td>
+          </tr>
+          <tr>
+            <td>Collaborate asynchronously with AI researchers.</td>
+            <td><span class="slot">Remote, written-first collaboration you can point to</span>; the platform itself runs on written checkpoints and briefs between agents and humans.</td>
+          </tr>
+          <tr>
+            <td>Polyglot: Python and TypeScript common, unfamiliar languages weekly.</td>
+            <td>Python and TypeScript in production; <span class="slot">the others, honestly</span>; reviewing agent changes across whatever the codebase is written in.</td>
+          </tr>
+          <tr>
+            <td>8+ years of production engineering preferred.</td>
+            <td><span class="slot">Your number</span>, consistent with the resume.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="gaps">
+    <div class="sec-head">
+      <h2>Where to be straight with him</h2>
+      <span class="eyebrow">Coach the honest framing</span>
+    </div>
+    <div class="flagbox">
+      <h3>Four places a strong pitch can overreach</h3>
+      <p>
+        <strong>Years.</strong> If your production count is under eight, say the number. The req says
+        <em>preferred</em>. What ends candidacies is a number on the call that the resume does not support.
+      </p>
+      <p>
+        <strong>Review culture.</strong> The profile wants review inside a human team with a strict culture.
+        Reviewing agent PRs at volume is real review experience and arguably the most relevant kind, but if
+        you also have the human-team version, name it, and if you do not, say what you have rather than
+        letting the agent work stand in for it.
+      </p>
+      <p>
+        <strong>The no-AI writing rule.</strong> You are a heavy user of these tools. That is an advantage
+        for finding failures and a liability for this rule if you are not ready to write without them.
+        Before any client step, write one full rationale by hand against a real PR and time it.
+      </p>
+      <p>
+        <strong>Motivation.</strong> Do not frame this as a way into Anthropic. The research behind this
+        page found no documented conversions from vendor evaluation work, and the agency contract will
+        almost certainly carry a conversion fee or a waiting period. Take the seat for the work; a referral
+        from a researcher you impress is a bonus, not a plan.
+      </p>
+    </div>
+  </section>
+
+  <section id="after">
+    <div class="sec-head">
+      <h2>After the screen: the client&rsquo;s bar</h2>
+      <span class="eyebrow">Prepare now</span>
+    </div>
+    <p class="lede">
+      Rob&rsquo;s screen gets you submitted. What follows is Anthropic&rsquo;s own step, usually a
+      conversation with someone on the evaluation side and often a work sample: review a model-written PR,
+      rate what you find, and write the rationale yourself. The material below is the vocabulary that step
+      is graded in. Rehearse it aloud before the client call, not after.
+    </p>
+
+    <h3 class="sub-head">The severity ledger</h3>
+    <div class="scroll">
+      <table class="ledger">
+        <thead>
+          <tr><th>Severity</th><th>What it means</th><th>What it looks like in a model PR</th><th>How you prove it</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="sev block">Blocking</span></td>
+            <td>Wrong behaviour on a realistic input, data loss, a security hole, or the task not actually done.</td>
+            <td>The description claims a fix; the diff changes the test instead. An exception path that returns <code>None</code> into a caller that iterates. Expected values hard-coded to make the test pass.</td>
+            <td>A reproduction: the input, the command, the observed output. Cite the line. Quote the claim it contradicts.</td>
+          </tr>
+          <tr>
+            <td><span class="sev major">Major</span></td>
+            <td>Works on the happy path; breaks on an edge the task named or a real user hits.</td>
+            <td>Empty input, unicode, concurrency, timeouts, a migration without a rollback, config added but never read.</td>
+            <td>Name the edge, show it is in scope (the task text or the existing tests), show the diff does not cover it.</td>
+          </tr>
+          <tr>
+            <td><span class="sev minor">Minor</span></td>
+            <td>Correct but wrong for the codebase: duplicates an existing helper, ignores a convention, leaves the design harder to change.</td>
+            <td>A second retry helper beside the one in <code>utils</code>. A broad <code>try/except</code> around new code. Dead parameters left from an abandoned approach.</td>
+            <td>Point at the existing pattern the change should have used. One line of why it matters later.</td>
+          </tr>
+          <tr>
+            <td><span class="sev nit">Nit</span></td>
+            <td>Style, naming, a comment that lies. Worth noting, never worth the lead paragraph.</td>
+            <td>A docstring describing the old behaviour. Inconsistent naming against neighbours.</td>
+            <td>State it in one clause and move on. Nits that crowd out a Blocking finding are a reviewer failure.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="why" style="margin-top:0.9rem">
+      <b>The tell they are hiring for.</b> A plausible PR passes its own tests, reads cleanly, and describes
+      itself accurately in every place except the one that matters. Start from the claim, not the code.
+    </p>
+
+    <h3 class="sub-head">Reading a session log: the four columns</h3>
+    <p class="lede">The JD lists these four verbs. Use them as literal column headings when you take notes on a transcript.</p>
+    <div class="audit">
+      <div>
+        <h4>Investigated</h4>
+        <p>What did it open before it edited?</p>
+        <ul>
+          <li>Did it find the callers of what it changed?</li>
+          <li>Did it read the existing tests and CI config?</li>
+          <li>Did it look for a helper that already did this?</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Verified</h4>
+        <p>What did it actually run, and did it read the result?</p>
+        <ul>
+          <li>Tests run, and which ones, after the <em>last</em> edit?</li>
+          <li>Reproduced the bug before fixing it?</li>
+          <li>Checked output, or only the exit code?</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Assumed</h4>
+        <p>Premises it never checked.</p>
+        <ul>
+          <li>Input shape, environment, library behaviour.</li>
+          <li>&ldquo;The tests cover this.&rdquo;</li>
+          <li>Any &ldquo;should work&rdquo; in the transcript.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Skipped</h4>
+        <p>The part of the task that quietly went missing.</p>
+        <ul>
+          <li>Edge cases named in the task, absent from the diff.</li>
+          <li>Error paths, migrations, docs, config.</li>
+          <li>Scope narrowed without saying so.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub-head">What a rationale looks like</h3>
+    <p class="lede">
+      They want <em>why it fails</em>, not how to fix it. Lead with the failure, cite the location, show the
+      input that triggers it, then the severity and its reason. An illustrative diff and the finding it
+      would earn:
+    </p>
+    <pre class="diff"><span class="add">+ def fetch(url, tries=3):</span><span class="add">+     for attempt in range(tries):</span><span class="add">+         try:</span><span class="add">+             return client.get(url, timeout=5)</span><span class="add">+         except Timeout:</span><span class="add">+             log.warning("timeout %d/%d", attempt + 1, tries)</span><span class="note">  # falls through after the last timeout and returns None</span></pre>
+    <div class="finding">
+      <div class="head"><span class="sev block">Blocking</span><h4>Retries swallow the final failure</h4></div>
+      <p>
+        <code>fetch()</code> returns <code>None</code> after the third timeout instead of raising. Its only
+        caller, <code>sync_orders()</code>, iterates the return value, so three slow responses in a row turn a
+        retryable failure into a <code>TypeError</code> inside the sync job. The added test covers two timeouts
+        followed by success and never reaches the exhausted path. Reproduced by patching the client to raise
+        <code>Timeout</code> three times. The PR description says the change &ldquo;adds resilient retries&rdquo;;
+        the transcript shows the model never opened the caller.
+      </p>
+    </div>
+    <p class="why" style="margin-top:0.9rem">
+      <b>Write it by hand.</b> That paragraph is the length and shape they are asking for. Practise producing
+      one against a real PR, timed, without assistance, before the client conversation.
+    </p>
+
+    <h3 class="sub-head">If they ask about building a benchmark</h3>
+    <ul class="checks">
+      <li><strong>Hermetic.</strong> Pinned base image, pinned dependencies, no network at test time. A benchmark that passes on Tuesday and fails on Friday measures the weather.</li>
+      <li><strong>Deterministic tests, split visible from hidden.</strong> The model sees enough to understand the task; the graded tests it cannot see, so it cannot pattern-match them.</li>
+      <li><strong>Requires reading the codebase.</strong> A good task cannot be solved from the prompt alone; the answer depends on callers, conventions and constraints that live in the repo.</li>
+      <li><strong>Guarded against shortcuts.</strong> Hard-coded outputs, edited tests, and skipped assertions must fail the grade, not pass it. Write the rubric before the model runs.</li>
+      <li><strong>Passable by a human.</strong> Solve it yourself inside the container first and record how long it took. A task nobody can pass measures nothing.</li>
+    </ul>
+  </section>
+
+  <section id="money">
+    <div class="sec-head">
+      <h2>The money</h2>
+      <span class="eyebrow">Know it before he says it</span>
+    </div>
+    <div class="scroll">
+      <table class="money">
+        <tbody>
+          <tr><td>Hourly, W-2</td><td>$150</td></tr>
+          <tr><td>Week at 40 hours</td><td>$6,000</td></tr>
+          <tr class="total"><td>Six months at 26 weeks</td><td>~$156,000</td></tr>
+          <tr><td>Annualised, if extended</td><td>~$312,000</td></tr>
+          <tr><td>Employer of record / payroll</td><td>HireArt (per role FAQ)</td></tr>
+          <tr><td>Equity</td><td>None</td></tr>
+          <tr><td>Health, PTO, holidays</td><td>Ask</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lede" style="margin-top:1.2rem">
+      Hourly W-2 means you are paid for hours worked. Whether 40 is guaranteed, capped, or merely expected
+      changes the real number, and whether holidays are paid changes it again. Those are the questions to
+      spend the rate conversation on.
+    </p>
+  </section>
+
+  <section id="ask">
+    <div class="sec-head">
+      <h2>Questions to ask Rob</h2>
+      <span class="eyebrow">Pick four</span>
+    </div>
+    <ul class="checks">
+      <li><strong>How do Source One and HireArt divide recruiting and onboarding?</strong> The role FAQ names HireArt as employer of record; confirm the remaining handoff details.</li>
+      <li><strong>What are the timing and success criteria for the paid two-week trial?</strong> The FAQ lists two internal Anthropic assessments after CodeSignal; ask what preparation is appropriate.</li>
+      <li><strong>Hours: is 40 a week expected, guaranteed, or a ceiling?</strong> The pay maths depends on it.</li>
+      <li><strong>What does the W-2 include?</strong> Health coverage, PTO, paid holidays, pay schedule.</li>
+      <li><strong>Which states can the program employ in?</strong> W-2 payroll is state-specific; better to hear it now than after submission.</li>
+      <li><strong>What are the RTR and conversion terms?</strong> Requisition-specific representation, any non-solicit, any conversion fee or waiting period.</li>
+      <li><strong>How many candidates are you submitting, and when does the client review them?</strong> Sets your expectations and your follow-up timing.</li>
+      <li><strong>Has anyone from this program gone on to a direct role with the client?</strong> Ask it last and lightly. A vague answer is itself the answer.</li>
+    </ul>
+  </section>
+
+  <section id="way-in">
+    <div class="sec-head">
+      <h2>Is this a way into Anthropic?</h2>
+      <span class="eyebrow">What the research found</span>
+    </div>
+    <p class="lede">
+      Not in any documented way. Searches across Blind, Hacker News, Reddit and Glassdoor turned up no
+      account of a vendor evaluator converting to a full-time Anthropic role. Anthropic sources this kind of
+      work through vendors at scale &mdash; Mercor alone reports tens of thousands of contractors &mdash; and
+      its full-time engineering loop is a separate, referral-heavy, highly selective process that a contract
+      does not shortcut.
+    </p>
+    <p class="lede">
+      The fair valuation: six months of well-paid work on frontier-model evaluation that sharpens exactly the
+      judgement this whole prep set is about, and a resume line that travels. A referral from a researcher
+      you work with would be a genuine bonus. Plan on the work, not the bonus.
+    </p>
+    <ul class="sources">
+      <li><a href="https://www.teamblind.com/post/anthropic-interview-megathread-6estt896">Anthropic interview megathread, Blind</a> &mdash; selectivity and referral weight; no mention of contractors.</li>
+      <li><a href="https://www.anthropic.com/engineering/AI-resistant-technical-evaluations">Designing AI-resistant technical evaluations, Anthropic engineering blog</a> &mdash; how the company builds its own hiring evaluations, internally.</li>
+      <li><a href="https://www.pin.com/blog/ai-labs-hiring-train-models/">How AI labs are hiring people to train models, Pin</a> &mdash; the vendor landscape and pay bands.</li>
+      <li><a href="https://bigthink.com/business/inside-the-meteoric-rise-of-mercor/">Inside the rise of Mercor, Big Think</a> &mdash; contractor scale at the vendors serving OpenAI and Anthropic.</li>
+      <li><a href="https://www.teamblind.com/post/contractor-conversion-at-g-h1keufk8">Contractor conversion at Google, Blind</a> &mdash; the general pattern: contractors apply and interview like anyone else.</li>
+      <li><a href="http://source1tek.com/">Source One Technical Solutions</a> &mdash; a generalist staffing firm operating since 2003.</li>
+    </ul>
+  </section>
+
+  <p class="endnote">
+    The fit sentence, the spoken answers and the evidence table are drafted from the agentic-platform work
+    visible in this workspace and written to be true; they are still assertions you will make to an employer,
+    so verify every clause against what you can evidence on a call before you say it. The severity ledger,
+    the four-column audit and the benchmark checklist are general reviewing practice organised around the JD&rsquo;s
+    own wording, not anything Anthropic published about its process. Everything about the client-side step
+    is inference from how vendor programs usually run; Rob&rsquo;s answer to the second question above
+    replaces it.
+  </p>
+
+</div>
+</body>
+</html>
