@@ -5,7 +5,8 @@
  * (the list had drifted into 7 different versions across 65 files).
  *
  * Each page carries:  <div id="sitenav"></div><script src="sitenav.js"></script>
- * The CSS still lives in each page's own <style> block (nav.sitenav rules).
+ * The CSS still lives in each page's own <style> block (nav.sitenav rules), except
+ * the phone one-row rule, which this script injects for every page (see below).
  *
  * Generated 2026-09-21; edit this file directly from here on.
  */
@@ -14,6 +15,18 @@
       {
           "h": "papercusp-answer-bank",
           "t": "Answer&nbsp;Bank"
+      },
+      {
+          "h": "telescope-partners-mike-ihbe",
+          "t": "Telescope&nbsp;·&nbsp;Mike&nbsp;·&nbsp;Today&nbsp;3:15"
+      },
+      {
+          "h": "acadian-brandon-sneider-hm",
+          "t": "Acadian&nbsp;·&nbsp;Brandon&nbsp;(HM)&nbsp;·&nbsp;Tue&nbsp;2:30"
+      },
+      {
+          "h": "braid-ivo-timoteo-ceo-call",
+          "t": "Braid&nbsp;·&nbsp;Ivo&nbsp;Timóteo"
       },
       {
           "h": "citi-senior-ai-engineer",
@@ -128,6 +141,10 @@
           "t": "Capital&nbsp;One&nbsp;GCA"
       },
       {
+          "h": "ramp-frontend-challenge",
+          "t": "Ramp&nbsp;Frontend&nbsp;Challenge"
+      },
+      {
           "h": "citi-karat-python-interview",
           "t": "Citi&nbsp;Karat"
       },
@@ -199,6 +216,21 @@
   var file = (location.pathname.split('/').pop() || '').replace(/[?#].*$/, '');
   var standalone = /-standalone\.html$/.test(file);
   var slug = file.replace(/-standalone\.html$/, '').replace(/\.html$/, '');
+
+  // Phone layout, shared by every page: keep the tab bar ONE horizontally scrollable
+  // row. Each page's own CSS sets `flex-wrap: wrap`, which at 390px wraps ~47 tabs
+  // into a sticky bar ~800px tall that covers the screen. This rule lives here (not
+  // per page) so new pages get it automatically. It uses a MORE SPECIFIC selector
+  // than the pages' `nav.sitenav`, because source order cannot be relied on: the
+  // -standalone builds put each page's <style> in <body>, after anything appended to
+  // <head>, so an equal-specificity rule loses there. verify-prep.cjs asserts the
+  // bar height on every page, source and standalone.
+  if (!document.getElementById('sitenav-phone-row')) {
+    var phoneRow = document.createElement('style');
+    phoneRow.id = 'sitenav-phone-row';
+    phoneRow.textContent = '@media (max-width: 760px) { html body nav.sitenav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; } }';
+    (document.head || document.documentElement).appendChild(phoneRow);
+  }
 
   var nav = document.createElement('nav');
   nav.className = 'sitenav';

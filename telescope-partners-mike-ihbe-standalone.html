@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Telescope Partners call with Mike Ihbe (Head of Product): the firm, the SWE and Data Scientist role, your bridge from Papercusp, likely questions, questions to ask.">
+<title>Telescope Partners · Mike Ihbe call | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f6fa;
+    --surface: #fff;
+    --soft: #ebebf5;
+    --ink: #13131c;
+    --muted: #55566a;
+    --accent: #3d3fb0;
+    --warn: #9a4a07;
+    --warn-soft: #fbf0e3;
+    --rule: #dedfea;
+    --rule-strong: #c2c3d6;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e0e15;
+      --surface: #16161f;
+      --soft: #1f1f2c;
+      --ink: #e7e7f0;
+      --muted: #a6a7ba;
+      --accent: #a9abff;
+      --warn: #f2b877;
+      --warn-soft: #2a2116;
+      --rule: #2a2a3a;
+      --rule-strong: #41425a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .6rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  blockquote { margin: .6rem 0 0; padding: .2rem 0 .2rem 1rem; border-left: 3px solid var(--rule-strong); color: var(--muted); font-style: italic; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .step .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .8rem; margin-top: .6rem; }
+  .pair > div { padding: .7rem .8rem; background: var(--soft); border-radius: 3px; }
+  .pair .label { display: block; margin-bottom: .2rem; font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .pair { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    details { break-inside: avoid; }
+    details > div { display: block; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Telescope Partners · San Francisco (Presidio) · 45-minute call</p>
+      <h1>Telescope Partners · Mike Ihbe</h1>
+      <p class="lead">A small growth-equity firm hiring engineers to replace investor busywork with automation. Their HN post says it plainly: “replacing as much investor work and intelligence with automation as possible.” That is the thing you have spent the last year building. Your job on this call: show him you can own that whole problem, from data to agents to what the partners actually use.</p>
+    </div>
+    <aside class="hero-card" aria-label="Call facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>When</dt><dd><strong>Today, Mon 28 Sep 2026, 3:15 to 4:00 p.m. ET</strong> (12:15 to 1:00 p.m. PT). It was first set for Wed 23 Sep at 2 p.m. PT and then moved.</dd></div>
+        <div><dt>Join</dt><dd><a href="https://meet.google.com/nmr-xuei-qas">meet.google.com/nmr-xuei-qas</a> · dial-in +1 319-382-9580, PIN 845 952 255#</dd></div>
+        <div><dt>Interviewer</dt><dd>Mike Ihbe, Head of Product at Telescope (since about May 2026). His HN handle is <code>mikeihbe</code>, and he organized the invite.</dd></div>
+        <div><dt>Role</dt><dd>Software Engineer &amp; Data Scientist · on-site in SF (Presidio) · full-time · 3 to 10 years of experience</dd></div>
+        <div><dt>Where we found it</dt><dd><a href="https://news.ycombinator.com/item?id=49525183">HN “Who is hiring?” Sept 2026, comment by mikeihbe</a> (in the <a href="https://news.ycombinator.com/item?id=49522897">Sept 2026 thread</a>). He also posted in <a href="https://news.ycombinator.com/item?id=48362564">June 2026</a>.</dd></div>
+        <div><dt>You emailed</dt><dd>mike@telescopepartners.com on 16 Sep 2026, around 11:40 p.m. ET, subject “Software Engineer &amp; Data Scientist - Avraham Weiss”</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#decide">Decide first</a>
+    <a href="#telescope">Telescope in 90 seconds</a>
+    <a href="#mike">Who Mike is</a>
+    <a href="#role">What the job really is</a>
+    <a href="#bridge">Your bridge</a>
+    <a href="#pitch">Your pitch</a>
+    <a href="#questions">Likely questions</a>
+    <a href="#ask">Questions to ask</a>
+    <a href="#plan">45-minute plan</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="decide">
+      <p class="eyebrow">01 · Before you dial</p>
+      <h2>Three answers only you can give. Settle them first.</h2>
+      <p class="section-lead">These come up in almost every first call with a small firm. A hesitant answer to any of them costs more than a weak technical answer.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">On-site</span>
+          <h3>Would you move to San Francisco?</h3>
+          <p>Both posts say “On-site US, San Francisco.” The office is in the Presidio (1 Letterman Dr). If he asks, give a straight yes, no, or “yes, from [month].” Don't guess about hybrid work; ask him instead (see “Questions to ask”).</p>
+        </div>
+        <div class="card">
+          <span class="tag">Comp</span>
+          <h3>Your number</h3>
+          <p>A tiny firm can be flexible, but it won't have a salary band doc. Have a base range ready, and know whether you care about carry or co-invest. At a VC firm those are real levers, and it's reasonable to ask whether engineers get them.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Why here</span>
+          <h3>Why a VC firm and not a startup?</h3>
+          <p>A good honest answer: the whole company is the customer. You'd sit next to the people whose work you're automating and see every week whether it worked. That's the loop you built Papercusp around, only with investors instead of coding agents.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="telescope">
+      <p class="eyebrow">02 · The firm</p>
+      <h2>Telescope in 90 seconds</h2>
+      <p class="section-lead">Telescope calls itself a “thesis-driven, early growth investor” in enterprise software. It was founded in 2015 by <strong>Mickey Arabelovic</strong>, a former Sequoia partner who helped build out Sequoia's growth practice.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">What they buy</span>
+          <h3>B2B software, mostly Series A and B</h3>
+          <p>They look for companies past product-market fit whose success “is not yet obvious.” They keep the portfolio small on purpose, and their site says “An investment from Telescope is a commitment of our time.” PitchBook counts about 22 investments, including Carbon Black, HireVue, Hotel Engine, Brandfolder, Waystar, Canid and Passage Health. The latest was BuildCheck AI on 9 Sep 2026.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Size</span>
+          <h3>Very small team</h3>
+          <p>Tracxn lists 4 people, including 2 partners, but that probably misses recent hires like Mike. The post says “a small, efficient team.” You'd likely be one of the first one or two engineers, so you'd own everything.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Portfolio help</span>
+          <h3>They also operate</h3>
+          <p>From the post: “We work closely with entrepreneurs and help them fill critical business functions as they grow.” Tools you build for the partners could also be offered to portfolio companies. That's a good question to ask.</p>
+        </div>
+      </div>
+      <div class="note"><strong>Watch for mix-ups:</strong> Weston Presidio is a different firm (Boston, late-stage PE). “Telescope” is also a common startup name, so don't mention something you only half-remember.</div>
+    </section>
+
+    <section id="mike">
+      <p class="eyebrow">03 · The interviewer</p>
+      <h2>Mike is a builder who became a product lead</h2>
+      <p class="section-lead">According to Equilar, he became Head of Product at Telescope on about 4 May 2026, after nearly 20 years as a founder and engineering leader in B2B software. Check his LinkedIn before you rely on any detail.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Background</span>
+          <h3>Sentry, Fireside, Lyric, Yammer, Apple, Amazon</h3>
+          <p>Most recently he led product and engineering teams at <strong>Sentry</strong> (observability). He co-founded <strong>Fireside</strong>, ran product and engineering at <strong>Lyric</strong>, and grew a consultancy that built software for Disney, Oracle, T-Mobile, Microsoft, Nasdaq and Cisco. Before that he was an engineer at Yammer, Apple and Amazon. He has a B.S.E. in Computer Science from the University of Michigan.</p>
+        </div>
+        <div class="card">
+          <span class="tag">So</span>
+          <h3>What he'll care about</h3>
+          <p><strong>Sentry</strong> means he'll respond to how you know a system is broken before users do (see Answer Bank #7, “Knowing before users do,” and N3, “Dead vs. slow”). As a <strong>founder and consultant</strong>, he'll want to know whether you can ship alone, scope small and talk to non-technical users. He's <strong>new to the job</strong>, so he's probably building the team and roadmap from scratch. Ask what he's found so far.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Tone</span>
+          <h3>Talk to him as a peer</h3>
+          <p>He's an engineer, so skip the buzzwords. He'll want mechanisms and numbers. Say what broke, what you measured and what you changed. He'll see through “AI-powered” in about three seconds.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="role">
+      <p class="eyebrow">04 · Read the post closely</p>
+      <h2>What the job actually is</h2>
+      <p class="section-lead">The June post asked for a “Software Engineer” to improve “team efficiency.” The September post changed the title to <strong>“Software Engineer &amp; Data Scientist”</strong> and added “improving investment decision-making using data.” So data is now half the job. Expect questions about it.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Sourcing</span>
+          <h3>Finding companies before they're obvious</h3>
+          <p>Their thesis is “post product-market fit but not yet obvious,” which is a signals problem: hiring velocity, headcount growth, web traffic, product launches, customer logos, review counts, GitHub activity. The pipeline is ingest, entity resolution, enrich, score, then partner review and a write back to the CRM.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Diligence</span>
+          <h3>Memos and meeting prep</h3>
+          <p>Agents draft company briefs, market maps and competitor tables before a partner call, and pull a first-pass memo from the data room. Every claim should be cited so a partner can check it in a few seconds. <strong>This very page is a small example.</strong></p>
+        </div>
+        <div class="card">
+          <span class="tag">Portfolio</span>
+          <h3>Monitoring and ops</h3>
+          <p>Collect monthly portfolio metrics, flag drift, prepare board decks and handle LP reporting. This work is dull and repetitive, and it's where automation saves the most time.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="bridge">
+      <p class="eyebrow">05 · Your bridge</p>
+      <h2>You've already built a version of this, twice</h2>
+      <div class="card">
+        <h3>1 · Running a big operation with a tiny team</h3>
+        <div class="pair">
+          <div><span class="label">Telescope</span>“A small, efficient team.” They want software to do the work more hires would otherwise do.</div>
+          <div><span class="label">You</span>You ran a commerce business for 12 years that did $1M+/month with two engineers and three warehouse staff. Automation kept overhead far below normal. You said “around 90% lower” in your first email, so stick with that number.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>2 · Replacing knowledge work with agents you can trust</h3>
+        <div class="pair">
+          <div><span class="label">Telescope</span>“Replacing as much investor work and intelligence with automation as possible.”</div>
+          <div><span class="label">Papercusp</span>About 100 agents work on one shared codebase with enforced locks, typed tool contracts, evidence-gated completion and graders who aren't the implementers. The hard part isn't getting an LLM to do the task. It's knowing when it didn't. That's the same problem as trusting an AI-drafted investment memo.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>3 · A live example: this job search is a sourcing pipeline</h3>
+        <div class="pair">
+          <div><span class="label">Deal sourcing</span>Scan the market, find the fits, dedupe against what you've already seen, write a tailored first touch, track replies.</div>
+          <div><span class="label">What found Mike</span>Your agents read the HN “Who is hiring” threads, matched roles, checked for duplicates across four channels and drafted tailored emails. That's how Mike's post got to you. It's deal sourcing aimed at jobs instead of companies. Use it if the conversation goes there. It's concrete and a little funny.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">06 · The 60-second version</p>
+      <h2>Your pitch</h2>
+      <div class="card">
+        <p>“For about twelve years I ran an e-commerce business doing over a million a month with two engineers and three people in the warehouse. The only way that works is automating everything, so that's how I think about teams. For the past year I've been building Papercusp. It's a platform where about a hundred AI agents work on the same codebase together. There are locks so they don't clobber each other, typed tools, and a rule that nothing counts as done without evidence. I'm open-sourcing it next month. Your post is basically the same problem pointed at investing: take the repetitive part of what investors do, automate it, and make it trustworthy enough that partners actually rely on it. I'd love to hear where you're starting.”</p>
+      </div>
+      <div class="note"><strong>End on a question.</strong> “Where are you starting?” gets him talking about his roadmap. Then you can map each item to something you've already built.</div>
+    </section>
+
+    <section id="questions">
+      <p class="eyebrow">07 · What he'll probably ask</p>
+      <h2>Likely questions, with answer sketches</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Design</span>
+          <h3>“How would you automate our deal sourcing?”</h3>
+          <p>Start with the output: a weekly ranked list a partner trusts, with a “why now” line and citations. Then work backward. Sources (Crunchbase/PitchBook/Harmonic, LinkedIn headcount, job posts, web traffic) go through entity resolution into one company table in Postgres. Next come time-series signals, a score, a partner review queue and a write back to the CRM. The key is the feedback loop: log every partner pass or pursue as a label.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Data science</span>
+          <h3>“Could you build a model that picks winners?”</h3>
+          <p>Be honest: 22 investments is far too few to train on outcomes. Use proxy labels such as “raised a next round within 18 months,” measured across thousands of companies. Treat it as a <em>ranking</em> problem, not classification. Watch for <strong>leakage</strong> (features measured after the round) and <strong>survivorship</strong> (dead companies drop out of the data). Check it with a time-split backtest: would it have surfaced Telescope's actual deals before they closed?</p>
+        </div>
+        <div class="card">
+          <span class="tag">Trust</span>
+          <h3>“How do you know the AI output is right?”</h3>
+          <p>Every claim is cited to a source so it can be checked quickly. Keep a fixed eval set of past memos with known answers, and re-run it whenever you change the prompt or model. The model that writes the work shouldn't grade it. Track which claims partners correct and treat those as bugs. This is Answer Bank #8, “Evaluating AI output,” so use those numbers.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Adoption</span>
+          <h3>“What if the partners don't use it?”</h3>
+          <p>Then it's a product failure, not a user failure. Put it where they already work: the CRM, email, the Monday meeting doc. Ship one small workflow that saves a partner an hour a week, measure whether they keep using it, then expand. Don't build a new dashboard nobody opens.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Stack</span>
+          <h3>“What do you work in?”</h3>
+          <p>TypeScript and Node, Postgres (920 migrations; state lives in PG by default), Python for data work, LLM APIs (Anthropic and OpenAI), MCP tools and Tauri for the desktop app. Be specific about how much SQL and pandas-style analysis you've actually done. The post now says “data scientist.”</p>
+        </div>
+        <div class="card">
+          <span class="tag">Behavioral</span>
+          <h3>“Tell me about something you got wrong”</h3>
+          <p>Use Answer Bank #6, “Being wrong.” A story about a confident, reasonable diagnosis that turned out wrong, and the guardrail you added afterward, fits a Sentry person well.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">08 · Your turn</p>
+      <h2>Questions to ask Mike</h2>
+      <div class="grid">
+        <div class="card"><span class="tag">Starting point</span><h3>“You joined in May. What's the first workflow you want to automate, and why that one?”</h3><p>This shows you the roadmap and what he thinks is most important.</p></div>
+        <div class="card"><span class="tag">Team</span><h3>“Who's on the tech team today? Would I be the first engineer under you?”</h3><p>This tells you how much you'd own and who you'd learn from.</p></div>
+        <div class="card"><span class="tag">Data</span><h3>“What's the data stack: which CRM, which data vendors, and is there a warehouse yet?”</h3><p>Affinity, Harmonic and PitchBook are common in VC. This tells you whether you're building the foundation or working on top of one.</p></div>
+        <div class="card"><span class="tag">Change</span><h3>“The September post added ‘data scientist.’ What changed?”</h3><p>This shows you read both posts and gets at what they need most right now.</p></div>
+        <div class="card"><span class="tag">Adoption</span><h3>“How do Mickey and the other partners feel about automating the ‘intelligence’ part?”</h3><p>The real limit is whether partners trust and use it. Find out how willing they are.</p></div>
+        <div class="card"><span class="tag">Success</span><h3>“What would make the first six months a clear win?”</h3><p>Then ask about next steps and whether there's a take-home or an onsite.</p></div>
+      </div>
+      <div class="note"><strong>Also ask about:</strong> how hybrid the on-site setup really is, whether engineers get carry or co-invest, and whether the tools will also be offered to portfolio companies.</div>
+    </section>
+
+    <section id="plan">
+      <p class="eyebrow">09 · Pacing</p>
+      <h2>45-minute plan</h2>
+      <div class="steps">
+        <div class="step"><span class="when">0–3 min</span><div><h3>Warm open</h3><p>“Thanks for making time, and for moving it. I found you through your post in the HN hiring thread.”</p></div></div>
+        <div class="step"><span class="when">3–10 min</span><div><h3>Your story</h3><p>The 60-second pitch, ending with “where are you starting?” Let him talk.</p></div></div>
+        <div class="step"><span class="when">10–30 min</span><div><h3>His questions</h3><p>Connect each item on his roadmap to something you've built: the commerce automation, Papercusp's evidence gates, and the job-search pipeline. Sketch the sourcing design if he asks.</p></div></div>
+        <div class="step"><span class="when">30–40 min</span><div><h3>Your questions</h3><p>Pick three: starting point, data stack, and what success looks like.</p></div></div>
+        <div class="step"><span class="when">40–45 min</span><div><h3>Close</h3><p>“What are the next steps?” Offer to show him Papercusp running: “Happy to show you what I've built.”</p></div></div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">10 · Sources</p>
+      <h2>Where this came from</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">The post</span>
+          <ul>
+            <li><a href="https://news.ycombinator.com/item?id=49525183">Sept 2026 HN post by mikeihbe</a>, in <a href="https://news.ycombinator.com/item?id=49522897">Ask HN: Who is hiring? (September 2026)</a></li>
+            <li><a href="https://news.ycombinator.com/item?id=48362564">June 2026 HN post by mikeihbe</a> (earlier “Software Engineer” version)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">The firm and Mike</span>
+          <ul>
+            <li><a href="https://www.telescopepartners.com/">telescopepartners.com</a> · <a href="https://www.linkedin.com/company/telescope-partners">LinkedIn</a></li>
+            <li><a href="https://people.equilar.com/bio/org/telescope-partners-llc/4305765">Equilar ExecAtlas</a> (Mike Ihbe, Head of Product)</li>
+            <li><a href="https://pitchbook.com/profiles/investor/168337-54">PitchBook</a> · <a href="https://tracxn.com/d/venture-capital/telescope-partners/__aYdXOSbZD_5U5aveEhprTtw7h3xZmx5q8gW5klx_o2M">Tracxn</a> · <a href="https://superscout.co/investor/telescope-partners">SuperScout</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>Prepared 28 September 2026 from the two HN posts, the Google Calendar invite, your 16 Sep email to Mike, and the public firm and executive profiles linked above. Details from third-party profiles (Mike's employment history, portfolio counts) aren't confirmed first-hand, so check his LinkedIn.</footer>
+</div>
+</body>
+</html>

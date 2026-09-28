@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Acadian Asset Management hiring-manager interview with Brandon Sneider, VP of AI: his research, Acadian's AI stance, how Papercusp maps to his thesis, likely questions, questions to ask.">
+<title>Acadian · Brandon Sneider (HM) interview | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f6fa;
+    --surface: #fff;
+    --soft: #ebebf5;
+    --ink: #13131c;
+    --muted: #55566a;
+    --accent: #3d3fb0;
+    --warn: #9a4a07;
+    --warn-soft: #fbf0e3;
+    --rule: #dedfea;
+    --rule-strong: #c2c3d6;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e0e15;
+      --surface: #16161f;
+      --soft: #1f1f2c;
+      --ink: #e7e7f0;
+      --muted: #a6a7ba;
+      --accent: #a9abff;
+      --warn: #f2b877;
+      --warn-soft: #2a2116;
+      --rule: #2a2a3a;
+      --rule-strong: #41425a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .6rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  blockquote { margin: .6rem 0 0; padding: .2rem 0 .2rem 1rem; border-left: 3px solid var(--rule-strong); color: var(--muted); font-style: italic; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .step .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .8rem; margin-top: .6rem; }
+  .pair > div { padding: .7rem .8rem; background: var(--soft); border-radius: 3px; }
+  .pair .label { display: block; margin-bottom: .2rem; font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .pair { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    details { break-inside: avoid; }
+    details > div { display: block; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Acadian Asset Management · Boston · Hiring-manager interview</p>
+      <h1>Acadian · Brandon Sneider</h1>
+      <p class="lead">Brandon is Acadian's VP of AI. He writes about why most enterprise AI efforts don't pay off: adoption fails, individual gains don't add up to a better organization, and agents open security holes nobody has modeled. Papercusp is a year of running into exactly those problems and fixing them in code. Go in as the engineer who has built what his essays describe, and has the evidence to show it.</p>
+    </div>
+    <aside class="hero-card" aria-label="Call facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>When</dt><dd><strong>Tue 29 Sep 2026, 2:30 p.m. ET</strong> (until 3:15 p.m. ET, 45 minutes)</dd></div>
+        <div><dt>Join</dt><dd><a href="https://teams.microsoft.com/meet/264700016163581?p=ck0vVLjqIBI9GRiDYy">Microsoft Teams</a> · Meeting ID 264 700 016 163 581 · Passcode <code>si6tU39o</code> · Dial-in +1 857-702-2101, conference ID 797 194 27#</dd></div>
+        <div><dt>Interviewer</dt><dd><a href="https://www.linkedin.com/in/brandonsneider/">Brandon Sneider</a>, hiring manager and, according to his own site, VP of AI at Acadian</dd></div>
+        <div><dt>Set up by</dt><dd>Robin Plimpton-Magee (recruiter). You had a call with Robin today at 2 p.m. ET.</dd></div>
+        <div><dt>Role</dt><dd>Senior AI Engineer · Boston hybrid, 3 office days a week · $175,000 to $225,000 base plus a discretionary bonus</dd></div>
+        <div><dt>Posting prep</dt><dd><a href="acadian-senior-ai-engineer-standalone.html">Acadian Senior AI tab</a>: design exercise, five proof stories and the rehearsal list. This page adds what's specific to Brandon.</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#decide">Decide first</a>
+    <a href="#brandon">Who Brandon is</a>
+    <a href="#acadian">Acadian on AI</a>
+    <a href="#bridge">His thesis, your proof</a>
+    <a href="#pitch">Your pitch</a>
+    <a href="#questions">Likely questions</a>
+    <a href="#ask">Questions to ask</a>
+    <a href="#plan">Call plan</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="decide">
+      <p class="eyebrow">01 · Before you dial</p>
+      <h2>Settle these three first</h2>
+      <p class="section-lead">A hiring manager will assume the recruiter already covered logistics. Anything you hedge on here, he'll bring back up.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Hybrid</span>
+          <h3>Three days a week in the Boston office</h3>
+          <p>If you're fine with it, say so plainly. If you're not, bring it up now instead of after an offer.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Papercusp</span>
+          <h3>“What happens to your project?”</h3>
+          <p>You're open-sourcing it next month, and he'll wonder whether you'll stay. Have a clear answer. For example, it's how you learned what you'd bring to Acadian, and it becomes a side open-source project rather than a competing job. Make sure whatever you say is true.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Comp</span>
+          <h3>The posted range is $175K to $225K base</h3>
+          <p>If it comes up, give a number inside the range and mention the bonus. Save any negotiating for the recruiter.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="brandon">
+      <p class="eyebrow">02 · The interviewer</p>
+      <h2>Brandon Sneider: defense AI, then fund platforms, now leading AI at a quant firm</h2>
+      <p class="section-lead">His site describes him as working “at the intersection of artificial intelligence, engineering, and investment management” and publishing “practical research on applying AI thoughtfully and effectively.” He is Boston-based.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Path (public profiles)</span>
+          <h3>Kessel Run, Raft, Dimensional, Acadian</h3>
+          <p>He was a technical lead at Kessel Run (the Air Force's software factory) and Raft, where he was Manager of Artificial Intelligence. ZoomInfo also lists him as Principal Platform Engineer at Dimensional (Fund Advisors). He has a master's from Northeastern (AWS lists it as Cybersecurity), taught at MIT, is an AWS Solutions Architect and has held a Top Secret clearance. He's active in SundAI, a Boston AI community. Some of this comes from third-party data brokers, so check his LinkedIn.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Technical focus</span>
+          <h3>RAG, custom evals, fine-tuning, agents on Bedrock</h3>
+          <p>He works on moving prototypes into production on AWS Bedrock with PII/PHI controls, security guardrails and compliance frameworks. His current site lists three areas: <em>Applied AI</em> (“reliability, evaluation, and adoption”), <em>AI Governance</em> and <em>Engineering systems</em>.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Opinions</span>
+          <h3>Open source for regulated shops, and evidence first</h3>
+          <p>He wrote a LinkedIn article titled “Why Open Source AI Is the Only Way Out for Regulated Developers,” arguing that developers at banks, law firms and defense companies are “coding with chopsticks.” His research page promises “No vendor pitches” and rates the credibility of its sources. <strong>Don't bash open-weights models, and don't cite a number you can't back up.</strong></p>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag">Read before the call · his 2026 research</span>
+        <ul>
+          <li><strong>The AI Advantage: What Separates the 5% from the 95%</strong>: the winners “treated AI as a workflow redesign problem, not a technology purchase.”</li>
+          <li><strong>What Actually Works: The Honest Guide to AI in Engineering</strong>: narrow tasks get 25 to 35% faster, but “individual gains don't automatically translate to organizational improvement.”</li>
+          <li><strong>AI Sandboxes: The New Risk Surface Your Security Team Hasn't Modeled</strong>: agents with broad system access break the SaaS-era security model.</li>
+          <li><strong>Human in the Loop</strong>: five hours of hands-on training gives 144% higher trust; more than three tools overloads people; top performers spend 70% of their AI budget on people and workflows.</li>
+          <li><strong>Proven AI and ML Case Studies</strong>: “The boring ML delivers the biggest returns.”</li>
+          <li><strong>AI Beyond Coding</strong>: coding assistants are a single-digit share of the enterprise opportunity. Operations, legal, finance and HR are the rest.</li>
+          <li><strong>The AI Change Management Playbook</strong>: 88% project success with strong change management, compared with 13% without.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="acadian">
+      <p class="eyebrow">03 · The firm's view</p>
+      <h2>How Acadian talks about AI</h2>
+      <p class="section-lead">Acadian is a Boston-based systematic (quant) manager with offices in London, Singapore and Sydney. It has used ML and NLP in its models for more than a decade, and its published view of generative AI is skeptical and practical.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">“The Sizzle and the Steak”</span>
+          <h3>GenAI is an extra tool, not a revolution</h3>
+          <p>Acadian says purely generative uses in investing are limited (missing-data imputation, synthetic data, risk modeling). Data is the main constraint, since many investment problems don't have enough of it. Its advantage comes from “model engineering expertise and financial domain knowledge” together.</p>
+        </div>
+        <div class="card">
+          <span class="tag">“Credit's Systematic Shift” (Jul 2026)</span>
+          <h3>GenAI is speeding up research</h3>
+          <p>It pulls signals from unstructured sources such as regulatory filings, earnings-call transcripts and news. Research cycles are getting shorter. Acadian says the winners will be decided by “research, data, and implementation capabilities.”</p>
+        </div>
+        <div class="card">
+          <span class="tag">So</span>
+          <h3>Two kinds of work, and you should ask which</h3>
+          <p>One is <em>research tooling</em> (text to signals, analysts' assistants). The other is <em>enterprise productivity</em> (operations, client reporting, compliance), which is the “other 90%” he writes about. The posting talks about agents, RAG, MCP and evals across both. Find out which one this hire would start on.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="bridge">
+      <p class="eyebrow">04 · His thesis, your proof</p>
+      <h2>For each of his arguments, you have a working mechanism</h2>
+      <p class="section-lead">He writes about organizations. You built a small one made of agents and hit the same problems. Keep the numbers exact (see the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>).</p>
+      <div class="card">
+        <h3>1 · “AI sandboxes are a new risk surface”</h3>
+        <div class="pair">
+          <div><span class="label">Brandon</span>Agents with broad access break the security model. A model instruction isn't an enforcement boundary.</div>
+          <div><span class="label">Papercusp</span>Controls are enforced at the boundary, in code: 47 editor hooks (9 run before any write) for file locks, secrets and generated-file guards. Authority is computed from a registry and checked when a tool is dispatched, not trusted from the prompt. Every long-lived process is confined to a cgroup and killed by task ID, never by name (<a href="papercusp-answer-bank-standalone.html#q-security">#10 Security</a>, <a href="papercusp-answer-bank-standalone.html#n-processes">N4</a>).</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>2 · “Individual gains don't add up to organizational improvement”</h3>
+        <div class="pair">
+          <div><span class="label">Brandon</span>Individual engineers get 25 to 35% faster, but the organization doesn't.</div>
+          <div><span class="label">Papercusp</span>That's exactly what happened. With about 100 agents on one branch, writing code stopped being the bottleneck. Integration became the bottleneck: a shared green gate, a red build that imported breakage faster than fixes landed, and a fix that froze the candidate and admitted repairs file by file (<a href="papercusp-answer-bank-standalone.html#n-system-design">N2</a>). Explain the coordination layer, not the agents.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>3 · “Evidence, not vendor pitches”</h3>
+        <div class="pair">
+          <div><span class="label">Brandon</span>He rates the credibility of sources and dislikes unsupported claims.</div>
+          <div><span class="label">Papercusp</span>Work isn't marked done without structured evidence. Bug fixes need a hypothesis, an alternative explanation and a test that tells them apart. Graders are separate from implementers, and 47 doc-claim tests keep docs from drifting from the code (<a href="papercusp-answer-bank-standalone.html#q-ai-eval">#8 Evaluating AI output</a>).</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>4 · “Workflow redesign, not a technology purchase”</h3>
+        <div class="pair">
+          <div><span class="label">Brandon</span>Adoption depends on people and workflows: training, trust and fewer tools.</div>
+          <div><span class="label">You</span>You're the human user of your own agent fleet, so you've learned what makes a person trust agents. Owner instructions are recorded word for word and closed with a stated outcome. There's an explicit “ask first” mode versus an “act and report” mode. One lesson: “rendered ≠ delivered.” Before that, you spent 12 years running a $1M+/month commerce business with a very small team by automating the workflow, not by buying tools.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>5 · “The boring ML delivers the biggest returns”</h3>
+        <div class="pair">
+          <div><span class="label">Brandon</span>Don't use an LLM where a rule or a regression does the job.</div>
+          <div><span class="label">You</span>In Papercusp, scheduling, locks, gates and liveness are deterministic code. The LLM is used only at judgment points. Be ready to say where you <em>wouldn't</em> use an LLM at Acadian.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">05 · The 90-second version</p>
+      <h2>Your pitch, adapted for Brandon</h2>
+      <div class="card">
+        <p>“For the past year I've been building Papercusp, a platform where about a hundred AI agents work on one production codebase at the same time. I'm open-sourcing it next month. The interesting part wasn't getting agents to write code. Once individual agents got fast, the bottleneck moved to coordination and trust. I had to enforce file locks in hooks rather than in prompts, check authority when a tool is dispatched, require evidence before work counts as done, and have someone other than the implementer grade it. Your piece on individual gains not adding up to organizational ones is exactly what I ran into. Before that I ran a commerce business for twelve years at over a million a month with a very small team, mostly by automating workflows. What I'd like to do at Acadian is bring that approach, with controls at the boundaries and evidence before rollout, to research and operations workflows, and get people to actually use it.”</p>
+      </div>
+      <div class="note"><strong>Mention one of his essays by name, once.</strong> It shows you prepared. More than once starts to sound like flattery.</div>
+    </section>
+
+    <section id="questions">
+      <p class="eyebrow">06 · What he'll probably ask</p>
+      <h2>Likely questions, with answer sketches</h2>
+      <p class="section-lead">The <a href="acadian-senior-ai-engineer-standalone.html">posting tab</a> already covers RAG and agent evals, where controls live, Bedrock vs. API vs. self-hosting, inference cost and cross-team disagreement. These are the ones Brandon is more likely to push on.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Design</span>
+          <h3>“Build a research assistant over filings and earnings calls”</h3>
+          <p>Start with the analyst's question and what counts as success. Ingest filings, transcripts and news with metadata such as ticker, date and source. Retrieval is filtered by entitlement <em>before</em> ranking. Answers must cite the exact passage, and the system says “I don't know” when retrieval is weak. Evaluate against a versioned set of known-answer questions, sliced by document type. Watch for <strong>look-ahead</strong>: anything used for backtesting must only see documents as of that date. Build on Bedrock, log everything, and roll out to a pilot desk first.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Security</span>
+          <h3>“News and transcripts are untrusted input. Now what?”</h3>
+          <p>Treat retrieved text as data, never as instructions. Don't put action-taking tools in the same context as untrusted content unless there's an approval step. Tools are on an allow-list with scoped credentials, and outputs are checked against a schema. Keep prompt-injection examples in the red-team eval set. This is his sandbox essay applied to the job.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Open weights</span>
+          <h3>“Bedrock-hosted vendor model, or open weights?”</h3>
+          <p>He has argued for open source in regulated shops, so take that seriously. Decide per workload: data classification, residency, auditability, how much fine-tuning is needed, cost at volume, and team capacity. A reasonable answer: use open-weights models (on Bedrock or on your own infrastructure) for sensitive or high-volume narrow tasks, and frontier APIs where quality matters most and the data is allowed to leave. Benchmark both on the real eval set.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Adoption</span>
+          <h3>“How do you get portfolio managers and researchers to use it?”</h3>
+          <p>Put it inside a workflow they already have. Give hands-on training (his 5-hours number). Keep to one or two tools, not many. Choose a small pilot group with a measurable outcome, look at usage and corrections every week, and treat abandoned features as bugs. Mention his own “5% vs. 95%” framing.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Influence</span>
+          <h3>“You'll lead without formal authority. Show me how.”</h3>
+          <p>Use <a href="papercusp-answer-bank-standalone.html#q-disagreement">#9 Technical disagreement</a>: write down the shared outcome, compare two or three options with their failure modes, run a small test with a decision date, and make the exception path visible. Papercusp records rulings as “plan decisions” that other lanes read. That's a written-decision habit he'll recognize.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Honesty check</span>
+          <h3>“How much AWS and Kubernetes day-two ops have you done?”</h3>
+          <p>Answer with the exact scope you've actually run. Papercusp runs on Postgres, systemd and a Tauri desktop app, not on EKS. Say what carries over (on-call-style liveness, rollback, migrations, gates) and what you'd need to learn. He's an AWS Solutions Architect and will notice any stretching.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">07 · Your turn</p>
+      <h2>Questions to ask Brandon</h2>
+      <div class="grid">
+        <div class="card"><span class="tag">Starting point</span><h3>“What's in production today, and which workflow would this person own first?”</h3><p>This tells you whether the role is research tooling or enterprise productivity.</p></div>
+        <div class="card"><span class="tag">Team</span><h3>“What does the AI team look like, and is this role closer to platform or applied?”</h3><p>This tells you where you'd sit relative to Research, Risk and platform engineering.</p></div>
+        <div class="card"><span class="tag">His writing</span><h3>“You write about the 5% versus the 95%. What's been the hardest part of adoption here?”</h3><p>It's a genuine question and gets him talking about his main topic.</p></div>
+        <div class="card"><span class="tag">Path to prod</span><h3>“How does a new agent get approved to touch firm data? Who signs off?”</h3><p>This tells you how governance works in practice and how long launches take.</p></div>
+        <div class="card"><span class="tag">Models</span><h3>“How do you split between Bedrock-hosted models and open weights?”</h3><p>This connects to his open-source article without putting him on the spot.</p></div>
+        <div class="card"><span class="tag">Success</span><h3>“What would make this hire a clear win at six and twelve months?”</h3><p>Then ask about next steps and who else you'll meet.</p></div>
+      </div>
+    </section>
+
+    <section id="plan">
+      <p class="eyebrow">08 · Pacing</p>
+      <h2>Call plan</h2>
+      <div class="steps">
+        <div class="step"><span class="when">Open</span><div><h3>Warm start</h3><p>Thank him. Say you read his research page. Name one piece, such as “the individual-versus-organizational gains one,” and say why it stuck with you.</p></div></div>
+        <div class="step"><span class="when">Early</span><div><h3>Your story</h3><p>The 90-second pitch. Then ask him what's in production today.</p></div></div>
+        <div class="step"><span class="when">Middle</span><div><h3>His questions</h3><p>For every answer, give the mechanism and a number: the lock hook, the dispatch-time check, the evidence gate. If he gives you a design prompt, start with the user and how you'll evaluate it before drawing boxes.</p></div></div>
+        <div class="step"><span class="when">Last 10 min</span><div><h3>Your questions</h3><p>Pick three: the first workflow, the path to production, and what success looks like.</p></div></div>
+        <div class="step"><span class="when">Close</span><div><h3>Next step</h3><p>“Happy to walk you through Papercusp running live if that's useful.” Ask about the rest of the process.</p></div></div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">09 · Sources</p>
+      <h2>Where this came from</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Brandon</span>
+          <ul>
+            <li><a href="https://brandonsneider.com/">brandonsneider.com</a> · <a href="https://brandonsneider.com/research/">Research</a></li>
+            <li><a href="https://www.linkedin.com/in/brandonsneider/">LinkedIn</a> · <a href="https://github.com/bsneider">GitHub (bsneider)</a></li>
+            <li><a href="https://aws.amazon.com/blogs/publicsector/author/brandonsneider/">AWS Public Sector Blog author page</a> · <a href="https://www.zoominfo.com/p/Brandon-Sneider/2298174439">ZoomInfo</a> (unverified)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Acadian</span>
+          <ul>
+            <li><a href="https://www.acadian-asset.com/investment-insights/systematic-methods/generative-ai-in-systematic-investing-the-sizzle-and-the-steak">Generative AI in Systematic Investing: The Sizzle and the Steak</a></li>
+            <li><a href="https://www.acadian-asset.com/investment-insights/credit/credits-systematic-shift">Credit's Systematic Shift</a> · <a href="https://www.acadian-asset.com/investment-insights/client-advisory/the-impact-of-ai-ml-on-quant">Impact of AI/ML on Quant</a></li>
+            <li><a href="acadian-senior-ai-engineer-standalone.html">The posting prep tab</a> · the Teams invite from Robin Plimpton-Magee</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>Prepared 28 September 2026 from Brandon's site and research page, Acadian's published insights, public profiles and the calendar invite. Parts of his job history come only from third-party profiles, so check them on LinkedIn before you mention them.</footer>
+</div>
+</body>
+</html>

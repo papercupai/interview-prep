@@ -1,0 +1,1931 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Ramp — CodeSignal Frontend Challenge — Interview Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap">
+
+<style>
+  :root {
+    --ground: #F5F8F6;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF1ED;
+    --ink: #101914;
+    --ink-muted: #526159;
+    --ink-faint: #849089;
+    --accent: #176B4D;
+    --accent-strong: #0E523A;
+    --accent-soft: #DCECE4;
+    --caution: #8A5D05;
+    --caution-soft: #F7EDD6;
+    --critical: #A3322C;
+    --critical-soft: #F7E2E0;
+    --info: #285F85;
+    --info-soft: #E3EEF5;
+    --rule: #DCE5DF;
+    --rule-strong: #BCCBC2;
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0C1410;
+      --surface: #131E18;
+      --surface-alt: #1A2921;
+      --ink: #E5EEE9;
+      --ink-muted: #9DADA4;
+      --ink-faint: #708077;
+      --accent: #66C69C;
+      --accent-strong: #8BDCB8;
+      --accent-soft: #17372A;
+      --caution: #D9A43A;
+      --caution-soft: #33290F;
+      --critical: #E0736C;
+      --critical-soft: #3A1E1C;
+      --info: #78B7DE;
+      --info-soft: #172D3B;
+      --rule: #26372E;
+      --rule-strong: #3B5145;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--f-display);
+    line-height: 1.18;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700; max-width: 15ch; }
+  h2 { font-size: 1.45rem; font-weight: 650; }
+  h3 { font-size: 1.08rem; font-weight: 650; }
+  h4 { font-size: 0.96rem; font-weight: 650; }
+  p { margin: 0; }
+  strong { font-weight: 650; }
+  code {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    background: var(--surface-alt);
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+  }
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -5rem;
+    z-index: 100;
+    padding: 0.65rem 0.9rem;
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--f-display);
+  }
+  .skip-link:focus { top: 0.75rem; }
+  .wrap {
+    width: min(100% - 2.5rem, 70rem);
+    margin: 0 auto;
+    padding: 3rem 0 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 0.91rem; }
+  .mono { font-family: var(--f-mono); overflow-wrap: anywhere; }
+  .stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  nav.sitenav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    margin-top: -3rem;
+    padding: 0.58rem 0.4rem;
+    background: var(--ground);
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  nav.sitenav a {
+    padding: 0.3rem 0.58rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.sitenav a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.sitenav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--surface);
+    border-color: var(--rule-strong);
+  }
+  nav.sitenav .sep { flex: 1; }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(17rem, 0.8fr);
+    gap: 2rem;
+    align-items: end;
+  }
+  .mastcopy { display: flex; flex-direction: column; gap: 1rem; }
+  .standfirst { max-width: 43rem; color: var(--ink-muted); font-size: 1.08rem; }
+  .join-card {
+    padding: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .join-card a.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-family: var(--f-display);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .join-card a.button:hover { background: var(--accent-strong); color: #FFFFFF; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin: 0;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .fact {
+    min-height: 5.4rem;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.28rem;
+  }
+  .fact dt {
+    font-family: var(--f-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .fact dd { margin: 0; font-family: var(--f-display); font-size: 0.94rem; font-weight: 600; }
+  .fact dd.hot { color: var(--critical); }
+
+  nav.toc {
+    padding: 1rem 1.15rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  nav.toc ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.32rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-display);
+    font-size: 0.9rem;
+  }
+  nav.toc li { display: flex; gap: 0.55rem; align-items: baseline; }
+  nav.toc .n { min-width: 2rem; color: var(--accent); font: 600 0.68rem var(--f-mono); }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  section { display: flex; flex-direction: column; gap: 1.2rem; scroll-margin-top: 4.25rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.42rem; }
+  .sec-head::after { content: ""; width: 2.3rem; height: 2px; margin-top: 0.34rem; background: var(--ink); }
+  .note {
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.52rem;
+  }
+  .note.warn { border-left-color: var(--caution); }
+  .note.crit { border-left-color: var(--critical); }
+  .note.info { border-left-color: var(--info); }
+  .note .eyebrow { color: var(--accent); }
+  .note.warn .eyebrow { color: var(--caution); }
+  .note.crit .eyebrow { color: var(--critical); }
+  .note.info .eyebrow { color: var(--info); }
+  .priority-grid,
+  .two-col,
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .priority-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .priority,
+  .card {
+    padding: 1rem 1.05rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .priority .num { color: var(--accent); font: 600 0.7rem var(--f-mono); }
+  .priority p, .card p, .card li { font-size: 0.96rem; }
+  .badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.13rem 0.42rem;
+    border-radius: 2px;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .badge.fact { background: var(--accent-soft); color: var(--accent); }
+  .badge.owner { background: var(--info-soft); color: var(--info); }
+  .badge.inference { background: var(--caution-soft); color: var(--caution); }
+  .badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  .script {
+    padding: 1.15rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .script.short { border-left: 3px solid var(--accent); }
+  .script.long { border-left: 3px solid var(--info); }
+  .script .say {
+    font-size: 1.03rem;
+    line-height: 1.68;
+  }
+  .script .say::before { content: "“"; color: var(--accent); font-size: 1.4em; line-height: 0; }
+  .script .say::after { content: "”"; color: var(--accent); }
+
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 48rem; }
+  table.matrix th,
+  table.matrix td { padding: 0.82rem 0.95rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  table.matrix tr:last-child td { border-bottom: 0; }
+  table.matrix th {
+    background: var(--surface-alt);
+    color: var(--ink-faint);
+    font: 600 0.63rem var(--f-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  table.matrix td:first-child { width: 24%; font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
+  table.matrix td:nth-child(2) { color: var(--ink-muted); font-size: 0.92rem; }
+  table.matrix td:nth-child(3) { width: 9rem; }
+  .tag {
+    display: inline-block;
+    min-width: 5rem;
+    padding: 0.18rem 0.4rem;
+    border-radius: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font: 600 0.61rem var(--f-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .tag.lead { background: var(--critical-soft); color: var(--critical); }
+  .tag.prepare { background: var(--caution-soft); color: var(--caution); }
+  .tag.support { background: var(--accent-soft); color: var(--accent); }
+
+  details.drill {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  details.drill summary {
+    padding: 0.88rem 1rem;
+    cursor: pointer;
+    font-family: var(--f-display);
+    font-weight: 650;
+    line-height: 1.35;
+    background: var(--surface-alt);
+  }
+  details.drill[open] summary { border-bottom: 1px solid var(--rule); }
+  .drill-body { padding: 1rem 1.1rem 1.12rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.2rem; }
+  .drill-body ul, .card ul, .question-list, .source-list { margin: 0; padding-left: 1.15rem; }
+  .drill-body li, .card li, .question-list li, .source-list li { margin: 0.35rem 0; }
+  .probe {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--rule-strong);
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .question-list { display: flex; flex-direction: column; gap: 0.52rem; }
+  .question-list li { padding-left: 0.15rem; }
+  .question-list strong { font-family: var(--f-display); }
+  .rank {
+    color: var(--accent);
+    font: 600 0.68rem var(--f-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  ol.timeline { margin: 0; padding: 0; list-style: none; counter-reset: steps; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.timeline li { counter-increment: steps; display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.9rem; }
+  ol.timeline li::before {
+    content: counter(steps, decimal-leading-zero);
+    color: var(--accent);
+    font: 600 0.72rem var(--f-mono);
+    padding-top: 0.22rem;
+  }
+  .checklist { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem 1rem; }
+  .checklist li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.5rem; }
+  .checklist li::before { content: ""; width: 0.78rem; height: 0.78rem; margin-top: 0.42rem; border: 1.5px solid var(--rule-strong); border-radius: 2px; }
+  .source-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .source-list li { padding-left: 0.25rem; }
+  .source-list a { overflow-wrap: anywhere; }
+  footer {
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 0.87rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 62rem) {
+    .priority-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    .masthead, .two-col, .question-grid, .drill-body { grid-template-columns: 1fr; }
+    .masthead { align-items: start; }
+    .checklist { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) {
+    body { font-size: 16px; }
+    .wrap { width: min(100% - 2rem, 70rem); padding: 2rem 0 4rem; gap: 2.8rem; }
+    nav.sitenav { margin-top: -2rem; }
+    .priority-grid { grid-template-columns: 1fr; }
+    .fact { min-height: 0; }
+  }
+  @media print {
+    :root { --ground: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F2F2F2; --ink: #000000; --ink-muted: #333333; --ink-faint: #555555; --rule: #BBBBBB; --rule-strong: #888888; }
+    body { font-size: 10.5pt; }
+    .wrap { width: 100%; max-width: none; padding: 0; gap: 1.8rem; }
+    nav.sitenav, nav.toc, .skip-link, .join-card { display: none; }
+    .masthead { display: block; }
+    section, .card, .note, .script, details.drill { break-inside: avoid; }
+    details.drill > * { display: block; }
+    a { color: #000000; text-decoration: none; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+  }
+</style>
+<style>
+  /* ---- Ramp Frontend Challenge: page layout ---- */
+  main { display: flex; flex-direction: column; gap: 4.2rem; }
+  section { gap: 1.35rem; }
+  section > p.lead { margin: 0; max-width: 52rem; }
+
+  .masthead h1 { max-width: none; font-size: clamp(2.2rem, 4.6vw, 3.2rem); }
+  .r-sub { margin: 0.55rem 0 0; max-width: 34rem; font-family: var(--f-display); font-size: clamp(1.15rem, 2.1vw, 1.42rem);
+    font-weight: 600; line-height: 1.3; color: var(--accent); text-wrap: balance; }
+  .masthead .standfirst { margin: 1.1rem 0 0; }
+  .join-card p { margin: 0; }
+  .join-card .r-step { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 0.55rem; }
+  .join-card .r-step-n { width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+    font: 700 0.75rem/1.6rem var(--f-mono); text-align: center; }
+
+  /* At-a-glance tiles */
+  .r-glance { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
+  .r-tile { min-width: 0; padding: 0.95rem 1.05rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+    display: flex; flex-direction: column; gap: 0.3rem; }
+  .r-tile strong { font-family: var(--f-display); font-size: 1.12rem; font-weight: 650; line-height: 1.25; }
+  .r-tile .muted { font-size: 0.86rem; line-height: 1.45; }
+  .r-tile.hot { background: var(--critical-soft); border-color: var(--critical); }
+  .r-tile.hot strong, .r-tile.hot .eyebrow { color: var(--critical); }
+
+  /* Cards */
+  .r-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+  .r-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .r-card { min-width: 0; padding: 1.05rem 1.15rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+    display: flex; flex-direction: column; gap: 0.5rem; }
+  .r-card h3 { font-size: 1.08rem; }
+  .r-card h4 { font-size: 1rem; }
+  .r-card p { margin: 0; font-size: 0.95rem; line-height: 1.58; }
+  .r-k { font: 600 0.66rem var(--f-mono); letter-spacing: 0.11em; text-transform: uppercase; color: var(--accent); }
+  .r-card .r-n { width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+    font: 700 0.78rem/1.9rem var(--f-mono); text-align: center; }
+
+  /* Shape A levels, widths proportional to their target minutes */
+  .r-levels { display: grid; grid-template-columns: 15fr 25fr 30fr 20fr; gap: 0.55rem; }
+  .r-level { min-width: 0; padding: 0.85rem 0.9rem; background: var(--surface); border: 1px solid var(--rule);
+    border-top: 4px solid var(--accent); border-radius: 6px; display: flex; flex-direction: column; gap: 0.35rem; }
+  .r-level h4 { font-size: 0.96rem; }
+  .r-level p { margin: 0; font-size: 0.86rem; line-height: 1.45; color: var(--ink-muted); }
+  .r-pill { display: inline-block; width: fit-content; padding: 0.1rem 0.5rem; border-radius: 999px; background: var(--accent-soft);
+    color: var(--accent); font: 600 0.72rem var(--f-mono); white-space: nowrap; }
+  .r-caption { margin: 0; font-size: 0.86rem; color: var(--ink-faint); }
+
+  /* Drills */
+  .r-drill { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; scroll-margin-top: 4.25rem; }
+  .r-drill-head { padding: 1.1rem 1.3rem; background: var(--surface-alt); border-bottom: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 0.55rem; }
+  .r-drill-head h3 { font-size: 1.28rem; }
+  .r-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .r-chip { padding: 0.16rem 0.6rem; border-radius: 999px; border: 1px solid var(--rule-strong); background: var(--surface);
+    color: var(--ink-muted); font: 600 0.7rem var(--f-mono); white-space: nowrap; text-decoration: none; }
+  a.r-chip:hover { color: var(--accent); border-color: var(--accent); }
+  .r-chip.time { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+  .r-chip.src { background: var(--info-soft); border-color: transparent; color: var(--info); }
+  .r-drill-body { padding: 1.2rem 1.3rem 1.3rem; display: flex; flex-direction: column; gap: 1.1rem; }
+  .r-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; }
+  .r-cols > div { min-width: 0; }
+  .r-label { margin: 0 0 0.45rem; font: 600 0.68rem var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+  .r-list { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.95rem; line-height: 1.52; }
+  .r-list li::marker { color: var(--accent); font-family: var(--f-mono); font-size: 0.85em; }
+  .r-list.levels { list-style: none; padding-left: 0; }
+  .r-list.levels li { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: 0.4rem; }
+  .r-list.levels .r-lv { color: var(--accent); font: 700 0.74rem/1.9 var(--f-mono); }
+  .r-callout { margin: 0; padding: 0.8rem 1rem; border-left: 3px solid var(--caution); border-radius: 4px; background: var(--caution-soft);
+    font-size: 0.95rem; line-height: 1.55; }
+  .r-callout strong:first-child { color: var(--caution); }
+  .r-callout.tip { border-left-color: var(--info); background: var(--info-soft); }
+  .r-callout.tip strong:first-child { color: var(--info); }
+
+  details.r-solution { border: 1px solid var(--rule-strong); border-radius: 8px; overflow: hidden; }
+  details.r-solution > summary { list-style: none; cursor: pointer; padding: 0.75rem 1rem; background: var(--surface);
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.75rem;
+    font-family: var(--f-display); font-weight: 650; font-size: 0.96rem; color: var(--accent); }
+  details.r-solution > summary::-webkit-details-marker { display: none; }
+  details.r-solution > summary::before { content: "\25B8"; display: inline-block; transition: transform 0.15s ease; }
+  details.r-solution[open] > summary::before { transform: rotate(90deg); }
+  details.r-solution > summary .r-file { color: var(--ink-faint); font: 400 0.78rem var(--f-mono); }
+  details.r-solution > summary:hover { background: var(--accent-soft); }
+  details.r-solution[open] > summary { border-bottom: 1px solid var(--rule-strong); }
+
+  /* Code: an editor-style dark panel in both colour modes */
+  pre.r-code { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); background: #0F1A14; color: #D9E6DF;
+    border-radius: 8px; font: 400 0.8rem/1.62 var(--f-mono); tab-size: 2; }
+  details.r-solution pre.r-code { border-radius: 0; }
+  pre.r-code .r-gutter { padding: 0.95rem 0.75rem 0.95rem 1rem; border-right: 1px solid #22342A; color: #587066; text-align: right;
+    white-space: pre; user-select: none; }
+  pre.r-code code { display: block; padding: 0.95rem 1.1rem; overflow-x: auto; white-space: pre; background: none; color: inherit;
+    font: inherit; border-radius: 0; }
+  .t-com { color: #82978B; font-style: italic; }
+  .t-str { color: #E9C46A; }
+  .t-kw { color: #7FD8B0; }
+  .t-tag { color: #8CC8F5; }
+  .t-lit { color: #F4A27A; }
+  .t-fn { color: #CDB9F6; }
+
+  /* Snippets: explanation on the left, full-width code on the right, so lines never scroll */
+  .r-snips { display: flex; flex-direction: column; gap: 0.9rem; }
+  .r-snip { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 1.2rem; align-items: start; }
+  .r-snip-copy { display: flex; flex-direction: column; gap: 0.4rem; }
+  .r-snip-copy p { margin: 0; font-size: 0.92rem; line-height: 1.55; color: var(--ink-muted); }
+  .r-snip pre.r-code { font-size: 0.78rem; }
+  .r-rules { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem 0.9rem; }
+  .r-rules li { padding: 0.75rem 0.95rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; font-size: 0.93rem; line-height: 1.5; }
+
+  /* Sources */
+  .r-sources { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem 0.9rem; }
+  .r-sources a { display: block; height: 100%; padding: 0.6rem 0.85rem; background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 6px; font-size: 0.9rem; line-height: 1.45; text-decoration: none; overflow-wrap: anywhere; }
+  .r-sources a:hover { border-color: var(--accent); }
+  .r-sources a span { display: block; color: var(--ink-faint); font: 600 0.64rem var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* Bug cards */
+  .r-bug dl { margin: 0; display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); gap: 0.35rem 0.6rem; font-size: 0.92rem; line-height: 1.5; }
+  .r-bug dt { font: 600 0.64rem/1.95 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+  .r-bug dt.fix { color: var(--accent); }
+  .r-bug dd { margin: 0; min-width: 0; }
+  .r-steps { margin: 0; padding: 0; list-style: none; counter-reset: rstep; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; }
+  .r-steps li { counter-increment: rstep; padding: 0.75rem 0.9rem; background: var(--accent-soft); border-radius: 6px; font-size: 0.93rem; line-height: 1.45; }
+  .r-steps li::before { content: counter(rstep) "."; display: block; margin-bottom: 0.15rem; color: var(--accent); font: 700 0.8rem var(--f-mono); }
+
+  /* Plan */
+  .r-plan { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--rule); }
+  .r-plan li { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 1.2rem; padding: 1rem 0; border-top: 1px solid var(--rule); }
+  .r-when { display: flex; flex-direction: column; gap: 0.3rem; align-items: flex-start; }
+  .r-when strong { font-family: var(--f-display); font-size: 1rem; }
+  .r-what { font-size: 0.97rem; line-height: 1.58; }
+  .r-plan li.stop .r-when strong { color: var(--critical); }
+  .r-plan li.stop .r-pill { background: var(--critical-soft); color: var(--critical); }
+
+  /* Own badge classes: the shared sheet's .fact rule (a 5.4rem-tall fact cell) also matches "badge fact". */
+  .r-badge { align-self: flex-start; padding: 0.14rem 0.5rem; border-radius: 3px; font: 600 0.64rem var(--f-mono);
+    letter-spacing: 0.08em; text-transform: uppercase; }
+  .r-badge.solid { background: var(--accent-soft); color: var(--accent); }
+  .r-badge.reported { background: var(--caution-soft); color: var(--caution); }
+  .r-badge.unknown { background: var(--critical-soft); color: var(--critical); }
+
+  @media (max-width: 62rem) {
+    .r-glance, .r-grid.three, .r-levels, .r-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 48rem) {
+    main { gap: 3.2rem; }
+    .r-grid, .r-grid.three, .r-cols, .r-levels, .r-steps, .r-rules, .r-sources, .r-snip { grid-template-columns: minmax(0, 1fr); }
+    .r-snip { gap: 0.7rem; }
+    .r-plan li { grid-template-columns: minmax(0, 1fr); gap: 0.45rem; }
+    .r-when { flex-direction: row; align-items: center; gap: 0.6rem; }
+    .r-drill-head, .r-drill-body { padding-left: 1rem; padding-right: 1rem; }
+  }
+  @media (max-width: 34rem) {
+    .r-glance { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media print {
+    main { gap: 1.8rem; }
+    details.r-solution > summary::before { content: none; }
+  }
+</style>
+<a class="skip-link" href="#main">Skip to preparation</a>
+<div class="wrap" id="top">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+  <header class="masthead">
+    <div class="mastcopy">
+      <p class="eyebrow">Ramp &middot; CodeSignal &middot; Frontend Challenge Assessment</p>
+      <h1>Ramp Frontend Challenge</h1>
+      <p class="r-sub">Get a working React UI on screen, then pass each level before starting the next.</p>
+      <p class="standfirst">This is a practical build test, not a LeetCode screen. Every Ramp frontend report
+      describes a small React app built against a spec: a board, a game, a fetch-and-render. It is most likely
+      marked by automated tests that read the page, so matching the template's markup exactly earns more than
+      polish. The four tested drills below cover the shapes candidates have reported.</p>
+    </div>
+    <aside class="join-card" aria-label="What to do next">
+      <p class="eyebrow">Do this next</p>
+      <div class="r-step"><span class="r-step-n">1</span><p><strong>Tonight: open the practice environment.</strong><br><span class="muted">It appears after you create the CodeSignal account from the invite link. Companies cannot see practice activity.</span></p></div>
+      <div class="r-step"><span class="r-step-n">2</span><p><strong>Then build Drill&nbsp;1 cold, 45&nbsp;minutes.</strong><br><span class="muted">Open the solution only when the timer ends.</span></p></div>
+      <a class="button" href="#drill-1">Start with Drill&nbsp;1 &darr;</a>
+    </aside>
+  </header>
+
+  <div class="r-glance" aria-label="The test at a glance">
+    <div class="r-tile hot">
+      <span class="eyebrow">Invite expires</span>
+      <strong>Mon 28 Sep, 6:21&nbsp;pm&nbsp;ET</strong>
+      <span class="muted">3:21&nbsp;pm PDT. Start by about 4:30&nbsp;pm ET so a 90-minute test finishes well inside it.</span>
+    </div>
+    <div class="r-tile">
+      <span class="eyebrow">Length</span>
+      <strong>About 60&ndash;90 minutes</strong>
+      <span class="muted">90 for CodeSignal's four-level format, about an hour for a Ramp-written task.</span>
+    </div>
+    <div class="r-tile">
+      <span class="eyebrow">Graded by</span>
+      <strong>Automated tests on the page</strong>
+      <span class="muted">Exact class names and text count; styling does not.</span>
+    </div>
+    <div class="r-tile">
+      <span class="eyebrow">Pick</span>
+      <strong>React with JavaScript</strong>
+      <span class="muted">If you get a choice. TypeScript types cost time you don't need to spend.</span>
+    </div>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Use the page in this order</p>
+    <ol>
+      <li><span class="n">01</span><a href="#instrument">What this test probably is</a></li>
+      <li><span class="n">02</span><a href="#scoring">How it is scored, and what that changes</a></li>
+      <li><span class="n">03</span><a href="#drills">The four drills (tested solutions)</a></li>
+      <li><span class="n">04</span><a href="#react">React you need cold</a></li>
+      <li><span class="n">05</span><a href="#bugbash">If the task is fixing bugs in starter code</a></li>
+      <li><span class="n">06</span><a href="#plan">Tonight and tomorrow</a></li>
+      <li><span class="n">07</span><a href="#confidence">Confidence and sources</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="instrument">
+      <div class="sec-head">
+        <p class="eyebrow">01 &middot; The instrument</p>
+        <h2>A company-named test on CodeSignal, so plan for two shapes</h2>
+      </div>
+      <p class="lead">The invite calls it the <strong>Ramp Frontend Challenge Assessment</strong>. That is a name
+      Ramp chose, not the name of CodeSignal's certified front-end test, so the format is not guaranteed. The
+      reports point to one of two shapes, and the same React skills cover both.</p>
+      <div class="r-grid">
+        <article class="r-card">
+          <span class="r-k">Shape A &middot; CodeSignal's framework</span>
+          <h3>One app, four progressive levels, 90 minutes</h3>
+          <p>CodeSignal's published Front-End Development Framework: each level extends the same app. It allows
+          <strong>React (JS or TS)</strong>, Angular or Vue, and scores <strong>200&ndash;600</strong> automatically.
+          Drill&nbsp;1 is CodeSignal's own worked example for this format.</p>
+        </article>
+        <article class="r-card">
+          <span class="r-k">Shape B &middot; Ramp's own task</span>
+          <h3>A small React app against a spec, about an hour</h3>
+          <p>Candidates report building <strong>Wordle</strong>, fetching a URL and <strong>typing it out character by
+          character</strong>, an algorithm question plus a React question, and <strong>fixing errors in a starter React
+          app</strong>. Drills&nbsp;2&ndash;4 and section&nbsp;05 cover these.</p>
+        </article>
+      </div>
+      <p class="r-label">Shape A, level by level (card widths match the time split)</p>
+      <div class="r-levels">
+        <div class="r-level">
+          <span class="r-pill">~15 min</span>
+          <h4>1 &middot; Layout</h4>
+          <p>Render UI from provided static JSON into a provided HTML template.</p>
+        </div>
+        <div class="r-level">
+          <span class="r-pill">~25 min</span>
+          <h4>2 &middot; Interaction</h4>
+          <p>User actions, updating the page, form inputs and validation.</p>
+        </div>
+        <div class="r-level">
+          <span class="r-pill">~30 min</span>
+          <h4>3 &middot; Consuming an API</h4>
+          <p>Async calls to a REST API, errors and status codes, pagination, dependent calls.</p>
+        </div>
+        <div class="r-level">
+          <span class="r-pill">~20 min</span>
+          <h4>4 &middot; Extending the design</h4>
+          <p>No new skills: a related requirement that tests whether your earlier structure absorbs change.</p>
+        </div>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">You will know which shape it is within a minute</p>
+        <p>The first screen after you start states the time limit and the number of tasks or levels. The practice
+        environment shows the IDE for front-end questions: a file tree, a terminal, and a live preview of the app on
+        port&nbsp;3000. Learn that layout tonight so none of your 90 minutes goes to finding the run button.</p>
+      </div>
+    </section>
+
+    <section id="scoring">
+      <div class="sec-head">
+        <p class="eyebrow">02 &middot; Scoring</p>
+        <h2>The grader reads the page, not your code</h2>
+      </div>
+      <p class="lead">In Shape A, a browser runs automated tests against the rendered page and checks what the elements
+      contain. Assume Shape B works the same way unless told otherwise. Six habits follow from that.</p>
+      <div class="r-grid three">
+        <article class="r-card">
+          <span class="r-n">1</span>
+          <h4>Copy the template markup verbatim</h4>
+          <p>Class names, <code>aria-label</code> values, placeholder text and literal strings such as
+          <code>TO_DO</code> and <code>Loading...</code> are how tests find elements. Renaming one fails the test even if the UI looks right.</p>
+        </article>
+        <article class="r-card">
+          <span class="r-n">2</span>
+          <h4>Pass a level before starting the next</h4>
+          <p>Later levels re-run earlier checks, so a regression costs points you already had.</p>
+        </article>
+        <article class="r-card">
+          <span class="r-n">3</span>
+          <h4>Read the failing test's name</h4>
+          <p>Run the tests after every meaningful change. A failing test's name usually tells you the selector or text it expects.</p>
+        </article>
+        <article class="r-card">
+          <span class="r-n">4</span>
+          <h4>Keep one source of truth</h4>
+          <p>Store one array of tasks with a status field, not three arrays. Level&nbsp;4's "move between columns" then
+          becomes a one-field update. Level&nbsp;4 exists to test this decision.</p>
+        </article>
+        <article class="r-card">
+          <span class="r-n">5</span>
+          <h4>Always render loading and error states</h4>
+          <p>Level&nbsp;3 explicitly covers API errors, status codes and pagination.</p>
+        </article>
+        <article class="r-card">
+          <span class="r-n">6</span>
+          <h4>Leave styling alone</h4>
+          <p>The framework excludes CSS animations from the early levels. Make it work, not pretty.</p>
+        </article>
+      </div>
+      <div class="note info">
+        <p class="eyebrow">Rules</p>
+        <p>CodeSignal allows looking up syntax (MDN, the React docs) but not searching for the solution. AI is not
+        allowed unless the rules screen says so. Proctored sessions record camera, microphone and screen and check your
+        ID. You must work in CodeSignal's IDE.</p>
+      </div>
+    </section>
+
+    <section id="drills">
+      <div class="sec-head">
+        <p class="eyebrow">03 &middot; Drills</p>
+        <h2>Four builds, with solutions that pass their tests</h2>
+      </div>
+      <p class="lead">Build each one cold against the timer before opening its solution. Every solution is inserted
+      directly from <code>ramp-frontend-drills/</code> and passes <code>drills.test.jsx</code> (15 tests).</p>
+
+      <article class="r-drill" id="drill-1">
+        <header class="r-drill-head">
+          <span class="r-k">Drill 1</span>
+          <h3>Task board, all four levels</h3>
+          <div class="r-chips">
+            <span class="r-chip time">Cold target 45 min</span>
+            <span class="r-chip src">CodeSignal's own example</span>
+            <a class="r-chip" href="ramp-frontend-drills/TaskBoard.jsx">TaskBoard.jsx</a>
+          </div>
+        </header>
+        <div class="r-drill-body">
+          <div class="r-cols">
+            <div>
+              <p class="r-label">The spec</p>
+              <ol class="r-list levels">
+                <li><span class="r-lv">L1</span><span>Place tasks from <code>data.json</code> (<code>todoItems</code>,
+                <code>inProgressItems</code>, <code>doneItems</code>) into TO_DO / IN_PROGRESS / DONE columns.</span></li>
+                <li><span class="r-lv">L2</span><span>A form with a required title and description appends a task to TO_DO.</span></li>
+                <li><span class="r-lv">L3</span><span>Load tasks from <code>GET /tasks</code> instead (<code>{ data: [...] }</code>,
+                with <code>assignedUser</code> in place of <code>userId</code>) and show each assignee's name from
+                <code>GET /users/{id}</code>.</span></li>
+                <li><span class="r-lv">L4</span><span>"Move left" and "Move right" buttons, with no left button in the first
+                column and no right button in the last.</span></li>
+              </ol>
+            </div>
+            <div>
+              <p class="r-label">What the tests check</p>
+              <ul class="r-list">
+                <li>Every task lands in its own column, with its assignee.</li>
+                <li>The form appends to TO_DO, clears itself, and ignores blank input.</li>
+                <li>Each distinct user is fetched once.</li>
+                <li>A missing user does not blank the board.</li>
+                <li>A failed load shows an error, not an empty board.</li>
+                <li>Move buttons work and are absent at the edge columns.</li>
+              </ul>
+            </div>
+          </div>
+          <details class="r-solution"><summary>Show the tested solution <span class="r-file">TaskBoard.jsx &middot; 132 lines</span></summary><pre class="r-code"><span class="r-gutter" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132</span><code><span class="t-com">// CodeSignal Front-End Development Framework, worked end to end.</span>
+<span class="t-com">// This is CodeSignal's own published example (a task board, 4 levels).</span>
+<span class="t-com">// One component carries all four levels; comments mark where each level lands.</span>
+<span class="t-kw">import</span> { useEffect, useRef, useState } <span class="t-kw">from</span> <span class="t-str">'react'</span>;
+
+<span class="t-kw">const</span> API = <span class="t-str">'https://contentapi.codesignal.com'</span>;
+
+<span class="t-com">// Column order drives Level 4 (move left/right). Render the status text exactly</span>
+<span class="t-com">// as the template does: the grader reads the DOM, not your intentions.</span>
+<span class="t-kw">export</span> <span class="t-kw">const</span> COLUMNS = [<span class="t-str">'TO_DO'</span>, <span class="t-str">'IN_PROGRESS'</span>, <span class="t-str">'DONE'</span>];
+
+<span class="t-com">// Level 1: the static JSON arrives grouped by column. Flatten it into ONE list</span>
+<span class="t-com">// with a status field so levels 2-4 only ever touch one array.</span>
+<span class="t-kw">export</span> <span class="t-kw">function</span> <span class="t-fn">fromStaticJson</span>(data) {
+  <span class="t-kw">return</span> [...data.todoItems, ...data.inProgressItems, ...data.doneItems].<span class="t-fn">map</span>((task, i) =&gt; ({
+    id: <span class="t-str">`static-${i}`</span>,
+    ...task,
+    user: <span class="t-lit">null</span>,
+  }));
+}
+
+<span class="t-com">// Level 3: /tasks is flat but names need a second, dependent call per user.</span>
+<span class="t-com">// Fetch each distinct user once, in parallel; one missing user must not blank the board.</span>
+<span class="t-kw">export</span> <span class="t-kw">async</span> <span class="t-kw">function</span> <span class="t-fn">loadTasks</span>(fetchImpl = fetch) {
+  <span class="t-kw">const</span> res = <span class="t-kw">await</span> <span class="t-fn">fetchImpl</span>(<span class="t-str">`${API}/tasks`</span>);
+  <span class="t-kw">if</span> (!res.ok) <span class="t-kw">throw</span> <span class="t-kw">new</span> <span class="t-fn">Error</span>(<span class="t-str">`GET /tasks failed: ${res.status}`</span>);
+  <span class="t-kw">const</span> { data } = <span class="t-kw">await</span> res.<span class="t-fn">json</span>();
+  <span class="t-kw">const</span> ids = [...<span class="t-kw">new</span> <span class="t-fn">Set</span>(data.<span class="t-fn">map</span>((t) =&gt; t.assignedUser).<span class="t-fn">filter</span>(Boolean))];
+  <span class="t-kw">const</span> users = <span class="t-kw">await</span> Promise.<span class="t-fn">all</span>(
+    ids.<span class="t-fn">map</span>(<span class="t-kw">async</span> (id) =&gt; {
+      <span class="t-kw">const</span> r = <span class="t-kw">await</span> <span class="t-fn">fetchImpl</span>(<span class="t-str">`${API}/users/${id}`</span>);
+      <span class="t-kw">return</span> r.ok ? r.<span class="t-fn">json</span>() : <span class="t-lit">null</span>;
+    }),
+  );
+  <span class="t-kw">const</span> byId = Object.<span class="t-fn">fromEntries</span>(users.<span class="t-fn">filter</span>(Boolean).<span class="t-fn">map</span>((u) =&gt; [u.id, u]));
+  <span class="t-kw">return</span> data.<span class="t-fn">map</span>((t, i) =&gt; ({ id: <span class="t-str">`task-${i}`</span>, ...t, user: byId[t.assignedUser] ?? <span class="t-lit">null</span> }));
+}
+
+<span class="t-kw">export</span> <span class="t-kw">default</span> <span class="t-kw">function</span> <span class="t-fn">TaskBoard</span>({ load = loadTasks }) {
+  <span class="t-kw">const</span> [tasks, setTasks] = <span class="t-fn">useState</span>([]);
+  <span class="t-kw">const</span> [status, setStatus] = <span class="t-fn">useState</span>(<span class="t-str">'loading'</span>);
+  <span class="t-kw">const</span> [title, setTitle] = <span class="t-fn">useState</span>(<span class="t-str">''</span>);
+  <span class="t-kw">const</span> [description, setDescription] = <span class="t-fn">useState</span>(<span class="t-str">''</span>);
+  <span class="t-kw">const</span> nextId = <span class="t-fn">useRef</span>(<span class="t-lit">0</span>);
+
+  <span class="t-fn">useEffect</span>(() =&gt; {
+    <span class="t-kw">let</span> cancelled = <span class="t-lit">false</span>; <span class="t-com">// ignore a response that lands after unmount</span>
+    <span class="t-fn">load</span>()
+      .<span class="t-fn">then</span>((loaded) =&gt; {
+        <span class="t-kw">if</span> (!cancelled) {
+          <span class="t-fn">setTasks</span>(loaded);
+          <span class="t-fn">setStatus</span>(<span class="t-str">'ready'</span>);
+        }
+      })
+      .<span class="t-kw">catch</span>(() =&gt; {
+        <span class="t-kw">if</span> (!cancelled) <span class="t-fn">setStatus</span>(<span class="t-str">'error'</span>);
+      });
+    <span class="t-kw">return</span> () =&gt; {
+      cancelled = <span class="t-lit">true</span>;
+    };
+  }, [load]);
+
+  <span class="t-com">// Level 2: controlled inputs; a new task always starts in TO_DO.</span>
+  <span class="t-kw">function</span> <span class="t-fn">addTask</span>(event) {
+    event.<span class="t-fn">preventDefault</span>();
+    <span class="t-kw">if</span> (!title.<span class="t-fn">trim</span>() || !description.<span class="t-fn">trim</span>()) <span class="t-kw">return</span>; <span class="t-com">// both fields are required (*)</span>
+    nextId.current += <span class="t-lit">1</span>;
+    <span class="t-kw">const</span> task = { id: <span class="t-str">`new-${nextId.current}`</span>, title: title.<span class="t-fn">trim</span>(), description: description.<span class="t-fn">trim</span>(), status: <span class="t-str">'TO_DO'</span>, user: <span class="t-lit">null</span> };
+    <span class="t-fn">setTasks</span>((prev) =&gt; [...prev, task]);
+    <span class="t-fn">setTitle</span>(<span class="t-str">''</span>);
+    <span class="t-fn">setDescription</span>(<span class="t-str">''</span>);
+  }
+
+  <span class="t-com">// Level 4: move one column left/right; the moved card goes to the bottom of its new column.</span>
+  <span class="t-kw">function</span> <span class="t-fn">move</span>(id, step) {
+    <span class="t-fn">setTasks</span>((prev) =&gt; {
+      <span class="t-kw">const</span> task = prev.<span class="t-fn">find</span>((t) =&gt; t.id === id);
+      <span class="t-kw">const</span> next = COLUMNS.<span class="t-fn">indexOf</span>(task.status) + step;
+      <span class="t-kw">if</span> (next &lt; <span class="t-lit">0</span> || next &gt;= COLUMNS.length) <span class="t-kw">return</span> prev;
+      <span class="t-kw">return</span> [...prev.<span class="t-fn">filter</span>((t) =&gt; t.id !== id), { ...task, status: COLUMNS[next] }];
+    });
+  }
+
+  <span class="t-kw">return</span> (
+    <span class="t-tag">&lt;div</span> className=<span class="t-str">"board"</span>&gt;
+      <span class="t-tag">&lt;h2</span> className=<span class="t-str">"board__title"</span>&gt;Tasks<span class="t-tag">&lt;/h2</span>&gt;
+      <span class="t-tag">&lt;form</span> onSubmit={addTask}&gt;
+        <span class="t-tag">&lt;div</span> className=<span class="t-str">"input-container"</span>&gt;
+          <span class="t-tag">&lt;input</span> name=<span class="t-str">"taskTitle"</span> placeholder=<span class="t-str">"Task title*"</span> value={title} onChange={(e) =&gt; <span class="t-fn">setTitle</span>(e.target.value)} /&gt;
+        <span class="t-tag">&lt;/div</span>&gt;
+        <span class="t-tag">&lt;div</span> className=<span class="t-str">"input-container"</span>&gt;
+          <span class="t-tag">&lt;textarea</span> name=<span class="t-str">"taskDescription"</span> placeholder=<span class="t-str">"Task description*"</span> value={description} onChange={(e) =&gt; <span class="t-fn">setDescription</span>(e.target.value)} /&gt;
+        <span class="t-tag">&lt;/div</span>&gt;
+        <span class="t-tag">&lt;div</span>&gt;
+          <span class="t-tag">&lt;input</span> type=<span class="t-str">"submit"</span> value=<span class="t-str">"Create task"</span> /&gt;
+        <span class="t-tag">&lt;/div</span>&gt;
+      <span class="t-tag">&lt;/form</span>&gt;
+      {status === <span class="t-str">'loading'</span> &amp;&amp; <span class="t-tag">&lt;p</span>&gt;Loading...<span class="t-tag">&lt;/p</span>&gt;}
+      {status === <span class="t-str">'error'</span> &amp;&amp; <span class="t-tag">&lt;p</span> role=<span class="t-str">"alert"</span>&gt;Could not load tasks.<span class="t-tag">&lt;/p</span>&gt;}
+      <span class="t-tag">&lt;div</span> className=<span class="t-str">"board__columns"</span>&gt;
+        {COLUMNS.<span class="t-fn">map</span>((column, ci) =&gt; (
+          <span class="t-tag">&lt;div</span> className=<span class="t-str">"column"</span> key={column}&gt;
+            <span class="t-tag">&lt;h2</span> className=<span class="t-str">"column__title"</span>&gt;{column}<span class="t-tag">&lt;/h2</span>&gt;
+            <span class="t-tag">&lt;div</span> className=<span class="t-str">"column__cards"</span>&gt;
+              {tasks
+                .<span class="t-fn">filter</span>((t) =&gt; t.status === column)
+                .<span class="t-fn">map</span>((t) =&gt; (
+                  <span class="t-tag">&lt;div</span> className=<span class="t-str">"card"</span> key={t.id}&gt;
+                    <span class="t-tag">&lt;h3</span> className=<span class="t-str">"card__title"</span>&gt;{t.title}<span class="t-tag">&lt;/h3</span>&gt;
+                    <span class="t-tag">&lt;p</span> className=<span class="t-str">"card__description"</span>&gt;{t.description}<span class="t-tag">&lt;/p</span>&gt;
+                    {t.user &amp;&amp; (
+                      <span class="t-tag">&lt;p</span> className=<span class="t-str">"card__user"</span>&gt;
+                        {t.user.firstName} {t.user.lastName}
+                      <span class="t-tag">&lt;/p</span>&gt;
+                    )}
+                    <span class="t-tag">&lt;div</span> className=<span class="t-str">"card__buttons"</span>&gt;
+                      {ci &gt; <span class="t-lit">0</span> &amp;&amp; (
+                        <span class="t-tag">&lt;button</span> aria-label=<span class="t-str">"button left"</span> className=<span class="t-str">"card__button card__button--left"</span> type=<span class="t-str">"button"</span> onClick={() =&gt; <span class="t-fn">move</span>(t.id, -<span class="t-lit">1</span>)} /&gt;
+                      )}
+                      {ci &lt; COLUMNS.length - <span class="t-lit">1</span> &amp;&amp; (
+                        <span class="t-tag">&lt;button</span> aria-label=<span class="t-str">"button right"</span> className=<span class="t-str">"card__button card__button--right"</span> type=<span class="t-str">"button"</span> onClick={() =&gt; <span class="t-fn">move</span>(t.id, <span class="t-lit">1</span>)} /&gt;
+                      )}
+                    <span class="t-tag">&lt;/div</span>&gt;
+                  <span class="t-tag">&lt;/div</span>&gt;
+                ))}
+            <span class="t-tag">&lt;/div</span>&gt;
+          <span class="t-tag">&lt;/div</span>&gt;
+        ))}
+      <span class="t-tag">&lt;/div</span>&gt;
+    <span class="t-tag">&lt;/div</span>&gt;
+  );
+}</code></pre></details>
+        </div>
+      </article>
+
+      <article class="r-drill" id="drill-2">
+        <header class="r-drill-head">
+          <span class="r-k">Drill 2</span>
+          <h3>Wordle</h3>
+          <div class="r-chips">
+            <span class="r-chip time">Cold target 30 min</span>
+            <span class="r-chip src">Reported for Ramp</span>
+            <a class="r-chip" href="ramp-frontend-drills/Wordle.jsx">Wordle.jsx</a>
+          </div>
+        </header>
+        <div class="r-drill-body">
+          <div class="r-cols">
+            <div>
+              <p class="r-label">The spec</p>
+              <ul class="r-list">
+                <li>Given a secret word, render a board of empty rows.</li>
+                <li>Take a guess from an input and submit it with a button.</li>
+                <li>Colour each letter correct, present or absent.</li>
+                <li>End the game on a win, or after the last row.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="r-label">What the tests check</p>
+              <ul class="r-list">
+                <li>Duplicate letters score the way the real game does.</li>
+                <li>A guess of the wrong length is rejected with a message.</li>
+                <li>The row is coloured, and the game ends on a win.</li>
+                <li>The word is revealed after the last miss.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="r-callout"><strong>The trap is duplicate letters.</strong> Score exact matches first, then spend each
+          remaining secret letter only once. <code>CRANE</code> vs <code>ARRAY</code> scores present, correct, absent,
+          absent, absent. A single-pass version marks the second A present, and the tests catch it.</p>
+          <details class="r-solution"><summary>Show the tested solution <span class="r-file">Wordle.jsx &middot; 81 lines</span></summary><pre class="r-code"><span class="r-gutter" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81</span><code><span class="t-com">// Reported Ramp CodeSignal task: given a secret word, render the board and let</span>
+<span class="t-com">// the user type a guess into an input and submit it with a button.</span>
+<span class="t-kw">import</span> { useState } <span class="t-kw">from</span> <span class="t-str">'react'</span>;
+
+<span class="t-com">// Two passes, or duplicate letters score wrong: exact matches consume their</span>
+<span class="t-com">// letter first, then "present" may only spend the letters that are left.</span>
+<span class="t-kw">export</span> <span class="t-kw">function</span> <span class="t-fn">scoreGuess</span>(secret, guess) {
+  <span class="t-kw">const</span> s = secret.<span class="t-fn">toUpperCase</span>();
+  <span class="t-kw">const</span> g = guess.<span class="t-fn">toUpperCase</span>();
+  <span class="t-kw">const</span> result = <span class="t-fn">Array</span>(g.length).<span class="t-fn">fill</span>(<span class="t-str">'absent'</span>);
+  <span class="t-kw">const</span> left = {};
+  <span class="t-kw">for</span> (<span class="t-kw">let</span> i = <span class="t-lit">0</span>; i &lt; s.length; i++) {
+    <span class="t-kw">if</span> (g[i] === s[i]) result[i] = <span class="t-str">'correct'</span>;
+    <span class="t-kw">else</span> left[s[i]] = (left[s[i]] ?? <span class="t-lit">0</span>) + <span class="t-lit">1</span>;
+  }
+  <span class="t-kw">for</span> (<span class="t-kw">let</span> i = <span class="t-lit">0</span>; i &lt; g.length; i++) {
+    <span class="t-kw">if</span> (result[i] !== <span class="t-str">'correct'</span> &amp;&amp; left[g[i]] &gt; <span class="t-lit">0</span>) {
+      result[i] = <span class="t-str">'present'</span>;
+      left[g[i]] -= <span class="t-lit">1</span>;
+    }
+  }
+  <span class="t-kw">return</span> result;
+}
+
+<span class="t-kw">const</span> COLOR = { correct: <span class="t-str">'#6aaa64'</span>, present: <span class="t-str">'#c9b458'</span>, absent: <span class="t-str">'#787c7e'</span> };
+
+<span class="t-kw">export</span> <span class="t-kw">default</span> <span class="t-kw">function</span> <span class="t-fn">Wordle</span>({ secret, maxGuesses = <span class="t-lit">6</span> }) {
+  <span class="t-kw">const</span> size = secret.length;
+  <span class="t-kw">const</span> [guesses, setGuesses] = <span class="t-fn">useState</span>([]);
+  <span class="t-kw">const</span> [draft, setDraft] = <span class="t-fn">useState</span>(<span class="t-str">''</span>);
+  <span class="t-kw">const</span> [error, setError] = <span class="t-fn">useState</span>(<span class="t-str">''</span>);
+  <span class="t-com">// Derive game state from guesses; storing "won" separately is how it drifts.</span>
+  <span class="t-kw">const</span> won = guesses.<span class="t-fn">includes</span>(secret.<span class="t-fn">toUpperCase</span>());
+  <span class="t-kw">const</span> over = won || guesses.length &gt;= maxGuesses;
+
+  <span class="t-kw">function</span> <span class="t-fn">submit</span>(event) {
+    event.<span class="t-fn">preventDefault</span>();
+    <span class="t-kw">const</span> guess = draft.<span class="t-fn">trim</span>().<span class="t-fn">toUpperCase</span>();
+    <span class="t-kw">if</span> (guess.length !== size || !/^[A-Z]+$/.<span class="t-fn">test</span>(guess)) {
+      <span class="t-fn">setError</span>(<span class="t-str">`Enter a ${size}-letter word`</span>);
+      <span class="t-kw">return</span>;
+    }
+    <span class="t-fn">setGuesses</span>((prev) =&gt; [...prev, guess]);
+    <span class="t-fn">setDraft</span>(<span class="t-str">''</span>);
+    <span class="t-fn">setError</span>(<span class="t-str">''</span>);
+  }
+
+  <span class="t-kw">const</span> rows = Array.<span class="t-kw">from</span>({ length: maxGuesses }, (_, r) =&gt; guesses[r] ?? <span class="t-str">''</span>);
+  <span class="t-kw">return</span> (
+    <span class="t-tag">&lt;div</span>&gt;
+      <span class="t-tag">&lt;div</span> role=<span class="t-str">"grid"</span> aria-label=<span class="t-str">"board"</span>&gt;
+        {rows.<span class="t-fn">map</span>((word, r) =&gt; {
+          <span class="t-kw">const</span> states = word ? <span class="t-fn">scoreGuess</span>(secret, word) : [];
+          <span class="t-kw">return</span> (
+            <span class="t-tag">&lt;div</span> role=<span class="t-str">"row"</span> key={r} style={{ display: <span class="t-str">'flex'</span>, gap: <span class="t-lit">4</span>, marginBottom: <span class="t-lit">4</span> }}&gt;
+              {Array.<span class="t-kw">from</span>({ length: size }, (_, c) =&gt; (
+                <span class="t-tag">&lt;div</span>
+                  role=<span class="t-str">"gridcell"</span>
+                  key={c}
+                  data-state={states[c] ?? <span class="t-str">'empty'</span>}
+                  style={{ width: <span class="t-lit">40</span>, height: <span class="t-lit">40</span>, display: <span class="t-str">'grid'</span>, placeItems: <span class="t-str">'center'</span>, border: <span class="t-str">'1px solid #999'</span>, background: COLOR[states[c]] ?? <span class="t-str">'white'</span> }}
+                &gt;
+                  {word[c] ?? <span class="t-str">''</span>}
+                <span class="t-tag">&lt;/div</span>&gt;
+              ))}
+            <span class="t-tag">&lt;/div</span>&gt;
+          );
+        })}
+      <span class="t-tag">&lt;/div</span>&gt;
+      {!over &amp;&amp; (
+        <span class="t-tag">&lt;form</span> onSubmit={submit}&gt;
+          <span class="t-tag">&lt;input</span> aria-label=<span class="t-str">"guess"</span> value={draft} maxLength={size} onChange={(e) =&gt; <span class="t-fn">setDraft</span>(e.target.value)} /&gt;
+          <span class="t-tag">&lt;button</span> type=<span class="t-str">"submit"</span>&gt;Submit<span class="t-tag">&lt;/button</span>&gt;
+        <span class="t-tag">&lt;/form</span>&gt;
+      )}
+      {error &amp;&amp; <span class="t-tag">&lt;p</span> role=<span class="t-str">"alert"</span>&gt;{error}<span class="t-tag">&lt;/p</span>&gt;}
+      {won &amp;&amp; <span class="t-tag">&lt;p</span>&gt;You win!<span class="t-tag">&lt;/p</span>&gt;}
+      {over &amp;&amp; !won &amp;&amp; <span class="t-tag">&lt;p</span>&gt;The word was {secret.<span class="t-fn">toUpperCase</span>()}<span class="t-tag">&lt;/p</span>&gt;}
+    <span class="t-tag">&lt;/div</span>&gt;
+  );
+}</code></pre></details>
+        </div>
+      </article>
+
+      <article class="r-drill" id="drill-3">
+        <header class="r-drill-head">
+          <span class="r-k">Drill 3</span>
+          <h3>Capture the flag: find the URL, then type it out</h3>
+          <div class="r-chips">
+            <span class="r-chip time">Cold target 20 min</span>
+            <span class="r-chip src">Ramp's CTF, also reported on CodeSignal</span>
+            <a class="r-chip" href="ramp-frontend-drills/FlagTypewriter.jsx">FlagTypewriter.jsx</a>
+          </div>
+        </header>
+        <div class="r-drill-body">
+          <div class="r-cols">
+            <div>
+              <p class="r-label">The spec</p>
+              <ol class="r-list levels">
+                <li><span class="r-lv">1</span><span>The characters of a URL are hidden in nested elements that match a
+                wildcard pattern. Collect them in document order.</span></li>
+                <li><span class="r-lv">2</span><span>Fetch the URL and show <code>Loading...</code>, then reveal the flag one
+                character every half second as <code>&lt;li&gt;</code> items. No CSS, no libraries, and the animation
+                plays once.</span></li>
+              </ol>
+            </div>
+            <div>
+              <p class="r-label">What the tests check</p>
+              <ul class="r-list">
+                <li>Matching characters join in document order, ignoring decoys and wrapper nodes.</li>
+                <li><code>Loading...</code> shows first, then one list item per character, then it stops.</li>
+                <li>An HTTP error is shown, not swallowed.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="r-callout tip"><strong>The selector idea.</strong> Attribute operators express the wildcards
+          (<code>^=</code> starts with, <code>$=</code> ends with, <code>*=</code> contains), and a space between parts
+          allows any nodes in between. Ramp rotates the exact pattern, so rewrite the selector from the one you are given.</p>
+          <details class="r-solution"><summary>Show the tested solution <span class="r-file">FlagTypewriter.jsx &middot; 61 lines</span></summary><pre class="r-code"><span class="r-gutter" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</span><code><span class="t-com">// Ramp's capture-the-flag challenge, which a Nov-2025 report says also appeared</span>
+<span class="t-com">// in the CodeSignal assessment. Step 1 finds a URL hidden in the DOM; step 2</span>
+<span class="t-com">// fetches it and types the flag out, one list item per character, 500 ms apart,</span>
+<span class="t-com">// with React state only (no CSS, no libraries).</span>
+<span class="t-kw">import</span> { useEffect, useState } <span class="t-kw">from</span> <span class="t-str">'react'</span>;
+
+<span class="t-com">// Step 1 (run in the console on the challenge page). Ramp rotates the pattern:</span>
+<span class="t-com">// copy YOUR attribute rules into the selector. A space (descendant combinator)</span>
+<span class="t-com">// allows any number of nodes in between; ^= is "starts with", $= "ends with",</span>
+<span class="t-com">// and *= "contains", matching the wildcard positions in the pattern.</span>
+<span class="t-kw">export</span> <span class="t-kw">function</span> <span class="t-fn">extractFlagUrl</span>(
+  root,
+  selector = <span class="t-str">'code[data-class^="23"] div[data-tag$="93"] span[data-id*="21"] i.char'</span>,
+) {
+  <span class="t-kw">return</span> [...root.<span class="t-fn">querySelectorAll</span>(selector)].<span class="t-fn">map</span>((el) =&gt; el.<span class="t-fn">getAttribute</span>(<span class="t-str">'value'</span>)).<span class="t-fn">join</span>(<span class="t-str">''</span>);
+}
+
+<span class="t-com">// Step 2: reveal one more character per tick; stop once the whole string shows.</span>
+<span class="t-kw">export</span> <span class="t-kw">function</span> <span class="t-fn">useTypewriter</span>(text, delayMs = <span class="t-lit">500</span>) {
+  <span class="t-kw">const</span> [count, setCount] = <span class="t-fn">useState</span>(<span class="t-lit">0</span>);
+  <span class="t-fn">useEffect</span>(() =&gt; {
+    <span class="t-kw">if</span> (count &gt;= text.length) <span class="t-kw">return</span> <span class="t-lit">undefined</span>; <span class="t-com">// plays once, then stops</span>
+    <span class="t-kw">const</span> id = <span class="t-fn">setTimeout</span>(() =&gt; <span class="t-fn">setCount</span>((n) =&gt; n + <span class="t-lit">1</span>), delayMs);
+    <span class="t-kw">return</span> () =&gt; <span class="t-fn">clearTimeout</span>(id);
+  }, [count, text, delayMs]);
+  <span class="t-kw">return</span> text.<span class="t-fn">slice</span>(<span class="t-lit">0</span>, count);
+}
+
+<span class="t-kw">function</span> <span class="t-fn">Flag</span>({ text, delayMs }) {
+  <span class="t-kw">const</span> shown = <span class="t-fn">useTypewriter</span>(text, delayMs);
+  <span class="t-kw">return</span> (
+    <span class="t-tag">&lt;ul</span>&gt;
+      {[...shown].<span class="t-fn">map</span>((ch, i) =&gt; (
+        <span class="t-tag">&lt;li</span> key={i}&gt;{ch}<span class="t-tag">&lt;/li</span>&gt;
+      ))}
+    <span class="t-tag">&lt;/ul</span>&gt;
+  );
+}
+
+<span class="t-kw">export</span> <span class="t-kw">default</span> <span class="t-kw">function</span> <span class="t-fn">FlagTypewriter</span>({ url, delayMs = <span class="t-lit">500</span> }) {
+  <span class="t-kw">const</span> [flag, setFlag] = <span class="t-fn">useState</span>(<span class="t-lit">null</span>);
+  <span class="t-kw">const</span> [error, setError] = <span class="t-fn">useState</span>(<span class="t-lit">null</span>);
+
+  <span class="t-fn">useEffect</span>(() =&gt; {
+    <span class="t-kw">const</span> controller = <span class="t-kw">new</span> <span class="t-fn">AbortController</span>(); <span class="t-com">// StrictMode mounts twice; abort the first request</span>
+    <span class="t-fn">fetch</span>(url, { signal: controller.signal })
+      .<span class="t-fn">then</span>((res) =&gt; {
+        <span class="t-kw">if</span> (!res.ok) <span class="t-kw">throw</span> <span class="t-kw">new</span> <span class="t-fn">Error</span>(<span class="t-str">`HTTP ${res.status}`</span>);
+        <span class="t-kw">return</span> res.<span class="t-fn">text</span>();
+      })
+      .<span class="t-fn">then</span>((text) =&gt; <span class="t-fn">setFlag</span>(text.<span class="t-fn">trim</span>()))
+      .<span class="t-kw">catch</span>((err) =&gt; {
+        <span class="t-kw">if</span> (err.name !== <span class="t-str">'AbortError'</span>) <span class="t-fn">setError</span>(err.message);
+      });
+    <span class="t-kw">return</span> () =&gt; controller.<span class="t-fn">abort</span>();
+  }, [url]);
+
+  <span class="t-kw">if</span> (error) <span class="t-kw">return</span> <span class="t-tag">&lt;p</span> role=<span class="t-str">"alert"</span>&gt;{error}<span class="t-tag">&lt;/p</span>&gt;;
+  <span class="t-kw">if</span> (flag === <span class="t-lit">null</span>) <span class="t-kw">return</span> <span class="t-tag">&lt;p</span>&gt;Loading...<span class="t-tag">&lt;/p</span>&gt;;
+  <span class="t-kw">return</span> <span class="t-tag">&lt;Flag</span> key={flag} text={flag} delayMs={delayMs} /&gt;;
+}</code></pre></details>
+        </div>
+      </article>
+
+      <article class="r-drill" id="drill-4">
+        <header class="r-drill-head">
+          <span class="r-k">Drill 4</span>
+          <h3>Transactions search: debounce, pagination, out-of-order responses</h3>
+          <div class="r-chips">
+            <span class="r-chip time">Cold target 25 min</span>
+            <span class="r-chip src">Ramp's domain &middot; Level&nbsp;3 skills</span>
+            <a class="r-chip" href="ramp-frontend-drills/TransactionsSearch.jsx">TransactionsSearch.jsx</a>
+          </div>
+        </header>
+        <div class="r-drill-body">
+          <div class="r-cols">
+            <div>
+              <p class="r-label">The spec</p>
+              <ul class="r-list">
+                <li>A merchant search box over a paginated API.</li>
+                <li>Wait for typing to pause before sending a request.</li>
+                <li>Show loading and error states.</li>
+                <li>Page with Previous and Next, and stop at the last page.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="r-label">What the tests check</p>
+              <ul class="r-list">
+                <li>Three quick keystrokes send one request, for the final query.</li>
+                <li>A slow, older response never overwrites a newer one.</li>
+                <li>Next is disabled when the API says there are no more pages.</li>
+              </ul>
+            </div>
+          </div>
+          <details class="r-solution"><summary>Show the tested solution <span class="r-file">TransactionsSearch.jsx &middot; 74 lines</span></summary><pre class="r-code"><span class="r-gutter" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74</span><code><span class="t-com">// A Ramp-shaped data view: debounced search over a paginated API, with loading,</span>
+<span class="t-com">// error and "no more pages" states, and a guard against out-of-order responses.</span>
+<span class="t-com">// It exercises the framework's Level 3 skills: async calls, errors, pagination.</span>
+<span class="t-kw">import</span> { useEffect, useState } <span class="t-kw">from</span> <span class="t-str">'react'</span>;
+
+<span class="t-kw">export</span> <span class="t-kw">function</span> <span class="t-fn">useDebounced</span>(value, delayMs = <span class="t-lit">300</span>) {
+  <span class="t-kw">const</span> [debounced, setDebounced] = <span class="t-fn">useState</span>(value);
+  <span class="t-fn">useEffect</span>(() =&gt; {
+    <span class="t-kw">const</span> id = <span class="t-fn">setTimeout</span>(() =&gt; <span class="t-fn">setDebounced</span>(value), delayMs);
+    <span class="t-kw">return</span> () =&gt; <span class="t-fn">clearTimeout</span>(id);
+  }, [value, delayMs]);
+  <span class="t-kw">return</span> debounced;
+}
+
+<span class="t-com">// fetchPage(query, page, pageSize) -&gt; Promise&lt;{ items: [{ id, merchant, amountCents }], hasMore }&gt;</span>
+<span class="t-kw">export</span> <span class="t-kw">default</span> <span class="t-kw">function</span> <span class="t-fn">TransactionsSearch</span>({ fetchPage, pageSize = <span class="t-lit">10</span>, debounceMs = <span class="t-lit">300</span> }) {
+  <span class="t-kw">const</span> [query, setQuery] = <span class="t-fn">useState</span>(<span class="t-str">''</span>);
+  <span class="t-kw">const</span> debouncedQuery = <span class="t-fn">useDebounced</span>(query, debounceMs);
+  <span class="t-com">// Remember which query a page number belongs to, so a new search starts on</span>
+  <span class="t-com">// page 1 without a second state update (and without a wasted request).</span>
+  <span class="t-kw">const</span> [pageFor, setPageFor] = <span class="t-fn">useState</span>({ query: <span class="t-str">''</span>, page: <span class="t-lit">0</span> });
+  <span class="t-kw">const</span> page = pageFor.query === debouncedQuery ? pageFor.page : <span class="t-lit">0</span>;
+  <span class="t-kw">const</span> [result, setResult] = <span class="t-fn">useState</span>({ status: <span class="t-str">'loading'</span>, items: [], hasMore: <span class="t-lit">false</span>, error: <span class="t-lit">null</span> });
+
+  <span class="t-fn">useEffect</span>(() =&gt; {
+    <span class="t-kw">let</span> stale = <span class="t-lit">false</span>; <span class="t-com">// a slower, older response must never overwrite a newer one</span>
+    <span class="t-fn">setResult</span>((r) =&gt; ({ ...r, status: <span class="t-str">'loading'</span>, error: <span class="t-lit">null</span> }));
+    <span class="t-fn">fetchPage</span>(debouncedQuery, page, pageSize)
+      .<span class="t-fn">then</span>(({ items, hasMore }) =&gt; {
+        <span class="t-kw">if</span> (!stale) <span class="t-fn">setResult</span>({ status: <span class="t-str">'ready'</span>, items, hasMore, error: <span class="t-lit">null</span> });
+      })
+      .<span class="t-kw">catch</span>((err) =&gt; {
+        <span class="t-kw">if</span> (!stale) <span class="t-fn">setResult</span>({ status: <span class="t-str">'error'</span>, items: [], hasMore: <span class="t-lit">false</span>, error: err.message });
+      });
+    <span class="t-kw">return</span> () =&gt; {
+      stale = <span class="t-lit">true</span>;
+    };
+  }, [fetchPage, debouncedQuery, page, pageSize]);
+
+  <span class="t-kw">return</span> (
+    <span class="t-tag">&lt;div</span>&gt;
+      <span class="t-tag">&lt;input</span> aria-label=<span class="t-str">"search merchants"</span> value={query} onChange={(e) =&gt; <span class="t-fn">setQuery</span>(e.target.value)} /&gt;
+      {result.status === <span class="t-str">'loading'</span> &amp;&amp; <span class="t-tag">&lt;p</span>&gt;Loading...<span class="t-tag">&lt;/p</span>&gt;}
+      {result.status === <span class="t-str">'error'</span> &amp;&amp; <span class="t-tag">&lt;p</span> role=<span class="t-str">"alert"</span>&gt;{result.error}<span class="t-tag">&lt;/p</span>&gt;}
+      <span class="t-tag">&lt;table</span>&gt;
+        <span class="t-tag">&lt;thead</span>&gt;
+          <span class="t-tag">&lt;tr</span>&gt;
+            <span class="t-tag">&lt;th</span>&gt;Merchant<span class="t-tag">&lt;/th</span>&gt;
+            <span class="t-tag">&lt;th</span>&gt;Amount<span class="t-tag">&lt;/th</span>&gt;
+          <span class="t-tag">&lt;/tr</span>&gt;
+        <span class="t-tag">&lt;/thead</span>&gt;
+        <span class="t-tag">&lt;tbody</span>&gt;
+          {result.items.<span class="t-fn">map</span>((t) =&gt; (
+            <span class="t-tag">&lt;tr</span> key={t.id}&gt;
+              <span class="t-tag">&lt;td</span>&gt;{t.merchant}<span class="t-tag">&lt;/td</span>&gt;
+              <span class="t-tag">&lt;td</span>&gt;{(t.amountCents / <span class="t-lit">100</span>).<span class="t-fn">toFixed</span>(<span class="t-lit">2</span>)}<span class="t-tag">&lt;/td</span>&gt;
+            <span class="t-tag">&lt;/tr</span>&gt;
+          ))}
+        <span class="t-tag">&lt;/tbody</span>&gt;
+      <span class="t-tag">&lt;/table</span>&gt;
+      <span class="t-tag">&lt;button</span> type=<span class="t-str">"button"</span> disabled={page === <span class="t-lit">0</span>} onClick={() =&gt; <span class="t-fn">setPageFor</span>({ query: debouncedQuery, page: page - <span class="t-lit">1</span> })}&gt;
+        Previous
+      <span class="t-tag">&lt;/button</span>&gt;
+      <span class="t-tag">&lt;span</span>&gt; Page {page + <span class="t-lit">1</span>} <span class="t-tag">&lt;/span</span>&gt;
+      <span class="t-tag">&lt;button</span>
+        type=<span class="t-str">"button"</span>
+        disabled={!result.hasMore || result.status !== <span class="t-str">'ready'</span>}
+        onClick={() =&gt; <span class="t-fn">setPageFor</span>({ query: debouncedQuery, page: page + <span class="t-lit">1</span> })}
+      &gt;
+        Next
+      <span class="t-tag">&lt;/button</span>&gt;
+    <span class="t-tag">&lt;/div</span>&gt;
+  );
+}</code></pre></details>
+        </div>
+      </article>
+      <p class="r-caption">Run the tests from the papercusp checkout:
+      <code>npx vitest run --config ~/interview-prep/ramp-frontend-drills/vitest.config.mjs</code></p>
+    </section>
+
+    <section id="react">
+      <div class="sec-head">
+        <p class="eyebrow">04 &middot; Fundamentals</p>
+        <h2>React you need to write without looking anything up</h2>
+      </div>
+      <p class="lead">Each pattern below shows up in at least one drill. Type them from memory until they come out right the first time.</p>
+      <div class="r-snips">
+        <article class="r-card r-snip">
+          <div class="r-snip-copy">
+            <span class="r-k">Drill 1 &middot; every level</span>
+            <h4>Add, update and remove in a list</h4>
+            <p>React re-renders only when it gets a new array or object. The form and the move buttons both use these.</p>
+          </div>
+          <pre class="r-code"><span class="r-gutter" aria-hidden="true">1
+2
+3
+4
+5
+6
+7</span><code><span class="t-com">// Add, update, remove: always hand React a NEW array.</span>
+<span class="t-fn">setTasks</span>((prev) =&gt; [...prev, newTask]);
+<span class="t-fn">setTasks</span>((prev) =&gt; prev.<span class="t-fn">map</span>((t) =&gt; (t.id === id ? { ...t, status } : t)));
+<span class="t-fn">setTasks</span>((prev) =&gt; prev.<span class="t-fn">filter</span>((t) =&gt; t.id !== id));
+
+<span class="t-com">// Sorting: copy first. Never push, splice or sort the state array itself.</span>
+<span class="t-kw">const</span> sorted = [...tasks].<span class="t-fn">sort</span>((a, b) =&gt; a.title.<span class="t-fn">localeCompare</span>(b.title));</code></pre>
+        </article>
+        <article class="r-card r-snip">
+          <div class="r-snip-copy">
+            <span class="r-k">Drill 1 &middot; Level 2</span>
+            <h4>A controlled form</h4>
+            <p>The tests type into the input, submit, and expect the field cleared and blank input ignored.</p>
+          </div>
+          <pre class="r-code"><span class="r-gutter" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</span><code><span class="t-kw">const</span> [title, setTitle] = <span class="t-fn">useState</span>(<span class="t-str">''</span>); <span class="t-com">// '' not undefined: stays controlled</span>
+
+<span class="t-kw">function</span> <span class="t-fn">handleSubmit</span>(event) {
+  event.<span class="t-fn">preventDefault</span>(); <span class="t-com">// first line, or the page reloads</span>
+  <span class="t-kw">if</span> (!title.<span class="t-fn">trim</span>()) <span class="t-kw">return</span>; <span class="t-com">// ignore blank input</span>
+  <span class="t-fn">addTask</span>(title.<span class="t-fn">trim</span>());
+  <span class="t-fn">setTitle</span>(<span class="t-str">''</span>); <span class="t-com">// clear after a successful add</span>
+}
+
+<span class="t-kw">return</span> (
+  <span class="t-tag">&lt;form</span> onSubmit={handleSubmit}&gt;
+    <span class="t-tag">&lt;input</span> value={title} onChange={(e) =&gt; <span class="t-fn">setTitle</span>(e.target.value)} /&gt;
+    <span class="t-tag">&lt;button</span> type=<span class="t-str">"submit"</span>&gt;Add<span class="t-tag">&lt;/button</span>&gt;
+  <span class="t-tag">&lt;/form</span>&gt;
+);</code></pre>
+        </article>
+        <article class="r-card r-snip">
+          <div class="r-snip-copy">
+            <span class="r-k">Drill 1 &middot; Level 3</span>
+            <h4>Fetch on mount, with loading and error states</h4>
+            <p>Check <code>res.ok</code>: <code>fetch</code> does not throw on a 404 or 500. Render both the loading and the error state.</p>
+          </div>
+          <pre class="r-code"><span class="r-gutter" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</span><code><span class="t-fn">useEffect</span>(() =&gt; {
+  <span class="t-kw">let</span> cancelled = <span class="t-lit">false</span>; <span class="t-com">// ignore a response that lands after unmount</span>
+  <span class="t-kw">async</span> <span class="t-kw">function</span> <span class="t-fn">load</span>() {
+    <span class="t-kw">try</span> {
+      <span class="t-kw">const</span> res = <span class="t-kw">await</span> <span class="t-fn">fetch</span>(<span class="t-str">'/tasks'</span>);
+      <span class="t-kw">if</span> (!res.ok) <span class="t-kw">throw</span> <span class="t-kw">new</span> <span class="t-fn">Error</span>(<span class="t-str">`GET /tasks failed: ${res.status}`</span>);
+      <span class="t-kw">const</span> json = <span class="t-kw">await</span> res.<span class="t-fn">json</span>();
+      <span class="t-kw">if</span> (!cancelled) <span class="t-fn">setTasks</span>(json.data);
+    } <span class="t-kw">catch</span> (err) {
+      <span class="t-kw">if</span> (!cancelled) <span class="t-fn">setError</span>(err.message);
+    } <span class="t-kw">finally</span> {
+      <span class="t-kw">if</span> (!cancelled) <span class="t-fn">setLoading</span>(<span class="t-lit">false</span>);
+    }
+  }
+  <span class="t-fn">load</span>();
+  <span class="t-kw">return</span> () =&gt; {
+    cancelled = <span class="t-lit">true</span>;
+  };
+}, []);</code></pre>
+        </article>
+        <article class="r-card r-snip">
+          <div class="r-snip-copy">
+            <span class="r-k">Drill 1 &middot; Level 3</span>
+            <h4>Dependent calls: fetch each user once</h4>
+            <p>One request per distinct user, not one per task, and a missing user must not blank the board.</p>
+          </div>
+          <pre class="r-code"><span class="r-gutter" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+8
+9
+10</span><code><span class="t-com">// One request per DISTINCT user, all in parallel, then join by id.</span>
+<span class="t-kw">const</span> ids = [...<span class="t-kw">new</span> <span class="t-fn">Set</span>(tasks.<span class="t-fn">map</span>((t) =&gt; t.assignedUser))];
+<span class="t-kw">const</span> users = <span class="t-kw">await</span> Promise.<span class="t-fn">all</span>(
+  ids.<span class="t-fn">map</span>((id) =&gt; <span class="t-fn">fetch</span>(<span class="t-str">`/users/${id}`</span>).<span class="t-fn">then</span>((res) =&gt; (res.ok ? res.<span class="t-fn">json</span>() : <span class="t-lit">null</span>))),
+);
+<span class="t-kw">const</span> userById = {};
+<span class="t-kw">for</span> (<span class="t-kw">const</span> user <span class="t-kw">of</span> users) {
+  <span class="t-kw">if</span> (user) userById[user.id] = user; <span class="t-com">// a missing user must not blank the board</span>
+}
+<span class="t-kw">const</span> withUsers = tasks.<span class="t-fn">map</span>((t) =&gt; ({ ...t, user: userById[t.assignedUser] ?? <span class="t-lit">null</span> }));</code></pre>
+        </article>
+        <article class="r-card r-snip">
+          <div class="r-snip-copy">
+            <span class="r-k">Drills 3 and 4</span>
+            <h4>Timers and debounce</h4>
+            <p>The typewriter and the search box. A missing cleanup is also a classic bug-fix question.</p>
+          </div>
+          <pre class="r-code"><span class="r-gutter" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11</span><code><span class="t-com">// Interval: start it in an effect, stop it in the cleanup.</span>
+<span class="t-fn">useEffect</span>(() =&gt; {
+  <span class="t-kw">const</span> id = <span class="t-fn">setInterval</span>(() =&gt; <span class="t-fn">setCount</span>((n) =&gt; n + <span class="t-lit">1</span>), <span class="t-lit">500</span>);
+  <span class="t-kw">return</span> () =&gt; <span class="t-fn">clearInterval</span>(id);
+}, []);
+
+<span class="t-com">// Debounce: restart the wait on every keystroke; only the last one fires.</span>
+<span class="t-fn">useEffect</span>(() =&gt; {
+  <span class="t-kw">const</span> id = <span class="t-fn">setTimeout</span>(() =&gt; <span class="t-fn">setDebounced</span>(query), <span class="t-lit">300</span>);
+  <span class="t-kw">return</span> () =&gt; <span class="t-fn">clearTimeout</span>(id);
+}, [query]);</code></pre>
+        </article>
+      </div>
+      <p class="r-label">Rules that save you from bugs</p>
+      <ul class="r-rules">
+        <li><strong>New state from old:</strong> use the updater form, <code>setCount((n) =&gt; n + 1)</code>, in handlers and timers.</li>
+        <li><strong>Keys:</strong> use stable ids. Index keys break when rows are reordered or moved.</li>
+        <li><strong>Derived values:</strong> compute filtered lists, counts and "won" during render instead of storing them in state.</li>
+        <li><strong>Shared state:</strong> when two siblings need the same data, move the state up to their parent and pass it down.</li>
+      </ul>
+    </section>
+
+    <section id="bugbash">
+      <div class="sec-head">
+        <p class="eyebrow">05 &middot; Bug fixing</p>
+        <h2>If the task is "fix the errors in this React app"</h2>
+      </div>
+      <p class="lead">A 2026 report describes a question about errors in a React app, and older reports mention bug-fix
+      exercises on starter code. Treat each bug as its own ticket.</p>
+      <ol class="r-steps">
+        <li>Reproduce the bug in the preview.</li>
+        <li>Make the smallest fix that removes it.</li>
+        <li>Re-run the tests.</li>
+        <li>Move on. Don't refactor.</li>
+      </ol>
+      <div class="r-grid three">
+        <article class="r-card r-bug">
+          <h4>Stale closure</h4>
+          <dl><dt>Looks</dt><dd>An effect or callback reads an old value.</dd>
+          <dt class="fix">Fix</dt><dd>Add the missing dependency to <code>useEffect</code> or <code>useCallback</code>.</dd></dl>
+        </article>
+        <article class="r-card r-bug">
+          <h4>Mutated state</h4>
+          <dl><dt>Looks</dt><dd>Data changes but the screen does not update.</dd>
+          <dt class="fix">Fix</dt><dd>Replace <code>push</code>, <code>splice</code>, <code>sort</code> or a direct property assignment with a copy.</dd></dl>
+        </article>
+        <article class="r-card r-bug">
+          <h4>Handler called during render</h4>
+          <dl><dt>Looks</dt><dd><code>onClick={remove(id)}</code> runs on every render.</dd>
+          <dt class="fix">Fix</dt><dd><code>onClick={() =&gt; remove(id)}</code></dd></dl>
+        </article>
+        <article class="r-card r-bug">
+          <h4>Missing cleanup</h4>
+          <dl><dt>Looks</dt><dd>Intervals or listeners stack up and double-fire.</dd>
+          <dt class="fix">Fix</dt><dd>Return a cleanup function from the effect.</dd></dl>
+        </article>
+        <article class="r-card r-bug">
+          <h4>Race</h4>
+          <dl><dt>Looks</dt><dd>An older fetch resolves last and overwrites newer results.</dd>
+          <dt class="fix">Fix</dt><dd>An ignore flag in the effect, or <code>AbortController</code>.</dd></dl>
+        </article>
+        <article class="r-card r-bug">
+          <h4>Derived list not recomputed</h4>
+          <dl><dt>Looks</dt><dd>The filter changes but the list stays the same.</dd>
+          <dt class="fix">Fix</dt><dd>Compute the list during render from the source state.</dd></dl>
+        </article>
+        <article class="r-card r-bug">
+          <h4>Pagination</h4>
+          <dl><dt>Looks</dt><dd>Off-by-one page numbers, or paging past the end.</dd>
+          <dt class="fix">Fix</dt><dd>Stop when the API returns fewer rows than the page size, or says there are no more.</dd></dl>
+        </article>
+        <article class="r-card r-bug">
+          <h4>Types</h4>
+          <dl><dt>Looks</dt><dd>Amounts compared as strings, or cents shown as dollars.</dd>
+          <dt class="fix">Fix</dt><dd>Convert with <code>Number()</code>; divide cents by 100 only when displaying.</dd></dl>
+        </article>
+        <article class="r-card r-bug">
+          <h4>Controlled input warning</h4>
+          <dl><dt>Looks</dt><dd><code>value</code> starts as <code>undefined</code> and later becomes a string.</dd>
+          <dt class="fix">Fix</dt><dd>Start it as <code>''</code>.</dd></dl>
+        </article>
+        <article class="r-card r-bug">
+          <h4>Form reloads the page</h4>
+          <dl><dt>Looks</dt><dd>Submitting clears everything.</dd>
+          <dt class="fix">Fix</dt><dd>Call <code>event.preventDefault()</code> first in the submit handler.</dd></dl>
+        </article>
+        <article class="r-card r-bug">
+          <h4>Index keys on a reordering list</h4>
+          <dl><dt>Looks</dt><dd>Input values stick to the wrong row.</dd>
+          <dt class="fix">Fix</dt><dd>Key by a stable id: <code>key={item.id}</code>.</dd></dl>
+        </article>
+      </div>
+    </section>
+
+    <section id="plan">
+      <div class="sec-head">
+        <p class="eyebrow">06 &middot; Plan</p>
+        <h2>Tonight and tomorrow</h2>
+      </div>
+      <ol class="r-plan">
+        <li>
+          <div class="r-when"><strong>Tonight</strong><span class="r-pill">20 min</span></div>
+          <div class="r-what">Create the CodeSignal account from the invite and open the practice environment. Pick a
+          front-end practice question and find the file tree, the preview, the terminal, and how tests run and report.</div>
+        </li>
+        <li>
+          <div class="r-when"><strong>Tonight</strong><span class="r-pill">45 min</span></div>
+          <div class="r-what">Drill&nbsp;1 cold against a timer, level by level. Compare with the solution only after the timer ends.</div>
+        </li>
+        <li>
+          <div class="r-when"><strong>Tomorrow morning</strong><span class="r-pill">50 min</span></div>
+          <div class="r-what">Drills&nbsp;2 and 3 cold. Read section&nbsp;05 once.</div>
+        </li>
+        <li>
+          <div class="r-when"><strong>Before you start</strong><span class="r-pill">10 min</span></div>
+          <div class="r-what">Block 90 uninterrupted minutes plus 10 for setup and ID checks. Close other apps, and check your
+          camera and microphone. Choose React with JavaScript if you are offered a choice.</div>
+        </li>
+        <li>
+          <div class="r-when"><strong>First 3 minutes</strong><span class="r-pill">in the test</span></div>
+          <div class="r-what">Read the spec, the provided template and the test names. Get the app rendering, then decide your
+          data shape: one list with a status field.</div>
+        </li>
+        <li class="stop">
+          <div class="r-when"><strong>Hard stop</strong><span class="r-pill">Mon 4:30 pm ET</span></div>
+          <div class="r-what">Start by about 4:30&nbsp;pm ET Monday. The invite expires at 6:21&nbsp;pm ET, and it does not say
+          whether a test that is still running gets cut off at that time.</div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="confidence">
+      <div class="sec-head">
+        <p class="eyebrow">07 &middot; Confidence</p>
+        <h2>What to trust</h2>
+      </div>
+      <div class="r-grid three">
+        <article class="r-card">
+          <span class="r-badge solid">Solid</span>
+          <p>The Shape&nbsp;A format (90 minutes, four levels with target times, 200&ndash;600 score, the task-board example)
+          comes from CodeSignal's own framework brief. The allowed frameworks and the syntax-only lookup rule come from
+          CodeSignal's support pages. The deadline comes from your invite.</p>
+        </article>
+        <article class="r-card">
+          <span class="r-badge reported">Reported</span>
+          <p>Wordle, the typewriter fetch, "an hour long", an algorithm question plus a React question, and bug fixes are
+          individual candidate reports from 2023&ndash;2026 and may describe other roles or years.</p>
+        </article>
+        <article class="r-card">
+          <span class="r-badge unknown">Unknown</span>
+          <p>Which shape Ramp uses for this invite. The first screen of the test will tell you. Some prep sites that rank for
+          this search sell hidden AI help for live tests; they are not used here, and using one would break the rules above.</p>
+        </article>
+      </div>
+      <p class="r-label">Sources</p>
+      <ul class="r-sources">
+        <li><a href="https://discover.codesignal.com/rs/659-AFH-023/images/Front-End-Development-Skills-Evaluation-Framework-CodeSignal-Skills-Evaluation-Lab.pdf"><span>CodeSignal</span>Front-End Development Skills Evaluation Framework (technical brief)</a></li>
+        <li><a href="https://support.codesignal.com/hc/en-us/articles/10656138860823-What-languages-environments-are-available-per-framework"><span>CodeSignal</span>Languages and frameworks per certified assessment</a></li>
+        <li><a href="https://support.codesignal.com/hc/en-us/articles/22438639388567-What-are-the-assessment-rules-for-Certified-Assessments"><span>CodeSignal</span>Assessment rules</a></li>
+        <li><a href="https://support.codesignal.com/hc/en-us/articles/360039872174-What-is-proctoring-and-how-does-it-work"><span>CodeSignal</span>Proctoring</a></li>
+        <li><a href="https://www.greatfrontend.com/interviews/company/ramp/questions-guides"><span>GreatFrontEnd</span>Ramp front-end interview guide</a></li>
+        <li><a href="https://www.glassdoor.com/Interview/Ramp-Frontend-Software-Engineer-Interview-Questions-EI_IE4211228.0,4_KO5,31.htm"><span>Glassdoor</span>Ramp frontend interview reports</a></li>
+        <li><a href="https://discuss.frontendlead.com/t/ramp-online-assessment-code-signal-software-engineer-frontend/2845"><span>FrontendLead</span>Ramp CodeSignal assessment report (Nov 2025)</a></li>
+        <li><a href="https://leetcode.com/discuss/interview-question/3278286/Ramp-CTF-Challange/"><span>LeetCode Discuss</span>Ramp CTF challenge</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p class="eyebrow">Local interview-prep collection</p>
+    <p>Use the <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a> for verified personal stories. The
+    <a href="capital-one-codesignal-assessment-standalone.html">Capital One</a> and <a href="anthropic-codesignal-assessment-standalone.html">Anthropic</a>
+    CodeSignal pages cover the algorithm-style tests, which call for different preparation from this one.</p>
+    <p><a href="#top">Back to top</a></p>
+  </footer>
+</div>
+</body>
+</html>

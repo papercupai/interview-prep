@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Braid Technologies CEO call with Ivo Timóteo: who he is, where Braid is right now, the founder question, likely questions, and questions to ask.">
+<title>Braid Technologies · Ivo Timóteo call | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f6fa;
+    --surface: #fff;
+    --soft: #ebebf5;
+    --ink: #13131c;
+    --muted: #55566a;
+    --accent: #3d3fb0;
+    --warn: #9a4a07;
+    --warn-soft: #fbf0e3;
+    --rule: #dedfea;
+    --rule-strong: #c2c3d6;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e0e15;
+      --surface: #16161f;
+      --soft: #1f1f2c;
+      --ink: #e7e7f0;
+      --muted: #a6a7ba;
+      --accent: #a9abff;
+      --warn: #f2b877;
+      --warn-soft: #2a2116;
+      --rule: #2a2a3a;
+      --rule-strong: #41425a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .6rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  blockquote { margin: .6rem 0 0; padding: .2rem 0 .2rem 1rem; border-left: 3px solid var(--rule-strong); color: var(--muted); font-style: italic; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .step .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .8rem; margin-top: .6rem; }
+  .pair > div { padding: .7rem .8rem; background: var(--soft); border-radius: 3px; }
+  .pair .label { display: block; margin-bottom: .2rem; font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    /* One scrollable row on phones: 47 wrapped tabs otherwise make a sticky bar taller than the screen. */
+    nav.sitenav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; }
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .pair { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    details { break-inside: avoid; }
+    details > div { display: block; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div><script src="sitenav.js"></script>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Braid Technologies · Tokyo · 30-minute CEO call</p>
+      <h1>Ivo Timóteo: an ML researcher turned CEO, about to launch AURA as a product.</h1>
+      <p class="lead">Ivo co-founded Braid and runs it. He did AI research at Cambridge on learning from sparse data, was principal lecturer of its AI II course at 25, and at 29 became CTO of a Tokyo self-driving startup with about 60 engineers. The Guido page covers the technical thesis. This call is about the company: will you commit to Tokyo, will you help ship, and are you worth relocating? Braid launches AURA at CDFAM Tokyo on 8–9 October, so your pitch is: <strong>the next bottleneck is making a research engine run reliably for customers who have to trust its output, and that is the work you've been doing.</strong></p>
+    </div>
+    <aside class="hero-card" aria-label="Call facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>Interviewer</dt><dd>Ivo Timóteo, Founder &amp; CEO, Braid Technologies (<a href="https://www.linkedin.com/in/ivotimoteo/">LinkedIn</a>). braid.tech spells it “Ivo Timoteo,” without the accent.</dd></div>
+        <div><dt>Format</dt><dd>30 minutes. The time isn't recorded here, so check the invite. Tokyo is 13 hours ahead of Eastern (JST = UTC+9).</dd></div>
+        <div><dt>Role you applied to</dt><dd>Senior Software Engineer – Systems (on-site in Tokyo; the HN listing said relocation and visa are sponsored)</dd></div>
+        <div><dt>Earlier round</dt><dd><a href="braid-guido-cossu-founder-call-standalone.html">Guido Cossu call</a>: AURA, the neuro-symbolic architecture, and your technical bridge</dd></div>
+        <div><dt>Say it</dt><dd>Roughly <em>EE-voo tee-MAW-tee-oo</em> (Portuguese name; he studied in Porto)</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#decide">Decide first</a>
+    <a href="#ivo">Who Ivo is</a>
+    <a href="#now">Braid right now</a>
+    <a href="#angle">Your angle</a>
+    <a href="#pitch">Your opener</a>
+    <a href="#questions">Likely questions</a>
+    <a href="#crib">His territory</a>
+    <a href="#ask">Questions to ask</a>
+    <a href="#plan">30-minute plan</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="decide">
+      <p class="eyebrow">01 · Before you dial</p>
+      <h2>Four answers a CEO will want. Only you can give them.</h2>
+      <p class="section-lead">Guido can judge your thinking. Ivo decides whether the hire makes sense for the company: commitment, timing and cost. Vague answers here hurt more than a weak technical answer would.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">The founder question</span>
+          <h3>“You're building your own company. Why join us?”</h3>
+          <p>He is a founder and he raises money, so expect this early. Decide the true answer before the call: what happens to Papercusp after the open-source release (you maintain it on the side, hand it to contributors, or keep it as your own toolkit), and whether Braid gets your full focus. Braid's careers page says “this is not a job for everyone” and the core team works in person, so a hedged answer sounds like a flight risk.</p>
+          <p>One shape that works, if it's true: “Papercusp is how I learned to make unreliable components behave reliably. The open-source release closes the build phase. What I want next is a harder problem with a team, and physical engineering is it.” If you plan to keep maintaining Papercusp, say so plainly. Outside-work and IP terms belong in the offer stage, not here.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Relocation</span>
+          <h3>When can you be in Tokyo, and what does it depend on?</h3>
+          <p>Give the same answer you gave Guido, with more detail: a month, and what the move depends on (family, housing, visa timing). “Primary remote work is not an option for our core team.” Their <a href="https://www.notion.so/braid-technologies/Welcome-to-Japan-1ed40e338db3806a8393c39793c337c6">Tokyo guide</a> covers housing, healthcare and “life with a family.” If you've read it, say so.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Compensation</span>
+          <h3>Have a number ready. It may come up today.</h3>
+          <p>The careers page promises “direct, transparent conversations about expectations from our very first interactions” and says Braid “benchmark[s] compensation against top global technology companies” with “strong base salaries with real equity ownership.” The CEO may ask outright. Decide your floor and target <em>in yen</em>, and how much base you'd trade for equity. If you'd rather hear theirs first: “You mention benchmarking against global tech companies. What range do you have for this role?”</p>
+        </div>
+        <div class="card">
+          <span class="tag">Debrief Guido</span>
+          <h3>Write down what happened in round one</h3>
+          <p>Ivo has probably read Guido's notes. Before the call, jot down what Guido asked, what landed, any concern he raised (relocation, depth in Rust or Python, physics), and what he said about next steps. Deal with any concern directly, and use <em>new</em> stories rather than repeating the ones Guido already heard.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ivo">
+      <p class="eyebrow">02 · The interviewer</p>
+      <h2>Ivo: probabilistic ML, then a big engineering org, now selling to Japanese manufacturers</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Path</h3>
+          <ul>
+            <li><strong>Porto.</strong> Master's in Informatics and Computing Engineering, University of Porto. His first papers (2010–2012) were on <em>multi-agent traffic management</em>: TraSMAPI, an API that let multi-agent systems interact in real time with traffic simulators.</li>
+            <li><strong>Cambridge.</strong> PhD research in the Computer Lab's AI group. Paper with Sean Holden (ICPRAM 2015): <em>Learning Dynamic Systems from Time-series Data, an Application to Gene Regulatory Networks</em>. He was principal lecturer of <a href="https://www.cl.cam.ac.uk/teaching/1415/ArtIntII/">Artificial Intelligence II</a> at 25 (the 2014–15 course).</li>
+            <li><strong>Ascent Robotics, Tokyo.</strong> CTO at 29, leading about 60 engineers at a self-driving startup that trained its driving AI in simulation (Ken Kutaragi, PlayStation's creator, sat on its board). Guido was Head of R&amp;D there, per his LinkedIn, so they worked together before Braid. Ivo pitched at a Forbes “Rising Star” event as Ascent's CTO, and his site mentions a Forbes Japan feature in October 2019.</li>
+            <li><strong>Braid, since September 2020.</strong> Founder &amp; CEO. He gives the CDFAM Tokyo keynote with Guido (8–9 Oct) and is listed as a speaker at Takeoff Tokyo 2026.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>In his own words</h3>
+          <blockquote>“We started BRAID in Japan — a country with the world's strongest foundations in monozukuri.”</blockquote>
+          <blockquote>“BRAID exists to automate physical engineering design.”</blockquote>
+          <blockquote>“We believe extending human capability in engineering is one of the most consequential things we can do for society.”</blockquote>
+          <p style="margin-top:.7rem">Braid's About page says he is driven by a “love of complex dynamical systems” and has an Erdős number of 5. His site says he cycled Japan from north to south. These are good for small talk. Don't recite them.</p>
+        </div>
+        <div class="card">
+          <h3>What that tells you</h3>
+          <ul>
+            <li><strong>He comes from the learning side.</strong> Braid's hybrid combines his half (learning from sparse data) with Guido's (physics and simulation). He'll be comfortable probing ML, uncertainty and where learned models help.</li>
+            <li><strong>He has run a large engineering team</strong> and watched a deep-tech ambition meet reality. Expect questions about execution, focus and judgment, not just architecture.</li>
+            <li><strong>He sells to Japanese manufacturers.</strong> Customers, trust and long timelines are on his mind every day.</li>
+            <li><strong>He's deciding whether you'll stay.</strong> Being clear and committed counts as much as depth.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note"><strong>Leave Ascent's later history alone.</strong> Ascent has since moved from self-driving to industrial robotics. Don't bring up the pivot. If he mentions Ascent, ask what he learned there that he does differently at Braid.</div>
+    </section>
+
+    <section id="now">
+      <p class="eyebrow">03 · The company, from the CEO's seat</p>
+      <h2>Braid right now: from deployments to a product</h2>
+      <p class="section-lead">For AURA itself (architecture, workflow, the car-door study), see the <a href="braid-guido-cossu-founder-call-standalone.html#braid">Guido page</a>. This section covers what a CEO thinks about: the launch, the customers, and the gap an engineer could fill.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">The launch</span>
+          <h3>AURA launches at CDFAM, starting with stamping</h3>
+          <p>Braid is a major sponsor at CDFAM Tokyo (8–9 October) and will launch AURA there, beginning with stamping. It has also been applied to injection molding and die casting. The keynote asks “when can we say that a machine has actually engineered a part?” Their answer: start from requirements, solve physics and manufacturing jointly, and explain the result so any engineer can follow it.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Customers</span>
+          <h3>Japanese automakers, and SkyDrive in public</h3>
+          <p>AURA is “already being deployed with major Japanese automotive manufacturers and other selected customers.” None are named. The public case is <a href="https://en.skydrive2020.com/archives/13652">SkyDrive</a> (September 2024), which used Braid to optimize eVTOL structure instead of standard topology optimization. Ivo: “Their willingness to embrace new methodologies aligns with our goal of advancing engineering practices and possibilities.”</p>
+        </div>
+        <div class="card">
+          <span class="tag">The gap</span>
+          <h3>File-based today; customers verify with their own tools</h3>
+          <p>Inputs are standard CAD, material, requirements and manufacturing method. Outputs are manufacturable CAD plus an explanation. The workflow is “file-based” and not yet connected to PLM or PDM, and customers check results with their own solvers and approval processes. AURA is “a reasoning layer between initial intent and final verification.” Integration, reproducibility and explanation are where a systems engineer helps.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Who buys</span>
+          <h3>Their own description of a good customer</h3>
+          <p>A company with “more valuable engineering questions than its people have time to answer”: parts inherited because redesign costs too much, specialists who become bottlenecks, and manufacturing teams repeatedly fixing earlier design decisions.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Board</span>
+          <h3>Who's around the table</h3>
+          <p>External directors from Incubate Fund, Headline Asia, GHOVC and Techstars Japan. Advisors include Kazuyo Sejima (architect), André Andonian (McKinsey Senior Partner Emeritus) and Justin Waldron (Zynga co-founder). This is context only. Don't recite names.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="angle">
+      <p class="eyebrow">04 · Why you, for a CEO</p>
+      <h2>Lead with outcomes: trust, shipping, leverage</h2>
+      <p class="section-lead">With Guido you mapped the architecture. With Ivo, connect the same work to what Braid needs this year: customers who trust AURA's output, and a research engine that runs as a product.</p>
+      <div class="card">
+        <h3>1 · Trusting work no person did step by step</h3>
+        <div class="pair">
+          <div><span class="label">Braid</span>Their CDFAM Q&amp;A says they want to learn how to build trust “in a part that no person designed feature by feature.” Their answer so far: explain every result and let customers verify it with their own tools.</div>
+          <div><span class="label">Papercusp</span>The same problem for code written by agents. Nothing counts as done without evidence, a separate agent grades the work instead of the one that did it, and every claim traces to a test or a measurement. You had to earn your <em>own</em> trust in machine-made work before relying on it.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>2 · From engine to product</h3>
+        <div class="pair">
+          <div><span class="label">Braid</span>Moving from founder-led deployments to a launched product, still file-based, with customers who each run their own verification.</div>
+          <div><span class="label">Papercusp</span>You took it from a tool for yourself to a packaged desktop app with an embedded database that you're open-sourcing: packaging, releases, and a gate that keeps <code>main</code> green. You also shipped to real customers for 12 years.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>3 · Multi-agent systems, then and now</h3>
+        <div class="pair">
+          <div><span class="label">Ivo</span>His first papers were about multi-agent systems working in real time against traffic simulators.</div>
+          <div><span class="label">Papercusp</span>A coordination system for many agents on one codebase: locks, presence, a scheduler, handoffs. It makes a good rapport hook, but that was his student work 15 years ago, so don't make it the centerpiece.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>4 · Operator leverage</h3>
+        <p>More than $1M a month with two engineers and three warehouse staff, because nearly everything was automated. A CEO running a 30-person deep-tech company on investor money listens for that kind of leverage and cost discipline. It's also common ground with Yuta, the COO, who comes from supply chain.</p>
+      </div>
+      <div class="note"><strong>Don't overclaim:</strong> running a fleet of AI agents isn't the same as leading 60 engineers, and Ivo has done the second. If he asks about managing people, give the real team sizes from your commerce company. You can say the coordination problems are similar (ownership, not breaking <code>main</code>, making progress visible) without claiming they're equivalent.</div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">05 · Your opener</p>
+      <h2>The CEO version of “tell me about yourself” (60–90 seconds)</h2>
+      <div class="card">
+        <p>“I'm a systems engineer who has spent most of my career as an operator. For about 12 years I ran a commerce company with a warehouse. We got past $1M a month with two engineers and three people on the floor, because we automated nearly everything.</p>
+        <p>Most recently I built Papercusp, where dozens of AI agents work on one codebase at the same time. The agents were the easy part. The real work was making their output trustworthy: one typed contract for every tool, locks that actually block, and nothing counts as done until a separate check accepts the evidence. I'm open-sourcing it next month.</p>
+        <p>Braid is the same question from the other side: how do you produce a result nobody designed step by step, and get an engineer to trust it enough to build it? You're about to take AURA from deployments to a product. Making a powerful engine run reliably for customers without the founders in the room is the work I want to do next, and I'd rather do it on physical parts than pull requests.”</p>
+      </div>
+      <p class="section-lead" style="margin-top:1rem">If Guido already heard the architecture version, don't repeat it word for word. Stories with numbers are in the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>.</p>
+    </section>
+
+    <section id="questions">
+      <p class="eyebrow">06 · Practice</p>
+      <h2>Questions he's likely to ask</h2>
+      <p class="section-lead">These are practice prompts inferred from Braid's public pages and Ivo's role, not a leaked question list. Click to see an answer outline.</p>
+      <details><summary>You've been building your own company. Why join us instead?</summary><div>
+        <p>Use the answer you settled in section 01. Keep it to three sentences: what Papercusp taught you, why the open-source release is a natural stopping point, and why Braid's problem is the one you want next. Then stop talking. Over-explaining this one sounds like doubt.</p>
+      </div></details>
+      <details><summary>Why Braid, and why now?</summary><div>
+        <p>Now, because they're launching: the move from deployments to a product is exactly when production engineering matters most. Braid, because their thesis that “engineering would not be automated by scaling data alone” matches what you learned the hard way with LLMs: the correctness came from structure, not from the model. Physical output, because of your warehouse years.</p>
+      </div></details>
+      <details><summary>What did you make of your conversation with Guido?</summary><div>
+        <p>Name one specific thing that stayed with you, and one question it raised that suits the CEO better (for example, how customers come to trust a design, or what changes at launch). This shows you listened and that you're thinking about the business, not just the tech.</p>
+      </div></details>
+      <details><summary>What would you work on in your first six months?</summary><div>
+        <p>Don't pretend to know their internals. Offer a hypothesis tied to the launch, then ask:</p>
+        <ol>
+          <li><strong>Reproducible, traceable runs:</strong> every result tied to its inputs, constraints and solver versions, with the customer report generated from that record rather than written by hand.</li>
+          <li><strong>A job pipeline that isolates customers:</strong> one customer's heavy run can't stall another's, and failures come back as results, not crashes.</li>
+          <li><strong>A shorter path from a customer's file to a verified result,</strong> then learning the geometry side from the R&amp;D team.</li>
+        </ol>
+        <p>Close with: “But I'd want to hear where you see the bottleneck.”</p>
+      </div></details>
+      <details><summary>How do you use AI in your own engineering?</summary><div>
+        <p>Answer honestly: heavily, but inside structure. Models propose; typed contracts, tests and gates decide. That fits Braid's stance, and the careers page warns anyone who sees end-to-end deep learning as “the only legitimate tool.” Don't hide how much you rely on LLMs, and don't let Papercusp sound like a thin wrapper around them.</p>
+      </div></details>
+      <details><summary>Tell me about a hard call you made with incomplete information.</summary><div>
+        <p>Use a commerce-company story: the decision, what you knew and didn't know, what you did, how it turned out, and what you'd change. CEOs listen for judgment and for whether you own the result.</p>
+      </div></details>
+      <details><summary>How do you handle disagreement?</summary><div>
+        <p>Braid's line: “Social consensus without analytical grounding is actively discouraged.” Tell a short story where a measurement changed your mind, or where you changed someone else's mind with data rather than seniority.</p>
+      </div></details>
+      <details><summary>Why did you step away from the commerce company?</summary><div>
+        <p>Have a short, true answer ready. These notes don't record why. Keep it forward-looking: what you wanted to build next, and how Papercusp came out of that.</p>
+      </div></details>
+      <details><summary>Compensation, start date, family: the logistics</summary><div>
+        <p>Use your section 01 answers. Be direct. Braid says it wants transparency early, so being evasive costs more here than at most companies.</p>
+      </div></details>
+    </section>
+
+    <section id="crib">
+      <p class="eyebrow">07 · Enough to follow, not to bluff</p>
+      <h2>His territory</h2>
+      <p class="section-lead">If he goes into his own areas, know them well enough to ask a good follow-up. Don't present any of this as your expertise.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Learning dynamical systems from sparse data</h3>
+          <p>His PhD topic. A system's behavior follows equations (often differential equations) whose structure and parameters are unknown. You infer them from a few noisy measurements over time. Gene regulatory networks are the classic case: many genes, few time points. Useful words: system identification, parameter estimation, identifiability, priors. Braid's “no library of past designs” is the same stance: when data is scarce, use the structure you already know, which for Braid is physics.</p>
+        </div>
+        <div class="card">
+          <h3>What he taught (AI II, 2014–15)</h3>
+          <p>Bayesian networks and inference; hidden Markov models, filtering and smoothing, Viterbi; Markov decision processes, Q-learning, exploration vs. exploitation; maximum-likelihood vs. MAP estimates; Bayes-optimal classification. If uncertainty comes up, these are his terms.</p>
+        </div>
+        <div class="card">
+          <h3>Simulation first, then the real world</h3>
+          <p>Ascent trained driving models largely in simulation, with a small real test fleet. The well-known hard part is the sim-to-real gap: a model that looks great in simulation fails on conditions the simulator never captured. Braid's About page promises outputs “validated on real manufacturing lines — not just in simulation.” That's a thoughtful thread to pull if the conversation goes there.</p>
+        </div>
+        <div class="card">
+          <h3>Monozukuri and selling in Japan</h3>
+          <p><em>Monozukuri</em> means “making things”: the craft-and-quality ethic of Japanese manufacturing. Expect long evaluation cycles, pilots before commitments, and very high quality bars. Braid's line is “The technology is global; the standard is set in Japan.” Show respect and curiosity, and don't claim Japan expertise you don't have.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">08 · Your turn</p>
+      <h2>Questions to ask Ivo (pick three)</h2>
+      <div class="card">
+        <ol>
+          <li><strong>The launch:</strong> “At CDFAM you're launching AURA, starting with stamping. What changes when it goes from founder-led deployments to a product customers run, and where's the engineering bottleneck in that shift?”</li>
+          <li><strong>Trust:</strong> “Your CDFAM Q&amp;A says you want to learn how people come to trust a part no one designed feature by feature. What has actually earned trust with your automotive customers so far?”</li>
+          <li><strong>What comes next:</strong> “You've also applied AURA to injection molding and die casting. What decides the process after stamping, customer demand or how well the physics generalizes?”</li>
+          <li><strong>Integration:</strong> “Today the workflow is file-based. Is connecting to PLM or PDM on the roadmap, and would that sit with the software engineering team?”</li>
+          <li><strong>His research thread:</strong> “Your research was on learning dynamical systems from sparse data. Does each deployment make AURA better, or is it deliberately independent of past designs?”</li>
+          <li><strong>Team:</strong> “You led about 60 engineers at Ascent. What did that teach you that shaped how you're building Braid's team?”</li>
+          <li><strong>The bar:</strong> “A year from now, what would make hiring me clearly the right call?”</li>
+          <li><strong>Close:</strong> “What are the next steps from here, and is there anything you'd like me to go deeper on?”</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="plan">
+      <p class="eyebrow">09 · Timeboxing</p>
+      <h2>The 30-minute plan</h2>
+      <div class="steps">
+        <div class="step"><span class="when">0–2 min</span><div><h3>Warm open</h3><p>Thank him, mention that you enjoyed the conversation with Guido, and wish him luck with the launch at CDFAM.</p></div></div>
+        <div class="step"><span class="when">2–8 min</span><div><h3>Your story</h3><p>The CEO opener from section 05, then let him steer.</p></div></div>
+        <div class="step"><span class="when">8–18 min</span><div><h3>His questions</h3><p>Expect the founder question, Tokyo, and your first six months. Keep answers under two minutes.</p></div></div>
+        <div class="step"><span class="when">18–25 min</span><div><h3>Your questions</h3><p>Start with the launch bottleneck and the trust question.</p></div></div>
+        <div class="step"><span class="when">25–30 min</span><div><h3>Logistics and close</h3><p>Relocation timeline, compensation if he raises it, next steps, and one sentence on why you want this.</p></div></div>
+      </div>
+      <div class="note"><strong>Watch for mix-ups:</strong> data brokers confuse this company with an unrelated fintech also called “Braid Technologies, Inc.” There are also two LinkedIn profiles under his name; the one you were sent is <code>linkedin.com/in/ivotimoteo</code>. One search result credited him with moderating a SusHi Tech Tokyo 2026 panel, but event coverage names a different moderator, so don't mention it.</div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">10 · Sources</p>
+      <h2>Links</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Ivo</h3>
+          <ul>
+            <li><a href="https://www.linkedin.com/in/ivotimoteo/">LinkedIn</a> · <a href="https://ivotimoteo.com/">ivotimoteo.com</a> · <a href="https://dblp.org/pid/05/9592.html">dblp</a></li>
+            <li><a href="https://www.cl.cam.ac.uk/teaching/1415/ArtIntII/">Cambridge AI II, 2014–15</a> (lists him as principal lecturer)</li>
+            <li><a href="https://sushitech-global.metro.tokyo.lg.jp/en/startups/60">SusHi Tech Global profile</a> (his statement) · <a href="https://www.takeoff-tokyo.com/people/ivo-timoteo">Takeoff Tokyo 2026 speaker page</a></li>
+            <li><a href="https://www.welcome.ai/ascent-robotics/post/cto-ivo-timoteo-pitching-at-forbes-rising-star">Pitching at Forbes Rising Star as Ascent CTO</a> · <a href="https://www.cnbc.com/2018/08/17/playstation-creator-backs-self-driving-car-start-upascent-robotics.html">CNBC on Ascent Robotics (2018)</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Braid</h3>
+          <ul>
+            <li><a href="https://braid.tech/about/">About</a> (founders, board, advisors) · <a href="https://braid.tech/careers/">Careers</a> (qualities, compensation, in-person)</li>
+            <li><a href="https://cdfam.com/braid-technologies/">CDFAM Q&amp;A</a> (launch, customers, file-based workflow, trust) · <a href="https://cdfam.com/tokyo-2026/">CDFAM Tokyo 2026</a></li>
+            <li><a href="https://en.skydrive2020.com/archives/13652">SkyDrive collaboration press release</a> (Sep 2024)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Earlier prep</h3>
+          <ul>
+            <li><a href="braid-guido-cossu-founder-call-standalone.html">Braid · Guido Cossu</a>: AURA, the architecture bridge, the HN listing and what you emailed</li>
+            <li><a href="papercusp-answer-bank-standalone.html">Answer Bank</a>: Papercusp stories with verified numbers</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>Prepared 28 September 2026 from braid.tech (About, Careers), the CDFAM Q&amp;A and Tokyo 2026 program, the SusHi Tech Global profile, the SkyDrive release, Cambridge's 2014–15 AI II course page, and dblp. LinkedIn and ivotimoteo.com couldn't be read directly, so the Porto degree, Forbes Japan feature and cycling trip come from search-result summaries of them. Confirm anything you plan to mention. Likely questions are practice prompts, not a known question list.</footer>
+</div>
+</body>
+</html>
