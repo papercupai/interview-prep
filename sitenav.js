@@ -17,6 +17,10 @@
           "t": "Answer&nbsp;Bank"
       },
       {
+          "h": "ivo-staff-fullstack-live-coding",
+          "t": "Ivo&nbsp;·&nbsp;Roy&nbsp;·&nbsp;Live&nbsp;Coding&nbsp;Mon&nbsp;10/5"
+      },
+      {
           "h": "telescope-partners-mike-ihbe",
           "t": "Telescope&nbsp;·&nbsp;Mike&nbsp;·&nbsp;Today&nbsp;3:15"
       },

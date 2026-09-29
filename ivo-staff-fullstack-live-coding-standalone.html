@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Ivo Staff Full-Stack live coding with Roy Nehoran: what leaked (tic-tac-toe, currency-exchange graph, cyclic arbitrage), tested solutions, drills, and questions to ask.">
+<title>Ivo · Roy Nehoran live coding | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f6fa;
+    --surface: #fff;
+    --soft: #ebebf5;
+    --ink: #13131c;
+    --muted: #55566a;
+    --accent: #3d3fb0;
+    --warn: #9a4a07;
+    --warn-soft: #fbf0e3;
+    --rule: #dedfea;
+    --rule-strong: #c2c3d6;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e0e15;
+      --surface: #16161f;
+      --soft: #1f1f2c;
+      --ink: #e7e7f0;
+      --muted: #a6a7ba;
+      --accent: #a9abff;
+      --warn: #f2b877;
+      --warn-soft: #2a2116;
+      --rule: #2a2a3a;
+      --rule-strong: #41425a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .6rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  blockquote { margin: .6rem 0 0; padding: .2rem 0 .2rem 1rem; border-left: 3px solid var(--rule-strong); color: var(--muted); font-style: italic; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .step .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .8rem; margin-top: .6rem; }
+  .pair > div { padding: .7rem .8rem; background: var(--soft); border-radius: 3px; }
+  .pair .label { display: block; margin-bottom: .2rem; font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .pair { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    details { break-inside: avoid; }
+    details > div { display: block; }
+  }
+
+  pre { margin: .8rem 0 0; padding: .9rem 1rem; overflow-x: auto; background: var(--soft); border: 1px solid var(--rule); border-radius: 4px; font: .78rem/1.5 var(--mono); tab-size: 4; }
+  pre code { padding: 0; background: none; font: inherit; }
+  .conf { display: inline-block; margin-left: .4rem; padding: .05rem .4rem; border-radius: 2px; font: 600 .64rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; vertical-align: middle; }
+  .conf.high { background: #dff3e4; color: #1d5b2c; }
+  .conf.med { background: var(--warn-soft); color: var(--warn); }
+  .conf.low { background: var(--soft); color: var(--muted); }
+  @media (prefers-color-scheme: dark) { .conf.high { background: #16301d; color: #9be0ad; } }
+  .formula { margin: .7rem 0 0; padding: .7rem 1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; font: .9rem/1.7 var(--mono); overflow-x: auto; }
+  .card pre { background: var(--ground); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+<header class="hero">
+  <div>
+    <p class="eyebrow">Ivo · Staff Software Engineer, Fullstack · 60-minute live coding</p>
+    <h1>Ivo · Roy Nehoran · Live Coding</h1>
+    <p class="lead">One first-hand report of an Ivo engineering loop is online, and it names the problems: <strong>implement tic-tac-toe</strong> in the technical round, then a <strong>currency-exchange graph</strong> with arbitrage follow-ups at the onsite. This page covers both, with tested code, in the order you are most likely to need them.</p>
+  </div>
+  <aside class="hero-card" aria-label="Interview facts">
+    <p class="eyebrow">At a glance</p>
+    <dl>
+      <div><dt>When</dt><dd><strong>Mon 5 Oct 2026, 7:00 to 8:00 p.m. EDT</strong> (4:00 to 5:00 p.m. PT)</dd></div>
+      <div><dt>Format</dt><dd>“Live Coding Challenge, 60 mins” on Zoom. Expect to share your screen.</dd></div>
+      <div><dt>Join</dt><dd>The Zoom link and passcode are in the 28 Sep confirmation email from Cherlynne Serafino-King (Principal Technical Recruiter), in your Tsenta inbox. They are not copied here because this collection is published publicly.</dd></div>
+      <div><dt>Interviewer</dt><dd>Roy Nehoran, software engineer at Ivo. His LinkedIn describes him as a frontend engineer (React, Angular). Stanford.</dd></div>
+      <div><dt>Role</dt><dd>Staff Software Engineer, Fullstack · San Francisco, on-site five days a week · <strong>$287K to $485K</strong> base (Ashby posting)</dd></div>
+    </dl>
+  </aside>
+</header>
+
+<nav class="toc" aria-label="On this page">
+  <a href="#leak">What leaked</a>
+  <a href="#hour">The hour</a>
+  <a href="#ttt">Problem 1 · Tic-tac-toe</a>
+  <a href="#fx">Problem 2 · Currency graph</a>
+  <a href="#amounts">Custom amounts</a>
+  <a href="#arb">Cyclic arbitrage</a>
+  <a href="#drill">Drill it</a>
+  <a href="#roy">Who Roy is</a>
+  <a href="#ivo">Ivo in 90 seconds</a>
+  <a href="#ask">Questions to ask</a>
+  <a href="#setup">Setup</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<main id="main">
+
+<section id="leak">
+  <p class="eyebrow">Research · 28 Sep 2026</p>
+  <h2>One real report names the problems. The rest is noise.</h2>
+  <p class="section-lead">I searched Glassdoor, Blind, Reddit, LeetCode Discuss, Hacker News, Ivo's job board, and the interview-prep sites. Here is everything, ranked by how much to trust it.</p>
+  <div class="card">
+    <span class="tag">Glassdoor · March 2026 · engineering</span><span class="conf high">trust: high</span>
+    <blockquote>“Technical interview coding: implement tic-tac-toe. Onsite interview coding: parse json with cryptocurrency names and exchange rates, construct a graph between nodes, and perform shortest cost traversal to find most efficient path from one currency to next. Subsequent parts involve implementing support for custom amounts (function provided) and implementing an equation from a cyclic arbitrage paper.”</blockquote>
+    <p style="margin-top:.6rem">They came in through a recruiter and called the process “fast but scrappy”: “HR scheduled some rounds only to change up the structure of interviews later.” They reached the onsite and a call with the CEO, then got no offer “due to technical performance issues 2 rounds prior to the end.” So the early coding rounds count all the way through.</p>
+    <p>Glassdoor blocks automated reading, so I read this review through two separate search-engine excerpts. They match word for word.</p>
+  </div>
+  <div class="grid" style="margin-top:1rem">
+    <div class="card">
+      <span class="tag">Glassdoor · June 2026</span><span class="conf med">trust: medium</span>
+      <p>“Extremely slow and messy.” The questions “felt more like a personal coaching session than a structured evaluation.” The candidate reached the second-to-last round, was promised an answer within 48 hours, and got a generic rejection only after chasing it.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Glassdoor · July 2026 · senior loop</span><span class="conf med">trust: medium</span>
+      <p>About seven weeks: recruiter screen, hiring manager, a follow-up exercise, then a five-hour onsite with the CEO, peers and potential direct reports. They were rejected less than an hour before the final interview.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Non-engineering reports</span><span class="conf low">trust: low for you</span>
+      <p>A July 2026 review (probably a legal or customer-facing role) had a logic test (“literally just matching and understanding patterns”) and a mock platform walkthrough. A 2025 lawyer thread says Ivo “made me take an IQ test.” Ivo likes puzzle-style reasoning, but this is not your round.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Prep sites</span><span class="conf low">trust: ignore</span>
+      <p>Dataford, InterviewSense and Scoutify are generic. InterviewSense labels its Ivo “experiences” as made-up examples. Scoutify's Ivo page is written in pirate-speak. Blind, Reddit, LeetCode Discuss and HN have nothing on Ivo's interviews.</p>
+    </div>
+  </div>
+  <div class="note"><strong>Best guess:</strong> your 60-minute “Live Coding Challenge” is the round that reviewer called “technical interview coding: implement tic-tac-toe”: build a small working program live, then extend it while he adds requirements. But the same reviewer says Ivo kept reshuffling rounds, and you are interviewing at staff level, so the currency-graph problem could come first. Be ready for both. Nothing here confirms whether AI assistants are allowed. Ask at the start instead of assuming.</div>
+</section>
+
+<section id="hour">
+  <p class="eyebrow">The hour</p>
+  <h2>Working code by minute 25, then extensions</h2>
+  <p class="section-lead">Ivo's job post asks for “pragmatic choices and … 80/20 solutions” and “a bias towards doing things today.” In a live round that means something running early, said out loud, then built on. The follow-ups are the real test: whether your first version bends when he adds requirements.</p>
+  <div class="steps">
+    <div class="step"><span class="when">0–3 min</span><div><h3>Hello</h3><p>A 20-second intro. Save the stories for the end.</p></div></div>
+    <div class="step"><span class="when">3–8 min</span><div><h3>Clarify, out loud</h3><p>Language (Python or TypeScript, whichever is fastest for you). Console or UI? Board size fixed? For the currency problem: one-way or two-way rates, fees, what “most efficient” means. Then: “Is it fine to use my normal editor? Any AI tools allowed?”</p></div></div>
+    <div class="step"><span class="when">8–25 min</span><div><h3>Smallest correct version</h3><p>Name the data shape first, then write the core function with 3 or 4 quick asserts. Run it early. A running 3x3 game beats a clever unrun one.</p></div></div>
+    <div class="step"><span class="when">25–45 min</span><div><h3>Follow-ups</h3><p>N×N and K in a row, undo, a computer player, a UI. Or: arbitrage detection, custom amounts, the paper's equation. Each one should be a small change. If it isn't, say why and refactor on purpose.</p></div></div>
+    <div class="step"><span class="when">45–55 min</span><div><h3>Staff-level wrap</h3><p>Complexity, edge cases, what you would test, and what changes in production (multiplayer server, floating point, scale).</p></div></div>
+    <div class="step"><span class="when">55–60 min</span><div><h3>Your questions</h3><p>Two from <a href="#ask">the list below</a>.</p></div></div>
+  </div>
+</section>
+
+<section id="ttt">
+  <p class="eyebrow">Problem 1 · most likely</p>
+  <h2>Tic-tac-toe, built so every follow-up is a small change</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Design choices to say out loud</h3>
+      <ul>
+        <li><strong>Turn comes from the move count</strong>, and a move history makes undo free.</li>
+        <li><strong>Check only lines through the last move</strong>: four directions, count both ways, win if the count reaches K. That is O(K) per move, not an O(N²) board scan, and it already handles N×N with K in a row (Gomoku is 15×15, K=5).</li>
+        <li>Reject off-board moves, taken squares and moves after the game ends, with clear errors.</li>
+        <li>O(1) alternative when K = N: keep a counter for each row, column and diagonal (+1 for X, −1 for O) and win when one reaches ±N. That is LeetCode 348, “Design Tic-Tac-Toe”.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Follow-ups to expect, with answers</h3>
+      <ul>
+        <li><strong>Bigger board, K in a row:</strong> already done with <code>n</code> and <code>k</code>.</li>
+        <li><strong>Undo / replay:</strong> pop the history. In React, keep an array of immutable game states.</li>
+        <li><strong>A computer player:</strong> negamax plus memoization. 3×3 has only 5,478 legal positions, so it is instant. Bigger boards need alpha-beta pruning, a depth limit and a heuristic.</li>
+        <li><strong>A UI</strong> (Roy is a frontend engineer): the TypeScript and React version is below.</li>
+        <li><strong>Online multiplayer:</strong> the server owns the state and validates every move, pushes updates over WebSocket or SSE, and the client updates optimistically and reconciles. This connects to Ivo's “real-time, collaborative” frontend.</li>
+      </ul>
+    </div>
+  </div>
+  <pre><code class="language-python">class TicTacToe:
+    &quot;&quot;&quot;N x N board, K in a row wins (defaults 3 and 3). Checks only lines through the last move.&quot;&quot;&quot;
+
+    def __init__(self, n: int = 3, k: int | None = None, players: str = &quot;XO&quot;):
+        self.n, self.k = n, k or n
+        if not 1 &lt;= self.k &lt;= n:
+            raise ValueError(&quot;k must be between 1 and n&quot;)
+        self.players = players
+        self.board: list[list[str | None]] = [[None] * n for _ in range(n)]
+        self.history: list[tuple[int, int]] = []
+        self.winner: str | None = None
+
+    @property
+    def turn(self) -&gt; str:
+        return self.players[len(self.history) % len(self.players)]
+
+    @property
+    def is_over(self) -&gt; bool:
+        return self.winner is not None or len(self.history) == self.n * self.n
+
+    def move(self, row: int, col: int) -&gt; str | None:
+        &quot;&quot;&quot;Place the current player&#x27;s mark. Returns the winner, or None.&quot;&quot;&quot;
+        if self.is_over:
+            raise ValueError(&quot;game is over&quot;)
+        if not (0 &lt;= row &lt; self.n and 0 &lt;= col &lt; self.n):
+            raise ValueError(&quot;off the board&quot;)
+        if self.board[row][col] is not None:
+            raise ValueError(&quot;square taken&quot;)
+        mark = self.turn
+        self.board[row][col] = mark
+        self.history.append((row, col))
+        if self._wins(row, col, mark):
+            self.winner = mark
+        return self.winner
+
+    def undo(self) -&gt; None:
+        row, col = self.history.pop()
+        self.board[row][col] = None
+        self.winner = None  # the game was still open before the move that ended it
+
+    def empty_squares(self) -&gt; list[tuple[int, int]]:
+        return [(r, c) for r in range(self.n) for c in range(self.n) if self.board[r][c] is None]
+
+    def _wins(self, row: int, col: int, mark: str) -&gt; bool:
+        # Only the 4 lines through the last move can have just become winning: O(K), not O(N^2).
+        for dr, dc in ((0, 1), (1, 0), (1, 1), (1, -1)):
+            count = 1
+            for sign in (1, -1):
+                r, c = row + sign * dr, col + sign * dc
+                while 0 &lt;= r &lt; self.n and 0 &lt;= c &lt; self.n and self.board[r][c] == mark:
+                    count += 1
+                    r, c = r + sign * dr, c + sign * dc
+            if count &gt;= self.k:
+                return True
+        return False
+
+    def __str__(self) -&gt; str:
+        return &quot;\n&quot;.join(&quot; &quot;.join(cell or &quot;.&quot; for cell in row) for row in self.board)</code></pre>
+  <details>
+    <summary>Computer player: negamax with memoization (Python)</summary>
+    <div><pre><code class="language-python">def best_move(game: TicTacToe) -&gt; tuple[int, int]:
+    &quot;&quot;&quot;Perfect play for the side to move (negamax + memo on the board; 3x3 is instant).&quot;&quot;&quot;
+    memo: dict[tuple, int] = {}
+
+    def value() -&gt; int:  # +1 win, 0 draw, -1 loss, for the player about to move
+        if game.winner is not None:
+            return -1  # the player who just moved won
+        if game.is_over:
+            return 0
+        key = tuple(map(tuple, game.board))
+        if key not in memo:
+            best = -1
+            for r, c in game.empty_squares():
+                game.move(r, c)
+                best = max(best, -value())
+                game.undo()
+                if best == 1:
+                    break
+            memo[key] = best
+        return memo[key]
+
+    scored = []
+    for r, c in game.empty_squares():
+        game.move(r, c)
+        scored.append((-value(), (r, c)))
+        game.undo()
+    return max(scored)[1]</code></pre></div>
+  </details>
+  <details>
+    <summary>TypeScript game logic (immutable, React-friendly)</summary>
+    <div><pre><code class="language-typescript">// Ivo live coding — tic-tac-toe game logic in TypeScript (immutable, so React state is trivial).
+// Test: node --test ivo-tictactoe.test.ts   (Node 23+ runs .ts files directly)
+
+export type Player = &quot;X&quot; | &quot;O&quot;;
+export type Cell = Player | null;
+
+export interface Game {
+  readonly n: number;
+  readonly k: number;
+  readonly board: readonly Cell[]; // row-major, length n * n
+  readonly next: Player;
+  readonly winner: Player | null;
+  readonly moves: number;
+}
+
+export function newGame(n = 3, k = n): Game {
+  if (k &lt; 1 || k &gt; n) throw new Error(&quot;k must be between 1 and n&quot;);
+  return { n, k, board: Array&lt;Cell&gt;(n * n).fill(null), next: &quot;X&quot;, winner: null, moves: 0 };
+}
+
+export const isOver = (g: Game): boolean =&gt; g.winner !== null || g.moves === g.n * g.n;
+
+export function play(g: Game, row: number, col: number): Game {
+  if (isOver(g)) throw new Error(&quot;game is over&quot;);
+  if (row &lt; 0 || row &gt;= g.n || col &lt; 0 || col &gt;= g.n) throw new Error(&quot;off the board&quot;);
+  const i = row * g.n + col;
+  if (g.board[i] !== null) throw new Error(&quot;square taken&quot;);
+  const board = g.board.slice();
+  board[i] = g.next;
+  const winner = wins(board, g.n, g.k, row, col) ? g.next : null;
+  return { ...g, board, winner, moves: g.moves + 1, next: g.next === &quot;X&quot; ? &quot;O&quot; : &quot;X&quot; };
+}
+
+// Only the 4 lines through the last move can have just become winning.
+function wins(board: readonly Cell[], n: number, k: number, row: number, col: number): boolean {
+  const mark = board[row * n + col];
+  const directions: Array&lt;[number, number]&gt; = [[0, 1], [1, 0], [1, 1], [1, -1]];
+  for (const [dr, dc] of directions) {
+    let count = 1;
+    for (const s of [1, -1]) {
+      let r = row + s * dr;
+      let c = col + s * dc;
+      while (r &gt;= 0 &amp;&amp; r &lt; n &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; n &amp;&amp; board[r * n + c] === mark) {
+        count++;
+        r += s * dr;
+        c += s * dc;
+      }
+    }
+    if (count &gt;= k) return true;
+  }
+  return false;
+}</code></pre></div>
+  </details>
+  <details>
+    <summary>React board with undo (typechecks with TypeScript strict)</summary>
+    <div><pre><code class="language-tsx">// Ivo live coding — the React board on top of ivo-tictactoe.ts. History array = free undo.
+import { useState } from &quot;react&quot;;
+import { newGame, play, isOver, type Game } from &quot;./ivo-tictactoe.ts&quot;;
+
+export function TicTacToeBoard({ n = 3, k = n }: { n?: number; k?: number }) {
+  const [history, setHistory] = useState&lt;Game[]&gt;(() =&gt; [newGame(n, k)]);
+  const game = history[history.length - 1];
+  const over = isOver(game);
+
+  const status = game.winner ? `${game.winner} wins` : over ? &quot;Draw&quot; : `${game.next} to move`;
+
+  return (
+    &lt;div&gt;
+      &lt;p role=&quot;status&quot;&gt;{status}&lt;/p&gt;
+      &lt;div
+        aria-label=&quot;Board&quot;
+        style={{ display: &quot;grid&quot;, gridTemplateColumns: `repeat(${n}, 3rem)`, gap: 4 }}
+      &gt;
+        {game.board.map((cell, i) =&gt; (
+          &lt;button
+            key={i}
+            aria-label={`Row ${Math.floor(i / n) + 1}, column ${(i % n) + 1}`}
+            style={{ width: &quot;3rem&quot;, height: &quot;3rem&quot;, fontSize: &quot;1.5rem&quot; }}
+            disabled={cell !== null || over}
+            onClick={() =&gt; setHistory([...history, play(game, Math.floor(i / n), i % n)])}
+          &gt;
+            {cell}
+          &lt;/button&gt;
+        ))}
+      &lt;/div&gt;
+      &lt;button disabled={history.length === 1} onClick={() =&gt; setHistory(history.slice(0, -1))}&gt;
+        Undo
+      &lt;/button&gt;
+      &lt;button onClick={() =&gt; setHistory([newGame(n, k)])}&gt;New game&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+  </details>
+</section>
+
+<section id="fx">
+  <p class="eyebrow">Problem 2 · the onsite problem in that report</p>
+  <h2>Currency graph: best rate means the largest product, so switch to −log</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Ask these first</h3>
+      <ul>
+        <li>What does the JSON look like? Normalize it once, at the edge. The parser below accepts the three likely shapes.</li>
+        <li>Are rates one-way, or does A→B imply B→A = 1/rate?</li>
+        <li>“Most efficient” means best rate (largest product), fewest hops (BFS), or lowest fee (Dijkstra, if fees are non-negative)?</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>The core idea</h3>
+      <ul>
+        <li>Largest product of rates = smallest sum of <code>−log(rate)</code>. The weights can be negative, so use <strong>Bellman-Ford</strong>, not Dijkstra. Cost is O(V·E).</li>
+        <li>A negative cycle means an <strong>arbitrage</strong> loop, so “best rate” is unbounded. Detect it and return the cycle instead of looping forever.</li>
+        <li>Floating point: use a small tolerance so exact inverse pairs don't look like free money.</li>
+        <li>For all pairs: Floyd-Warshall, O(V³).</li>
+      </ul>
+    </div>
+  </div>
+  <pre><code class="language-python">Graph = dict[str, dict[str, float]]  # graph[a][b] = units of b you get for 1 unit of a
+
+
+def parse_rates(text: str, add_inverse: bool = False) -&gt; Graph:
+    &quot;&quot;&quot;Accepts [{&quot;from&quot;,&quot;to&quot;,&quot;rate&quot;}...], {&quot;rates&quot;: [...]}, or {&quot;BTC&quot;: {&quot;USD&quot;: 64000}}.&quot;&quot;&quot;
+    data = json.loads(text)
+    if isinstance(data, dict) and &quot;rates&quot; in data:
+        data = data[&quot;rates&quot;]
+    if isinstance(data, list):
+        edges = [(e[&quot;from&quot;], e[&quot;to&quot;], float(e[&quot;rate&quot;])) for e in data]
+    elif isinstance(data, dict):
+        edges = [(a, b, float(rate)) for a, row in data.items() for b, rate in row.items()]
+    else:
+        raise ValueError(&quot;unrecognized rates JSON&quot;)
+    graph: Graph = {}
+    for a, b, rate in edges:
+        if rate &lt;= 0:
+            raise ValueError(f&quot;bad rate {a}-&gt;{b}: {rate}&quot;)
+        graph.setdefault(a, {})[b] = rate
+        graph.setdefault(b, {})
+        if add_inverse:  # only if the interviewer says conversions are two-way
+            graph[b].setdefault(a, 1 / rate)
+    return graph
+
+
+def best_rate(graph: Graph, src: str, dst: str) -&gt; tuple[float, list[str]]:
+    &quot;&quot;&quot;Max-product path. Products -&gt; sums with w = -log(rate); weights can be negative,
+    so Bellman-Ford, not Dijkstra. A further improvement after V-1 rounds = arbitrage.&quot;&quot;&quot;
+    dist = {v: math.inf for v in graph}
+    prev: dict[str, str] = {}
+    dist[src] = 0.0
+    for _ in range(len(graph) - 1):
+        changed = False
+        for a, row in graph.items():
+            if dist[a] == math.inf:
+                continue
+            for b, rate in row.items():
+                if dist[a] - math.log(rate) &lt; dist[b] - 1e-12:
+                    dist[b], prev[b] = dist[a] - math.log(rate), a
+                    changed = True
+        if not changed:
+            break
+    for a, row in graph.items():
+        for b, rate in row.items():
+            if dist[a] != math.inf and dist[a] - math.log(rate) &lt; dist[b] - 1e-12:
+                raise ValueError(&quot;arbitrage cycle reachable: best rate is unbounded&quot;)
+    if dist.get(dst, math.inf) == math.inf:
+        raise ValueError(f&quot;no route {src} -&gt; {dst}&quot;)
+    path = [dst]
+    while path[-1] != src:
+        path.append(prev[path[-1]])
+    return math.exp(-dist[dst]), path[::-1]
+
+
+def find_arbitrage(graph: Graph) -&gt; list[str] | None:
+    &quot;&quot;&quot;A cycle whose rate product is &gt; 1, e.g. [&#x27;USD&#x27;, &#x27;EUR&#x27;, &#x27;GBP&#x27;, &#x27;USD&#x27;], or None.&quot;&quot;&quot;
+    dist = {v: 0.0 for v in graph}  # as if a virtual source reached every node for free
+    prev: dict[str, str] = {}
+    last = None
+    for _ in range(len(graph)):
+        last = None
+        for a, row in graph.items():
+            for b, rate in row.items():
+                if dist[a] - math.log(rate) &lt; dist[b] - 1e-12:
+                    dist[b], prev[b] = dist[a] - math.log(rate), a
+                    last = b
+        if last is None:
+            return None
+    v = last  # relaxed in round V: on a negative cycle, or downstream of one
+    for _ in range(len(graph)):
+        v = prev[v]  # walking back V steps is guaranteed to land inside the cycle
+    cycle, u = [v], prev[v]
+    while u != v:
+        cycle.append(u)
+        u = prev[u]
+    cycle.append(v)
+    return cycle[::-1]</code></pre>
+</section>
+
+<section id="amounts">
+  <p class="eyebrow">Follow-up · “custom amounts (function provided)”</p>
+  <h2>When the rate depends on the size of the trade, the best route does too</h2>
+  <p class="section-lead">The report doesn't show the provided function. The likeliest version returns how much you get for a given amount, with fees or slippage. Then a fixed −log weight is wrong: in the tests, 0.01 BTC goes best direct to USD, and 10 BTC goes best through SOL. The fix is a dynamic program over hop count that keeps the best amount at each currency. It is exact as long as the function is increasing (more in means more out), because then only the largest amount held at each node matters.</p>
+  <pre><code class="language-python">Convert = Callable[[str, str, float], float]  # &quot;provided&quot;: how much `to` you get for `amount` of `frm`
+
+
+def best_amount(graph: Graph, convert: Convert, src: str, dst: str, amount: float,
+                max_hops: int | None = None) -&gt; tuple[float, list[str]]:
+    &quot;&quot;&quot;Most `dst` obtainable when conversion is non-linear (fees, slippage).
+
+    The best ROUTE now depends on the AMOUNT, so a static -log weight no longer works.
+    Because convert() is increasing in amount, holding more of X is never worse, so only
+    the best amount per node per hop count matters: a Bellman-Ford-style DP over hops.&quot;&quot;&quot;
+    hops = len(graph) - 1 if max_hops is None else max_hops
+    best: dict[str, tuple[float, list[str]]] = {src: (amount, [src])}
+    frontier = dict(best)
+    for _ in range(hops):
+        reached: dict[str, tuple[float, list[str]]] = {}
+        for a, (held, path) in frontier.items():
+            for b in graph[a]:
+                out = convert(a, b, held)
+                if out &gt; reached.get(b, (-math.inf, []))[0]:
+                    reached[b] = (out, path + [b])
+        for b, (held, path) in reached.items():
+            if held &gt; best.get(b, (-math.inf, []))[0]:
+                best[b] = (held, path)
+        frontier = reached
+        if not frontier:
+            break
+    if dst not in best:
+        raise ValueError(f&quot;no route {src} -&gt; {dst}&quot;)
+    return best[dst]</code></pre>
+  <div class="note"><strong>Say the limit:</strong> if the function is not increasing (minimum sizes, fee tiers), keep more than one amount per node or enumerate simple paths on small graphs. A staff-level extension is splitting one trade across several routes, as DEX aggregators do.</div>
+</section>
+
+<section id="arb">
+  <p class="eyebrow">Follow-up · “an equation from a cyclic arbitrage paper”</p>
+  <h2>The likely paper: two pools behave like one, so a whole cycle has a closed form</h2>
+  <p class="section-lead">The reviewer didn't name the paper. The best-known one with that title and topic is Wang, Chen, Wu, Zhou, Deng and Wattenhofer, <a href="https://arxiv.org/abs/2105.02784">“Cyclic Arbitrage in Decentralized Exchanges”</a> (WWW '22), and its central equation fits the description. If they give you the paper, first map their symbols onto these.</p>
+  <div class="formula">
+    pool output (fee factor r = 0.997):   out = r·a·y / (x + r·a)<br>
+    compose A→B (a, b₁) then B→C (b₂, c):   E₀ = a·b₂ / (b₂ + r·b₁),   E₁ = r·b₁·c / (b₂ + r·b₁)<br>
+    fold the whole cycle into (E₀, E₁).  Profitable iff  r·E₁ &gt; E₀<br>
+    best input:   x* = (√(r·E₀·E₁) − E₀) / r        (set d/dx [out(x) − x] = 0)
+  </div>
+  <pre><code class="language-python"># Constant-product pools (Uniswap v2 style, x * y = k). Most likely source of the &quot;cyclic
+# arbitrage paper&quot;: Wang, Chen, Wu, Zhou, Deng, Wattenhofer, &quot;Cyclic Arbitrage in
+# Decentralized Exchanges&quot; (WWW &#x27;22, arXiv:2105.02784). Map their symbols onto these.
+R = 0.997  # fraction of the input that trades: 1 - 0.3% fee
+
+
+def amount_out(amount_in: float, reserve_in: float, reserve_out: float, r: float = R) -&gt; float:
+    &quot;&quot;&quot;x * y = k with a fee on the input: out = r*a*y / (x + r*a).&quot;&quot;&quot;
+    return r * amount_in * reserve_out / (reserve_in + r * amount_in)
+
+
+def compose(pool1: tuple[float, float], pool2: tuple[float, float],
+            r: float = R) -&gt; tuple[float, float]:
+    &quot;&quot;&quot;Hop A-&gt;B (reserves a, b1) then B-&gt;C (b2, c) acts like ONE virtual pool A-&gt;C (E0, E1).&quot;&quot;&quot;
+    a, b1 = pool1
+    b2, c = pool2
+    d = b2 + r * b1
+    return a * b2 / d, r * b1 * c / d
+
+
+def optimal_cycle_input(pools: list[tuple[float, float]], r: float = R) -&gt; tuple[float, float]:
+    &quot;&quot;&quot;Pools along a cycle A -&gt; ... -&gt; A, each (reserve_in, reserve_out).
+    Returns (profit-maximizing input, profit). Profitable iff r * E1 &gt; E0.&quot;&quot;&quot;
+    e0, e1 = pools[0]
+    for pool in pools[1:]:
+        e0, e1 = compose((e0, e1), pool, r)
+    if r * e1 &lt;= e0:
+        return 0.0, 0.0
+    # d/dx [r*x*E1/(E0 + r*x) - x] = 0  -&gt;  (E0 + r*x)^2 = r*E0*E1
+    x = (math.sqrt(r * e0 * e1) - e0) / r
+    return x, amount_out(x, e0, e1, r) - x</code></pre>
+  <p style="margin-top:.8rem">How to work it live: implement the formula exactly as written, then check it against a brute-force scan of inputs. The test file does exactly that, and it also checks that the composed pool matches running the pools one after another.</p>
+</section>
+
+<section id="drill">
+  <p class="eyebrow">Practice</p>
+  <h2>Drill it the way the round will run</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Python</h3>
+      <p><a href="ivo-live-coding-practice.py">ivo-live-coding-practice.py</a> has empty stubs. Fill them in, then run <code>python3 ivo-live-coding-practice.py</code>. It runs the same 8 tests as the solutions and prints PASS, FAIL or TODO for each.</p>
+      <p>Answers: <a href="ivo-live-coding-solutions.py">ivo-live-coding-solutions.py</a> (all 8 pass).</p>
+    </div>
+    <div class="card">
+      <h3>TypeScript and React</h3>
+      <p><a href="ivo-tictactoe.ts">ivo-tictactoe.ts</a> with <a href="ivo-tictactoe.test.ts">ivo-tictactoe.test.ts</a>: run <code>node --test ivo-tictactoe.test.ts</code> (Node 23 and later run .ts directly). The React board is <a href="ivo-tictactoe-board.tsx">ivo-tictactoe-board.tsx</a>.</p>
+    </div>
+    <div class="card">
+      <h3>Timed plan</h3>
+      <ol>
+        <li>Tic-tac-toe from a blank file in 20 minutes, talking out loud.</li>
+        <li>Add K in a row plus undo: 10 minutes.</li>
+        <li>Currency best rate with Bellman-Ford: 20 minutes. Then arbitrage: 10.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="roy">
+  <p class="eyebrow">Interviewer</p>
+  <h2>Roy is a frontend engineer, so readable state and a working UI will land</h2>
+  <ul>
+    <li>Software engineer at Ivo, in San Francisco. His LinkedIn describes him as a frontend engineer with React and Angular experience.</li>
+    <li>Stanford, where he started in 2017 intending to study computer science.</li>
+    <li>His public GitHub (<code>rnehoran</code>) has only older student projects in Java, Go and Python. Nothing about Ivo's stack.</li>
+    <li>What to do with this: keep game state and rendering apart, name things clearly, and if the round is tic-tac-toe, offer the React board once the logic works (“Want me to put a UI on this?”).</li>
+  </ul>
+</section>
+
+<section id="ivo">
+  <p class="eyebrow">Company</p>
+  <h2>Ivo in 90 seconds</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>What they build</h3>
+      <p>AI contract review and contract intelligence for in-house legal teams. Customers include Meta, Uber, IBM, Intel, DoorDash, Coinbase and Reddit. The job post lists what they did first: an AI agent inside MS Word that edits the document (2023), agentic RAG instead of embeddings (2023), LLM legal fact extraction (2024), clustering contract families (2025), deviation analysis, and “composite” contracts merged with their amendments (2025). Newest product: <strong>Ivo Collaborate</strong>, a pre-signature workspace covering intake, approval, negotiation and signature.</p>
+    </div>
+    <div class="card">
+      <h3>Company facts</h3>
+      <p>Founded in New Zealand in 2021 (first called Accord, then Latch). CEO Min-Kyu Jung is a former corporate lawyer. CTO and co-founder Jacob Duligall is ex-Xero. Raised a $55M Series B in January 2026, led by Blackbird, with just over 60 people at the time and plans to triple. Values: Excellence, Keep it lean, Courage, Impatience (“speed, intensity, and bias towards action”). Five days a week in the office.</p>
+    </div>
+    <div class="card">
+      <h3>Stack clues</h3>
+      <p>A 2025 Ivo posting listed React, Redux and Chakra UI, plus OpenAI, PyTorch, Firebase and Azure. The Word agent implies an Office.js add-in. The infrastructure posting mentions Kubernetes across AWS, GCP and Azure, with an isolated environment for each customer. The current full-stack posting names no languages.</p>
+    </div>
+  </div>
+  <div class="note"><strong>Your bridge, in one line each</strong> (full stories are in the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>): Papercusp orchestrates LLM agents over shared state, like Ivo's extraction and agent pipelines. It syncs live state to a React desktop client, like a collaborative editor. And it is built to ship fast, which is the Impatience value.</div>
+</section>
+
+<section id="ask">
+  <p class="eyebrow">Your questions</p>
+  <h2>Questions for Roy (pick two)</h2>
+  <ol>
+    <li>How is the Word agent built? Office.js with React in a task pane? And how do you apply long-running agent edits to a document the lawyer is still typing in?</li>
+    <li>For Collaborate, what does “real-time collaborative” mean in practice: CRDTs or OT, or locking and presence?</li>
+    <li>How do agent results reach the UI: streaming, tool-call progress, or a redline diff the lawyer accepts?</li>
+    <li>How do you measure extraction accuracy? Do the legal engineers own the evaluation sets?</li>
+    <li>What would a staff full-stack engineer own in the first 90 days?</li>
+    <li>What is the hardest frontend performance problem: very large contracts, or large repository views?</li>
+  </ol>
+</section>
+
+<section id="setup">
+  <p class="eyebrow">Monday 7 p.m. ET</p>
+  <h2>Setup checklist</h2>
+  <ul>
+    <li>Open the Zoom link from Cherlynne's email and test screen sharing ahead of time. Join 5 minutes early.</li>
+    <li>Have a Python scratch file and a ready-made React + TypeScript project open (for example, from <code>npm create vite@latest</code> with the react-ts template), so a UI request costs no setup time.</li>
+    <li>Make the editor font large, turn off notifications, and have one command to run tests.</li>
+    <li>Keep AI assistants off unless he says they are allowed.</li>
+  </ul>
+</section>
+
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where this came from</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="tag">Interview reports</span>
+      <ul>
+        <li><a href="https://www.glassdoor.com/Interview/Ivo-Interview-Questions-E10623089.htm">Glassdoor: Ivo interview reviews</a> (the March, June and July 2026 reviews)</li>
+        <li><a href="https://www.fishbowlapp.com/post/ivo-ai-start-up-they-legit-made-me-take-an-iq-test-for-my-application-thoughts-on-folks-that-have-interviewed-with-them">Fishbowl / Glassdoor community: “IQ test” thread</a> (legal role)</li>
+        <li>Generic, low trust: <a href="https://dataford.io/interview-guides/ivo/software-engineer">Dataford</a> · <a href="https://www.interviewsense.org/opportunities/ivo-software-engineering-intern-sf/">InterviewSense</a> · <a href="https://scoutify.com/companies/ivo/interview/">Scoutify</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Role and company</span>
+      <ul>
+        <li><a href="https://jobs.ashbyhq.com/ivo-inc/dbd2c216-a206-42db-93dd-422323935b4e">Ashby: Staff Software Engineer, Fullstack</a> ($287K to $485K)</li>
+        <li><a href="https://www.ivo.ai/careers">ivo.ai/careers</a> (values, five days in office)</li>
+        <li><a href="https://freehire.me/jobs/senior-software-engineer-algorithm-heavy-ivo-novatalent-f2khgman">2025 Ivo posting with its stack</a></li>
+        <li><a href="https://www.forbes.com/sites/charliefink/2026/01/20/ivo-lands-55-million-series-b-to-scale-ai-contract-intelligence-for-in-house-legal-teams/">Forbes: $55M Series B</a> · <a href="https://www.artificiallawyer.com/2026/01/20/ivo-raises-55m-for-contract-ai-5xs-arr/">Artificial Lawyer</a></li>
+        <li><a href="https://www.crunchbase.com/person/jacob-duligall">Jacob Duligall (CTO)</a> · <a href="https://www.lawfuel.com/the-new-zealand-lawyers-rag-to-riches-legal-app/">LawFuel: Accord → Latch → Ivo</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Roy and the paper</span>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/rnehoran/">Roy Nehoran on LinkedIn</a> · <a href="https://github.com/rnehoran">GitHub rnehoran</a></li>
+        <li><a href="https://arxiv.org/abs/2105.02784">Wang et al., “Cyclic Arbitrage in Decentralized Exchanges”</a> (the likely paper; my inference)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+<footer>Prepared 28 September 2026 from the interview confirmation email, the job description you shared, Ivo's Ashby job board, and the public reports listed above. The code blocks come straight from the tested files in the Drill section.</footer>
+
+</div>
+</body>
+</html>
