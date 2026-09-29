@@ -17,16 +17,24 @@
           "t": "Answer&nbsp;Bank"
       },
       {
+          "h": "taktile-team-agent-intro",
+          "t": "Taktile&nbsp;·&nbsp;Eva&nbsp;·&nbsp;Tue&nbsp;12:00"
+      },
+      {
+          "h": "acadian-brandon-sneider-hm",
+          "t": "Acadian&nbsp;·&nbsp;Brandon&nbsp;(HM)&nbsp;·&nbsp;Tue&nbsp;2:30"
+      },
+      {
+          "h": "vinci-fullstack-mts-intro",
+          "t": "Vinci&nbsp;·&nbsp;Balaji&nbsp;·&nbsp;Tue&nbsp;5:00"
+      },
+      {
           "h": "ivo-staff-fullstack-live-coding",
           "t": "Ivo&nbsp;·&nbsp;Roy&nbsp;·&nbsp;Live&nbsp;Coding&nbsp;Mon&nbsp;10/5"
       },
       {
           "h": "telescope-partners-mike-ihbe",
-          "t": "Telescope&nbsp;·&nbsp;Mike&nbsp;·&nbsp;Today&nbsp;3:15"
-      },
-      {
-          "h": "acadian-brandon-sneider-hm",
-          "t": "Acadian&nbsp;·&nbsp;Brandon&nbsp;(HM)&nbsp;·&nbsp;Tue&nbsp;2:30"
+          "t": "Telescope&nbsp;·&nbsp;Mike&nbsp;·&nbsp;Mon&nbsp;9/28"
       },
       {
           "h": "braid-ivo-timoteo-ceo-call",

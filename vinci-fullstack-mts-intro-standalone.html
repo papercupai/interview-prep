@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Vinci (Vinci4D) intro call with Balaji Cherukuri, Founding Software Engineer, for Member of Technical Staff, Full-Stack Software Engineer: the company, the role, your fit, the technical topics a founding engineer may probe, and questions to ask.">
+<title>Vinci · Balaji Cherukuri (intro) · MTS Full-Stack | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f6fa;
+    --surface: #fff;
+    --soft: #ebebf5;
+    --ink: #13131c;
+    --muted: #55566a;
+    --accent: #3d3fb0;
+    --warn: #9a4a07;
+    --warn-soft: #fbf0e3;
+    --rule: #dedfea;
+    --rule-strong: #c2c3d6;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e0e15;
+      --surface: #16161f;
+      --soft: #1f1f2c;
+      --ink: #e7e7f0;
+      --muted: #a6a7ba;
+      --accent: #a9abff;
+      --warn: #f2b877;
+      --warn-soft: #2a2116;
+      --rule: #2a2a3a;
+      --rule-strong: #41425a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .6rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  blockquote { margin: .6rem 0 0; padding: .2rem 0 .2rem 1rem; border-left: 3px solid var(--rule-strong); color: var(--muted); font-style: italic; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .step .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .8rem; margin-top: .6rem; }
+  .pair > div { padding: .7rem .8rem; background: var(--soft); border-radius: 3px; }
+  .pair .label { display: block; margin-bottom: .2rem; font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .pair { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    details { break-inside: avoid; }
+    details > div { display: block; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Vinci (Vinci4D) · Palo Alto · Intro call with a founding engineer</p>
+      <h1>Vinci · Balaji Cherukuri</h1>
+      <p class="lead">Vinci sells a physics foundation model with GPU-native solvers. It runs chip and electronics thermal and warpage simulation in seconds instead of hours, with no meshing. The job is the layer customers actually touch: Python/gRPC services around C++ engines, the job orchestration that runs thousands of simulations, and the React app. Your interviewer is an engineer, not a recruiter, so expect real technical follow-ups. Your strongest material is job orchestration, retries, idempotency and concurrency. Your honest gap is C++ and gRPC.</p>
+    </div>
+    <aside class="hero-card" aria-label="Call facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>When</dt><dd><strong>Tue 29 Sep 2026, 5:00–5:30 p.m. ET</strong> (2:00 p.m. Pacific)</dd></div>
+        <div><dt>Where</dt><dd>Zoom. The link and passcode are in the Ashby calendar invite of 25 Sep.</dd></div>
+        <div><dt>Interviewer</dt><dd><a href="https://www.linkedin.com/in/balusoft/">Balaji Cherukuri</a>, Founding Software Engineer. He also wrote the scheduling email himself.</dd></div>
+        <div><dt>Role</dt><dd>Member of Technical Staff, Full-Stack Software Engineer · “remote-friendly” · salary, equity and benefits; pay depends on experience and location (no number posted)</dd></div>
+        <div><dt>NDA</dt><dd>Balaji said to look out for a candidate NDA to sign <em>before</em> the interview. As of 3:30 a.m. Tuesday it isn't in your Gmail. Check your Tsenta inbox, and if it never arrived, tell him at the start of the call.</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#decide">Decide first</a>
+    <a href="#company">Vinci in a minute</a>
+    <a href="#balaji">Who Balaji is</a>
+    <a href="#role">The role</a>
+    <a href="#fit">Your fit</a>
+    <a href="#tech">Technical probes</a>
+    <a href="#pitch">Your pitch</a>
+    <a href="#ask">Questions to ask</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="decide">
+      <p class="eyebrow">01 · Before you dial</p>
+      <h2>Three things to have ready</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Location · this one's easy</span>
+          <h3>You'll be in the Bay Area</h3>
+          <p>Vinci is at 316 High Street, Palo Alto, Balaji is in San Mateo, and the posting says “remote-friendly.” If you're still moving to San Francisco in October, lead with it: you could be in the office when it helps. Of today's three companies, this one has no location problem.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Honest gap</span>
+          <h3>C++, pybind11 and gRPC</h3>
+          <p>Papercusp is TypeScript over Postgres. Don't claim C++ you haven't shipped. Say what you've done, then show you understand the hard part: <em>concurrency across the Python/C++ boundary</em> (GIL, threads, cancellation, memory ownership). The posting lists pybind11 as a <em>bonus</em>, not a requirement. The required items are Python services, gRPC, Postgres, React and concurrency.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Why hardware</span>
+          <h3>Have one true sentence</h3>
+          <p>This is the one company today that isn't “agents for X.” Why physics simulation? Draft: “The problem I keep choosing is making a fleet of expensive, long-running jobs reliable: retries, idempotency, backpressure, knowing whether a worker is dead or just slow. Your jobs are GPU simulations instead of LLM calls, but the orchestration is the same, and the stakes are real hardware.”</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="company">
+      <p class="eyebrow">02 · The company</p>
+      <h2>Vinci in a minute</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Product</span>
+          <h3>Solver-accurate physics, in seconds, with no meshing</h3>
+          <p><strong>Vinci-Thermal</strong> covers thermal analysis for chip packages, stacked dies and boards. <strong>Thermo-mechanical / warpage</strong> shipped in Feb 2026 as “deterministic, solver-accurate warpage analysis.” It reads layout files directly (OASIS, GDS, IPC-2581). No customer data is used for training, so there's no IP risk.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Numbers they publish</span>
+          <h3>360× on one benchmark; 9,101 runs in 26 hours</h3>
+          <p>One benchmark at 117M degrees of freedom: 20 seconds against 2 hours for a commercial FEA solver, with max temperature within about 1 °C. An EPTC 2025 study ran 9,101 simulations of about 218M elements each in 26 hours (about 10 s each), with under 2% deviation. They say more than half of the top 20 semiconductor companies have benchmarked it.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Money &amp; people</span>
+          <h3>$46M raised; out of stealth Dec 2025</h3>
+          <p>A $36M Series A led by Xora Innovation, a seed round led by Eclipse, and Khosla Ventures. CEO <strong>Hardik Kabaria</strong> did a Stanford PhD on automating high-fidelity meshing. Co-founder <strong>Sarah Osentoski</strong> works on large-scale ML and autonomous systems. Founded 2023.</p>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag">Kabaria's themes · echo one of them</span>
+        <ul>
+          <li>AI for physical systems has a higher bar: “determinism, validation, and deployment trust are not preferences.”</li>
+          <li>The goal is to make physics “continuously computable inside engineering workflows,” not a one-off simulation you wait days for.</li>
+          <li>Hardware design is limited less by compute than by <em>how and when</em> physics gets evaluated.</li>
+        </ul>
+        <p><strong>Your bridge:</strong> Papercusp has the same attitude to trust. Nothing counts as done without evidence, and a test result is tied to the exact commit it judged. Say that once, in one sentence.</p>
+      </div>
+    </section>
+
+    <section id="balaji">
+      <p class="eyebrow">03 · The interviewer</p>
+      <h2>Balaji Cherukuri, Founding Software Engineer</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Background (public profiles)</span>
+          <p>17+ years in software, based in San Mateo. RocketReach lists Carbon (the 3D-printing company) and Uber. A LinkedIn post suggests he was once at Google on the Aurora mapping team, but that's inferred and unverified. He's a co-author on Vinci's <em>Copresheaf Topological Neural Networks</em> paper with the founders.</p>
+          <p>Check his LinkedIn before the call. Several people share his name.</p>
+        </div>
+        <div class="card">
+          <span class="tag">What he's proud of</span>
+          <h3>“30,000 simulations in a day”</h3>
+          <p>His LinkedIn post: proud to help make it possible for <em>one engineer to run 30,000 simulations in a day through seamless automation</em>. That's the orchestration layer this role owns. Ask him how it works: batching, the queue, GPU scheduling, and what breaks at that volume.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Tone</span>
+          <h3>Engineer to engineer</h3>
+          <p>A founding engineer is checking two things: <em>can this person ship in my codebase</em>, and <em>would I want them on call next to me</em>. Talk in specifics: data structures, failure modes, what you measured. Skip product talk.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="role">
+      <p class="eyebrow">04 · The job</p>
+      <h2>What you'd own</h2>
+      <p class="section-lead">From the posting: a “pragmatic full-stack engineer who can span customer-facing UIs, backend services, and native C++ integrations,” who “takes ownership of how customers consume” features.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Backend</span>
+          <ul>
+            <li>Python microservices and gRPC APIs in front of C++ engines and simulation/inference pipelines</li>
+            <li>Request validation, job orchestration, retries and idempotency, transactional correctness</li>
+            <li>SDKs and APIs for customers</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Distributed</span>
+          <ul>
+            <li>Job partitioning, backpressure, retries, observability, autoscaling for native compute</li>
+            <li>Debugging and profiling from browser network calls to Python runtime to C++ hotspots</li>
+            <li>CI/CD, unit, integration and e2e tests across backend, frontend and native</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Required</span>
+          <ul>
+            <li>5+ years of backend or full-stack</li>
+            <li>Python (sync and async), gRPC/protobuf</li>
+            <li>Postgres: schema design, <strong>safe migrations</strong>, query tuning, indexing</li>
+            <li>React, TypeScript, shipping UI</li>
+            <li><strong>Concurrency and multi-threading, including across language boundaries</strong></li>
+            <li>On-call, incidents, post-mortems, runbooks</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="fit">
+      <p class="eyebrow">05 · Your fit</p>
+      <h2>Posting line, then your proof</h2>
+      <p class="section-lead">Exact numbers are in the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>. The saga section there (SG1 to SG12) is the best match for this job.</p>
+      <div class="card">
+        <h3>“Job orchestration, retries/idempotency, transactional correctness”</h3>
+        <div class="pair">
+          <div><span class="label">Vinci</span>Thousands of long GPU jobs that must not double-run or leak.</div>
+          <div><span class="label">Papercusp</span>Saga cleanup that survives a crash in the middle of a run, idempotency keys, fencing tokens for zombie owners, and a reaper for orphaned children (<a href="papercusp-answer-bank-standalone.html#sg-keys">SG4</a> and the rest of the saga section). Recurring work runs as durable workflows backed by Postgres (<a href="papercusp-answer-bank-standalone.html#n-scheduling">N5</a>).</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>“Concurrency and multi-threaded programming”</h3>
+        <div class="pair">
+          <div><span class="label">Vinci</span>Reason about concurrency across Python and C++.</div>
+          <div><span class="label">Papercusp</span>About 100 agents editing one tree: enforced file locks, atomic claims, a migration-number allocator behind an advisory lock (because two agents did pick the same number), and a race-condition story (<a href="papercusp-answer-bank-standalone.html#q-concurrency">#4</a>, <a href="papercusp-answer-bank-standalone.html#n-system-design">N2</a>).</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>“Backpressure … autoscaling for services that coordinate native compute”</h3>
+        <div class="pair">
+          <div><span class="label">Vinci</span>GPU capacity is the scarce resource.</div>
+          <div><span class="label">Papercusp</span>LLM rate limits and cost are the scarce resource: admission tickets for heavy jobs, per-account failover, and bounded retries (<a href="papercusp-answer-bank-standalone.html#n-capacity">N8</a>). The same problem with a different bottleneck.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>“Postgres: schema design, safe migrations”</h3>
+        <div class="pair">
+          <div><span class="label">Vinci</span>Production Postgres.</div>
+          <div><span class="label">Papercusp</span>920 SQL migrations, migrations only (no runtime DDL), numbers reserved atomically, and a draft suffix so the runner can't apply half-written SQL. Postgres is the default for all durable state.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>“Linux internals: processes, threads, signals, memory”</h3>
+        <div class="pair">
+          <div><span class="label">Vinci</span>Bonus skill.</div>
+          <div><span class="label">Papercusp</span>Every long-lived process is confined to its own cgroup and killed by task ID, because <code>pkill -f</code> twice killed the wrong things. You check whether a process is doing work by sampling CPU twice, not with <code>ps %cpu</code>, which is a lifetime average (<a href="papercusp-answer-bank-standalone.html#n-processes">N4</a>, <a href="papercusp-answer-bank-standalone.html#n-liveness">N3</a>).</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>“Observability … CI/CD … on-call, post-mortems”</h3>
+        <div class="pair">
+          <div><span class="label">Vinci</span>Own operational quality.</div>
+          <div><span class="label">Papercusp</span>A green gate over about 7,800 test files. When the build goes red, one candidate is frozen and fixes are admitted file by file. There's one owner per red gate, and incidents are written up as “what should have caught this” (<a href="papercusp-answer-bank-standalone.html#q-observability">#7</a>, <a href="papercusp-answer-bank-standalone.html#n-incident">N9</a>).</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tech">
+      <p class="eyebrow">06 · If he goes technical</p>
+      <h2>Short answers for the likely probes</h2>
+      <p class="section-lead">It's a 30-minute intro, so expect one or two of these, not a design round. Give the answer in about 60 seconds, then stop.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Design</span>
+          <h3>“Expose a C++ solver to customers as a service”</h3>
+          <ul>
+            <li>gRPC: <code>SubmitJob</code> (unary, with an <strong>idempotency key</strong>), <code>GetJob</code>, <code>StreamProgress</code> (server-streaming), <code>CancelJob</code></li>
+            <li>Validate the request and the geometry up front, then persist the job row in Postgres. Workers claim with <code>FOR UPDATE SKIP LOCKED</code> or read from a task queue.</li>
+            <li>Workers call C++ through pybind11 and <em>release the GIL</em> around the solve. Results go to object storage and the client gets a URL, not a huge gRPC message.</li>
+            <li>Backpressure: admission control on queue depth and GPU quota per tenant. Autoscale GPU nodes on queue depth, not CPU.</li>
+            <li>One trace across Python and C++ (OpenTelemetry), plus job-state metrics</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Concurrency</span>
+          <h3>“Concurrency across the Python/C++ boundary?”</h3>
+          <ul>
+            <li>The GIL: long C++ calls release it (<code>py::gil_scoped_release</code>). A C++ thread that calls back into Python must <em>acquire</em> it first, or you get crashes or deadlock.</li>
+            <li>Ownership: who frees the buffer? Use zero-copy views (buffer protocol, numpy) only while the owner is alive.</li>
+            <li>Cancellation: C++ won't see a Python exception. Pass a cancel flag or token that the solver loop checks.</li>
+            <li>Signals only reach the main thread, so a stuck native call needs its own timeout. For isolation or crash safety, run it in a <em>separate process</em>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Retries</span>
+          <h3>“How do you make retries safe?”</h3>
+          <p>At-least-once delivery plus idempotent handlers. The idempotency key has a unique constraint, and a replayed request returns the original result. Only retry what can be retried: gRPC <code>UNAVAILABLE</code> or <code>DEADLINE_EXCEEDED</code>, never <code>INVALID_ARGUMENT</code>. Use exponential backoff with jitter and a retry budget. A worker's lease carries a fencing token so a zombie can't write a result after it has been replaced.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Postgres</span>
+          <h3>“Walk me through a safe migration on a big table”</h3>
+          <p>Expand, then contract. Add a nullable column (no table rewrite), backfill in batches, then add the constraint as <code>NOT VALID</code> and <code>VALIDATE</code> it separately. Build indexes with <code>CREATE INDEX CONCURRENTLY</code>. Set a <code>lock_timeout</code> so a DDL statement waiting on a lock doesn't block every query behind it. Deploy code that works with both schemas before you drop anything.</p>
+        </div>
+        <div class="card">
+          <span class="tag">gRPC</span>
+          <h3>“gRPC gotchas?”</h3>
+          <p>Always set deadlines and propagate them. Evolving protos: never reuse or renumber fields, add new ones as optional, and reserve the numbers of removed ones. Large payloads should be streamed in chunks or handed off as a presigned URL. Know unary vs server-streaming vs bidirectional. Async Python uses <code>grpc.aio</code>.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Debugging</span>
+          <h3>“A job got 3× slower. Where do you look?”</h3>
+          <p>Start by measuring, not guessing. Is it queue wait or run time? Check the trace spans. For Python, <code>py-spy</code>. For native code, <code>perf</code> and flame graphs. Check GPU utilization. Compare input size, since geometry may have grown. Rule out contention: another tenant on the same node, or memory pressure. Don't blame “load” until you can show the mechanism, a rule you apply in Papercusp every day.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">07 · The 60-second version</p>
+      <h2>Your pitch for a founding engineer</h2>
+      <div class="card">
+        <p>“For the past year I've been building Papercusp, a platform where about a hundred AI agents work on one production codebase at once. I'm open-sourcing it next month. Most of the engineering wasn't AI. It was the distributed-systems layer underneath: durable job orchestration in Postgres, idempotent retries, crash-safe cleanup, locks, backpressure against rate limits, and deciding whether a worker is dead or just slow. It's TypeScript and React on the front and Postgres underneath. Before that I ran a commerce business for twelve years with a very small team, so I've always owned production myself. What I like about Vinci is that it's the same orchestration problem, running thousands of long, expensive jobs reliably, but on GPU physics for real hardware. I'm also moving to the Bay Area next month.”</p>
+      </div>
+      <div class="note"><strong>Don't oversell the AI angle here.</strong> Vinci's product isn't an LLM. Lead with systems and reliability, and mention agents only as where you learned it.</div>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">08 · Your questions</p>
+      <h2>Questions for Balaji</h2>
+      <div class="card">
+        <ol>
+          <li>“Your post about one engineer running 30,000 simulations a day: what does the orchestration look like underneath, and what breaks first at that scale?”</li>
+          <li>“How do customers consume Vinci today: a hosted web app, an API or SDK, or on-prem in their own cluster? That decides a lot about this role.”</li>
+          <li>“Where does the Python/C++ boundary sit now: pybind11 in-process, or separate solver processes behind gRPC?”</li>
+          <li>“How big is the engineering team, and how is the work split between the solver/ML side and product engineering?”</li>
+          <li>“What would you want this person to own in the first 90 days?”</li>
+          <li>“How does on-call work when a customer's run fails at 2 a.m.? Is there GPU-specific failure handling?”</li>
+          <li>“What does the rest of the process look like, and how does ‘remote-friendly’ work in practice for the team?”</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">09 · Sources</p>
+      <h2>Where this came from</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Vinci</span>
+          <ul>
+            <li>The posting you pasted (Member of Technical Staff, Full-Stack Software Engineer)</li>
+            <li><a href="https://www.getvinci.ai/">getvinci.ai</a> · <a href="https://www.getvinci.ai/newsroom/">Newsroom</a> · <a href="https://www.getvinci.ai/team/">Team</a></li>
+            <li><a href="https://www.getvinci.ai/news/vinci-emerges-from-stealth-to-transform-semiconductor-design-and-simulation/">Stealth launch, Dec 2025</a> · <a href="https://www.cbinsights.com/company/vinci4d-ai">CB Insights</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Balaji</span>
+          <ul>
+            <li><a href="https://www.linkedin.com/in/balusoft/">LinkedIn (balusoft)</a></li>
+            <li><a href="https://www.getvinci.ai/research/copresheaf-topological-neural-networks-a-generalized-deep-learning-framework/">Copresheaf Topological Neural Networks</a> (co-author)</li>
+            <li>His scheduling email of 25 Sep and the Ashby invite</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>Prepared 29 September 2026 from your pasted job description, Vinci's site and newsroom, and public profiles. Balaji's past employers come from third-party data, and the Google/Aurora detail is inferred, so check his LinkedIn before you mention any of it.</footer>
+</div>
+</body>
+</html>

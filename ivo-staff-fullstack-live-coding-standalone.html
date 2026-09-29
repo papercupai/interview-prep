@@ -132,7 +132,7 @@
     <p class="eyebrow">At a glance</p>
     <dl>
       <div><dt>When</dt><dd><strong>Mon 5 Oct 2026, 7:00 to 8:00 p.m. EDT</strong> (4:00 to 5:00 p.m. PT)</dd></div>
-      <div><dt>Format</dt><dd>“Live Coding Challenge, 60 mins” on Zoom. Expect to share your screen.</dd></div>
+      <div><dt>Format</dt><dd>“Live Coding Challenge, 60 mins” on Zoom. The invite calls it “a problem solving interview”: you share your screen, <strong>Copilot and Cursor Tab must be off</strong>, and you need <strong>git, node, docker and docker compose</strong> installed.</dd></div>
       <div><dt>Join</dt><dd>The Zoom link and passcode are in the 28 Sep confirmation email from Cherlynne Serafino-King (Principal Technical Recruiter), in your Tsenta inbox. They are not copied here because this collection is published publicly.</dd></div>
       <div><dt>Interviewer</dt><dd>Roy Nehoran, software engineer at Ivo. His LinkedIn describes him as a frontend engineer (React, Angular). Stanford.</dd></div>
       <div><dt>Role</dt><dd>Staff Software Engineer, Fullstack · San Francisco, on-site five days a week · <strong>$287K to $485K</strong> base (Ashby posting)</dd></div>
@@ -185,7 +185,8 @@
       <p>Dataford, InterviewSense and Scoutify are generic. InterviewSense labels its Ivo “experiences” as made-up examples. Scoutify's Ivo page is written in pirate-speak. Blind, Reddit, LeetCode Discuss and HN have nothing on Ivo's interviews.</p>
     </div>
   </div>
-  <div class="note"><strong>Best guess:</strong> your 60-minute “Live Coding Challenge” is the round that reviewer called “technical interview coding: implement tic-tac-toe”: build a small working program live, then extend it while he adds requirements. But the same reviewer says Ivo kept reshuffling rounds, and you are interviewing at staff level, so the currency-graph problem could come first. Be ready for both. Nothing here confirms whether AI assistants are allowed. Ask at the start instead of assuming.</div>
+  <div class="note"><strong>What your own invite adds (29 Sep):</strong> “This interview will be a problem solving interview. We'll ask you to share your screen, and disable Copilot or Cursor Tab if you have those installed. Please make sure you have git, node, docker, and docker compose installed.” That list suggests they will hand you a repo, probably Node, that runs with docker compose (an app plus maybe a database), and you work in it in your own editor. That is my inference, not something they say. Expect a practical build-and-extend task in TypeScript or JavaScript, not a blank-file puzzle. The leaked problems are still the best signal of the kind of logic they ask for, so practice them in TypeScript first.</div>
+  <div class="note"><strong>Best guess on the problem:</strong> the round that reviewer called “technical interview coding: implement tic-tac-toe”: build a small working program, then extend it while he adds requirements. But the same reviewer says Ivo kept reshuffling rounds, and you are interviewing at staff level, so the currency-graph problem could come first. Be ready for both.</div>
 </section>
 
 <section id="hour">
@@ -194,7 +195,7 @@
   <p class="section-lead">Ivo's job post asks for “pragmatic choices and … 80/20 solutions” and “a bias towards doing things today.” In a live round that means something running early, said out loud, then built on. The follow-ups are the real test: whether your first version bends when he adds requirements.</p>
   <div class="steps">
     <div class="step"><span class="when">0–3 min</span><div><h3>Hello</h3><p>A 20-second intro. Save the stories for the end.</p></div></div>
-    <div class="step"><span class="when">3–8 min</span><div><h3>Clarify, out loud</h3><p>Language (Python or TypeScript, whichever is fastest for you). Console or UI? Board size fixed? For the currency problem: one-way or two-way rates, fees, what “most efficient” means. Then: “Is it fine to use my normal editor? Any AI tools allowed?”</p></div></div>
+    <div class="step"><span class="when">3–8 min</span><div><h3>Clarify, out loud</h3><p>Language (Python or TypeScript, whichever is fastest for you). Console or UI? Board size fixed? For the currency problem: one-way or two-way rates, fees, what “most efficient” means. If they give you a repo, read the README and the compose file first, and get it running before you change anything.</p></div></div>
     <div class="step"><span class="when">8–25 min</span><div><h3>Smallest correct version</h3><p>Name the data shape first, then write the core function with 3 or 4 quick asserts. Run it early. A running 3x3 game beats a clever unrun one.</p></div></div>
     <div class="step"><span class="when">25–45 min</span><div><h3>Follow-ups</h3><p>N×N and K in a row, undo, a computer player, a UI. Or: arbitrage detection, custom amounts, the paper's equation. Each one should be a small change. If it isn't, say why and refactor on purpose.</p></div></div>
     <div class="step"><span class="when">45–55 min</span><div><h3>Staff-level wrap</h3><p>Complexity, edge cases, what you would test, and what changes in production (multiplayer server, floating point, scale).</p></div></div>
@@ -664,10 +665,12 @@ def optimal_cycle_input(pools: list[tuple[float, float]], r: float = R) -&gt; tu
   <p class="eyebrow">Monday 7 p.m. ET</p>
   <h2>Setup checklist</h2>
   <ul>
+    <li><strong>Required by the invite:</strong> git, node, docker and docker compose installed. Test them the day before on the machine you will use: <code>git --version</code>, <code>node --version</code>, <code>docker run --rm hello-world</code>, <code>docker compose version</code>. Then run any small compose project (for example Postgres plus a Node app) so image pulls and permissions are already sorted.</li>
+    <li><strong>Practice kit (built 29 Sep):</strong> <a href="ivo-docker-practice/README.md">ivo-docker-practice</a> in this folder. It runs Postgres in Docker Compose and a small Node/TypeScript API on your machine, with nine timed drills: cold start, reading logs and <code>psql</code>, a planted concurrency bug, adding an endpoint, a schema change, multi-hop currency conversion, idempotency, everything-in-Docker, and break-fix. Its README also explains why they ask for Docker (most likely: you'll clone their repo and run its services). <strong>This machine's Docker can stall for minutes when creating a container</strong>, so do the full dry run Sunday on the exact machine you'll interview on.</li>
+    <li><strong>Required by the invite:</strong> Copilot and Cursor Tab off. Disable any other AI autocomplete too, since they will watch your screen.</li>
     <li>Open the Zoom link from Cherlynne's email and test screen sharing ahead of time. Join 5 minutes early.</li>
-    <li>Have a Python scratch file and a ready-made React + TypeScript project open (for example, from <code>npm create vite@latest</code> with the react-ts template), so a UI request costs no setup time.</li>
+    <li>Have a Node + TypeScript scratch project and a React + TypeScript project ready (for example, from <code>npm create vite@latest</code> with the react-ts template), so a UI request costs no setup time.</li>
     <li>Make the editor font large, turn off notifications, and have one command to run tests.</li>
-    <li>Keep AI assistants off unless he says they are allowed.</li>
   </ul>
 </section>
 

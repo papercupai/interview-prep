@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Taktile introductory call with Eva Marandi (Lead Recruiter) for Senior Full-Stack Engineer, Team Agent: the location question to settle first, the company, the Agents team, your fit, their engineering blog, likely recruiter questions and what to ask.">
+<title>Taktile · Eva Marandi (intro) · Team Agent | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f6fa;
+    --surface: #fff;
+    --soft: #ebebf5;
+    --ink: #13131c;
+    --muted: #55566a;
+    --accent: #3d3fb0;
+    --warn: #9a4a07;
+    --warn-soft: #fbf0e3;
+    --rule: #dedfea;
+    --rule-strong: #c2c3d6;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e0e15;
+      --surface: #16161f;
+      --soft: #1f1f2c;
+      --ink: #e7e7f0;
+      --muted: #a6a7ba;
+      --accent: #a9abff;
+      --warn: #f2b877;
+      --warn-soft: #2a2116;
+      --rule: #2a2a3a;
+      --rule-strong: #41425a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .6rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  blockquote { margin: .6rem 0 0; padding: .2rem 0 .2rem 1rem; border-left: 3px solid var(--rule-strong); color: var(--muted); font-style: italic; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .step .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .8rem; margin-top: .6rem; }
+  .pair > div { padding: .7rem .8rem; background: var(--soft); border-radius: 3px; }
+  .pair .label { display: block; margin-bottom: .2rem; font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .pair { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    details { break-inside: avoid; }
+    details > div { display: block; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Taktile · Berlin HQ, New York · Recruiter introductory call</p>
+      <h1>Taktile · Eva Marandi</h1>
+      <p class="lead">Taktile sells banks and insurers an “Agentic Decision Platform” for underwriting, claims, fraud and AML. The Agents team owns the agent runtime, tool orchestration and the chat copilot built on it. That's the same layer you've spent a year building in Papercusp. This is a 30-minute screen with a recruiter. It's about fit, logistics and motivation, not a technical test. <strong>Location is the one thing that can end it, so settle that first.</strong></p>
+    </div>
+    <aside class="hero-card" aria-label="Call facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>When</dt><dd><strong>Tue 29 Sep 2026, 12:00–12:30 p.m. ET</strong> (6 p.m. in Berlin)</dd></div>
+        <div><dt>Where</dt><dd>Google Meet. The link is in the calendar invite. Camera and mic on; their email asks for both.</dd></div>
+        <div><dt>Interviewer</dt><dd>Eva Marandi, Lead Recruiter (booked through Ashby, via your Tsenta inbox)</dd></div>
+        <div><dt>Role</dt><dd><a href="https://jobs.ashbyhq.com/taktile/c9d47dd2-3252-4266-a581-b9d1b46e9297">Senior Full-Stack Engineer, Team Agent</a> · hybrid, 3 office days a week · <strong>Berlin, London, Iași or Dublin</strong></dd></div>
+        <div><dt>Pay</dt><dd>Not posted. One aggregator lists €85K–105K for Berlin, which is unverified and far below a US number.</dd></div>
+        <div><dt>Prep sent</dt><dd>Eva's invite linked a “Recruiting Booklet”. Open it from the 28 Sep email before the call.</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#decide">Decide first</a>
+    <a href="#company">Taktile in a minute</a>
+    <a href="#role">The role</a>
+    <a href="#fit">Your fit</a>
+    <a href="#blog">Their blog</a>
+    <a href="#pitch">Your pitch</a>
+    <a href="#questions">Likely questions</a>
+    <a href="#ask">Questions to ask</a>
+    <a href="#process">Process &amp; values</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="decide">
+      <p class="eyebrow">01 · Before you dial</p>
+      <h2>Settle these before the call</h2>
+      <p class="section-lead">A recruiter screen is mostly a logistics check. If you hedge on location or pay here, the process can stall without anyone telling you why.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Location · the big one</span>
+          <h3>Team Agent is listed in Europe only</h3>
+          <p>The posting's locations are Berlin (HQ), London, Iași and Dublin, 3 days a week in the office. Taktile's only US hub is <strong>New York</strong>, and the Agents team isn't listed there. You're a US citizen moving to San Francisco. Pick one of these before 12:00:</p>
+          <ul>
+            <li><strong>A · Relocating to Europe.</strong> Only say this if it's true. Then ask about relocation and work-permit support, since Taktile says sponsorship depends on role and location.</li>
+            <li><strong>B · US only.</strong> Ask straight out whether the Agents team hires in New York or remotely in the US. If it doesn't, ask to be considered for the NYC roles below.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">If B · the US roles</span>
+          <h3>What's open in New York right now</h3>
+          <p><a href="https://jobs.ashbyhq.com/taktile/11d61fee-388b-453a-a98e-e8aa75d8d214">Sr. Applied AI Engineer</a>: builds reusable GenAI agents for credit and financial crime, acting as the product owner for each agent. That's the closest match to Papercusp.</p>
+          <p><a href="https://jobs.ashbyhq.com/taktile/5a16ec1c-d81d-44b2-8c24-19e832e49c38">Senior Forward Deployed Engineer</a>: leads customer deployments of production AI agents in Python and SQL.</p>
+          <p>Taktile asks candidates to name a top priority if they're in more than one process (maximum of 3). NYC is still hybrid, 3 days a week, and you'll be in SF, so be upfront about that too.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Pay</span>
+          <h3>Keep it consistent with Acadian</h3>
+          <p>Yesterday you told Acadian's recruiter you're targeting $300K and would go as low as $200K for the right fit. If Eva asks, give a US-based range that matches that, and ask what the band is for the entity you'd be hired through (Taktile LLC is the US entity). Don't anchor on a Berlin number.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="company">
+      <p class="eyebrow">02 · The company</p>
+      <h2>Taktile in a minute</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">What they sell</span>
+          <h3>An agentic decision platform for banks and insurers</h3>
+          <p>Customers combine AI agents, rules, context and human oversight to automate decisions: approving loans, paying claims, stopping fraud, AML reviews. Customers include Mercury, Monzo, Faire and Pleo. Reported results: 95% automation in B2B underwriting and 75% fewer AML false positives.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Money &amp; scale</span>
+          <h3>$110M Series C, June 2026</h3>
+          <p>Led by Growth Equity at Goldman Sachs Alternatives, with Index, Tiger Global, Balderton, YC and Dig Ventures. That brings the total raised to $184M. The funds go to AI products for complex banking and insurance cases and to US, EMEA and LATAM growth. The CEO told Fortune “2026 is the year where AI comes to financial services.”</p>
+        </div>
+        <div class="card">
+          <span class="tag">Founders</span>
+          <h3>Two Harvard PhDs from QuantCo</h3>
+          <p>Maik Taro Wehmeyer (CEO) and Maximilian Eber met at Harvard and worked together at QuantCo. There they kept rebuilding the same decision logic for every client, so they founded Taktile in 2020. Their first pitch went to 100 banks and 99 said no. Eber has since become President, and James Broadhead joined as CTO.</p>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag">Product history · use it once</span>
+        <p>November 2024: Taktile launched a GenAI <strong>Copilot</strong> that suggests decision logic, but “nothing is applied until the user explicitly accepts it.” That's a human-in-the-loop approval. Team Agent's posting lists “human-in-the-loop approvals” in the chat UI, which is the same idea. Papercusp's owner-approval gate is built the same way: a plan is a proposal until the human approves it.</p>
+      </div>
+    </section>
+
+    <section id="role">
+      <p class="eyebrow">03 · The job</p>
+      <h2>Team Agent: the runtime, the tools and the copilot</h2>
+      <p class="section-lead">From the posting: “The Agents team owns the agent execution runtime, tool orchestration, and platform infrastructure … including the conversational copilot experiences built on top of it.”</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">You'd build</span>
+          <ul>
+            <li>End-to-end features: Python (FastAPI, Pydantic) on AWS serverless (Lambda, API Gateway); React and TypeScript on the front end</li>
+            <li>The copilot: chat UI, streaming responses, rich in-chat interactions, human-in-the-loop approvals</li>
+            <li>“How agents run, how they connect to external tools, and how they behave when something goes wrong”</li>
+            <li>PR review, test coverage, CI/CD; daytime ops duty, and eventually on-call</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Stack</span>
+          <ul>
+            <li>Backend: Python, FastAPI, Pydantic</li>
+            <li>Frontend: React, TypeScript</li>
+            <li>Data: DynamoDB, Postgres</li>
+            <li>Cloud: AWS Lambda, API Gateway</li>
+            <li>AI: LLM orchestration, tool use, streaming execution</li>
+          </ul>
+          <p>They expect you to use Claude every day. The posting says so.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Nice-to-haves you have</span>
+          <ul>
+            <li>Chat and streaming UIs</li>
+            <li>LLM apps, agent frameworks, <strong>MCP</strong>, developer tools</li>
+            <li>Postgres</li>
+            <li>Distributed systems, async task processing, observability</li>
+            <li>Ops and on-call (you ran your own business's systems for 12 years)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="fit">
+      <p class="eyebrow">04 · Your fit</p>
+      <h2>Posting line, then your proof</h2>
+      <p class="section-lead">A recruiter matches keywords to evidence. Give one concrete thing per line. Exact numbers are in the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>.</p>
+      <div class="card">
+        <h3>“Agent execution runtime and tool orchestration”</h3>
+        <div class="pair">
+          <div><span class="label">Taktile</span>Run agents, connect them to tools, handle failure.</div>
+          <div><span class="label">Papercusp</span>About 100 agents on one branch, with roughly 650 MCP tools. Each tool call goes through one dispatch point that checks authority and caps results. Liveness distinguishes dead from slow, and runaway processes are killed by task ID, never by name (<a href="papercusp-answer-bank-standalone.html#n-tool-design">N6</a>, <a href="papercusp-answer-bank-standalone.html#n-liveness">N3</a>).</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>“How they behave when something goes wrong”</h3>
+        <div class="pair">
+          <div><span class="label">Taktile</span>Failure handling in the runtime.</div>
+          <div><span class="label">Papercusp</span>Work can't close without evidence. Bug fixes need a hypothesis, an alternative and a test that tells them apart. A red build freezes one candidate and admits fixes file by file (<a href="papercusp-answer-bank-standalone.html#n-incident">N9</a>, <a href="papercusp-answer-bank-standalone.html#q-ai-eval">#8</a>).</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>“Human-in-the-loop approvals”</h3>
+        <div class="pair">
+          <div><span class="label">Taktile</span>Approvals inside the copilot chat.</div>
+          <div><span class="label">Papercusp</span>Every owner instruction is recorded word for word and closed with a stated outcome. There's an explicit “ask first” mode and a separate “act and report” mode, and a plan is a proposal until you approve it (<a href="papercusp-answer-bank-standalone.html#g-approval">G4 Human approval</a>).</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>“Proficiency with React and TypeScript” and “Python back-end”</h3>
+        <div class="pair">
+          <div><span class="label">Taktile</span>Full stack, Python on the backend.</div>
+          <div><span class="label">You</span>Papercusp is TypeScript: a React desktop app with a Hono server over Postgres. <strong>Be straight that the backend isn't Python.</strong> Mention the production Python you have actually shipped, and say FastAPI and Pydantic are the same patterns as the Hono and Zod code you write every day (typed request models, validation at the boundary). A recruiter just needs “yes, and here's where.”</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="blog">
+      <p class="eyebrow">05 · Conversation hooks</p>
+      <h2>Their engineering blog is about the problems you've been solving</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">31 Jul 2026</span>
+          <h3>“How we taught our AI coworker to take no for an answer”</h3>
+          <p>“Claudius” is an internal agent: “about 50 GitHub Actions workflows in a trenchcoat.” It runs on Opus 5, uses about 30B input tokens a month (about $30K), and does 2,000–3,600 runs a week. It wrote roughly 63% of the commits in its own repo. The lesson: a PR that's closed without merging is the most valuable feedback, so its rule is now “Closed = declined, don't resubmit.”</p>
+          <p><strong>Your parallel:</strong> in Papercusp a declined owner instruction has to carry a reason and is never silently retried. Agents are also stopped from bothering the human with questions they could answer themselves.</p>
+        </div>
+        <div class="card">
+          <span class="tag">13 Jul 2026</span>
+          <h3>“We gave our agent a memory”</h3>
+          <p>They swapped RAG for an LLM-maintained wiki and compared grep, BM25, vector search and LLM judgment. BM25 was the “pragmatic middle”; an RRF hybrid reached 0.90 recall. Answering from the wiki was 86% faster and 61% cheaper. The open problem is <em>staleness</em>, and their planned fix is a per-source fingerprint.</p>
+          <p><strong>Your parallel:</strong> Papercusp's memory and recipe search is a BM25-plus-embedding hybrid fused with RRF. Work-item checkpoints store a subject fingerprint, so a stale note is flagged instead of trusted. That is their planned fix, already running.</p>
+        </div>
+        <div class="card">
+          <span class="tag">How to use these</span>
+          <h3>One mention, as a question</h3>
+          <p>Eva is a recruiter, so don't give a technical lecture. Try: “I read the Claudius post. I've run into the same ‘closed means declined’ problem with my own agents. Is that the Agents team's work, or a separate internal tool?” That shows you did the reading, and her answer tells you whether this team builds agents for customers or for internal use.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">06 · The 60-second version</p>
+      <h2>Your pitch for a recruiter</h2>
+      <div class="card">
+        <p>“For the last year I've been building Papercusp, a platform where about a hundred AI agents work on one production codebase at the same time. I'm open-sourcing it next month. The hard part wasn't getting agents to write code. It was the runtime around them: tool orchestration, what happens when an agent fails or stalls, and human approval before anything risky happens. That's what your Agents team owns, and your copilot has the same approve-before-apply idea. Before this I ran a commerce business for twelve years, over a million a month with a very small team, so I'm used to owning systems end to end, on-call included. I use Claude all day. I'd like to build that layer for customers where the decisions really matter, and loans and claims are about as high-stakes as it gets.”</p>
+      </div>
+      <div class="note"><strong>Why now:</strong> you considered starting another company but decided you want to build agent infrastructure on a strong team. That's what you told Acadian yesterday, and it's true, so say the same thing here.</div>
+    </section>
+
+    <section id="questions">
+      <p class="eyebrow">07 · What Eva will probably ask</p>
+      <h2>Recruiter questions, with answer sketches</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Motivation</span>
+          <h3>“Why Taktile?”</h3>
+          <p>Agents doing real, high-stakes work with human oversight built in. That's the problem you care about, and financial services is where it's hardest. Mention the Series C and the Claudius post in one sentence, not both at length.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Background</span>
+          <h3>“Walk me through your background”</h3>
+          <p>Two minutes: 12 years running the commerce business, then a year building Papercusp, now choosing a team. End on what you want next: the agent runtime. Don't go into architecture unless she asks.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Location</span>
+          <h3>“This role is hybrid in Berlin, London or Iași. Does that work?”</h3>
+          <p>Give the answer you chose in section 01. Don't say “maybe.”</p>
+        </div>
+        <div class="card">
+          <span class="tag">Pay</span>
+          <h3>“What are your salary expectations?”</h3>
+          <p>A US range that matches what you told Acadian, then “flexible for the right fit, and I'd like to understand the full package including equity.” The posting promises “top-of-market equity and cash.”</p>
+        </div>
+        <div class="card">
+          <span class="tag">Timeline</span>
+          <h3>“Where are you in your search?”</h3>
+          <p>True answer: you're in late stages elsewhere and aim to decide in October. That gives them a reason to move quickly without it sounding like an ultimatum.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Work authorization</span>
+          <h3>“Do you need sponsorship?”</h3>
+          <p>In the US, no; you're a citizen. In the EU or UK, yes, you'd need a work permit. Only relevant if you chose option A.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Ops</span>
+          <h3>“Are you OK with ops duty and on-call?”</h3>
+          <p>Yes. You've owned production for your own business, and Papercusp's gate and repair queue are an on-call process run by agents. Say you want to see the rotation's size and load before committing.</p>
+        </div>
+        <div class="card">
+          <span class="tag">AI use</span>
+          <h3>“How do you use AI tools day to day?”</h3>
+          <p>Every day, at fleet scale: Claude Code sessions coordinating through locks, plans and evidence gates. Keep it to one concrete example; the depth comes in the hiring-manager round.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">08 · Your questions</p>
+      <h2>Questions for Eva</h2>
+      <div class="card">
+        <ol>
+          <li><strong>“Does Team Agent hire in New York, or remotely in the US? If not, which US roles would you put me forward for?”</strong> Ask this first if you chose option B.</li>
+          <li>“How is the Agents team set up, and how many engineers? Who would I meet in the hiring-manager round?”</li>
+          <li>“Is the runtime customer-facing, or does it also run internal agents like Claudius?”</li>
+          <li>“What does the technical round look like for this role? Live coding, a take-home, or system design?” (Their public repo <em>integration-challenge</em> suggests an API-design exercise.)</li>
+          <li>“What's the band for this role through the US entity, and how does equity work?”</li>
+          <li>“What does ops duty look like in practice, and how often?”</li>
+          <li>“What's the usual timeline from here to an offer?” Glassdoor shows engineering hires taking longer than average, so it's worth asking.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="process">
+      <p class="eyebrow">09 · How they hire</p>
+      <h2>Four stages and six values</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Process (their careers page)</span>
+          <ol>
+            <li><strong>Introductory call</strong> (today): background, goals, logistics</li>
+            <li><strong>Hiring manager</strong>: experience, problem-solving, teamwork</li>
+            <li><strong>Skills assessment</strong>: technical interview, case study or challenge. “The goal is not to develop a perfect solution.” May include people from other teams.</li>
+            <li><strong>Values &amp; motivation</strong> with a founder or senior leader, then references</li>
+          </ol>
+          <p>They like to bring candidates into an office at least once.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Values, in their own words</span>
+          <ul>
+            <li><strong>Passionate responsibility</strong>: act like an owner</li>
+            <li><strong>Growth mindset</strong></li>
+            <li><strong>Desire for impact</strong></li>
+            <li><strong>Creative pragmatism</strong>: innovate only when it's actually needed</li>
+            <li><strong>Compassionate candor</strong></li>
+            <li><strong>Execute to win</strong></li>
+          </ul>
+          <p>What they screen for: <em>Sharp, Hungry, Curious, Owners</em>. “Creative pragmatism” fits your deterministic-code-first approach: the LLM only makes judgment calls.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">10 · Sources</p>
+      <h2>Where this came from</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Taktile</span>
+          <ul>
+            <li><a href="https://jobs.ashbyhq.com/taktile/c9d47dd2-3252-4266-a581-b9d1b46e9297">Team Agent posting</a> · <a href="https://jobs.ashbyhq.com/taktile">all open roles</a></li>
+            <li><a href="https://taktile.com/careers">Careers: process, values, hybrid policy</a></li>
+            <li><a href="https://taktile.com/articles/taktile-secures-110m-in-goldman-sachs-led-series-c-to-power-ai-transformation-in-financial-institutions">Series C announcement</a> · <a href="https://fortune.com/2026/06/24/exclusive-taktile-goldman-sachs-ai-bank-insurance-funding/">Fortune</a></li>
+            <li><a href="https://taktile.com/articles/taktile-ai-copilot">AI Copilot launch</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Engineering blog</span>
+          <ul>
+            <li><a href="https://engineering.taktile.com/blog/claudius/">How we taught our AI coworker to take no for an answer</a></li>
+            <li><a href="https://engineering.taktile.com/blog/llm-wiki-agent-memory/">We gave our agent a memory</a></li>
+            <li><a href="https://engineering.taktile.com/">engineering.taktile.com</a></li>
+            <li>Eva's emails of 28 Sep (invite, booking, reminder) and the 2 Sep application receipt</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>Prepared 29 September 2026 from Taktile's posting and job board, careers page, press and engineering blog, and Eva Marandi's emails. The Berlin pay figure comes from a job aggregator and isn't verified. The Acadian pay numbers come from the recap of your 28 Sep call with Robin.</footer>
+</div>
+</body>
+</html>
