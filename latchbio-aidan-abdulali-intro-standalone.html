@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="LatchBio intro call with Aidan Abdulali (founding engineer) for Member of Technical Staff, Infrastructure: the company, the job, your bridge from Papercusp, likely questions, questions to ask.">
+<title>LatchBio · Aidan Abdulali intro | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f6fa;
+    --surface: #fff;
+    --soft: #ebebf5;
+    --ink: #13131c;
+    --muted: #55566a;
+    --accent: #3d3fb0;
+    --warn: #9a4a07;
+    --warn-soft: #fbf0e3;
+    --rule: #dedfea;
+    --rule-strong: #c2c3d6;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e0e15;
+      --surface: #16161f;
+      --soft: #1f1f2c;
+      --ink: #e7e7f0;
+      --muted: #a6a7ba;
+      --accent: #a9abff;
+      --warn: #f2b877;
+      --warn-soft: #2a2116;
+      --rule: #2a2a3a;
+      --rule-strong: #41425a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .6rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  blockquote { margin: .6rem 0 0; padding: .2rem 0 .2rem 1rem; border-left: 3px solid var(--rule-strong); color: var(--muted); font-style: italic; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .step .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .8rem; margin-top: .6rem; }
+  .pair > div { padding: .7rem .8rem; background: var(--soft); border-radius: 3px; }
+  .pair .label { display: block; margin-bottom: .2rem; font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .pair { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    details { break-inside: avoid; }
+    details > div { display: block; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">LatchBio · San Francisco (China Basin) · 30-minute intro</p>
+      <h1>LatchBio · Aidan Abdulali</h1>
+      <p class="lead">LatchBio started out building cloud infrastructure for biotech data. Now it's mostly a lab that measures and improves AI agents on real biology data. This role builds what that runs on: sandboxes that run thousands of agent trajectories, the orchestration around them, and the data systems they read from. For the past year you've run about a hundred coding agents on one codebase through Claude Code, Codex and oh-my-pi, and LatchBio benchmarks models on almost the same set of harnesses. On this call, come across as a clear, easy-to-talk-to engineer who has already hit their problems, and leave with the takehome.</p>
+    </div>
+    <aside class="hero-card" aria-label="Call facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>When</dt><dd><strong>Wed 30 Sep 2026, 3:30 to 4:00 p.m. ET</strong> (12:30 to 1:00 p.m. PT, Aidan's time)</dd></div>
+        <div><dt>Join</dt><dd>Google Meet, booked through Calendly: Join the Google Meet (via Calendly). The cancel and reschedule links are in the Calendly email.</dd></div>
+        <div><dt>Interviewer</dt><dd>Aidan Abdulali, founding engineer at LatchBio. He organized the invite.</dd></div>
+        <div><dt>Role</dt><dd><a href="https://jobs.ashbyhq.com/LatchBio/9e1ee863-c1d7-45af-99be-e92a123c2211" rel="noreferrer">Member of Technical Staff, Infrastructure</a> · in person in SF · full-time · <strong>$180k–$250k + equity</strong>, unlimited PTO, office meals</dd></div>
+        <div><dt>Process</dt><dd>1 Intro (this call) → 2 takehome coding project → 3 technical → 4 final: a <strong>2-day paid onsite project</strong> → offer. They say it's usually done within two weeks.</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#decide">Decide first</a>
+    <a href="#latch">LatchBio in 90 seconds</a>
+    <a href="#aidan">Who Aidan is</a>
+    <a href="#role">What the job really is</a>
+    <a href="#bridge">Your bridge</a>
+    <a href="#pitch">Your pitch</a>
+    <a href="#questions">Likely questions</a>
+    <a href="#ask">Questions to ask</a>
+    <a href="#glossary">Biology words</a>
+    <a href="#plan">30-minute plan</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="decide">
+      <p class="eyebrow">01 · Before you dial</p>
+      <h2>Three answers only you can give. Settle them first.</h2>
+      <p class="section-lead">An intro call is mostly a filter: can we work with this person, and is anything a dealbreaker? A shaky answer to one of these costs more than a weak technical answer.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">In person</span>
+          <h3>Can you be in SF, in the office?</h3>
+          <p>The posting says “Our engineering team is in-person in San Francisco.” The office is in China Basin. You told us on 15 Sep that you're moving to San Francisco in October, so say it plainly: “I'm moving to SF in October.” If you have the date, give it.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Comp</span>
+          <h3>Your number</h3>
+          <p>The posted range is <strong>$180k–$250k plus equity</strong>. Intro calls rarely get to money, but if he asks: “The posted range works. I'd want to understand the equity.” Don't pick a number below the top of the band on your own. At this stage, equity is the thing to ask about.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Why here</span>
+          <h3>Why biology, when you're not a biologist?</h3>
+          <p>Don't fake biology; he'll know. A good honest answer: biology is where you can check an agent's work against a real experimental result, and the infrastructure underneath (sandboxes, huge datasets, many runs, graders) is exactly what you already build. The stakes are real too: drug discovery and biosecurity.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="latch">
+      <p class="eyebrow">02 · The company</p>
+      <h2>LatchBio in 90 seconds</h2>
+      <p class="section-lead">Founded in 2021 by <strong>Alfredo Andere</strong> (CEO), <strong>Kenny Workman</strong> (CTO) and <strong>Kyle Giffin</strong>. It raised a $5M seed in 2021 and a $28M Series A in 2022, led by Coatue and Lux. The mission line on the posting: “advance humanity's ability to engineer biology.”</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Where they started</span>
+          <h3>“The AWS x GitHub for biocomputing”</h3>
+          <p>A no-code cloud platform for biotech. It combined a data layer (Latch Data, which Aidan helped build), workflows running on Kubernetes, notebooks, and white-label portals that kit and instrument makers give their customers. They say 300+ biopharmas and labs and 40+ solution providers use it.</p>
+        </div>
+        <div class="card">
+          <span class="tag">What they are now</span>
+          <h3>A lab for AI agents in biology</h3>
+          <p>The latch.bio headline is now “Researching and Improving AI Agents for Biology.” <a href="https://benchmarks.bio" rel="noreferrer">benchmarks.bio</a> hosts 12 capability benchmarks: scBench, SpatialBench, EpiBench, VariantBench, MetagenomicsBench, three TxBench drug-discovery sets, two BioSecBench sets, and long-horizon versions of scBench and SpatialBench. There's also a refusal benchmark for dangerous requests.</p>
+        </div>
+        <div class="card">
+          <span class="tag">How a task works</span>
+          <h3>Real data, deterministic grader</h3>
+          <p>Each task is a snapshot of real experimental data taken just before an analysis step, plus a grader that checks whether the agent got the real biological answer. Scores are reported for each <em>model and harness</em> pair (Pi, Claude Code, Codex, Grok Build), because the harness changes the score a lot. As of 29 Sep, the top scores are GPT-6 Astra on Pi (51.0%) and Claude Opus 5 on Pi (49.6%).</p>
+        </div>
+        <div class="card">
+          <span class="tag">Who listens</span>
+          <h3>Frontier labs use the numbers</h3>
+          <p>Kenny's AI Engineer World's Fair 2026 talk, “Verifiable Environments for AI in Biology,” says frontier labs including Anthropic have adopted their benchmarks. (That's from a summary of the talk, not the talk itself.) xAI published its own evaluation of Grok 4.6 on BioSecBench. Latch reviews big model releases within days (Opus 5, Grok 4.6, Kimi-K3, Fable 5.1). In 2026 they acquired TwentyTwo to form <strong>Latch Biosecurity</strong>.</p>
+        </div>
+      </div>
+      <div class="note"><strong>The scale that makes this an infrastructure job.</strong> One drug-discovery campaign (TxBench-Oligo) ran 21 model–harness setups for 7,098 graded runs, with agents cut off from the internet. The Grok 4.6 review covered 1,716 trajectories. A single spatial-biology experiment can produce 2–6 TB of data. MetagenomicsBench went out on 29 Sep, the day before your call.</div>
+      <p class="section-lead" style="margin-top:1rem">Skip the “$130M Series B” figure you may see on Dealroom. It's labeled AI-generated, and no primary source confirms it.</p>
+    </section>
+
+    <section id="aidan">
+      <p class="eyebrow">03 · The interviewer</p>
+      <h2>Aidan is a founding engineer who built their filesystem and now works on evals</h2>
+      <p class="section-lead">He's been there since the early days. Before LatchBio he was an ML engineer at Robust.AI. He studied math and CS at UC Berkeley, where he was VP of Education for Machine Learning at Berkeley, taught an ML course and led a self-driving team. He also interned at NASA, SRI International and an NYU soft-matter lab. That history comes from third-party profiles, so check <a href="https://www.linkedin.com/in/aidanabdulali/" rel="noreferrer">his LinkedIn</a>.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">He wrote this</span>
+          <h3>Latch Data, a distributed filesystem (May 2024)</h3>
+          <p>Co-written with Kenny Workman, Max Smolin and Taras Priadka. Postgres holds the file tree and each file's state flags. A Python asyncio service keeps that in two-way sync with customers' own S3 and GCS buckets. They treat bucket notifications as unreliable, so every operation is idempotent and a full reconcile can run at any time. A Python FUSE mount downloads chunks in parallel, so reading the start of a huge file doesn't wait for the whole thing.</p>
+        </div>
+        <div class="card">
+          <span class="tag">He co-authored this</span>
+          <h3>scBench (2026)</h3>
+          <p>394 single-cell RNA-seq problems with deterministic graders. The best model got 52.8%. The finding worth remembering: switching sequencing platform moved scores more than switching task. The authors' conclusion is that agents speed up routine analysis but can't yet be trusted to answer science questions on their own. He's also on the 2022 bulk RNA-seq toolkit preprint.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Talk to him as a peer</span>
+          <h3>You have the same scars</h3>
+          <p>He's an infrastructure engineer. He'll care whether you take ownership, whether you ship, and whether you understand state that lives in more than one place. One honest connection to his post: “You treat bucket notifications as unreliable and make everything reconcilable. We landed on the same rule for agents: wakes get lost, so every agent re-reads its state from Postgres rather than trusting a message.”</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="role">
+      <p class="eyebrow">04 · The job</p>
+      <h2>What the job actually is</h2>
+      <p class="section-lead">The posting lists: agent infrastructure and orchestration, ML infrastructure, model benchmarking at scale, full-stack web, developer and user experience, and process optimization. The infrastructure side covers “container orchestration, sandboxing, distributed filesystems, cloud architecture, and database systems.” In practice that's three areas.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">1 · The benchmark factory</span>
+          <h3>Thousands of sandboxed runs every time a model ships</h3>
+          <p>Every new model is run across a dozen benchmarks and several harnesses. Each run is a sandbox with the data snapshot mounted and no internet. Then trajectories are collected and graded, confidence intervals computed, and results published within days. The hard parts are cost, provider rate limits, and keeping infrastructure failures out of the score.</p>
+        </div>
+        <div class="card">
+          <span class="tag">2 · The agent product</span>
+          <h3>Agents on customers' real data</h3>
+          <p>agent.bio (it now redirects to latch.bio) is described as a sandbox where researchers run frontier models on sequencing data, spreadsheets and TIFF images. Solution providers can also white-label the analysis for their own customers. That means multi-tenancy, customer data, audit trails and data provenance.</p>
+        </div>
+        <div class="card">
+          <span class="tag">3 · The data layer and the web</span>
+          <h3>Terabytes, Postgres, and the sites on top</h3>
+          <p>Latch Data, cloud architecture, and database systems underneath. Full-stack work on top: benchmarks.bio, trajectory viewers, and internal tools the AI biologists use every day.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="bridge">
+      <p class="eyebrow">05 · Your bridge</p>
+      <h2>You've been working on their problem for a year</h2>
+      <p class="section-lead">Each row pairs what LatchBio says with what you've already built. Pick two, not all five. Personal stories in your own words are in the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>.</p>
+      <div class="card">
+        <h3>1 · The harness is part of the result</h3>
+        <div class="pair">
+          <div><span class="label">LatchBio</span>The SpatialBench paper: “harness design has a large empirical effect on performance.” On their leaderboard, Pi often beats the model vendor's own harness.</div>
+          <div><span class="label">You</span>Papercusp runs Claude Code, Codex and oh-my-pi (a Pi-based harness) side by side on one codebase. You've seen firsthand how the same model changes with its tools, prompts and control flow.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>2 · Running a lot of agents at once, safely</h3>
+        <div class="pair">
+          <div><span class="label">LatchBio</span>Thousands of sandboxed trajectories per model launch. The posting names container orchestration and sandboxing.</div>
+          <div><span class="label">You</span>About 100 agents on one working tree, with presence, claims, file locks enforced before every edit, a scheduler, and wake/park lifecycles. Every long-running process is registered and confined to its own cgroup, so a kill takes out the whole process tree and can never hit a recycled PID. You built that after <code>pkill</code> twice killed your own live desktop.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>3 · Knowing when the agent didn't actually do it</h3>
+        <div class="pair">
+          <div><span class="label">LatchBio</span>Deterministic graders on real results. “Verifiable environments.” Agents can't be trusted without checking their intermediate results.</div>
+          <div><span class="label">You</span>Nothing counts as done without evidence: tests run, results recorded, and acceptance graded by someone other than the implementer. Your release gate freezes a failing candidate and lets fixes in one change at a time. It's the same idea: never trust the agent's own claim.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>4 · Postgres is the source of truth</h3>
+        <div class="pair">
+          <div><span class="label">LatchBio</span>Latch Data is a Postgres tree kept in sync with S3 and GCS, with idempotent operations and reconcile-anytime design.</div>
+          <div><span class="label">You</span>All durable Papercusp state (work items, plans, locks, the tool-call ledger) lives in Postgres. Schema changes go through migrations only, and the desktop app stays in sync over SSE.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>5 · Small team, big operation</h3>
+        <div class="pair">
+          <div><span class="label">LatchBio</span>“Driven engineers who are excited to take ownership on hard problems.”</div>
+          <div><span class="label">You</span>For about twelve years you ran an e-commerce business doing $1M+ a month with two engineers and three warehouse staff. Automation was the only way that worked.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">06 · The 60-second version</p>
+      <h2>Your pitch</h2>
+      <blockquote>“For about twelve years I ran an e-commerce business doing over a million a month with two engineers, so I've always leaned hard on automation. For the past year I've been building Papercusp. It's a platform where about a hundred AI coding agents work on one codebase at the same time, running on Claude Code, Codex and oh-my-pi, which is built on Pi. There are enforced locks so they don't clobber each other, a scheduler, confined processes, and a rule that nothing counts as done without evidence. I'm open-sourcing it next month. What pulled me to Latch is that you're working on the same question from the other side: how do you run agents at scale and actually know whether they got it right? Your benchmarks show the harness matters almost as much as the model, and I've been living with that. I'd love to hear what the infra looks like today.”</blockquote>
+      <p style="margin-top:1rem">End on the question. “What does a benchmark run look like on your side today?” gets him describing their system, and then you can tie each part to something you've built.</p>
+    </section>
+
+    <section id="questions">
+      <p class="eyebrow">07 · What he'll probably ask</p>
+      <h2>Likely questions, with answer sketches</h2>
+      <p class="section-lead">Keep each answer to about a minute, then offer to go deeper. In a 30-minute intro, one design question at most is likely. The real technical depth comes in rounds 2 and 3.</p>
+
+      <details open>
+        <summary>“Tell me about the hardest infrastructure problem you've worked on.”</summary>
+        <div>
+          <p><strong>Tell one story with numbers:</strong> getting about 100 agents to share one working tree. They clobbered each other's edits, killed each other's processes and broke the release gate.</p>
+          <ul>
+            <li><strong>Locks:</strong> enforced by a hook before every edit, not advisory, because agents ignore advisory rules.</li>
+            <li><strong>Commits:</strong> a background sync commits the whole tree on a schedule and hands merge conflicts to a resolver agent, so no agent runs git itself.</li>
+            <li><strong>Processes:</strong> a ledger where every long-lived process lives in its own cgroup. Kills take out the whole subtree, and pressure can be relieved by freezing instead of killing.</li>
+          </ul>
+          <p><strong>The lesson:</strong> make the safe path the only path.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>“How would you run tens of thousands of agent evals whenever a new model ships?”</summary>
+        <div>
+          <ul>
+            <li><strong>Pin everything.</strong> An eval is a data snapshot hash, prompt, grader and container image digest. A run is model × harness × eval × seed, with model and harness versions recorded.</li>
+            <li><strong>Queue.</strong> Postgres with <code>SKIP LOCKED</code>, or Kubernetes Jobs, with per-provider concurrency and budget limits so 429s don't flood the queue.</li>
+            <li><strong>Sandbox per run.</strong> Container or microVM, CPU, memory and time limits, no internet, data read-only, a writable scratch space.</li>
+            <li><strong>Grade outside the sandbox</strong>, so the agent can't touch the grader. Save the full trajectory, tokens, cost, time and exit reason.</li>
+            <li><strong>Keep infra failures out of the score.</strong> OOMs, provider errors and sandbox crashes get retried. Wrong answers don't. Otherwise the leaderboard is measuring your infrastructure.</li>
+            <li><strong>Report with confidence intervals</strong>, and keep the full eval set private so it can't leak into training data. SpatialBench already holds its full set back.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>“How do you sandbox an agent that runs arbitrary code but can't reach the internet?”</summary>
+        <div>
+          <p>Run the harness inside a container or microVM (gVisor or Firecracker if you don't trust the code). Give it a network namespace that blocks all outbound traffic by default. The only way out is a proxy that allows just the model API host and adds the API key itself, so the key never sits inside the sandbox. Use a read-only base image, read-only data, a scratch overlay, cgroup limits and a hard timeout that kills the whole process tree. Log every command.</p>
+          <p>The model API is the one hole left open. For biosecurity work, that makes logging prompts and responses a feature, not overhead.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>“An agent needs a 3 TB spatial dataset. How do you get it there?”</summary>
+        <div>
+          <p>Don't copy it for every run. Cache it by content hash on node-local NVMe and share it read-only across runs on the same machine. Send runs to nodes that already have the data. Read lazily in chunks, the way his Latch Data FUSE mount does, so an agent that only opens metadata never pulls terabytes. Pre-subset the data where the task allows.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>“How much biology do you know?”</summary>
+        <div>
+          <p>Be honest: no formal training. But you've read scBench and SpatialBench and know how the pipeline fits together: sequencing reads → a cells × genes count matrix (AnnData / <code>.h5ad</code>) → Scanpy or Seurat → QC, normalization, clustering, cell typing, differential expression. You learn a domain by building in it, which is how you learned commerce and warehouse operations. See the <a href="#glossary">glossary</a> below.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>“Why join a company instead of keeping building your own thing?”</summary>
+        <div>
+          <p>Use your own words from the <a href="papercusp-answer-bank-standalone.html">Answer Bank</a>. The honest shape: Papercusp is going open source, and you want to work on hard infrastructure with a strong team, in person, on a problem with real stakes. Measuring whether agents can do science is exactly that.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">08 · Your turn</p>
+      <h2>Questions to ask Aidan</h2>
+      <p class="section-lead">Pick three. The first two get him talking about his own work, which is the best use of an intro.</p>
+      <div class="grid">
+        <div class="card"><h3>“You built Latch Data and now you're on the benchmark papers. How much of the original platform do the evals and agents still run on?”</h3></div>
+        <div class="card"><h3>“Walk me through the day a new frontier model ships. How many trajectories, how long does it take, and where does it break?”</h3></div>
+        <div class="card"><h3>“How do you sandbox runs today, and what would you most like to rebuild?”</h3></div>
+        <div class="card"><h3>“How do you keep infrastructure failures from showing up as agent failures in the numbers?”</h3></div>
+        <div class="card"><h3>“Who uses the agent product today, and how different is the customer infrastructure from the eval infrastructure?”</h3></div>
+        <div class="card"><h3>“What would a new infra engineer own in the first 90 days? And what are the takehome and the two-day onsite like?”</h3></div>
+      </div>
+    </section>
+
+    <section id="glossary">
+      <p class="eyebrow">09 · Vocabulary</p>
+      <h2>Biology words you might hear</h2>
+      <p class="section-lead">Enough to follow along, not to fake expertise.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Data</span>
+          <ul>
+            <li><strong>NGS / FASTQ</strong>: next-generation sequencing. FASTQ files hold the raw reads.</li>
+            <li><strong>scRNA-seq</strong>: gene activity measured cell by cell. The result is a cells × genes matrix, usually an AnnData <code>.h5ad</code> file.</li>
+            <li><strong>Spatial transcriptomics</strong>: the same measurement, but each spot or cell has a position in the tissue. Platforms include 10x Xenium and Visium, Vizgen MERSCOPE, Curio and AtlasXomics. One run can be terabytes.</li>
+            <li><strong>Nextflow</strong>: a common bioinformatics workflow language. Latch integrates with it.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Analysis steps</span>
+          <ul>
+            <li><strong>QC → normalization → dimensionality reduction (PCA/UMAP) → clustering → cell typing → differential expression</strong>. These are basically SpatialBench's task categories, plus spatial analysis.</li>
+            <li><strong>Scanpy</strong> (Python) and <strong>Seurat</strong> (R): the standard toolkits.</li>
+            <li><strong>Variant calling</strong>: finding where a genome differs from a reference.</li>
+            <li><strong>Epigenomics</strong>: chemical marks that switch genes on and off (e.g. ATAC-seq, methylation).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Their benchmark areas</span>
+          <ul>
+            <li><strong>ASO / siRNA</strong>: short synthetic RNA-like drugs that silence one gene (oligonucleotide therapeutics).</li>
+            <li><strong>Antibody discovery, preclinical pharmacology</strong>: the other two TxBench sets.</li>
+            <li><strong>Metagenomics</strong>: sequencing every microbe in a sample, such as a gut microbiome.</li>
+            <li><strong>Biosecurity refusal</strong>: whether a model declines to help with dangerous biology while still doing useful work.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan">
+      <p class="eyebrow">10 · The call</p>
+      <h2>30-minute plan</h2>
+      <div class="steps">
+        <div class="step"><div class="when">Before 3:25</div><div><h3>Set up</h3><p>Open the Meet link and test camera and mic. Have <a href="https://benchmarks.bio" rel="noreferrer">benchmarks.bio</a> and the <a href="https://blog.latch.bio/p/latch-data-a-distributed-file-system" rel="noreferrer">Latch Data post</a> open in tabs. Keep a two-minute Papercusp demo ready in case he wants to see it.</p></div></div>
+        <div class="step"><div class="when">0:00–0:03</div><div><h3>Warm open</h3><p>Something real and small: “I saw MetagenomicsBench went out yesterday.”</p></div></div>
+        <div class="step"><div class="when">0:03–0:06</div><div><h3>Your story</h3><p>The 60-second pitch. End with the question about what a benchmark run looks like on their side.</p></div></div>
+        <div class="step"><div class="when">0:06–0:20</div><div><h3>His questions</h3><p>One-minute answers. Tie each one back to a bridge row. If he goes into design, use the eval-factory sketch.</p></div></div>
+        <div class="step"><div class="when">0:20–0:27</div><div><h3>Your questions</h3><p>Three at most. Let him talk.</p></div></div>
+        <div class="step"><div class="when">0:27–0:30</div><div><h3>Next steps</h3><p>Ask when the takehome goes out and how long you'll have for it. Mention the October move to SF again if it hasn't come up. Thank him.</p></div></div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">11 · Sources</p>
+      <h2>Where this came from</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">The role</span>
+          <ul>
+            <li><a href="https://jobs.ashbyhq.com/LatchBio/9e1ee863-c1d7-45af-99be-e92a123c2211" rel="noreferrer">Ashby posting: Member of Technical Staff, Infrastructure</a> (published 24 Jul 2026. The full text comes from Ashby's public job-board API because the page itself loads with JavaScript.)</li>
+            <li><a href="https://latch.bio/" rel="noreferrer">latch.bio</a> · <a href="https://benchmarks.bio" rel="noreferrer">benchmarks.bio</a> (leaderboard data dated 29 Sep 2026)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Their work</span>
+          <ul>
+            <li><a href="https://blog.latch.bio/p/latch-data-a-distributed-file-system" rel="noreferrer">Latch Data, a distributed file system for biotech teams</a> (Workman, Abdulali, Smolin, Priadka, May 2024)</li>
+            <li><a href="https://arxiv.org/abs/2602.09063" rel="noreferrer">scBench</a> · <a href="https://arxiv.org/abs/2512.21907" rel="noreferrer">SpatialBench</a> · <a href="https://github.com/latchbio/spatialbench" rel="noreferrer">SpatialBench repo</a></li>
+            <li><a href="https://www.youtube.com/watch?v=3ZMUiFaQ3qg" rel="noreferrer">Kenny Workman, “Verifiable Environments for AI in Biology”</a> (AI Engineer World's Fair 2026)</li>
+            <li><a href="https://blog.latch.bio/archive" rel="noreferrer">LatchBio blog archive</a> (model reviews, MetagenomicsBench)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Company and Aidan</span>
+          <ul>
+            <li><a href="https://blog.latch.bio/p/announcing-our-series-a-building" rel="noreferrer">Series A announcement</a> · <a href="https://techcrunch.com/2022/06/02/latchbio-empowers-scientists-with-a-code-free-platform-for-handling-big-biotech-data/" rel="noreferrer">TechCrunch, 2022</a> · <a href="https://ai.engineer/orgs/latchbio" rel="noreferrer">AI Engineer org page</a></li>
+            <li><a href="https://www.linkedin.com/in/aidanabdulali/" rel="noreferrer">Aidan's LinkedIn</a> · <a href="https://theorg.com/org/latchbio/org-chart/aidan-abdulali" rel="noreferrer">The Org</a> · <a href="https://people.equilar.com/bio/aidan-abdulali-latchbio/55698618" rel="noreferrer">Equilar</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>Prepared 29 September 2026 from the Ashby posting, the Calendly invite you pasted, latch.bio, benchmarks.bio, the LatchBio blog, the scBench and SpatialBench papers, and the public profiles linked above. Aidan's work history comes from third-party profiles and may be out of date, so check his LinkedIn. The claim that frontier labs adopted the benchmarks comes from a summary of Kenny's talk. The reported 2026 Series B is unconfirmed, so leave it out.</footer>
+</div>
+</body>
+</html>

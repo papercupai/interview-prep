@@ -29,6 +29,10 @@
           "t": "Vinci&nbsp;·&nbsp;Balaji&nbsp;·&nbsp;Tue&nbsp;5:00"
       },
       {
+          "h": "latchbio-aidan-abdulali-intro",
+          "t": "LatchBio&nbsp;·&nbsp;Aidan&nbsp;·&nbsp;Wed&nbsp;3:30"
+      },
+      {
           "h": "ivo-staff-fullstack-live-coding",
           "t": "Ivo&nbsp;·&nbsp;Roy&nbsp;·&nbsp;Live&nbsp;Coding&nbsp;Mon&nbsp;10/5"
       },
