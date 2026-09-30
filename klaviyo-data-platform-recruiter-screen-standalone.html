@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Klaviyo Senior Software Engineer, Data Platform recruiter screen: a tailored introduction, Papercusp stories, honest experience mapping, compensation and location questions, and a rehearsal checklist.">
+<title>Klaviyo · Data Platform Recruiter Screen | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f8f9; --surface: #fff; --soft: #eef2f3;
+    --ink: #10181c; --muted: #55646c; --accent: #14666e;
+    --warn: #8a5d05; --warn-soft: #f7edd6;
+    --rule: #dde4e7; --rule-strong: #c3cfd3;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0d1417; --surface: #141e22; --soft: #1a262b;
+      --ink: #e6edef; --muted: #93a3aa; --accent: #4fb3bc;
+      --warn: #d9a43a; --warn-soft: #33290f;
+      --rule: #24333a; --rule-strong: #35474f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .65rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table { width: 100%; min-width: 40rem; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; padding: .9rem 1rem; color: var(--muted); }
+  th, td { text-align: left; vertical-align: top; padding: .9rem 1rem; border-top: 1px solid var(--rule); }
+  th { background: var(--soft); font: 600 .85rem/1.5 var(--display); }
+  td:first-child { width: 24%; font-family: var(--display); font-weight: 600; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .source { margin-top: .7rem; color: var(--muted); font-size: .88rem; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    details, .card { break-inside: avoid; }
+    details > div { display: block; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Recruiter screen · Job 7997137003 · Checked 30 Sep 2026</p>
+      <h1>Klaviyo · Data Platform</h1>
+      <p class="lead">Senior Software Engineer. Lead with owning reliable systems, then connect your commerce background to customer data. Give the recruiter a clear reason to put you in front of the engineering team.</p>
+      <p class="source"><a href="https://www.klaviyo.com/careers/jobs/7997137003?gh_jid=7997137003">Official job posting</a> · Pronounced “clay-vee-oh.”</p>
+    </div>
+    <aside class="hero-card" aria-label="Posting facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>Location</dt><dd>Boston, MA; confirm office expectations.</dd></div>
+        <div><dt>Published US base range</dt><dd>$148,000–$222,000; location-specific offer varies.</dd></div>
+        <div><dt>Experience threshold</dt><dd>7+ years in software engineering.</dd></div>
+        <div><dt>Travel</dt><dd>Potentially up to 10%.</dd></div>
+        <div><dt>Call details</dt><dd>Recruiter, date, and length not yet specified.</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#brief">Role in a minute</a><a href="#pitch">Your introduction</a>
+    <a href="#fit">Experience map</a><a href="#answers">Recruiter answers</a>
+    <a href="#stories">Three stories</a><a href="#ask">Your questions</a>
+    <a href="#rehearse">Before the call</a><a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="brief">
+      <p class="eyebrow">01 · What you're interviewing for</p>
+      <h2>The infrastructure behind useful customer data</h2>
+      <p class="section-lead">Klaviyo combines customer information so brands can use it for marketing, service, and analytics. Its data platform connects stored history to timely customer actions. <a href="https://www.klaviyo.com/solutions/customer-data-platform">Product overview</a>.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>The engineering mandate</h3>
+          <p>The posting describes ownership of critical data and analytics infrastructure: design, implementation, production operation, design/code review, and mentorship. The platform runs on AWS and primarily uses Python. <a href="https://www.klaviyo.com/careers/jobs/7997137003?gh_jid=7997137003">Posting</a>.</p>
+        </div>
+        <div class="card">
+          <h3>Your strongest connection</h3>
+          <p>You understand commerce from operating a business, and platform reliability from building Papercusp. Explain how dependable data and systems let other teams move faster and customers get the right experience.</p>
+        </div>
+      </div>
+      <details>
+        <summary>The advertised stack, grouped by purpose</summary>
+        <div>
+          <ul>
+            <li><strong>Infrastructure:</strong> AWS, Terraform, Kubernetes.</li>
+            <li><strong>Application language:</strong> Python.</li>
+            <li><strong>Storage:</strong> ClickHouse, DynamoDB, MySQL.</li>
+            <li><strong>Processing:</strong> Kafka, Spark, Flink.</li>
+            <li><strong>Data infrastructure:</strong> Iceberg, Airflow, DataHub.</li>
+          </ul>
+          <p class="source">Grouping is a study aid; the <a href="https://www.klaviyo.com/careers/jobs/7997137003?gh_jid=7997137003">posting lists these technologies</a> without specifying which you would own day to day. Ask which are central to this opening.</p>
+        </div>
+      </details>
+      <div class="note"><strong>Positioning:</strong> emphasize software engineering for a data platform: concurrency, recovery, observability, safe changes, and developer tooling. Use the AI-agent project as evidence of those skills, and tie each story back to this team's infrastructure.</div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">02 · About 60 seconds</p>
+      <h2>“Tell me about yourself”</h2>
+      <p class="section-lead">A draft based on your existing prep. Keep the sequence; make the wording your own.</p>
+      <div class="card">
+        <p>“My background combines running a commerce business for twelve years with building software infrastructure. More recently I've been building Papercusp, a platform that coordinates AI coding agents working on a shared codebase. The part that's relevant here is the engineering underneath it: a TypeScript and Postgres backend, concurrent work, durable workflows, recovery, observability, and a tested release pipeline.</p>
+        <p>I've had to think about what happens when work is retried, a process dies, or a status report is wrong, and build controls that let the rest of the system keep moving safely. I'm looking to bring that ownership mindset to an established engineering team. Klaviyo interests me because the infrastructure directly supports businesses I understand: making customer data reliable and useful. I'd like to learn where this Data Platform team most needs that kind of systems experience.”</p>
+      </div>
+      <p class="source">Background basis: <a href="taktile-team-agent-intro-standalone.html#pitch">your Taktile recruiter pitch</a> and <a href="papercusp-answer-bank-standalone.html#n-overview">the Papercusp overview</a>. Use only responsibilities and examples you can personally explain.</p>
+      <div class="note"><strong>Short version:</strong> “I build and operate software infrastructure, with a commerce background and recent hands-on work on concurrency, durable execution, and production reliability. I'd like to apply that to Klaviyo's customer-data platform.”</div>
+    </section>
+
+    <section id="fit">
+      <p class="eyebrow">03 · Strengths and facts to confirm</p>
+      <h2>Match the requirement to a concrete example</h2>
+      <p class="section-lead">Use direct experience where you have it. Where the existing prep has no evidence, prepare the facts before the call rather than filling the gap with a technology name.</p>
+      <div class="table-wrap">
+        <table>
+          <caption>Experience mapping, based on the posting and your existing answer bank</caption>
+          <thead><tr><th scope="col">Topic</th><th scope="col">Evidence you can prepare</th><th scope="col">Boundary to keep clear</th></tr></thead>
+          <tbody>
+            <tr><td>Concurrent systems</td><td>Work claims, locks, idempotency, recovery, and ownership across workers. <a href="papercusp-answer-bank-standalone.html#q-concurrency">Concurrency story</a>.</td><td>Explain the distributed-system properties you handled; give measured scale only if current.</td></tr>
+            <tr><td>Production ownership</td><td>Green release gate, accountable repairs, incident investigation, and Linux process lifecycle. <a href="papercusp-answer-bank-standalone.html#n-incident">Incident</a>.</td><td>Be precise about your own role, the system you operated, and who used it.</td></tr>
+            <tr><td>Databases</td><td>Postgres transactions, advisory locks, migrations, durable state, and read projections.</td><td>Prepare a separate OLAP example if you have one. Transactional Postgres work alone doesn't establish analytical-database experience.</td></tr>
+            <tr><td>Cloud and IaC</td><td>Choose an actual cloud deployment and an infrastructure-as-code change you personally made.</td><td>AWS and Terraform experience aren't established by the cited prep. Name the provider/tool, resources, change, and recovery procedure truthfully.</td></tr>
+            <tr><td>Language</td><td>Recent TypeScript backend work. Add one real Python project, including what you shipped and maintained.</td><td>Papercusp's backend is TypeScript. Avoid turning Python study or interview exercises into production experience.</td></tr>
+            <tr><td>Data volume and processing</td><td>Bring measured rows/events per day, dataset size, latency, and a bottleneck from a real project, if available.</td><td>Agent count, code size, and revenue measure different things from ingestion throughput. Kafka/Flink/Spark experience needs its own example.</td></tr>
+            <tr><td>Senior collaboration</td><td>A design you owned, a tradeoff you explained, a review that changed an outcome, and someone you helped.</td><td>Managing AI agents is useful context; distinguish it from mentoring human engineers.</td></tr>
+            <tr><td>Engineering tenure</td><td>Prepare a dated chronology of paid/professional engineering work and engineering responsibilities within the business.</td><td>Twelve years of business ownership doesn't automatically mean twelve years of software engineering.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="answers">
+      <p class="eyebrow">04 · Likely recruiter topics · 30–60 seconds each</p>
+      <h2>Answers to rehearse</h2>
+      <p class="section-lead">These are practice prompts, not a confirmed Klaviyo interview script. Start with the answer, add one example, then let the recruiter follow up.</p>
+      <details open>
+        <summary>Why Klaviyo and this team?</summary>
+        <div><p>“I've operated a commerce business, so I understand why usable customer data matters. On the engineering side, I enjoy building infrastructure that other people can rely on: making failures recoverable, data trustworthy, and changes safe. This team brings those two interests together. I'd like to understand whether the opening is focused on streaming, storage, or the tooling around the platform.”</p></div>
+      </details>
+      <details>
+        <summary>Why join a company after running your own business?</summary>
+        <div><p>“I want to spend my time building systems with a strong engineering team, learning from people who've operated at a different scale, and owning a meaningful area of infrastructure. Running a business taught me to connect engineering decisions to customer outcomes. I'm looking for a hands-on role where I can bring that perspective and keep growing technically.”</p><p class="source">Keep this consistent with the reasons you've used in other recruiter calls; adjust it if your priorities have changed.</p></div>
+      </details>
+      <details>
+        <summary>Do you have the seven years of engineering experience?</summary>
+        <div><p>Give the exact chronology: roles, dates, and engineering responsibilities. Separate operating the business from writing and maintaining its software. Finish with your recent Papercusp work and the scope you owned.</p><p>If your direct engineering tenure is below their threshold: “My path is unconventional. My direct software work covers [actual dates and responsibilities], alongside business ownership. Does this team consider equivalent scope and ownership, or is the tenure threshold firm?”</p></div>
+      </details>
+      <details>
+        <summary>How closely does your technical background match our stack?</summary>
+        <div><p>“My most recent backend work is TypeScript and Postgres. My strongest relevant experience is coordination, durable execution, and operating reliable systems. For Python, cloud infrastructure, and analytical systems, I can walk through [your actual projects]. I'd like to understand which skills need to be deep on day one and which can be learned on the team.”</p><p>If you haven't used a listed tool in production, say so, then give the closest real experience and how you would close the gap. Keep the answer specific enough that a recruiter can distinguish relevant experience from a general willingness to learn.</p></div>
+      </details>
+      <details>
+        <summary>Are you comfortable with production operations and on-call?</summary>
+        <div><p>“Owning the system after it ships is part of the work I enjoy. I'm used to investigating failures and improving the controls so they don't recur. I'd like to understand the rotation, the typical page load, and how the team reserves time for reliability work.”</p><p class="source">Use a concrete incident from your own operation. Confirm your actual availability before committing to a rotation.</p></div>
+      </details>
+      <details>
+        <summary>What compensation are you looking for?</summary>
+        <div><p>“I saw the published base range of $148,000 to $222,000. I'd like to understand the range budgeted for this opening and location, the level, and the full package, including equity and bonus. If the scope fits, we can see whether we're aligned.”</p><p>If pressed for a number, use your own target and minimum, decided before the call: “For this scope, I'm targeting [your base range], with total compensation also depending on equity and bonus.” The posted range is base salary, not total compensation. <a href="https://www.klaviyo.com/careers/jobs/7997137003?gh_jid=7997137003">Compensation source</a>.</p></div>
+      </details>
+      <details>
+        <summary>Can you work in Boston? When could you start?</summary>
+        <div><p>Ask the location question early: “I saw Boston on the posting. What attendance cadence does this team require, and is another location or remote work available for this role?” Then give your actual location and willingness to commute or relocate.</p><p>Have an earliest start date, any existing commitments, and your travel availability ready. The posting doesn't establish remote eligibility or an office-day count.</p></div>
+      </details>
+      <details>
+        <summary>Work authorization and other interview timelines?</summary>
+        <div><p>Your existing prep records US citizenship and no US sponsorship requirement; confirm that remains accurate. For your search, state only current stages and real deadlines: “I'm speaking with a few teams and [current timing]. What is the expected timeline here?”</p><p class="source">The October decision target in older prep may need updating. Avoid implying an offer or deadline you don't have.</p></div>
+      </details>
+      <details>
+        <summary>How do you use AI in engineering?</summary>
+        <div><p>“I use AI extensively to help implement and explore solutions, while staying accountable for the design and result. Papercusp makes work ownership, permissions, and verification explicit. I can explain the code and tradeoffs, and I use tests and operational evidence to check that it behaves as intended.”</p><p class="source">Klaviyo explicitly allows AI-assisted research and practice. Its <a href="https://www.klaviyo.com/careers/ai-guidance">interview guidance</a> requires transparency and prohibits feeding live questions to AI and reading generated answers, or using it for assessments without permission. Rehearse this page in your own words.</p></div>
+      </details>
+    </section>
+
+    <section id="stories">
+      <p class="eyebrow">05 · Pick one when asked · About 45 seconds</p>
+      <h2>Three stories that translate to data infrastructure</h2>
+      <p class="section-lead">These sketches come from the answer bank. Choose an incident you personally worked on and be ready to explain your contribution and how you verified it.</p>
+      <div class="card">
+        <span class="tag">Concurrency · Correctness</span>
+        <h3>Preventing a migration-number race</h3>
+        <p>“With multiple workers changing one system, two could reserve the same migration number. I moved allocation behind a Postgres advisory lock, and kept unfinished files outside the runner's pickup convention. The change made reservation atomic and prevented execution while a migration was still being written. It's the same discipline I'd bring to shared data infrastructure: identify the invariant, enforce it at the owning boundary, and test the concurrent case.”</p>
+        <p class="source">Expand from <a href="papercusp-answer-bank-standalone.html#q-concurrency">Q4 · Race conditions</a>. Describe the actual test if asked; don't invent a before/after failure rate.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Recovery · Durable execution</span>
+        <h3>Work that survives a process crash</h3>
+        <p>“For long-running work, process memory couldn't be the record of truth. We used durable workflow state and stable idempotency keys so a restart could recover progress safely. The verification included a real process kill, followed by recovery against the same database and checks on the completed result. The important part was defining what could replay and what must not produce a duplicate effect.”</p>
+        <p class="source">Expand from <a href="papercusp-answer-bank-standalone.html#sg-testing">SG11 · Crash testing</a> and <a href="papercusp-answer-bank-standalone.html#sg-window">SG3 · The crash window</a>. Transfer the reasoning to retries and processing pipelines; keep the DBOS example separate from claiming Flink experience.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Observability · Trustworthy data</span>
+        <h3>A status number that measured the wrong population</h3>
+        <p>“We had test-run records from different kinds of runs. Aggregating them into one failure count could make the current release candidate look unhealthy even when those failures belonged to other work. The fix was to report the candidate's own verdict and make the population explicit. It reinforced a rule I use now: trace a metric to its writer and understand its scope before making an operational decision.”</p>
+        <p class="source">Expand from <a href="papercusp-answer-bank-standalone.html#n-test-scale">N10 · Test-scale observability</a>. Useful connection: data-platform users need to trust what a query or metric actually represents.</p>
+      </div>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">06 · Choose three or four</p>
+      <h2>Questions that resolve fit</h2>
+      <ol>
+        <li><strong>Team scope:</strong> “Which part of Data Platform is hiring, and what's the most important problem this engineer would own in the first six months?”</li>
+        <li><strong>Day-one expectations:</strong> “Which skills are essential from the start: Python, Terraform, streaming systems, or analytical databases?”</li>
+        <li><strong>Location:</strong> “What are the Boston attendance expectations, and which other locations are eligible?”</li>
+        <li><strong>Senior bar:</strong> “How do you evaluate someone with an unconventional background and end-to-end system ownership?”</li>
+        <li><strong>Operations:</strong> “Does this team have an on-call rotation, and how is reliability work balanced with new development?”</li>
+        <li><strong>Process:</strong> “What are the stages, coding language options, and system-design topics? What should I prepare for the next conversation?”</li>
+        <li><strong>Package:</strong> “What's the budgeted base range for this level and location, and how are equity and bonus structured?”</li>
+      </ol>
+      <p class="source">Save detailed architecture questions for engineers. A useful later question: “How do you balance freshness, query latency, and cost across transactional and analytical stores?”</p>
+    </section>
+
+    <section id="rehearse">
+      <p class="eyebrow">07 · A 15-minute practice pass</p>
+      <h2>Make the answers short and defensible</h2>
+      <div class="steps">
+        <div class="step"><span class="when">0–4 min</span><div><h3>Settle the facts</h3><p>Engineering dates; one Python example; one cloud/IaC example; any analytical or high-volume data work; location; salary target; start date. Treat unanswered fields as questions to resolve.</p></div></div>
+        <div class="step"><span class="when">4–7 min</span><div><h3>Say the introduction aloud</h3><p>One minute, without reading. Keep the commerce connection, your current systems work, and why this team. Cut internal tool names that require explanation.</p></div></div>
+        <div class="step"><span class="when">7–11 min</span><div><h3>Rehearse a strength and a gap</h3><p>One 45-second story with your action and a verified result. Then answer the hardest stack or tenure question directly, with the closest genuine example.</p></div></div>
+        <div class="step"><span class="when">11–15 min</span><div><h3>Practice the close</h3><p>Pick three questions. End with: “From what we've discussed, does my experience line up with this team's needs, and is there anything I should clarify before the next step?”</p></div></div>
+      </div>
+      <div class="note"><strong>Keep beside you:</strong> three factual bullets, one story title, your logistics, and your questions. Re-check old system counts before using them. The recruiter needs a clear picture of your fit; detailed architecture can wait for a follow-up.</div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">08 · Evidence and limits</p>
+      <h2>Where this prep came from</h2>
+      <ul>
+        <li><a href="https://www.klaviyo.com/careers/jobs/7997137003?gh_jid=7997137003">Klaviyo's official posting, job 7997137003</a>: role, location, requirements, stack, base-pay range, and travel.</li>
+        <li><a href="https://www.klaviyo.com/solutions/customer-data-platform">Klaviyo Data Platform overview</a>: customer-data use cases and connection to the product.</li>
+        <li><a href="https://www.klaviyo.com/careers/ai-guidance">Klaviyo's interview AI guidance</a>: allowed preparation and interview-use boundaries.</li>
+        <li><a href="taktile-team-agent-intro-standalone.html#pitch">Your existing recruiter introduction</a> and <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a>: background and engineering-story material.</li>
+      </ul>
+      <p class="source">Company sources checked 30 September 2026. Your background is adapted from local prep, not independently verified here. Office cadence, exact team placement, recruiter identity, interview stages, and current personal logistics remain to be confirmed.</p>
+    </section>
+  </main>
+  <footer><p><a href="papercusp-answer-bank-standalone.html">← Papercusp Answer Bank</a> · Klaviyo recruiter-screen prep · 30 September 2026.</p></footer>
+</div>
+</body>
+</html>

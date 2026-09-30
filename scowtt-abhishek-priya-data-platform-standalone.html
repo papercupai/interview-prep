@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Scowtt Staff / Senior Staff Software Engineer, Data Platform interview with Head of Engineering Abhishek Priya: company brief, role read, tailored introduction, pipeline design walkthrough, likely questions and questions to ask.">
+<title>Scowtt · Abhishek Priya · Data Platform | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f8f9; --surface: #fff; --soft: #eef2f3;
+    --ink: #10181c; --muted: #55646c; --accent: #14666e;
+    --warn: #8a5d05; --warn-soft: #f7edd6;
+    --rule: #dde4e7; --rule-strong: #c3cfd3;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0d1417; --surface: #141e22; --soft: #1a262b;
+      --ink: #e6edef; --muted: #93a3aa; --accent: #4fb3bc;
+      --warn: #d9a43a; --warn-soft: #33290f;
+      --rule: #24333a; --rule-strong: #35474f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .65rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table { width: 100%; min-width: 40rem; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; padding: .9rem 1rem; color: var(--muted); }
+  th, td { text-align: left; vertical-align: top; padding: .9rem 1rem; border-top: 1px solid var(--rule); }
+  th { background: var(--soft); font: 600 .85rem/1.5 var(--display); }
+  td:first-child { width: 24%; font-family: var(--display); font-weight: 600; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .source { margin-top: .7rem; color: var(--muted); font-size: .88rem; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    details, .card { break-inside: avoid; }
+    details > div { display: block; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Engineering interview · Job 4409093009 · Checked 30 Sep 2026</p>
+      <h1>Scowtt · Abhishek Priya</h1>
+      <p class="lead">Staff / Senior Staff Software Engineer, Data Platform. Your interviewer runs engineering at a small, fast-growing adtech company, so the question underneath is: <strong>can you own a customer-data pipeline end to end with little direction?</strong> Answer with systems you built and how they fail.</p>
+      <p class="source"><a href="https://job-boards.greenhouse.io/scowtt/jobs/4409093009">Official job posting</a> · Google Meet link</p>
+    </div>
+    <aside class="hero-card" aria-label="Interview facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>When</dt><dd>Wed 30 Sep 2026, 7:00–8:00pm ET (4:00–5:00pm Pacific, Seattle time).</dd></div>
+        <div><dt>Where</dt><dd>Google Meet: [join link in calendar invite]</dd></div>
+        <div><dt>Interviewer</dt><dd>Abhishek Priya, Head of Engineering (per GeekWire; previously Director of Engineering at Everlaw).</dd></div>
+        <div><dt>Role</dt><dd>Staff / Senior Staff SWE, Data Platform. Supports Marketing AI and AI Sales Agents.</dd></div>
+        <div><dt>Location</dt><dd>Seattle / San Francisco. Confirm on-site expectations.</dd></div>
+        <div><dt>Base</dt><dd>$180,000–$260,000 depending on level and location, plus startup equity.</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#company">Company in a minute</a><a href="#role">What the role really is</a>
+    <a href="#pitch">Your introduction</a><a href="#fit">Experience map</a>
+    <a href="#design">Design question to rehearse</a><a href="#answers">Likely questions</a>
+    <a href="#ask">Your questions</a><a href="#rehearse">Last 10 minutes</a><a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="company">
+      <p class="eyebrow">01 · What Scowtt does</p>
+      <h2>First-party CRM data turned into better ad signals</h2>
+      <p class="section-lead">Scowtt predicts which leads will convert and how valuable they will be, from a customer's own CRM data. It sends those predictions back to Google, Meta and other ad platforms as conversion signals, so campaigns optimize toward revenue instead of form fills. Marketers keep their existing tools.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Three products</h3>
+          <p><strong>Predictive modeling</strong>: scores leads by likelihood and value of conversion. <strong>AI marketing</strong>: pushes those scores into ad platforms automatically. <strong>AI sales agent</strong>: talks to high-value leads to book calls or appointments.</p>
+        </div>
+        <div class="card">
+          <h3>Stage and people</h3>
+          <p>Founded 2024; Seattle (Crunchbase lists Kirkland, WA). $12M Series A in Dec 2025, led by Inspired Capital with LiveRamp Ventures. At the time: about 10 people and $3.2M ARR. CEO Eduardo Indacochea spent 13+ years at Microsoft, then held leadership roles at Google and Meta, where he was a VP in advertising.</p>
+        </div>
+        <div class="card">
+          <h3>Results they publish</h3>
+          <p>LaserAway +59% purchase ROAS; Advanced Hair Restoration +64%; a large education advertiser +38% ROAS by modeling likelihood to enroll. Customers are lead-gen, performance-driven advertisers on search and social.</p>
+        </div>
+        <div class="card">
+          <h3>Where they are going</h3>
+          <p>An AI "operating system for growth" that connects marketing and sales through the data already in the CRM. The Data Platform is what makes that possible, so this hire is foundational.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="role">
+      <p class="eyebrow">02 · Read between the lines</p>
+      <h2>The job is making customer onboarding fast and pipelines trustworthy</h2>
+      <p class="section-lead">Every new customer arrives with different CRM objects, custom fields, warehouses and identifiers. Their "what success looks like" list starts with <em>customer data onboarding becomes much faster and needs less manual work</em>. That is the problem to talk about.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Sources</h3>
+          <p>CRMs (Salesforce, HubSpot), web signals, ad platforms, product events. Customer warehouses: BigQuery, Snowflake, Databricks, Redshift, and customer-managed databases. Delivered by API, cloud storage, data sharing, batch and events.</p>
+        </div>
+        <div class="card">
+          <h3>Hard parts they name</h3>
+          <p>Historical backfills <em>and</em> low-latency incremental updates; schema evolution; data quality; idempotency, retries, concurrency and failure recovery; observability; multi-tenant security and sensitive-data handling.</p>
+        </div>
+        <div class="card">
+          <h3>Stack</h3>
+          <p>Python and TypeScript/Node, SQL. GCP and AWS (GCS, S3, Cloud Run, Lambda, Pub/Sub, SQS, Postgres/RDS). BigQuery. Occasional React/Next.js. Terraform is a plus.</p>
+        </div>
+        <div class="card">
+          <h3>Staff signals</h3>
+          <p>"Take an ambiguous problem, determine the right technical approach, and drive it independently." Define standards and reusable patterns, mentor, and create "durable engineering leverage." Show judgment, not just execution.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">03 · About 60 seconds</p>
+      <h2>“Tell me about yourself”</h2>
+      <div class="card">
+        <p>“I spent twelve years running a commerce business, so I've lived on the customer side of ad spend and CRM data: leads, attribution, and whether marketing actually turns into revenue. More recently I've been building Papercusp, a platform that coordinates many AI coding agents working on one shared codebase. The relevant part for this role is the engineering underneath: a TypeScript and Postgres backend, durable workflows, concurrent work that has to be safe when things are retried or a process dies, and observability and tests so I can trust what the system reports. What draws me to Scowtt is that the data platform <em>is</em> the product: onboarding a customer's messy CRM data quickly and reliably is what makes the models and the ad signals work.”</p>
+      </div>
+      <p class="note">Keep it in your own words. End on why this role, then stop and let him steer.</p>
+    </section>
+
+    <section id="fit">
+      <p class="eyebrow">04 · Be concrete and honest</p>
+      <h2>Match each requirement to a real example</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>They want</th><th>What to point to</th></tr></thead>
+          <tbody>
+            <tr><td>Own complex systems end to end</td><td>Papercusp: you designed, built, ran and debugged it in production-like conditions with many concurrent agents.</td></tr>
+            <tr><td>Idempotency, retries, concurrency, failure recovery</td><td>Durable workflows, file locking between concurrent agents, work that must survive restarts, and scheduled jobs that must not double-run.</td></tr>
+            <tr><td>Strong SQL, Postgres</td><td>Postgres as the source of truth, migrations, and ad-hoc analytic queries to diagnose problems.</td></tr>
+            <tr><td>Observability and testing</td><td>Health checks, test gates that block releases, and the habit of confirming what a metric measures before trusting it.</td></tr>
+            <tr><td>Python + TypeScript</td><td>TypeScript is your main language. Be straightforward about how much production Python you've written and how quickly you'd ramp up.</td></tr>
+            <tr><td>GCP / AWS, BigQuery, Snowflake</td><td>Say honestly what you have used. Describe the concepts you know (partitioning, incremental loads, cost per scan) instead of overclaiming.</td></tr>
+            <tr><td>Marketing / CRM / ad-tech domain</td><td>Your commerce years: you bought ads, lived with CRM and lead data, and know why optimizing to leads instead of revenue wastes money.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="design">
+      <p class="eyebrow">05 · The likely whiteboard</p>
+      <h2>“Onboard a new customer's CRM data and send value signals to Google and Meta”</h2>
+      <p class="section-lead">Walk through the design in this order. Name the trade-offs as you go; that is what a Head of Engineering is listening for.</p>
+      <ol class="steps">
+        <li class="step"><strong>Clarify.</strong> Which CRM and objects (leads, opportunities, custom fields)? Volume? How fresh must signals be? Does the customer give API access or a warehouse share?</li>
+        <li class="step"><strong>Ingest.</strong> Connectors pull incrementally with a watermark (e.g. Salesforce <code>SystemModstamp</code> / <code>updated_at</code>) and a separate backfill path. Land raw data append-only, per tenant, in GCS/BigQuery so you can replay it.</li>
+        <li class="step"><strong>Normalize.</strong> Map each customer's schema to a canonical lead → opportunity → outcome model using <em>config, not code</em>. That mapping layer is the onboarding-speed lever. Detect schema drift and alert instead of failing silently.</li>
+        <li class="step"><strong>Identity and quality.</strong> Join on click IDs (gclid, fbclid) and normalized, hashed email/phone. Check row counts, null rates, duplicates and freshness per tenant before scoring.</li>
+        <li class="step"><strong>Score.</strong> Build curated feature tables shared by training and inference so they can't drift apart; the model outputs P(convert) and expected value.</li>
+        <li class="step"><strong>Deliver.</strong> Upload conversions/values via Google Ads offline or enhanced conversions and the Meta Conversions API. Use idempotency keys (lead ID + event + time) so retries never double-count. Retry with backoff and send failures to a dead-letter queue you can replay.</li>
+        <li class="step"><strong>Observe.</strong> Per-tenant dashboards and alerts on freshness, match rate, upload acceptance rate and score distribution shift. An onboarding validation report the customer-success team can read.</li>
+        <li class="step"><strong>Security.</strong> Strict tenant isolation, least-privilege credentials per customer, hash PII before it leaves, and audit who accessed what.</li>
+      </ol>
+      <p class="note">Say one thing you'd <em>not</em> build yet (e.g. real-time streaming everywhere) and why. Staff engineers are judged on what they choose to leave out.</p>
+    </section>
+
+    <section id="answers">
+      <p class="eyebrow">06 · Short answers to rehearse</p>
+      <h2>Likely questions</h2>
+      <div class="grid">
+        <div class="card"><h3>A system you owned end to end</h3><p>Papercusp coordination: the problem, what you built, one hard failure, how you found the root cause, and what guard stops it recurring.</p></div>
+        <div class="card"><h3>A production incident</h3><p>Pick one where the first explanation was wrong. Show how you measured instead of guessing, then fixed the class of bug, not just the one instance.</p></div>
+        <div class="card"><h3>Ambiguous problem, no spec</h3><p>How you scoped it, what you shipped first, how you knew it was working, and what you deliberately deferred.</p></div>
+        <div class="card"><h3>Backfill vs incremental</h3><p>Same transformation code for both; backfills are chunked, resumable and throttled; incremental runs use watermarks with a lookback window for late updates; outputs are idempotent upserts.</p></div>
+        <div class="card"><h3>Schema evolution</h3><p>Keep the raw data; version the mapping; additive changes flow through, while breaking changes alert and quarantine instead of corrupting downstream tables.</p></div>
+        <div class="card"><h3>Why a 10–20 person startup</h3><p>You want ownership and to see results directly. You've operated a business, so revenue-linked engineering appeals to you.</p></div>
+      </div>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">07 · Pick three or four</p>
+      <h2>Questions for Abhishek</h2>
+      <ul>
+        <li>How are customer integrations built today: per-customer code, a connector framework, or managed tools like Fivetran/Airbyte? Where does onboarding take the most manual time?</li>
+        <li>What does the data platform look like now, and what is the first thing you would want this hire to own?</li>
+        <li>How is work split between GCP and AWS, and why?</li>
+        <li>How does the AI sales agent use the data: batch scores, or real-time lookups while it talks to a lead?</li>
+        <li>How big is the engineering team, and how do you distinguish Staff from Senior Staff here?</li>
+        <li>What would a great first 90 days look like?</li>
+        <li>Rapport: what carried over from Everlaw's scale to a company this size, and what didn't?</li>
+        <li>Logistics: expectations for Seattle / SF office time, and the next interview steps.</li>
+      </ul>
+    </section>
+
+    <section id="rehearse">
+      <p class="eyebrow">08 · Before 7:00pm</p>
+      <h2>Last 10 minutes</h2>
+      <ul>
+        <li>Open the Meet link at 6:55; check camera, mic and a plain background.</li>
+        <li>Have a whiteboard (paper, Excalidraw or Google Drawings) ready for the design walkthrough.</li>
+        <li>Say the 60-second intro out loud once.</li>
+        <li>Memorize three facts: CRM-to-ad-signal product, $12M Series A (Inspired Capital, LiveRamp Ventures), and onboarding speed as the platform's goal.</li>
+        <li>Pause before answering design questions and ask one clarifying question first.</li>
+      </ul>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">09 · Where this came from</p>
+      <h2>Sources</h2>
+      <ul>
+        <li class="source"><a href="https://job-boards.greenhouse.io/scowtt/jobs/4409093009">Scowtt job posting (Greenhouse)</a>, checked 30 Sep 2026.</li>
+        <li class="source"><a href="https://www.geekwire.com/2025/seattle-adtech-startup-scowtt-raises-12m-to-turn-crm-data-into-better-ad-campaigns/">GeekWire: Seattle startup Scowtt raises $12M</a>. Team size, ARR, leadership, including Abhishek Priya as head of engineering (ex-Everlaw).</li>
+        <li class="source"><a href="https://finance.yahoo.com/news/scowtt-raises-12m-series-transform-123000267.html">Series A press release</a>. Products and customer results.</li>
+        <li class="source"><a href="https://www.inspiredcapital.com/insights/why-we-invested-scowtt">Inspired Capital: Why we invested</a>.</li>
+        <li class="source"><a href="https://www.scowtt.com/team">Scowtt team page</a>.</li>
+      </ul>
+    </section>
+  </main>
+</div>
+</body>
+</html>
