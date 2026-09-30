@@ -110,7 +110,7 @@
       <p class="eyebrow">Engineering interview · Job 4409093009 · Checked 30 Sep 2026</p>
       <h1>Scowtt · Abhishek Priya</h1>
       <p class="lead">Staff / Senior Staff Software Engineer, Data Platform. Your interviewer runs engineering at a small, fast-growing adtech company, so the question underneath is: <strong>can you own a customer-data pipeline end to end with little direction?</strong> Answer with systems you built and how they fail.</p>
-      <p class="source"><a href="https://job-boards.greenhouse.io/scowtt/jobs/4409093009">Official job posting</a> · Google Meet link</p>
+      <p class="source"><a href="https://job-boards.greenhouse.io/scowtt/jobs/4409093009">Official job posting</a> · Google Meet link · <a href="scowtt-data-platform-screen-standalone.html">Your 21 Sep recruiter-screen prep</a> (gaps, “don't say / do say”, comp)</p>
     </div>
     <aside class="hero-card" aria-label="Interview facts">
       <p class="eyebrow">At a glance</p>
@@ -213,16 +213,16 @@
       <p class="eyebrow">05 · The likely whiteboard</p>
       <h2>“Onboard a new customer's CRM data and send value signals to Google and Meta”</h2>
       <p class="section-lead">Walk through the design in this order. Name the trade-offs as you go; that is what a Head of Engineering is listening for.</p>
-      <ol class="steps">
-        <li class="step"><strong>Clarify.</strong> Which CRM and objects (leads, opportunities, custom fields)? Volume? How fresh must signals be? Does the customer give API access or a warehouse share?</li>
-        <li class="step"><strong>Ingest.</strong> Connectors pull incrementally with a watermark (e.g. Salesforce <code>SystemModstamp</code> / <code>updated_at</code>) and a separate backfill path. Land raw data append-only, per tenant, in GCS/BigQuery so you can replay it.</li>
-        <li class="step"><strong>Normalize.</strong> Map each customer's schema to a canonical lead → opportunity → outcome model using <em>config, not code</em>. That mapping layer is the onboarding-speed lever. Detect schema drift and alert instead of failing silently.</li>
-        <li class="step"><strong>Identity and quality.</strong> Join on click IDs (gclid, fbclid) and normalized, hashed email/phone. Check row counts, null rates, duplicates and freshness per tenant before scoring.</li>
-        <li class="step"><strong>Score.</strong> Build curated feature tables shared by training and inference so they can't drift apart; the model outputs P(convert) and expected value.</li>
-        <li class="step"><strong>Deliver.</strong> Upload conversions/values via Google Ads offline or enhanced conversions and the Meta Conversions API. Use idempotency keys (lead ID + event + time) so retries never double-count. Retry with backoff and send failures to a dead-letter queue you can replay.</li>
-        <li class="step"><strong>Observe.</strong> Per-tenant dashboards and alerts on freshness, match rate, upload acceptance rate and score distribution shift. An onboarding validation report the customer-success team can read.</li>
-        <li class="step"><strong>Security.</strong> Strict tenant isolation, least-privilege credentials per customer, hash PII before it leaves, and audit who accessed what.</li>
-      </ol>
+      <div class="steps">
+        <div class="step"><span class="when">Clarify</span><div><p>Which CRM and objects (leads, opportunities, custom fields)? Volume? How fresh must signals be? Does the customer give API access or a warehouse share?</p></div></div>
+        <div class="step"><span class="when">Ingest</span><div><p>Connectors pull incrementally with a watermark (e.g. Salesforce <code>SystemModstamp</code> / <code>updated_at</code>) and a separate backfill path. Land raw data append-only, per tenant, in GCS/BigQuery so you can replay it.</p></div></div>
+        <div class="step"><span class="when">Normalize</span><div><p>Map each customer's schema to a canonical lead → opportunity → outcome model using <em>config, not code</em>. That mapping layer is the onboarding-speed lever. Detect schema drift and alert instead of failing silently.</p></div></div>
+        <div class="step"><span class="when">Identity and quality</span><div><p>Join on click IDs (gclid, fbclid) and normalized, hashed email/phone. Check row counts, null rates, duplicates and freshness per tenant before scoring.</p></div></div>
+        <div class="step"><span class="when">Score</span><div><p>Build curated feature tables shared by training and inference so they can't drift apart; the model outputs P(convert) and expected value.</p></div></div>
+        <div class="step"><span class="when">Deliver</span><div><p>Upload conversions/values via Google Ads offline or enhanced conversions and the Meta Conversions API. Use idempotency keys (lead ID + event + time) so retries never double-count. Retry with backoff and send failures to a dead-letter queue you can replay.</p></div></div>
+        <div class="step"><span class="when">Observe</span><div><p>Per-tenant dashboards and alerts on freshness, match rate, upload acceptance rate and score distribution shift. An onboarding validation report the customer-success team can read.</p></div></div>
+        <div class="step"><span class="when">Security</span><div><p>Strict tenant isolation, least-privilege credentials per customer, hash PII before it leaves, and audit who accessed what.</p></div></div>
+      </div>
       <p class="note">Say one thing you'd <em>not</em> build yet (e.g. real-time streaming everywhere) and why. Staff engineers are judged on what they choose to leave out.</p>
     </section>
 
