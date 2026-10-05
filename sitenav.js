@@ -17,6 +17,10 @@
           "t": "Answer&nbsp;Bank"
       },
       {
+          "h": "pulumi-gilad-golan-em",
+          "t": "Pulumi&nbsp;·&nbsp;Gilad&nbsp;·&nbsp;Mon&nbsp;11:30"
+      },
+      {
           "h": "scowtt-abhishek-priya-data-platform",
           "t": "Scowtt&nbsp;·&nbsp;Abhishek&nbsp;·&nbsp;Wed&nbsp;7:00"
       },

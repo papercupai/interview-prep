@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pulumi hiring-manager call with Engineering Manager Gilad Golan: Neo agentic-AI role brief, interviewer profile, tailored pitch, Neo-to-Papercusp evidence map, likely questions, and questions to ask.">
+<title>Pulumi · Gilad Golan (Engineering Manager) | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f8f9; --surface: #fff; --soft: #eef2f3;
+    --ink: #10181c; --muted: #55646c; --accent: #14666e;
+    --warn: #8a5d05; --warn-soft: #f7edd6;
+    --rule: #dde4e7; --rule-strong: #c3cfd3;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0d1417; --surface: #141e22; --soft: #1a262b;
+      --ink: #e6edef; --muted: #93a3aa; --accent: #4fb3bc;
+      --warn: #d9a43a; --warn-soft: #33290f;
+      --rule: #24333a; --rule-strong: #35474f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .65rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table { width: 100%; min-width: 40rem; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; padding: .9rem 1rem; color: var(--muted); }
+  th, td { text-align: left; vertical-align: top; padding: .9rem 1rem; border-top: 1px solid var(--rule); }
+  th { background: var(--soft); font: 600 .85rem/1.5 var(--display); }
+  td:first-child { width: 24%; font-family: var(--display); font-weight: 600; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .source { margin-top: .7rem; color: var(--muted); font-size: .88rem; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    details, .card { break-inside: avoid; }
+    details > div { display: block; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 0; }
+  }
+
+  blockquote { margin: 1rem 0; padding: .9rem 1.1rem; border-left: 3px solid var(--accent); background: var(--soft); }
+  blockquote p { margin: 0; }
+  code { font-size: .9em; padding: .05em .3em; background: var(--soft); border-radius: 2px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Hiring-manager call · 30 minutes · Prepared 5 Oct 2026</p>
+      <h1>Pulumi · Gilad Golan</h1>
+      <p class="lead">Interview with an engineering manager at Pulumi. Pulumi's open engineering role is on <strong>Neo</strong>, its AI agent for infrastructure, which Pulumi describes as "Claude Code, but for your cloud." Papercusp is close to the same problem: an agent runtime with tools, approvals, recovery, and evaluation. Show that you have built the parts around the model.</p>
+      <p class="source">Pronounced "puh-LOO-mee" (Hawaiian for "broom"). <a href="https://job-boards.greenhouse.io/pulumicorporation/jobs/7984527003">Senior Software Engineer, Agentic AI posting</a> · <a href="https://www.pulumi.com/blog/pulumi-neo/">Neo launch post</a></p>
+    </div>
+    <aside class="hero-card" aria-label="Call facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>When</dt><dd><strong>Mon 5 Oct, 11:30–12:00 PT</strong> (2:30 ET).</dd></div>
+        <div><dt>Where</dt><dd>the join link in your calendar invite</dd></div>
+        <div><dt>With</dt><dd>Gilad Golan, Engineering Manager.</dd></div>
+        <div><dt>Likely role</dt><dd>Senior SWE, Agentic AI (Neo). Remote US, Pacific time preferred. Base $185K–$215K plus bonus and equity. <em>Inferred; confirm early in the call.</em></dd></div>
+        <div><dt>Company</dt><dd>Seattle, remote-first. CEO and founder Joe Duffy. $106.5M raised; 3,700+ customers.</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#five">Last 5 minutes</a><a href="#brief">Role in a minute</a>
+    <a href="#gilad">About Gilad</a><a href="#pitch">Your introduction</a>
+    <a href="#fit">Neo ↔ Papercusp</a><a href="#answers">Likely questions</a>
+    <a href="#ask">Your questions</a><a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="five">
+      <p class="eyebrow">00 · Read this first</p>
+      <h2>The three points to make in 30 minutes</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>1 · You've built Neo's hard parts</h3>
+          <p>Papercusp runs about a hundred agents on one production codebase. The hard work was the runtime: tool interfaces, recovery when an agent stalls, approval before risky actions, and checks that the work is actually done.</p>
+        </div>
+        <div class="card">
+          <h3>2 · Approve before apply is your default</h3>
+          <p>In Neo, users watch the agent and approve operations. Papercusp makes risky operations dry-run by default, requires an explicit confirm, and has an independent grader review completed work before it ships. Same instinct as <code>pulumi preview</code> before <code>pulumi up</code>.</p>
+        </div>
+        <div class="card">
+          <h3>3 · You own production end to end</h3>
+          <p>Before Papercusp you ran a commerce business for twelve years: over $1M a month, small team, on-call included. Gilad is a manager, so say plainly that you take ownership and know when to ask for help.</p>
+        </div>
+      </div>
+      <div class="note"><strong>Early in the call:</strong> "Is this for the Neo / Agentic AI team, or another team?" The role is my best inference from Pulumi's open engineering posting; nothing in the invite names it. If it's another team (ESC, Cloud, IaC engine), lead with point 3 and use the durable-execution story.</div>
+    </section>
+
+    <section id="brief">
+      <p class="eyebrow">01 · What you're interviewing for</p>
+      <h2>Pulumi, and Neo, in a minute</h2>
+      <p class="section-lead">Pulumi lets engineers define cloud infrastructure in TypeScript, Python, Go, C#, Java, or YAML instead of a configuration DSL. The open-source engine computes a plan (<code>preview</code>), then applies it (<code>up</code>) against stored state. The commercial side, Pulumi Cloud, handles state, deployments, secrets and configuration (ESC), policy, search across resources (Insights), and an internal developer platform (IDP).</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Neo, the product you'd likely build</h3>
+          <p>Pulumi calls Neo an AI agent built for platform engineering. It works from your cloud context, IaC, secrets and configuration, and policies. Pulumi's published examples are migrations, compliance fixes, cost optimization, and diagnosing failures. Users watch it work and approve operations. Pulumi also has an MCP server, and a research-preview Neo Security that finds and fixes exploitable infrastructure issues.</p>
+        </div>
+        <div class="card">
+          <h3>What the posting says you'd own</h3>
+          <ul>
+            <li>Agent orchestration and tool interfaces.</li>
+            <li>The web experience: watching Neo work, approving operations, understanding its reasoning.</li>
+            <li>The model interface, orchestration, and fine-tuning.</li>
+            <li>Feedback loops and self-correction for reliable autonomy.</li>
+            <li>Evaluation across capability areas.</li>
+            <li>Integrations with the MCP server, CLI, SDKs, and Cloud.</li>
+          </ul>
+          <p class="source">Stack: mostly Python and TypeScript; AWS, Azure, GCP, Kubernetes.</p>
+        </div>
+      </div>
+      <details>
+        <summary>Company facts worth knowing (only if they come up)</summary>
+        <div>
+          <ul>
+            <li>Founded 2017 in Seattle by Joe Duffy (CEO) and Eric Rudder, both ex-Microsoft. Duffy led programming-language and compiler work there, which is why Pulumi uses general-purpose languages.</li>
+            <li>Remote-first. Unlimited PTO with a minimum of three weeks off a year, according to one job listing.</li>
+            <li>Pulumi says Neo's early users went from days to hours on provisioning, deployed up to 75% faster, and had 90% fewer policy violations. Those are Pulumi's claims, not independent numbers.</li>
+            <li>Customers Pulumi names include Snowflake, NVIDIA, and BMW Group.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section id="gilad">
+      <p class="eyebrow">02 · Your interviewer</p>
+      <h2>Gilad Golan, Engineering Manager</h2>
+      <p class="section-lead">I couldn't find a public page linking Gilad Golan to Pulumi, so treat this as a likely profile, not a confirmed one. The closest match is a Gilad Golan in Seattle.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Likely background</h3>
+          <ul>
+            <li>Long Microsoft career. He's a named inventor on Windows-era patents, from a 1997 remote-application UI patent to a 2013 Microsoft security patent.</li>
+            <li>Most recently a senior software engineer at NomadGo, before Pulumi.</li>
+            <li>February 2026 LinkedIn post: he gave Claude Code half a page of hasty requirements and had it build the whole thing. His point was that <strong>engineering-management skills transfer to agents</strong>: decomposition, context management, and knowing when to step in versus letting the team self-organize.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>How to use that</h3>
+          <p>If this is him, that post is basically Papercusp's design brief. You built the system that does that for a hundred agents: decomposition into plans and work items, context limits and compaction, and rules for when an agent must stop and ask a human.</p>
+          <p><strong>Don't open with "I saw your post."</strong> Ask about his background ("What brought you to Pulumi?"). If he mentions managing agents, connect it there.</p>
+        </div>
+      </div>
+      <div class="note"><strong>What an EM is grading in 30 minutes:</strong> can you explain your work clearly, do you take ownership, do you work well with a team rather than alone, and would he want you working on his roadmap. Keep each answer to about a minute, and finish with something concrete.</div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">03 · About 60 seconds</p>
+      <h2>"Tell me about yourself"</h2>
+      <blockquote>
+        <p>"For the last year I've been building Papercusp, a platform where about a hundred AI agents work on one production codebase at the same time. I'm open-sourcing it next month. The hard part wasn't getting agents to write code. It was the runtime around them: the tool interfaces, what happens when an agent fails or stalls, approval before anything risky, and checking that 'done' really means done. That's very close to what Neo is: an agent that changes real infrastructure, where users watch it and approve the risky steps. Before this I ran a commerce business for twelve years, over a million a month with a very small team, so I'm used to owning production systems end to end, on-call included. I'd like to build that agent layer on a strong team, for customers whose infrastructure really matters."</p>
+      </blockquote>
+      <p><strong>Why Pulumi:</strong> infrastructure is the place where an agent's mistakes are most expensive, and Pulumi already has the guardrails an agent needs: real code, a preview before every change, state, and policy. Neo can build on those guardrails instead of guessing.</p>
+      <p><strong>Why now:</strong> the same answer you've given elsewhere. You thought about starting another company, but want to build agent infrastructure with a strong team.</p>
+    </section>
+
+    <section id="fit">
+      <p class="eyebrow">04 · Your evidence for each responsibility</p>
+      <h2>Neo ↔ Papercusp</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Neo responsibility</th><th>What you built in Papercusp</th></tr></thead>
+          <tbody>
+            <tr><td>Tool interfaces</td><td>An MCP catalog of roughly 550 tools. Each tool has guidance for when to use it, a budget for how much it adds to the prompt, and capped results with projections, so agents don't flood their context. Agents find tools by describing what they need.</td></tr>
+            <tr><td>Agent orchestration</td><td>Fleets of agents working one codebase: plans broken into work items, file locks enforced before every edit, presence and liveness tracking, and waking a stalled peer when work is handed off.</td></tr>
+            <tr><td>Approve before apply</td><td>Deploy operations are dry runs unless the agent passes <code>confirm</code>. Irreversible or outward-facing actions need owner approval. Every owner instruction is recorded and has to be closed with done or declined plus a reason.</td></tr>
+            <tr><td>Self-correction and feedback loops</td><td>A test gate decides what reaches main. When it fails, the failing candidate is frozen and fixes are added on top of it, so the gate converges instead of chasing a moving target. A fix isn't done until it has a guard that fails if the bug returns.</td></tr>
+            <tr><td>Evaluation</td><td>Scenario tests for agent behavior. Plans ship only after an acceptance rubric is graded by an agent that didn't implement the work. "Done" requires structured evidence: tests run, results, and how it was verified.</td></tr>
+            <tr><td>Watch the agent work</td><td>A Tauri desktop app shows fleets, plans, and work items live, synced over server-sent events.</td></tr>
+            <tr><td>Reliability</td><td>Durable workflows (DBOS) so long-running work survives a crash; idempotency keys; recovery verified with a real process kill.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><strong>Be honest about the gaps:</strong> you haven't fine-tuned models, and Papercusp manages code, not customers' cloud accounts. Say so, then explain what does carry over: the safety boundaries and evaluation discipline.</div>
+    </section>
+
+    <section id="answers">
+      <p class="eyebrow">05 · Answers to rehearse</p>
+      <h2>Questions an engineering manager is likely to ask</h2>
+      <details open>
+        <summary>"What was the hardest technical problem in Papercusp?"</summary>
+        <div><p>Pick <strong>recovery</strong>: agents stall, crash, or lose context mid-task. The fix was to make durable state the source of truth rather than an agent's memory: work-item checkpoints, durable workflows, and idempotency keys, verified with a real process kill. For Neo, the same question is what happens when an agent is halfway through changing infrastructure. Expand from <a href="papercusp-answer-bank-standalone.html">SG11 / SG3 in the Answer Bank</a>.</p></div>
+      </details>
+      <details>
+        <summary>"How do you make an agent safe enough to change production?"</summary>
+        <div><ol>
+          <li><strong>Plan, then apply:</strong> the agent proposes, and a human or a policy approves the changes that matter. Pulumi's preview step is ideal for this.</li>
+          <li><strong>Limit scope:</strong> give the agent only the tools and permissions the task needs, and enforce that in code at dispatch rather than in the prompt.</li>
+          <li><strong>Verify the outcome:</strong> check that the change actually did what was intended. A successful tool call isn't enough.</li>
+          <li><strong>Make it observable:</strong> a record the user can read of what the agent did and why.</li>
+        </ol></div>
+      </details>
+      <details>
+        <summary>"How would you evaluate an agent like Neo?"</summary>
+        <div><p>Separate the layers. Grade single-tool calls on correctness. Run each capability area (migrations, compliance, cost) as scenario tasks in sandbox accounts, with checkable end states such as plan diffs and policy results. Then track trust signals in production: approval rate, rollbacks, and cases where a human had to step in. Lesson from Papercusp: before trusting a metric, check what writes it. Once we nearly made a decision from a number that was measuring the wrong population.</p></div>
+      </details>
+      <details>
+        <summary>"Tell me about working with a team" / "How do you handle disagreement?"</summary>
+        <div><p>Your business: a small team, you owned the systems, and you made calls with people who knew things you didn't. In Papercusp, decisions that affect other workstreams are recorded with a written rationale, so anyone can go back and check them instead of relying on someone's paraphrase. That habit carries over to people.</p></div>
+      </details>
+      <details>
+        <summary>"Why leave building your own platform?"</summary>
+        <div><p>Papercusp proved the ideas. You want to apply them where customers have real stakes, with a team and a product that already has users. You'd rather build the agent layer than also run the company.</p></div>
+      </details>
+      <details>
+        <summary>"How do you use AI tools day to day?"</summary>
+        <div><p>Directly: about a hundred agents work on your codebase, and you use Claude Code all day. Talk about managing them: breaking work down, giving each agent the right context, and deciding when to step in. (If this is the Gilad who wrote that post, that's his theme.)</p></div>
+      </details>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">06 · Save 5 minutes</p>
+      <h2>Questions for Gilad</h2>
+      <ol>
+        <li>Which team is this for, and where on Neo would I start: orchestration, tools, the approval experience, or evals?</li>
+        <li>How does the team measure whether Neo is getting better? Where do the evals and what customers trust disagree?</li>
+        <li>Which operations does Neo do without approval today, and what has to be true before that list grows?</li>
+        <li>What's the most surprising way Neo has failed with a customer?</li>
+        <li>How does your team use coding agents internally? What changed about how you manage once they did?</li>
+        <li>What would a strong first 90 days look like?</li>
+        <li>What are the next steps in the process?</li>
+      </ol>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">07 · Evidence and limits</p>
+      <h2>Where this prep came from</h2>
+      <ul>
+        <li><a href="https://job-boards.greenhouse.io/pulumicorporation/jobs/7984527003">Pulumi Greenhouse posting: Senior Software Engineer, Agentic AI</a>. Responsibilities, stack, location, and base range, as summarized by search results.</li>
+        <li><a href="https://www.pulumi.com/blog/pulumi-neo/">Pulumi: "Meet Neo, Your Newest Platform Engineer"</a>. Neo's positioning and the outcomes Pulumi claims for it.</li>
+        <li><a href="https://builtin.com/company/pulumi/jobs">Built In: Pulumi</a> and <a href="https://4dayweek.io/company/pulumi">4dayweek.io: Pulumi</a>. Funding, headquarters, remote-first, and PTO.</li>
+        <li><a href="https://www.linkedin.com/in/golangilad/">LinkedIn: Gilad Golan, Seattle</a> and <a href="https://patents.justia.com/inventor/gilad-golan">Justia: Gilad Golan patents</a>. The likely interviewer profile; not confirmed to be the same person.</li>
+        <li>Your background is from the <a href="taktile-team-agent-intro-standalone.html#pitch">Taktile intro pitch</a> and the <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a>.</li>
+      </ul>
+      <p class="source">Checked 5 October 2026 through search results only; I couldn't open the pages directly. Unconfirmed: which role this is for, Gilad's identity and team, and whether there's a technical component. Confirm in the first minute.</p>
+    </section>
+  </main>
+  <footer><p><a href="papercusp-answer-bank-standalone.html">← Papercusp Answer Bank</a> · Pulumi hiring-manager prep · 5 October 2026.</p></footer>
+</div>
+</body>
+</html>
