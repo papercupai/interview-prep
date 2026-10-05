@@ -17,6 +17,10 @@
           "t": "Answer&nbsp;Bank"
       },
       {
+          "h": "heron-power-ed-sinek-staff-swe",
+          "t": "Heron&nbsp;Power&nbsp;·&nbsp;Ed&nbsp;Sinek"
+      },
+      {
           "h": "coupang-staff-backend-arpita",
           "t": "Coupang&nbsp;·&nbsp;Arpita&nbsp;·&nbsp;Mon&nbsp;4:00"
       },

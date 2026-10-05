@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Heron Power Staff/Senior Staff Software Engineer first call with Ed Sinek: company brief, factory-platform role, interviewer profile, tailored pitch, experience map, likely questions, and questions to ask.">
+<title>Heron Power · Staff/Senior Staff Software Engineer · Ed Sinek | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f8f9; --surface: #fff; --soft: #eef2f3;
+    --ink: #10181c; --muted: #55646c; --accent: #14666e;
+    --warn: #8a5d05; --warn-soft: #f7edd6;
+    --rule: #dde4e7; --rule-strong: #c3cfd3;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0d1417; --surface: #141e22; --soft: #1a262b;
+      --ink: #e6edef; --muted: #93a3aa; --accent: #4fb3bc;
+      --warn: #d9a43a; --warn-soft: #33290f;
+      --rule: #24333a; --rule-strong: #35474f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .65rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table { width: 100%; min-width: 40rem; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; padding: .9rem 1rem; color: var(--muted); }
+  th, td { text-align: left; vertical-align: top; padding: .9rem 1rem; border-top: 1px solid var(--rule); }
+  th { background: var(--soft); font: 600 .85rem/1.5 var(--display); }
+  td:first-child { width: 24%; font-family: var(--display); font-weight: 600; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .source { margin-top: .7rem; color: var(--muted); font-size: .88rem; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    details, .card { break-inside: avoid; }
+    details > div { display: block; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 0; }
+  }
+
+  blockquote { margin: 1rem 0; padding: .9rem 1.1rem; border-left: 3px solid var(--accent); background: var(--soft); }
+  blockquote p { margin: 0; }
+  code { font-size: .9em; padding: .05em .3em; background: var(--soft); border-radius: 2px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">First call · Heron Power hiring team · Prepared 5 Oct 2026</p>
+      <h1>Heron Power · Staff/Senior Staff Software Engineer</h1>
+      <p class="lead">Heron Power builds solid-state transformers and power converters for the grid, and is building an automated factory to make them. This role would be one of the most senior engineers on a small software team. It covers the factory and supply-chain platform, internal tools, data pipelines, and the infrastructure underneath them. Present yourself as someone who builds a whole software platform from scratch and makes everyone around them faster.</p>
+      <p class="source"><a href="https://jobs.ashbyhq.com/heron-power/a2d349cf-57e7-4d64-a3ac-745c12663430">The posting (Ashby)</a> · Founded by Drew Baglino, formerly Tesla's SVP of Powertrain and Energy.</p>
+    </div>
+    <aside class="hero-card" aria-label="Role facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>With</dt><dd>Ed Sinek, Heron Power hiring team. Most likely the software lead or hiring manager (see below).</dd></div>
+        <div><dt>Location</dt><dd><strong>On-site in Scotts Valley, CA</strong> (Santa Cruz County). Full-time.</dd></div>
+        <div><dt>Pay</dt><dd>$180K–$240K base, plus equity.</dd></div>
+        <div><dt>Bar</dt><dd>10+ years, including significant time owning large production systems at Staff or Principal level. A master's degree or equivalent experience.</dd></div>
+        <div><dt>Posted</dt><dd>13 July 2026.</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#five">Last 5 minutes</a><a href="#brief">Heron in a minute</a>
+    <a href="#ed">About Ed</a><a href="#pitch">Your introduction</a>
+    <a href="#fit">Experience map</a><a href="#answers">Likely questions</a>
+    <a href="#ask">Your questions</a><a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="five">
+      <p class="eyebrow">00 · Read this first</p>
+      <h2>Three points to land</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>1 · You build platforms from scratch</h3>
+          <p>You built Papercusp from nothing: back-end services, data, a release pipeline, developer tooling, and observability. That's the same set of work this posting describes. Heron explicitly values "standing up platforms from greenfield."</p>
+        </div>
+        <div class="card">
+          <h3>2 · You know physical operations</h3>
+          <p>You ran a commerce business for twelve years: over $1M a month with a very small team, where real goods had to be bought, priced, and shipped. Heron's software has to fit messy factory and supply-chain reality. Show you've lived with that.</p>
+        </div>
+        <div class="card">
+          <h3>3 · You multiply a small team</h3>
+          <p>The posting says a Staff engineer's impact comes from "multiplying the output of everyone around you." Papercusp is a system that lets about a hundred AI agents work productively on one codebase. Describe it as the ultimate force multiplier for a small software team.</p>
+        </div>
+      </div>
+      <div class="note"><strong>Get these before you hang up:</strong> (1) what Ed's role is and who you'd report to, (2) how large the software team is today and what's already built, (3) whether the role really requires five days a week in Scotts Valley, (4) the next steps and timeline.</div>
+    </section>
+
+    <section id="brief">
+      <p class="eyebrow">01 · The company</p>
+      <h2>Heron Power, in a minute</h2>
+      <p class="section-lead">Transformers and converters are a bottleneck on the grid: traditional transformers are slow to make and depend on specialty steel that's in short supply. Heron is building <strong>solid-state transformers</strong> made of power electronics, which are smaller and more controllable, starting with converters that connect large solar, wind, and storage sites (and large power users such as data centers) to the grid. Their first product is <strong>Heron Link</strong>.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Key facts</h3>
+          <ul>
+            <li>Founded 2024–25 by Drew Baglino after 18 years at Tesla, where he ran batteries, motors, drive units, power electronics, and energy products.</li>
+            <li>Raised a $38M Series A in May 2025 and $140M in February 2026. Investors include Andreessen Horowitz and Breakthrough Energy. Tesla co-founder JB Straubel and former Tesla CFO Zach Kirkhorn are advisors.</li>
+            <li>Says it has about 50 GW of orders lined up with more than a dozen prospective customers. That figure is Heron's own claim.</li>
+            <li>A pilot with RWE at a battery site on a Texas wind farm. First installations are targeted for early 2027.</li>
+            <li>Engineering is based at a test lab in Scotts Valley, CA. Heron reported about 43 employees in 2025; it's larger now.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What the software team builds</h3>
+          <ul>
+            <li><strong>The "Build" platform</strong> that runs the factory floor and supply chain. This is a manufacturing execution system (MES): it tracks every unit, part, test, and station.</li>
+            <li>Internal tools, back-end services, and data pipelines for engineers and operators, such as test data from hardware validation.</li>
+            <li>Infrastructure: AWS with infrastructure as code (Terraform or <strong>Pulumi</strong>), Kubernetes, GitHub Actions, Grafana, Prometheus.</li>
+            <li>Security and data integrity: access control, secrets, least privilege.</li>
+          </ul>
+          <p class="source">Embedded firmware for the converters is a separate team with its own openings.</p>
+        </div>
+      </div>
+      <div class="note"><strong>The Tesla culture signal:</strong> the posting stresses "first principles," "minimal direction," and knowing "what to build, what to buy, and what to leave alone." Expect direct questions. Answer concisely, give numbers, and show that you decide and then ship.</div>
+    </section>
+
+    <section id="ed">
+      <p class="eyebrow">02 · Your interviewer</p>
+      <h2>Ed Sinek</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>What public sources show</h3>
+          <ul>
+            <li>Based in Berkeley, CA.</li>
+            <li>At Tesla, he was a Principal Software Engineer and before that a Senior Staff Software Engineer. Earlier he was a consulting technical lead at Visa, an architect at Muse Consulting, and Director of Engineering and CTO at Wolters Kluwer.</li>
+            <li>A recent Heron hire thanked Ed for his interview conversations, so he runs interviews for Heron. His exact title there isn't public. Given his background, he's most likely the software lead or hiring manager for this role.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What that means for you</h3>
+          <p>He's a senior engineer who has run enterprise software and worked on Tesla's factory and energy software. He'll judge technical depth and judgment, not keywords. Expect "walk me through a system you designed," questions about trade-offs, and build-versus-buy. Be concrete, and admit what you don't know.</p>
+          <p><strong>Ask early:</strong> "What's your role at Heron, and how does this position fit with the team?"</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">03 · About 60 seconds</p>
+      <h2>"Tell me about yourself"</h2>
+      <blockquote>
+        <p>"For the last year I've been building Papercusp, a platform where about a hundred AI agents work on one production codebase at the same time. I'm open-sourcing it next month. I built the whole platform myself: the back-end services and Postgres data model, durable workflows that survive crashes, a release pipeline with a test gate and automatic rollback, the developer tooling, and the monitoring. Before that I ran a commerce business for twelve years, doing over a million a month with a very small team. There I learned how messy physical operations are: suppliers, inventory, pricing, shipping, and systems that can't go down. Heron is where those two halves meet: a small software team building the platform that runs a real factory, for a product the grid badly needs. That's exactly the kind of system I want to own."</p>
+      </blockquote>
+      <p><strong>Why Heron:</strong> the grid is a real bottleneck on electrification, and the factory software decides how fast Heron can scale. It's a greenfield platform with real stakes, at a company with a proven team.</p>
+      <p><strong>Why leave Papercusp:</strong> it proved the ideas. You want to build for a real operation with a team, rather than also run a company.</p>
+    </section>
+
+    <section id="fit">
+      <p class="eyebrow">04 · Requirement → your evidence</p>
+      <h2>Experience map</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>What the posting asks for</th><th>Your example</th></tr></thead>
+          <tbody>
+            <tr><td>Back-end services, data modeling, APIs, system design</td><td>Papercusp: a Postgres data model for plans, work items, locks, and messages; an interface of about 550 tools with one convention for all of them; and a sync layer that streams live updates to the app.</td></tr>
+            <tr><td>CI/CD and developer tooling (GitHub Actions)</td><td>Your strongest match. The test gate only promotes staging to main when the tests pass. It runs the tests affected by a change, deploys roll back automatically, and an automatic process commits and pushes work. Lint checks guard performance and prompt size.</td></tr>
+            <tr><td>Observability and reliability</td><td>Health checks, alerts, a dashboard of the pipeline's state, and recovery verified with a real process kill. The metric story: you traced a number back to the code that produced it before trusting it.</td></tr>
+            <tr><td>Security: access control, secrets, least privilege</td><td>Each agent's permissions are checked in code on every tool call; text in the prompt can't grant extra access. A guard blocks secrets in file edits, and the system blocks outbound requests when it can't confirm they're allowed.</td></tr>
+            <tr><td>Data integrity</td><td>Postgres advisory locks for atomic allocation, idempotency keys, schema changes only through migrations, and file locking so agents can't overwrite each other's work.</td></tr>
+            <tr><td>Build vs. buy</td><td>DBOS for durable workflows instead of writing your own; maintained libraries over custom code. In your business you chose software to buy or build with a small team's budget.</td></tr>
+            <tr><td>Manufacturing and supply chain (nice to have)</td><td>Your commerce business: inventory, suppliers, and fulfillment. Use real examples of what broke and how you handled it. Don't claim factory-software experience you don't have.</td></tr>
+            <tr><td>AWS, Kubernetes, infrastructure as code</td><td><strong>Be honest:</strong> Papercusp runs on systemd services with embedded Postgres, not Kubernetes. Name the AWS work you've actually done. Mention that you prepared for a Pulumi interview today; Heron's posting names Pulumi too.</td></tr>
+            <tr><td>10+ years at Staff or Principal level</td><td>Twelve years owning every technical decision for a business, plus a year building Papercusp. Present it as ownership and scope. If he pushes on titles, explain that you were the owner and the technical lead.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="answers">
+      <p class="eyebrow">05 · Answers to rehearse</p>
+      <h2>Questions Ed is likely to ask</h2>
+      <details open>
+        <summary>"Walk me through a system you designed."</summary>
+        <div><p>Choose Papercusp's release pipeline. <strong>The problem:</strong> many agents commit to one tree, and broken code must not reach production. <strong>The design:</strong> an automatic process commits the work, a test gate checks a candidate, and main only moves forward when the gate is green; deploys roll back automatically. <strong>The trade-off:</strong> when the gate went red, a new candidate kept pulling in more breakage, so you froze the failing candidate and added fixes on top until it converged. <strong>The result:</strong> main stays green while about a hundred agents work. That example covers CI/CD, reliability, and judgment.</p></div>
+      </details>
+      <details>
+        <summary>"How would you design the factory platform (MES) from scratch?"</summary>
+        <div><ol>
+          <li><strong>Data model first:</strong> parts, lots, serialized units, stations, routings (the sequence of steps), test results, and genealogy (which parts went into which unit).</li>
+          <li><strong>Event log:</strong> each station emits events as a unit moves through it. State is derived from the events, which gives you traceability and auditability.</li>
+          <li><strong>Offline tolerance:</strong> stations must keep working if the network or cloud is down, then sync safely later, with idempotent writes so nothing is recorded twice.</li>
+          <li><strong>Buy versus build:</strong> buy the ERP and procurement systems; build the parts that are unique to Heron, such as test-data pipelines and converter genealogy.</li>
+          <li><strong>Telemetry:</strong> high-volume test data goes into time-series or object storage, with summaries in Postgres.</li>
+        </ol><p>Ask what they've already bought or built before you go deep.</p></div>
+      </details>
+      <details>
+        <summary>"When do you build versus buy?"</summary>
+        <div><p>Buy when the problem is common and not what differentiates you, such as ERP, accounting, identity, or monitoring. Build when it's core to how Heron works, or when vendor tools would force a factory process that doesn't fit. Count the full cost of integration and maintenance, not just the license. Example: DBOS for durable workflows. You used an existing library instead of writing your own, and focused your effort on the coordination layer.</p></div>
+      </details>
+      <details>
+        <summary>"You'd be on-site in Scotts Valley. Does that work?"</summary>
+        <div><p>Answer honestly: where you live now and whether you'd relocate or commute. Then ask what in-person schedule the software team actually keeps.</p></div>
+      </details>
+      <details>
+        <summary>"What are your salary expectations?"</summary>
+        <div><p>"I'm aligned with the posted range of $180K to $240K, and equity matters to me at this stage. I'd like to understand the level, Staff or Senior Staff, before giving a specific number." If pressed, name a number near the top of the range.</p></div>
+      </details>
+      <details>
+        <summary>"Why the AI-agent work, and why come here now?"</summary>
+        <div><p>Papercusp taught you how to make a small team move very fast without breaking things: tests, release gates, locking, and observability. That's what a hardware startup's software team needs. You can also bring AI-assisted development to the team, with the same guardrails.</p></div>
+      </details>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">06 · Save 5–10 minutes</p>
+      <h2>Questions for Ed</h2>
+      <ol>
+        <li>What's your role at Heron, and how big is the software team today?</li>
+        <li>What does the Build platform cover today, and what's still spreadsheets or vendor tools?</li>
+        <li>What's the biggest software risk between now and the first installations in early 2027?</li>
+        <li>What have you decided to buy rather than build, and what do you regret?</li>
+        <li>How does software work with the hardware and test teams day to day?</li>
+        <li>Is the role five days a week on-site? Is it Staff or Senior Staff, and how is that decided?</li>
+        <li>What are the next steps in the process?</li>
+      </ol>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">07 · Evidence and limits</p>
+      <h2>Where this prep came from</h2>
+      <ul>
+        <li><a href="https://jobs.ashbyhq.com/heron-power/a2d349cf-57e7-4d64-a3ac-745c12663430">Heron Power posting: Staff/Senior Staff Software Engineer</a> (read through Ashby's public job API): responsibilities, requirements, location, and pay.</li>
+        <li><a href="https://www.forbes.com/sites/alanohnsman/2026/02/18/ex-top-tesla-engineer-raises-140-million-to-rewire-the-electric-grid/">Forbes, Feb 2026</a> and <a href="https://www.canarymedia.com/articles/climatetech-finance/heron-power-raises-140m-electrical-transformers">Canary Media</a>: $140M round, investors, and the 50 GW order pipeline.</li>
+        <li><a href="https://techcrunch.com/2025/05/29/tesla-alums-heron-power-closes-38m-series-a-to-transform-key-grid-technology">TechCrunch, May 2025</a> and <a href="https://electrek.co/2025/04/07/teslas-long-time-top-engineer-launches-new-energy-startup-heron-power/">Electrek, Apr 2025</a>: founding, Series A, and Baglino's background.</li>
+        <li><a href="https://www.latitudemedia.com/news/catalyst-the-rise-of-grid-power-electronics-with-drew-baglino/">Latitude Media: Catalyst with Drew Baglino</a>: why power electronics matter for the grid.</li>
+        <li><a href="https://rocketreach.co/ed-sinek-email_22213730">RocketReach: Ed Sinek</a>, <a href="https://github.com/esinek">GitHub: esinek</a>, and <a href="https://www.linkedin.com/in/adhya-maddukuri-82a88a339/">a Heron hire's LinkedIn post</a>: the interviewer's background.</li>
+        <li>Your background: <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a>.</li>
+      </ul>
+      <p class="source">Checked 5 October 2026. The posting was read directly; everything else comes from search results. Unconfirmed: Ed's title at Heron, the call's date and format, and the current headcount.</p>
+    </section>
+  </main>
+  <footer><p><a href="papercusp-answer-bank-standalone.html">← Papercusp Answer Bank</a> · Heron Power first-call prep · 5 October 2026.</p></footer>
+</div>
+</body>
+</html>
