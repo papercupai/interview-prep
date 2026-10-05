@@ -17,6 +17,10 @@
           "t": "Answer&nbsp;Bank"
       },
       {
+          "h": "coupang-staff-backend-arpita",
+          "t": "Coupang&nbsp;·&nbsp;Arpita&nbsp;·&nbsp;Mon&nbsp;4:00"
+      },
+      {
           "h": "pulumi-gilad-golan-em",
           "t": "Pulumi&nbsp;·&nbsp;Gilad&nbsp;·&nbsp;Mon&nbsp;11:30"
       },

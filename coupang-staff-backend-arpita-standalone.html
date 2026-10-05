@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Coupang Staff Back-end Engineer recruiter screen with Arpita Singh: role brief, open teams, tailored pitch, experience map, recruiter answers, leadership principles, and questions to ask.">
+<title>Coupang · Staff Back-end Engineer Recruiter Screen | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f8f9; --surface: #fff; --soft: #eef2f3;
+    --ink: #10181c; --muted: #55646c; --accent: #14666e;
+    --warn: #8a5d05; --warn-soft: #f7edd6;
+    --rule: #dde4e7; --rule-strong: #c3cfd3;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0d1417; --surface: #141e22; --soft: #1a262b;
+      --ink: #e6edef; --muted: #93a3aa; --accent: #4fb3bc;
+      --warn: #d9a43a; --warn-soft: #33290f;
+      --rule: #24333a; --rule-strong: #35474f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .65rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table { width: 100%; min-width: 40rem; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; padding: .9rem 1rem; color: var(--muted); }
+  th, td { text-align: left; vertical-align: top; padding: .9rem 1rem; border-top: 1px solid var(--rule); }
+  th { background: var(--soft); font: 600 .85rem/1.5 var(--display); }
+  td:first-child { width: 24%; font-family: var(--display); font-weight: 600; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .source { margin-top: .7rem; color: var(--muted); font-size: .88rem; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    details, .card { break-inside: avoid; }
+    details > div { display: block; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 0; }
+  }
+
+  blockquote { margin: 1rem 0; padding: .9rem 1.1rem; border-left: 3px solid var(--accent); background: var(--soft); }
+  blockquote p { margin: 0; }
+  code { font-size: .9em; padding: .05em .3em; background: var(--soft); border-radius: 2px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Recruiter screen · 30 minutes · Prepared 5 Oct 2026</p>
+      <h1>Coupang · Staff Back-end Engineer</h1>
+      <p class="lead">A 30-minute call with Arpita Singh, a technical sourcer at Coupang. Expect background, motivation, team fit, location, compensation, and timeline. Lead with owning large production systems, then connect your twelve years in commerce to Coupang's business. Leave with the team name and the next steps.</p>
+      <p class="source">Pronounced "COO-pang." <a href="https://www.coupang.jobs/en/interview-tips/">Coupang interview tips (official)</a></p>
+    </div>
+    <aside class="hero-card" aria-label="Call facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>When</dt><dd><strong>Mon 5 Oct, 4:00–4:30 pm ET</strong></dd></div>
+        <div><dt>Where</dt><dd>Coupang Zoom (meeting 946 3734 6133)</dd></div>
+        <div><dt>With</dt><dd>Arpita Singh, Senior Technical Sourcer (Mountain View).</dd></div>
+        <div><dt>Team</dt><dd>Not named in the invite. Ask.</dd></div>
+        <div><dt>Example US range</dt><dd>$152K–$261K base for the Seattle Rocket Growth Staff opening, depending on location. Plus equity.</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#five">Last 5 minutes</a><a href="#brief">Role in a minute</a>
+    <a href="#arpita">About Arpita</a><a href="#pitch">Your introduction</a>
+    <a href="#fit">Experience map</a><a href="#answers">Recruiter answers</a>
+    <a href="#lps">Leadership principles</a><a href="#ask">Your questions</a><a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="five">
+      <p class="eyebrow">00 · Read this first</p>
+      <h2>Three points, then get the details</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>1 · You own systems at scale</h3>
+          <p>Papercusp runs about a hundred AI agents against one production system. That means concurrency, crash recovery, durable workflows, a release gate, and observability. These are the same problems Coupang's back-end teams handle.</p>
+        </div>
+        <div class="card">
+          <h3>2 · You know commerce from the inside</h3>
+          <p>You ran a commerce business for twelve years: over $1M a month with a very small team. You built your own pricing model over marketplace listings. You've seen marketplaces, inventory, and fulfillment as a seller, which is exactly what Rocket Growth serves.</p>
+        </div>
+        <div class="card">
+          <h3>3 · Staff means ownership</h3>
+          <p>You set the direction, made the technical calls, and were on call. Use the word "ownership," and give one concrete outcome.</p>
+        </div>
+      </div>
+      <div class="note"><strong>Get these four answers before you hang up:</strong> (1) which team and hiring manager, (2) location and in-office expectation, (3) the next step: Coupang lists a one-hour technical screen with 20–30 minutes of live coding, (4) the timeline.</div>
+    </section>
+
+    <section id="brief">
+      <p class="eyebrow">01 · What you're interviewing for</p>
+      <h2>Coupang in a minute</h2>
+      <p class="section-lead">Coupang is South Korea's largest online retailer, often called "the Amazon of Korea." It is listed on the NYSE as CPNG. It owns its logistics network, which makes Rocket Delivery (next-day, often same-day) possible, and it also operates in Taiwan. US engineering hubs are in Seattle and Mountain View.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Open Staff Back-end roles it could be</h3>
+          <ul>
+            <li><strong>Rocket Growth (Seattle), posted 18 Sept.</strong> Coupang's marketplace and fulfillment service for third-party sellers. Large-scale back end and microservices, scalability, reliability. Observability: distributed tracing, OpenTelemetry, chaos engineering, incident leadership. 7+ years. $152K–$261K base.</li>
+            <li><strong>Global Ops Tech, Picking (Seattle), posted 4 Sept.</strong> Fulfillment-center picking workflows; tech lead on cross-team Inventory and Promise projects. AWS; Java a plus.</li>
+            <li>Others: Search and Discovery (Mountain View), plus roles abroad.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What the stack likely looks like</h3>
+          <p>Java microservices on AWS is the common thread in these postings. Be honest that your recent work is TypeScript, Node, Python, and Postgres. Say you've worked across languages and the hard parts carry over: consistency, failure handling, and observability.</p>
+        </div>
+      </div>
+      <details>
+        <summary>The likely process (from Coupang's site and candidate reports)</summary>
+        <div>
+          <ol>
+            <li>Recruiter screen: today.</li>
+            <li>Technical phone screen, about an hour: coding, CS fundamentals, and some discussion of design. Some staff candidates report LP questions here too.</li>
+            <li>Virtual loop of 4–5 rounds: coding, system design, hiring manager, and an Amazon-style "Bar Raiser." Behavioral questions are scored against Coupang's 15 leadership principles.</li>
+          </ol>
+          <p class="source">Candidate reports vary by team and country; ask Arpita for the exact loop.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="arpita">
+      <p class="eyebrow">02 · Your interviewer</p>
+      <h2>Arpita Singh</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Background (public profile)</h3>
+          <ul>
+            <li>Senior Technical Sourcer at Coupang, Mountain View. Previously a recruiting coordinator there; earlier recruiting work included Meta.</li>
+            <li>Coupang awards: Sourcer of the Year 2025, Recruiting Coordinator of the Year 2023.</li>
+            <li>Recently posted openings including Sr. Staff Back-end Engineer in Seattle and Staff ML Engineer, Ads.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What she's screening for</h3>
+          <p>She decides whether to pass you to a hiring manager. She's checking that your level is Staff, that your story is clear, that you're motivated, and that location and compensation fit. She won't grade code. Keep answers to about a minute, use plain language, and give numbers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">03 · About 60 seconds</p>
+      <h2>"Tell me about yourself"</h2>
+      <blockquote>
+        <p>"For the last year I've been building Papercusp, a platform where about a hundred AI agents work on one production codebase at the same time. I'm open-sourcing it next month. Most of the work was back-end systems: concurrency control so agents don't overwrite each other, durable workflows that survive crashes, a release gate that decides what ships, and observability to understand what's happening. Before that I ran a commerce business for twelve years, doing over a million a month with a very small team. I built our own pricing model over marketplace listings and owned the systems end to end, on-call included. Coupang is where both halves meet: commerce at huge scale, where reliability decides whether a delivery arrives on time. That's the kind of system I want to own."</p>
+      </blockquote>
+      <p><strong>Why Coupang:</strong> it does commerce at scale and runs its own logistics. Back-end engineering there directly affects whether customers get their orders, which is the side of the business you know.</p>
+      <p><strong>Why now:</strong> Papercusp proved what you can build. Now you want to own large systems on a strong team, rather than start another company.</p>
+    </section>
+
+    <section id="fit">
+      <p class="eyebrow">04 · Requirement → your evidence</p>
+      <h2>Experience map</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>What the postings ask for</th><th>Your example</th></tr></thead>
+          <tbody>
+            <tr><td>Large-scale back-end systems</td><td>Papercusp: Postgres-backed services, a sync layer, durable workflows (DBOS), and about a hundred concurrent agents writing to the same system.</td></tr>
+            <tr><td>Reliability and availability</td><td>A test gate decides what reaches main. Deploys roll back automatically. Long-running work survives a process kill, which you verified with a real crash test.</td></tr>
+            <tr><td>Observability and incident leadership</td><td>The metric story: a failure count was mixing different kinds of test runs, so you fixed the report to show what was actually being judged. Plus twelve years of being on call for your own business.</td></tr>
+            <tr><td>Concurrency and correctness</td><td>Two workers could claim the same migration number. You moved allocation behind a Postgres advisory lock so reservation became atomic.</td></tr>
+            <tr><td>Tech lead across teams</td><td>Coordinating many agents working at once: plans, work items, locks, and written decisions that every team can go back to.</td></tr>
+            <tr><td>Java and AWS</td><td><strong>Gap:</strong> your recent work is TypeScript, Python, and Postgres. Say so directly, then say you pick up languages quickly and the system skills transfer.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="answers">
+      <p class="eyebrow">05 · Answers to rehearse</p>
+      <h2>What a recruiter will ask</h2>
+      <details open>
+        <summary>"What are your compensation expectations?"</summary>
+        <div><p>"I'm targeting something in line with the posted range for Staff in my location, and I'm flexible on the mix of base and equity. I'd like to learn more about the level and the team before giving an exact number." If she pushes, give a range near the top of the posted band for your location. Don't name a number below it.</p></div>
+      </details>
+      <details>
+        <summary>"Where are you located? Are you open to Seattle or Mountain View, or to coming into an office?"</summary>
+        <div><p>Give your real answer plainly: where you are now, and whether you'd relocate or commute. Then ask whether this team allows remote work or requires a hub office.</p></div>
+      </details>
+      <details>
+        <summary>"Have you used Java?"</summary>
+        <div><p>Answer honestly, then pivot: "My recent production work is TypeScript and Python on Postgres. The hard parts of back-end work carry over between languages: consistency, retries, failure handling, observability. I'd be productive in Java quickly."</p></div>
+      </details>
+      <details>
+        <summary>"Why are you leaving Papercusp?"</summary>
+        <div><p>"Papercusp proved the ideas, and I'm open-sourcing it. I want to own large systems with real customers on a strong team, rather than also run a company."</p></div>
+      </details>
+      <details>
+        <summary>"Are you interviewing elsewhere? What's your timeline?"</summary>
+        <div><p>"Yes, I'm in a few processes, some in later stages. Coupang is a strong fit, so I'd like to keep this moving." That's honest and creates gentle urgency. You don't need to name companies.</p></div>
+      </details>
+      <details>
+        <summary>"What makes you Staff level?"</summary>
+        <div><p>Scope and judgment: you set the technical direction and made the architecture decisions, you owned production, and you wrote decisions down so others could follow them. Give one example, like the release gate or durable workflows.</p></div>
+      </details>
+    </section>
+
+    <section id="lps">
+      <p class="eyebrow">06 · For later rounds, and maybe today</p>
+      <h2>Coupang's leadership principles</h2>
+      <p class="section-lead">Coupang says its 15 principles drive how candidates are assessed. They closely mirror Amazon's, so prepare stories in Situation, Task, Action, Result (STAR) format. The full list below comes from a 2021 forum post comparing them with Amazon's, so treat the exact wording as unverified.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Principle</th><th>Your story</th></tr></thead>
+          <tbody>
+            <tr><td>Wow the Customer</td><td>Your commerce business: what customers needed, and something you changed because of it.</td></tr>
+            <tr><td>Company-wide Perspective</td><td>Fixing a red release gate even when it wasn't your change, because it blocks everyone.</td></tr>
+            <tr><td>Dive Deep</td><td>The metric that measured the wrong set of test runs: you traced the number back to the code that produced it before trusting it.</td></tr>
+            <tr><td>Simplify / Hate Waste</td><td>Running a business over $1M a month with a very small team; automating instead of hiring.</td></tr>
+            <tr><td>Deliver Results with Grit</td><td>Crash-safe durable workflows: you defined what may replay and verified it with a real crash test.</td></tr>
+            <tr><td>Disagree and Commit / Influence without Authority</td><td>Recording rulings as written decisions with reasons, so everyone works from the source rather than someone's paraphrase.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <details>
+        <summary>All 15, as listed in the forum post</summary>
+        <div><p>Wow the Customer · Company-wide Perspective · Simplify · Ruthless Prioritization · Learn Voraciously · Hire and Develop the Best · Aim High and Find a Way · Demand Excellence · Hate Waste · Think Systematically · Move with Urgency · Dive Deep · Deliver Results with Grit · Influence without Authority · Disagree and Commit</p></div>
+      </details>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">07 · Save 5 minutes</p>
+      <h2>Questions for Arpita</h2>
+      <ol>
+        <li>Which team is this for, and who's the hiring manager?</li>
+        <li>Is it based in Seattle or Mountain View, and what's the in-office expectation?</li>
+        <li>What does the technical screen look like: coding, design, or both? Which language?</li>
+        <li>What does the rest of the loop look like, and how long does it usually take?</li>
+        <li>What level is this: L6 or L7? What's the base range for my location?</li>
+        <li>What's the biggest challenge this team is working on right now?</li>
+      </ol>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">08 · Evidence and limits</p>
+      <h2>Where this prep came from</h2>
+      <ul>
+        <li><a href="https://www.coupang.jobs/en/interview-tips/">Coupang interview tips</a>: phone screen format and the leadership principles.</li>
+        <li><a href="https://www.coupang.jobs/en/jobs/7892762/staff-back-end-engineer/">Coupang: Staff Back-end Engineer listing</a>, <a href="https://zapply.jobs/jobs/40d7744b-46b4-4330-8ddc-8b26d1c643a3/">Picking</a>, <a href="https://zapply.jobs/jobs/ff573cbe-3ee7-48de-9609-92317f7e7ede/">Staff Back-end</a>, <a href="https://zapply.jobs/jobs/ee994534-20ab-4996-81cf-381fa24ab397/">Sr. Staff, Promise Platform</a>: open roles, requirements, and pay.</li>
+        <li><a href="https://www.linkedin.com/in/arpita-singh-007645a1/">LinkedIn: Arpita Singh, Coupang</a> and <a href="https://rocketreach.co/arpita-singh-email_31410252">RocketReach</a>: interviewer background.</li>
+        <li><a href="https://www.jointaro.com/interviews/companies/coupang/experiences/staff-software-engineer-india-october-1-2025-no-offer-neutral-b6dced39/">Taro</a> and <a href="https://www.glassdoor.com/Interview/Coupang-Staff-Software-Engineer-Interview-Questions-EI_IE914956.0,7_KO8,31.htm">Glassdoor</a>: candidate reports on the process.</li>
+        <li><a href="https://www.clien.net/service/board/park/15910721">Clien forum post</a>: the full list of 15 principles. <a href="https://www.coupang.jobs/en/life-at-coupang/in-the-community/building-stronger-teams-how-global-operations-technology-hosted-an-event-to-enhance-cohesion-and-collaboration/">Coupang careers article</a>: confirms several by name.</li>
+        <li>Your background: <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a>, <a href="klaviyo-data-platform-recruiter-screen-standalone.html#stories">Klaviyo stories</a>.</li>
+      </ul>
+      <p class="source">Checked 5 October 2026 through search results only. Unconfirmed: which team, level, and location this is for.</p>
+    </section>
+  </main>
+  <footer><p><a href="papercusp-answer-bank-standalone.html">← Papercusp Answer Bank</a> · Coupang recruiter-screen prep · 5 October 2026.</p></footer>
+</div>
+</body>
+</html>
