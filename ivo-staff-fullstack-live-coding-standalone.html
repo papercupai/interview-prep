@@ -151,6 +151,7 @@
   <a href="#roy">Who Roy is</a>
   <a href="#ivo">Ivo in 90 seconds</a>
   <a href="#ask">Questions to ask</a>
+  <a href="#machine">This machine</a>
   <a href="#setup">Setup</a>
   <a href="#sources">Sources</a>
 </nav>
@@ -659,6 +660,30 @@ def optimal_cycle_input(pools: list[tuple[float, float]], r: float = R) -&gt; tu
     <li>What would a staff full-stack engineer own in the first 90 days?</li>
     <li>What is the hardest frontend performance problem: very large contracts, or large repository views?</li>
   </ol>
+</section>
+
+<section id="machine">
+  <p class="eyebrow">Checked Mon 5 Oct, 5:50 p.m. ET</p>
+  <h2>This machine: what to fix before 7</h2>
+  <p>The invite asks you to share your screen, turn off Copilot and Cursor Tab, and install git, node, docker and docker compose. All four tools are installed and working (git 2.43, Docker 29.4, Compose v5.1.1). The items below are what still needs attention on this machine.</p>
+  <ul>
+    <li><strong>Cursor Tab is on.</strong> Cursor turns it on by default and your settings don't override it. Press <code>Ctrl+Shift+J</code>, open <strong>Tab</strong>, and switch <strong>Cursor Tab</strong> off (or click “Cursor Tab” in the bottom-right status bar and disable it). Type a few characters to confirm no grey ghost text appears, and close the AI chat pane. No Copilot extension is installed in Cursor. Opener: “I've turned off Cursor Tab. Happy to show you the setting.”</li>
+    <li><strong>If you use Zed instead, its AI is on.</strong> Edit predictions are at their defaults and a Copilot agent server is configured. Add <code>"disable_ai": true</code> to <code>~/.config/zed/settings.json</code>.</li>
+    <li><strong>Close any AI coding terminals</strong> (Claude Code, Codex) so they never appear in the shared window.</li>
+    <li><strong>Common host ports are taken.</strong> Already listening: 5432 (Postgres), 6379 (Redis), 27017 (Mongo), 5173 (Vite), 8080, 8081 and 5433–5442. A compose file with <code>"5432:5432"</code> fails with “address already in use”. Change only the host (left) side, for example <code>"15432:5432"</code>, and point <code>DATABASE_URL</code> at 15432. Containers still reach each other on 5432. Free: 3000, 4000, 5000, 8000. Vite will start on 5174, so read the URL it prints. Say it out loud: “I already run Postgres locally, so I'm remapping the host port.” That reads as competence, not fumbling.</li>
+    <li><strong>A new terminal gives Node v25.9</strong>, which is not an LTS release. nvm has 22.21.1. If their repo has an <code>.nvmrc</code>, run <code>nvm use</code>. Node 20 and 24 are not installed, so <code>nvm install</code> would cost time during the call.</li>
+    <li><strong>Type <code>docker compose</code>, with a space.</strong> The old <code>docker-compose</code> is not installed. If their README says <code>docker-compose up</code>, just type the spaced form.</li>
+    <li><strong>Docker is working.</strong> Three container runs plus <code>hello-world</code> took 2–6 seconds each. The intermittent “stuck on Creating” problem is still unresolved. If <code>docker compose up</code> hangs for more than a minute, say so, check <code>docker compose ps</code>, and read their code while it starts.</li>
+    <li><strong>Screen share:</strong> the desktop runs X11 and Zoom is installed, so sharing works without Wayland trouble. Share one window (Cursor with its built-in terminal), not the whole desktop, because background agents can open windows on it. Turn on Do Not Disturb, enlarge the font (<code>Ctrl+=</code>), and close Slack and email. Don't run a bare <code>docker ps</code> on screen: it lists about 90 unrelated containers. <code>docker compose ps</code> inside their repo shows only theirs.</li>
+  </ul>
+  <h3>Compose commands to have ready</h3>
+  <pre><code>docker compose up -d                       # start in the background
+docker compose ps                          # this project's services only
+docker compose logs -f &lt;service&gt;           # follow one service's logs
+docker compose exec db psql -U postgres    # into the database
+docker compose up -d --build               # after Dockerfile or code changes
+docker compose down -v                     # wipe volumes (init.sql only runs on an EMPTY volume)</code></pre>
+  <p><strong>Ten-minute warm-up:</strong> <code>cd ~/interview-prep/ivo-docker-practice &amp;&amp; docker compose up -d &amp;&amp; npm test</code>. It uses port 55432, so nothing clashes.</p>
 </section>
 
 <section id="setup">
