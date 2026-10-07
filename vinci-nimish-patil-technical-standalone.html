@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Vinci interview with Nimish Patil on October 7: sourced interview research, production-systems questions, Python/gRPC and PostgreSQL preparation, answer outlines and a last-minute checklist.">
+<title>Vinci · Nimish Patil · Oct 7 | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f6fa; --surface: #fff; --soft: #ebebf5;
+    --ink: #13131c; --muted: #55566a; --accent: #3d3fb0;
+    --warn: #9a4a07; --warn-soft: #fbf0e3; --rule: #dedfea; --rule-strong: #c2c3d6;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e0e15; --surface: #16161f; --soft: #1f1f2c;
+      --ink: #e7e7f0; --muted: #a6a7ba; --accent: #a9abff;
+      --warn: #f2b877; --warn-soft: #2a2116; --rule: #2a2a3a; --rule-strong: #41425a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .65rem; }
+  ul, ol { margin: .6rem 0 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 5rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  dl { margin: .5rem 0 0; }
+  dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 1.5rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.1rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 4rem; }
+  .section-lead { max-width: 52rem; margin: .65rem 0 1.2rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); color: var(--accent); border-radius: 2px; font: 600 .68rem/1.5 var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); }
+  .note strong { color: var(--warn); }
+  .question { margin-top: .8rem; }
+  details > summary { cursor: pointer; padding: .9rem 1.1rem; font: 600 1rem/1.45 var(--display); }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1.1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .label { display: block; margin: .8rem 0 .2rem; color: var(--accent); font: 600 .7rem/1.5 var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; overflow-wrap: anywhere; }
+  pre { max-width: 100%; margin: 1rem 0; padding: 1rem; background: var(--soft); overflow-x: auto; }
+  pre code { padding: 0; overflow-wrap: normal; }
+  blockquote { margin: .7rem 0; padding-left: 1rem; border-left: 3px solid var(--rule-strong); color: var(--muted); }
+  .steps { display: grid; gap: .65rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .when { color: var(--accent); font: 600 .8rem/1.5 var(--mono); }
+  footer { padding-top: 1.5rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    .wrap { width: 100%; padding: 0; }
+    details, .card { break-inside: avoid; }
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Vinci / Vinci4D · Engineer interview · Wednesday October 7</p>
+      <h1>Vinci · Nimish Patil</h1>
+      <p class="lead"><strong>Start with how you actually built and debugged production systems.</strong> The useful public interview clue is a historical project deep dive. The live full-stack role points to Python/gRPC, PostgreSQL, job correctness and the Python/C++ boundary. Prepare those before cramming physics or CUDA.</p>
+      <p><a href="vinci-fullstack-mts-intro-standalone.html">Previous Vinci / Balaji intro prep</a> · <a href="papercusp-answer-bank-standalone.html">Your reusable Answer Bank</a></p>
+    </div>
+    <aside class="hero-card" aria-label="Interview facts">
+      <p class="eyebrow">Tonight's call</p>
+      <dl>
+        <div><dt>When</dt><dd><strong>Wed 7 Oct 2026, 7:00–7:45 p.m. EDT</strong><br>4:00–4:45 p.m. PDT · 45 minutes</dd></div>
+        <div><dt>Interviewer</dt><dd>Nimish Patil · Software Engineer, per your invitation</dd></div>
+        <div><dt>Joining</dt><dd>Use the Zoom link in your calendar invitation. Access and scheduling details are intentionally not on this public page.</dd></div>
+        <div><dt>Role context</dt><dd>Prepared for the MTS Full-Stack Software Engineer role in your earlier Vinci prep. This invitation does not restate the role.</dd></div>
+        <div><dt>Format</dt><dd><strong>Not confirmed.</strong> The invite says “Interview”; it does not specify live coding, system design or an algorithm round.</dd></div>
+      </dl>
+    </aside>
+  </header>
+  <nav class="toc" aria-label="On this page">
+    <a href="#start">Read first</a><a href="#research">What research found</a><a href="#nimish">Nimish</a>
+    <a href="#likely">Likely questions</a><a href="#design">Design rehearsal</a><a href="#drills">Coding drills</a>
+    <a href="#pitch">Your opener</a><a href="#ask">Ask him</a><a href="#checklist">Last 20 minutes</a><a href="#sources">Sources</a>
+  </nav>
+  <main id="main">
+    <section id="start">
+      <p class="eyebrow">01 · Highest-return preparation</p>
+      <h2>Two true stories, then the hard failure cases</h2>
+      <div class="grid">
+        <div class="card"><span class="tag">First priority</span><h3>A system you owned</h3><p>Draw the request → durable state → worker → result path. Explain your personal contribution, the invariant, a tradeoff and how you tested it. Have a concrete “why not the simpler alternative?” answer.</p><p><a href="papercusp-answer-bank-standalone.html#q-design">System design story</a> · <a href="papercusp-answer-bank-standalone.html#q-tradeoffs">Tradeoffs</a></p></div>
+        <div class="card"><span class="tag">First priority</span><h3>A failure you diagnosed</h3><p>Rehearse symptom → competing hypotheses → distinguishing measurement → root cause → durable fix → recurrence test. Be precise about what you observed; don't substitute “load” or “race condition” for an explanation.</p><p><a href="papercusp-answer-bank-standalone.html#q-debugging">Debugging story</a> · <a href="papercusp-answer-bank-standalone.html#q-concurrency">Concurrency</a></p></div>
+        <div class="card"><span class="tag">Then refresh</span><h3>Three dangerous boundaries</h3><p>Client retry versus duplicate expensive work. Expired worker lease versus stale completion. Cancelled Python/RPC request versus a C++ or GPU operation still running.</p><p>Explain the failure timeline before naming a framework.</p></div>
+      </div>
+      <div class="note"><strong>Don't mistake preparation for a prediction.</strong> Every practice question below is our role-informed rehearsal, not a reported Nimish question. Start the call with: “Would you like to focus on a project deep dive, a design discussion, or code?”</div>
+    </section>
+    <section id="research">
+      <p class="eyebrow">02 · Evidence, not a made-up question bank</p>
+      <h2>What online research actually found</h2>
+      <div class="grid">
+        <div class="card"><span class="tag">Reported · historical · anonymous</span><h3>Previous-work Q&amp;A</h3><p>A <a href="https://www.glassdoor.com/Interview/vinci4d-Interview-Questions-E10658905.htm">Glassdoor Founding Engineer account dated Aug 14, 2025</a> describes roughly two hours discussing previous work. Its listed question is:</p><blockquote>“How did you do ‘A’ at your previous company?”</blockquote><p>Useful signal: know your projects in depth. Limits: different role, older process, anonymous account, and not your 45-minute Nimish meeting. It does <strong>not</strong> prove tonight has no coding.</p></div>
+        <div class="card"><span class="tag">Primary source · live role</span><h3>The posting is a better study guide</h3><p>I read the <a href="https://jobs.ashbyhq.com/vinci/7585965e-6910-48d5-8cfc-900d930630e8">official MTS Full-Stack posting</a> in a browser on October 7. It names Python/gRPC services around C++ engines; React/TypeScript UI work; request validation, job orchestration, retries, idempotency, transactional correctness; PostgreSQL; cross-language concurrency; profiling and unit/integration/e2e tests.</p><p>Native bindings, GPU/HPC and domain formats are bonus areas. The page lists <strong>Hybrid · Palo Alto HQ</strong>, while benefits also mention remote-friendly policies: clarify the actual expectation rather than relying on the older intro page.</p></div>
+        <div class="card"><span class="tag">Research limit</span><h3>No verified Nimish-specific prompts found</h3><p>My searches did not surface a credible public list of questions asked by Nimish. Similar names belong to unrelated people; don't borrow their biographies.</p><p><a href="https://scoutify.com/companies/vinci4d/">Scoutify's Vinci page</a> explicitly mixes candidate-reported questions with likely questions inferred from open roles. Treat such lists as practice material, not evidence of the actual interview.</p></div>
+      </div>
+    </section>
+    <section id="nimish">
+      <p class="eyebrow">03 · Your interviewer</p>
+      <h2>A verified connection to the product—not a guessed résumé</h2>
+      <div class="grid">
+        <div class="card"><span class="tag">Verified · Vinci's own site</span><h3>Engineer and research co-author</h3><p>Vinci lists <strong>Nimish Patil as “Engineer, Vinci”</strong> and a co-author of its December 5, 2025 <a href="https://www.getvinci.ai/research/thermal-sensitivity-analysis-of-3d-ic-face-to-back-stacking-using-foundation-models-for-physics/">3D IC thermal sensitivity paper</a>. The work concerns material choices in stacked chip packages and repeatable simulation workflows.</p><p>That establishes a product connection. It does not establish that he owns the backend, manages this team, or will ask physics derivations.</p></div>
+        <div class="card"><span class="tag">Public profile signal · not interview evidence</span><h3>Customer-facing visualization matters</h3><p>The public search-indexed <a href="https://www.linkedin.com/in/npatil1">Vinci-affiliated LinkedIn profile</a> includes a visualization hiring share about navigating geometry from nanometer to centimeter detail. The full profile could not be fetched directly.</p><p>Rehearse one UI/performance debugging story. A good question: “How do the simulation service and visualization team divide responsibility for making results usable?”</p></div>
+      </div>
+      <p class="section-lead">Vinci's <a href="https://www.getvinci.ai/careers/">careers page</a> describes production physics infrastructure for hardware engineering, not an LLM chatbot company. Connect your reliability experience to expensive compute and trustworthy customer results; don't pretend to be a thermal engineer.</p>
+    </section>
+    <section id="likely">
+      <p class="eyebrow">04 · Role-informed practice · not reported questions</p>
+      <h2>The questions worth rehearsing out loud</h2>
+      <p class="section-lead">These are plausible prompts inferred from the role and product. Ranking is a preparation priority, not an estimated probability. Answer outlines are adaptable drafts: use only experiences and outcomes that are true for you.</p>
+      <details class="question"><summary>1 · Walk me through a production system you built. What did you personally own?</summary><div><span class="label">Strong answer structure</span><p>Problem and users → a small architecture diagram → your contribution → one correctness invariant → one real failure or tradeoff → evidence the fix worked. For Papercusp, lead with orchestration and production ownership, not the agent count.</p><span class="label">Follow-ups to prepare</span><ul><li>Why PostgreSQL rather than an in-memory queue? Where are the transaction boundaries?</li><li>Which component can fail independently? What survives a process restart?</li><li>What did you measure, and what would you change if requirements changed?</li></ul><span class="label">Avoid</span><p>A feature tour, unverified metrics, or taking credit for code you did not own.</p></div></details>
+      <details class="question"><summary>2 · Design a service that runs expensive simulations and returns results reliably.</summary><div><span class="label">Answer outline</span><p>Clarify job size, latency, tenant isolation, result size and compute limits. Validate a request, persist a job, return an ID, claim work atomically, run compute outside the transaction, then conditionally publish the result. Add bounded admission, per-tenant quotas, versioned inputs and observable states. Keep large artifacts in object storage, with authorized references rather than database blobs.</p><span class="label">Important tradeoff</span><p>A synchronous RPC can submit work; it need not stay open for the entire simulation. Polling or a stream can report status. A lost client connection must not silently decide the job's lifecycle.</p><p><a href="#design">Rehearse the whole design below.</a></p></div></details>
+      <details class="question"><summary>3 · A worker crashes—or a paused worker returns after its job has been reassigned. What happens?</summary><div><span class="label">Answer outline</span><p>Persist attempts and leases. Reclaim expired attempts according to policy. Issue a monotonically changing attempt/fencing token. Completion updates must match the current token and expected state; an old worker must not overwrite the new attempt's result.</p><span class="label">The subtle part</span><p>A lease is a liveness mechanism, not proof that the old process stopped. Database fencing does not automatically fence external effects. Use attempt-scoped artifacts, idempotent engine calls where possible, and conditional publication. A heartbeat alone does not prove useful progress.</p><span class="label">Test you should describe</span><p>Pause worker A, reclaim with B, then resume A. Show that A cannot publish a stale result. Also crash between compute completion and result acknowledgement.</p></div></details>
+      <details class="question"><summary>4 · How do you make submission idempotent under concurrent retries?</summary><div><span class="label">Answer outline</span><p>Scope the request key to the tenant and operation. Record the key, validated input fingerprint and resulting job ID under a database uniqueness constraint. Repeating the same request returns the existing job; reusing the key with different inputs is rejected. Don't rely on “check then insert” without atomic enforcement.</p><span class="label">Follow-up</span><p>If a database write and queue publish cross systems, explain the crash gap and a transactional outbox or a database-backed claim path. Distinguish at-least-once delivery from effectively-once visible results; don't promise global exactly-once execution.</p></div></details>
+      <details class="question"><summary>5 · When would you use async Python, threads, processes or a native C++ call?</summary><div><span class="label">Answer outline</span><p>Async works for cooperative I/O; declaring a function async does not make a blocking call non-blocking. On a conventional GIL-enabled Python build, threads don't generally parallelize Python CPU work. A native extension can run concurrently if it releases the GIL and is thread-safe; processes provide a different isolation boundary with serialization and lifecycle costs.</p><span class="label">Native boundary</span><p>pybind11 does not automatically release the GIL. Discuss explicit release around safe native work, reacquisition before Python-object access, memory ownership and cancellation. A thread-safe interpreter boundary does not imply a thread-safe engine.</p><p><a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread">Python's thread guidance</a> · <a href="https://pybind11.readthedocs.io/en/stable/advanced/misc.html#global-interpreter-lock-gil">pybind11 GIL guidance</a></p></div></details>
+      <details class="question"><summary>6 · The gRPC deadline expires, but the native simulation keeps running. How do you handle that?</summary><div><span class="label">Answer outline</span><p>Give RPCs realistic deadlines and carry the remaining budget downstream; don't restart a full timeout at each hop. A cancelled RPC does not automatically stop application-created work. Separate “the caller stopped waiting” from “cancel this durable job.” For actual cancellation, track it, ask the engine cooperatively, release resources and fence late results. If hard termination is necessary, choose an isolatable worker process rather than pretending a Python task can kill an arbitrary native thread.</p><span class="label">Retry trap</span><p>A deadline error may occur after submission succeeded. Retry with the same idempotency key or query the job; don't automatically submit another expensive simulation.</p><p><a href="https://grpc.io/docs/guides/deadlines/">Official gRPC deadline and server-cleanup guidance</a></p></div></details>
+      <details class="question"><summary>7 · A user switches simulations, but an old response overwrites the new result. What's wrong?</summary><div><span class="label">Answer outline</span><p>Reproduce the out-of-order response. Associate responses with the current job/request identity and ignore stale completions. Cancel unnecessary fetches where supported; clean up effects and subscriptions. A component being mounted is not enough—the selected job may have changed while it stayed mounted.</p><span class="label">Test</span><p>Start slow request A, switch to B, resolve B, then A. The UI must still display B. Include loading, error, cancelled and retrying states, and keyboard-accessible controls.</p><p><a href="https://react.dev/reference/react/useEffect#fetching-data-with-effects">React's effect cleanup and race-condition example</a></p></div></details>
+      <details class="question"><summary>8 · A PostgreSQL queue or status query gets slow. How do you investigate?</summary><div><span class="label">Answer outline</span><p>First separate pool wait, lock wait, execution time and network time. Inspect a representative query plan, actual row counts and access pattern before adding an index. Check whether filtering and ordering fit the index, whether a huge offset is the issue, and whether long transactions retain locks. Tune from evidence, then verify the relevant workload.</p><span class="label">Queue-specific detail</span><p><code>FOR UPDATE SKIP LOCKED</code> can let consumers skip locked candidate rows. PostgreSQL warns that it gives an inconsistent view: useful for a queue-like table, not a general correctness shortcut. Keep claim transactions short; never hold a row lock for a simulation's whole runtime.</p><p><a href="https://www.postgresql.org/docs/current/sql-select.html">PostgreSQL locking-clause documentation</a></p></div></details>
+      <details class="question"><summary>9 · How would you ship and test a change spanning React, Python and native compute?</summary><div><span class="label">Answer outline</span><p>Define the public contract and failure behavior first. Use fast unit checks for validation/state transitions; integration tests with real database transactions and service contracts; a small real native-engine smoke path; and e2e tests for submission → status → authorized result access. Simulate duplicate delivery, cancellation, stale completion and partial failures—not just happy-path mocks.</p><span class="label">Deployment and debugging</span><p>Plan compatible schema/API evolution, observable rollout and a rollback boundary. Correlate a request and job across frontend, service and native worker. Measure queue delay separately from compute time. Only claim solver correctness against a trusted reference owned with the domain team; UI tests can't establish physical accuracy.</p></div></details>
+    </section>
+    <section id="design">
+      <p class="eyebrow">05 · Ten-minute whiteboard rehearsal</p>
+      <h2>Upload → simulation → trustworthy result</h2>
+      <p class="section-lead">Original practice scenario, not a claim about Vinci's internal architecture. Start simple; earn complexity from explicit failure cases.</p>
+      <div class="steps">
+        <div class="step"><span class="when">Clarify</span><div><h3>What is the promise?</h3><p>Interactive or batch? Maximum payload/result size? Tenant isolation? Cancellation semantics? Does repeating the same input mean reuse a result or deliberately recompute? What engine/model version defines reproducibility?</p></div></div>
+        <div class="step"><span class="when">Submit</span><div><h3>Validate and durably record intent</h3><p>Authenticate the tenant, validate the input, authorize referenced assets, record the request key and input/version fingerprint, create one job, and return its ID. Reject key reuse with a different request. Don't expose another tenant's results through a guessed ID.</p></div></div>
+        <div class="step"><span class="when">Claim</span><div><h3>A short transaction—not a long lock</h3><p>Atomically select available work and create an attempt/lease. Commit before compute. Bound admission by actual worker/GPU capacity and enforce tenant fairness; increasing concurrency is not automatically increasing throughput.</p></div></div>
+        <div class="step"><span class="when">Compute</span><div><h3>Make the native boundary explicit</h3><p>Define input-buffer lifetime, GIL/thread behavior, engine thread safety, progress signals and cooperative cancellation. Persist outputs under an attempt-specific name so stale execution cannot corrupt the current result.</p></div></div>
+        <div class="step"><span class="when">Complete</span><div><h3>Publish only the current attempt</h3><p>Conditionally advance state using the attempt token. Report durable status and authorized artifacts. Version events or status snapshots so a stale client update cannot move the UI backwards.</p></div></div>
+        <div class="step"><span class="when">Observe</span><div><h3>Locate the actual bottleneck</h3><p>Separate admission wait, queue wait, input transfer, engine runtime and result transfer. Tie logs/traces to job and attempt IDs. Alert on stuck jobs with a recovery policy, not just on dead processes.</p></div></div>
+      </div>
+      <div class="note"><strong>Failure timeline to draw:</strong> submit succeeds → response is lost → client retries → A claims → A pauses → lease expires → B claims → A resumes. Show why neither the retry nor A's late completion creates a second visible result.</div>
+    </section>
+    <section id="drills">
+      <p class="eyebrow">06 · If there is a coding exercise</p>
+      <h2>Two focused drills, not a guessed LeetCode list</h2>
+      <div class="grid">
+        <div class="card"><span class="tag">SQL · concurrency</span><h3>Claim one queued job</h3><p>Sketch an atomic claim in PostgreSQL. State the schema assumptions and explain why two workers cannot claim the same queued row.</p><pre><code>BEGIN;
+WITH picked AS (
+  SELECT id FROM jobs
+  WHERE state = 'queued'
+    AND available_at &lt;= now()
+  ORDER BY created_at, id
+  LIMIT 1 FOR UPDATE SKIP LOCKED
+)
+UPDATE jobs AS j
+SET state = 'running',
+    attempt = j.attempt + 1
+FROM picked
+WHERE j.id = picked.id
+RETURNING j.id, j.attempt;
+COMMIT;</code></pre><p><strong>Whiteboard sketch, fictional schema:</strong> production needs lease expiry, ownership, admission/fairness and state-transition rules. An empty return is valid when no job is available. Commit before native compute; guard completion with the returned attempt token. Test two concurrent claimers and a stale finisher.</p></div>
+        <div class="card"><span class="tag">Python · diagnose before rewriting</span><h3>Why isn't this non-blocking?</h3><pre><code>async def run_job(job):
+    return engine.simulate(job)</code></pre><p>Explain that a synchronous call still blocks its executing thread. Ask whether the native engine releases the GIL, is thread-safe and supports cancellation before choosing a thread or process boundary.</p><ul><li>For async I/O, use a bounded semaphore around awaited work, not unbounded task creation.</li><li>If one task fails, explicitly choose fail-fast versus partial results. A TaskGroup and gather have different failure semantics.</li><li>A timeout is not proof that a thread/native operation stopped. Account for late completion and resource ownership.</li></ul><p><a href="https://docs.python.org/3/library/asyncio-task.html">Review Python task-group and gather semantics</a>. Be ready to write a small test with delayed tasks, one failure and cancellation.</p></div>
+      </div>
+    </section>
+    <section id="pitch">
+      <p class="eyebrow">07 · Adapt; don't memorize invented experience</p>
+      <h2>Your opener and an honest gap answer</h2>
+      <div class="grid">
+        <div class="card"><span class="tag">About 60 seconds · editable draft</span><h3>Lead with the work</h3><blockquote>“I've been building Papercusp, where the interesting engineering is coordinating long-running work reliably: durable state, concurrent workers, retries, cancellation and debugging across a customer-facing UI and backend. The parallel I see at Vinci is making expensive compute usable and trustworthy end-to-end. I'd love to walk through a concrete system I owned, including the failure cases and what I changed after measuring them.”</blockquote><p>Replace any part that doesn't match your contribution. Use an actual outcome, not an invented scale claim. Then stop and let him steer.</p></div>
+        <div class="card"><span class="tag">For technology you haven't shipped</span><h3>Show judgment without overstating depth</h3><blockquote>“My deepest production experience is in [your actual stack]. I haven't shipped [the specific binding or engine, if true], so I wouldn't claim expert fluency there. I would start with ownership, thread-safety and cancellation contracts, verify the behavior with a small integration test, and work with the engine owner before choosing the isolation boundary.”</blockquote><p>Don't automatically say Python is a gap. Name only the tools you genuinely haven't used. Don't imply the concurrency problem disappears because a library wraps it.</p></div>
+      </div>
+    </section>
+    <section id="ask">
+      <p class="eyebrow">08 · Pick three</p>
+      <h2>Questions that fit an engineer conversation</h2>
+      <ol>
+        <li><strong>First feature:</strong> “What end-to-end customer workflow would you want this person to own first?”</li>
+        <li><strong>Failure boundary:</strong> “Which integration is hardest today: request/job orchestration, the Python/C++ boundary, or making results usable in the UI?”</li>
+        <li><strong>His work:</strong> “I saw your name on the 3D IC thermal sensitivity paper. How does a research workflow become a supported customer feature?”</li>
+        <li><strong>Visualization:</strong> “How do you handle very large simulation results without making the customer UI wait on expensive work?”</li>
+        <li><strong>Trust:</strong> “How do software and domain engineers divide responsibility for validating releases against trusted simulation results?”</li>
+        <li><strong>Practical expectation:</strong> “How much of this role is Python services, native integration and React? And what does hybrid versus remote-friendly mean for this team?”</li>
+      </ol>
+      <p class="section-lead">Use the paper question only after a short product discussion; don't pretend you read a gated PDF or understand the whole solver. Save compensation/process questions for the appropriate part of the loop.</p>
+    </section>
+    <section id="checklist">
+      <p class="eyebrow">09 · A preparation schedule, not their agenda</p>
+      <h2>If you have only 20 minutes</h2>
+      <div class="steps">
+        <div class="step"><span class="when">0–6 min</span><div><h3>Rehearse two real stories</h3><p>One architecture, one incident. Say your contribution, invariant, distinguishing measurement and recurrence test out loud.</p></div></div>
+        <div class="step"><span class="when">6–12 min</span><div><h3>Draw duplicate delivery and stale completion</h3><p>Explain idempotency, a short claim transaction, lease expiry, attempt fencing and external effects. No hand-waving about exactly-once.</p></div></div>
+        <div class="step"><span class="when">12–16 min</span><div><h3>Review the native/RPC boundary</h3><p>Blocking versus async; GIL release versus engine thread safety; caller timeout versus actual cancellation.</p></div></div>
+        <div class="step"><span class="when">16–20 min</span><div><h3>Make the call easy</h3><p>Choose three questions, open your invite and a familiar editor, check audio/screen sharing, and confirm any candidate NDA requirement from Vinci's emails. The earlier prep mentioned an NDA; this invitation does not confirm its current status.</p></div></div>
+      </div>
+      <div class="note"><strong>Final reminders:</strong> ask what format he wants; state assumptions; think out loud; test failure paths; distinguish your real experience from a proposed design; leave time for your questions. Don't spend the last minutes memorizing physics equations or an unverified interview-question list.</div>
+    </section>
+    <section id="sources">
+      <p class="eyebrow">10 · Checked October 7, 2026</p>
+      <h2>Sources and research boundaries</h2>
+      <ul>
+        <li><a href="https://jobs.ashbyhq.com/vinci/7585965e-6910-48d5-8cfc-900d930630e8">Official full-stack role</a> — read in a JavaScript-enabled browser; role priorities and current location labels, not the interview format.</li>
+        <li><a href="https://www.glassdoor.com/Interview/vinci4d-Interview-Questions-E10658905.htm">Glassdoor interview account</a> — historical, anonymous Founding Engineer report dated August 14, 2025; not independently corroborated.</li>
+        <li><a href="https://www.getvinci.ai/research/thermal-sensitivity-analysis-of-3d-ic-face-to-back-stacking-using-foundation-models-for-physics/">Vinci's thermal sensitivity paper page</a> — Nimish's engineering affiliation and co-authorship; landing-page abstract read, not the gated PDF.</li>
+        <li><a href="https://www.linkedin.com/in/npatil1">Nimish's Vinci-affiliated profile</a> — public indexed excerpt only; direct fetch unavailable. No unverified career history used.</li>
+        <li><a href="https://www.getvinci.ai/careers/">Vinci careers</a> — production and product context.</li>
+        <li><a href="https://scoutify.com/companies/vinci4d/">Scoutify</a> — explicitly mixes reported and inferred interview material; not treated as a verified question bank.</li>
+        <li>Technical references: <a href="https://grpc.io/docs/guides/deadlines/">gRPC</a>, <a href="https://docs.python.org/3/library/asyncio-task.html">Python asyncio</a>, <a href="https://pybind11.readthedocs.io/en/stable/advanced/misc.html">pybind11</a>, <a href="https://www.postgresql.org/docs/current/sql-select.html">PostgreSQL</a>, <a href="https://react.dev/reference/react/useEffect">React</a>.</li>
+      </ul>
+      <p class="section-lead">Searches covered Vinci4D interview experiences, coding questions, the full-stack role and Nimish's Vinci-affiliated public material. No reliable Nimish-specific prompt list surfaced in those searches. That is a research limit—not proof that such information doesn't exist. No interviewer contact, account login, application or assessment submission was performed.</p>
+    </section>
+  </main>
+  <footer>Prepared for Avi's October 7 interview. The timing and interviewer name come from the supplied invitation. Practice scenarios and answer outlines are original rehearsal material; they are not Vinci interview leaks or claims about its private architecture.</footer>
+</div>
+</body>
+</html>

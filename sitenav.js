@@ -17,6 +17,10 @@
           "t": "Answer&nbsp;Bank"
       },
       {
+          "h": "vinci-nimish-patil-technical",
+          "t": "Vinci&nbsp;·&nbsp;Nimish&nbsp;·&nbsp;Wed&nbsp;10/7&nbsp;7&nbsp;PM"
+      },
+      {
           "h": "heron-power-ed-sinek-staff-swe",
           "t": "Heron&nbsp;Power&nbsp;·&nbsp;Ed&nbsp;Sinek"
       },
