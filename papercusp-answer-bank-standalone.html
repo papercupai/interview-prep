@@ -132,20 +132,23 @@
     top: 0;
     z-index: 20;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.2rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    gap: 0.1rem;
     margin: -3rem -0.4rem 0;
-    padding: 0.55rem 0.4rem;
+    padding: 0.25rem 0.4rem;
     background: var(--ground);
     border-bottom: 1px solid var(--rule);
     font-family: var(--f-display);
-    font-size: 0.83rem;
+    font-size: 0.72rem;
     font-weight: 600;
   }
   nav.sitenav a {
     text-decoration: none;
     color: var(--ink-muted);
-    padding: 0.3rem 0.62rem;
+    padding: 0.2rem 0.45rem;
+    flex-shrink: 0;
     border-radius: 2px;
     border: 1px solid transparent;
     white-space: nowrap;
@@ -156,20 +159,27 @@
     background: var(--surface);
     border-color: var(--rule-strong);
   }
-  nav.sitenav .sep { flex: 1; }
+  nav.sitenav .sep { flex: 0 0 0.5rem; }
   nav.sitenav a.ext { color: var(--ink-faint); font-weight: 500; }
 
-  nav.current-interview { border-bottom: 1px solid var(--rule-strong); }
+  nav.current-interview {
+    display: flex;
+    gap: 0.3rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    border-bottom: 1px solid var(--rule-strong);
+  }
   nav.current-interview a {
     display: inline-block;
-    max-width: 100%;
-    padding: 0.55rem 0.8rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 0.3rem 0.5rem;
     border: 1px solid var(--rule-strong);
     border-bottom: 3px solid var(--accent);
     border-radius: 3px 3px 0 0;
     background: var(--surface);
     font-family: var(--f-display);
-    font-size: 0.88rem;
+    font-size: 0.72rem;
     font-weight: 600;
     text-decoration: none;
   }
@@ -223,20 +233,30 @@
     background: var(--surface);
     border: 1px solid var(--rule);
     border-radius: 3px;
-    padding: 1rem 1.15rem 1.1rem;
+    padding: 0.65rem 0.85rem;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.45rem;
   }
+  .toc-topics { display: flex; flex-wrap: wrap; gap: 0.3rem 0.85rem; }
+  .toc-topics a, nav.toc summary {
+    font-family: var(--f-display);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  nav.toc summary { cursor: pointer; color: var(--ink-muted); }
+  nav.toc details[open] summary { margin-bottom: 0.55rem; }
   nav.toc ol {
     margin: 0;
     padding: 0;
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-    gap: 0.3rem 1.2rem;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    gap: 0.25rem 0.85rem;
+    max-height: 20rem;
+    overflow-y: auto;
     font-family: var(--f-display);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
   nav.toc ol li { display: flex; gap: 0.5rem; align-items: baseline; }
   nav.toc ol li span.n {
@@ -489,7 +509,7 @@
   <script src="sitenav.js"></script>
 
   <header class="masthead">
-    <p class="eyebrow">Reusable · employer-neutral · guardrails added 9 Sep 2026</p>
+    <p class="eyebrow">Reusable · employer-neutral · guardrails added 9 Sep 2026 · enterprise-agent questions added 8 Oct 2026</p>
     <h1>Papercusp Answer Bank</h1>
     <p class="standfirst">Standard interview questions, answered from one real system. Every number below was re-checked against the tree on 3 Sep 2026 — that precision is the whole advantage, so don't round it up.</p>
     <nav class="current-interview" aria-label="Current interview prep">
@@ -517,7 +537,17 @@
   </dl>
 
   <nav class="toc" aria-label="Contents">
-    <p class="eyebrow">Contents</p>
+    <div class="toc-topics" aria-label="Jump to a topic">
+      <a href="#core-questions">Core questions</a>
+      <a href="#mechanisms">System design</a>
+      <a href="#guardrails">Guardrails</a>
+      <a href="#enterprise-agents">Enterprise agents</a>
+      <a href="#rapid-fire">Rapid-fire</a>
+      <a href="#micro1-bank">AI &amp; MLOps</a>
+      <a href="#sagas">Sagas</a>
+    </div>
+    <details class="question-index">
+    <summary>All questions</summary>
     <ol>
       <li><span class="n">1</span><a href="#q-cicd">CI/CD pipeline</a></li>
       <li><span class="n">2</span><a href="#q-testing">What to test</a></li>
@@ -547,6 +577,7 @@
       <li><span class="n">N12</span><a href="#n-docs">Documentation that can't lie</a></li>
       <li><span class="n">N13</span><a href="#n-leading">Running a team / backlog</a></li>
       <li><span class="n">N14</span><a href="#n-weakness">What you'd change</a></li>
+      <li><span class="n">G0</span><a href="#g-overview">How we use guardrails</a></li>
       <li><span class="n">G1</span><a href="#g-permissions">Guardrails &amp; permissions</a></li>
       <li><span class="n">↳</span><a href="#native-execution">Why native Bash still exists</a></li>
       <li><span class="n">G2</span><a href="#g-injection">Prompt injection</a></li>
@@ -556,6 +587,16 @@
       <li><span class="n">G6</span><a href="#g-evaluation">Testing the guardrails</a></li>
       <li><span class="n">G7</span><a href="#g-audit">Audit &amp; governance</a></li>
       <li><span class="n">G8</span><a href="#g-recovery">Recovery &amp; containment</a></li>
+      <li><span class="n">E1</span><a href="#e-layers">Guardrail layers</a></li>
+      <li><span class="n">E2</span><a href="#e-standards">Standards &amp; frameworks</a></li>
+      <li><span class="n">↳</span><a href="#e-crosswalk">Risk → control crosswalk</a></li>
+      <li><span class="n">E3</span><a href="#e-identity">Agent identity &amp; credentials</a></li>
+      <li><span class="n">E4</span><a href="#e-data">Sensitive data &amp; providers</a></li>
+      <li><span class="n">E5</span><a href="#e-grounding">Hallucination &amp; grounding</a></li>
+      <li><span class="n">E6</span><a href="#e-memory">Agent memory</a></li>
+      <li><span class="n">E7</span><a href="#e-architecture">Workflow vs agent vs multi-agent</a></li>
+      <li><span class="n">E8</span><a href="#e-llmops">Monitoring &amp; safe rollout</a></li>
+      <li><span class="n">EV</span><a href="#e-vocab">Vocabulary to know cold</a></li>
       <li><span class="n">RF</span><a href="#rapid-fire">Rapid-fire probes</a></li>
       <li><span class="n">▸</span><a href="#close">Delivery &amp; the night before</a></li>
       <li><span class="n">T</span><a href="#turing-coding-test">Turing coding challenge</a></li>
@@ -593,6 +634,7 @@
       <li><span class="n">SG12</span><a href="#sg-replay">Durable-execution pitfalls</a></li>
       <li><span class="n">SG·RF</span><a href="#sg-rapid">Saga rapid-fire</a></li>
     </ol>
+    </details>
   </nav>
 
   <div class="note">
@@ -738,7 +780,7 @@
   </div>
 </section>
 
-<section>
+<section id="core-questions">
     <div class="sec-head">
       <p class="eyebrow">Part 1 · the core bank, revised</p>
       <h2>Standard interview questions, mapped to Papercusp</h2>
@@ -1135,7 +1177,7 @@
     </div>
   </section>
 
-<section>
+<section id="mechanisms">
     <div class="sec-head">
       <p class="eyebrow">Part 2 · new questions</p>
       <h2>Fourteen more, each grounded in a specific mechanism</h2>
@@ -1503,10 +1545,36 @@
       <h2>Make the boundary stronger than the model</h2>
     </div>
     <div class="stack">
-      <p>Eight employer-neutral questions for agentic-platform interviews. Rehearse the short answer, then take the follow-up. For an applied example, use the <a href="creatoriq-agentic-experience-prep-standalone.html#system-design">CreatorIQ system-design exercise</a>.</p>
+      <p>One general Papercusp answer, followed by eight questions about specific controls. Start with G0 for an open-ended guardrails question, then use G1–G8 for follow-ups. For an applied example, use the <a href="creatoriq-agentic-experience-prep-standalone.html#system-design">CreatorIQ system-design exercise</a>.</p>
       <div class="note warn">
         <p class="eyebrow">Experience versus design</p>
-        <p>These are <strong>proposed spoken answers</strong>, not eight new claims of personal accomplishments. G1 and the native-execution breakdown now use Papercusp source and live checks from 9 September; the other enterprise scenarios remain proposed designs. Use a story only where it matches your contribution. The figures at the top remain the original 3 September snapshot.</p>
+        <p>These are <strong>proposed spoken answers</strong>, not new claims of personal accomplishments. The answers connect to concrete Papercusp mechanisms checked against source on 9 October 2026. Enterprise-wide guarantees remain proposed designs. G1's deployment observations and native-execution figures are the dated 9 September checks; the figures at the top remain the original 3 September snapshot. Use a story only where it matches your contribution.</p>
+      </div>
+    </div>
+
+    <div class="qcard guardrail-card" id="g-overview">
+      <div class="qbar"><span class="idx">G0 · General guardrails answer</span><span>60–90 seconds</span></div>
+      <div class="qbody">
+        <p class="prompt">How do you use guardrails in Papercusp?</p>
+        <div class="beats"><span class="beat">limit authority →</span><span class="beat">protect actions →</span><span class="beat">bound execution →</span><span class="beat">verify outcomes</span></div>
+        <div class="draft">
+          <p>“We use guardrails at several points in the agent's execution, because a model following instructions is only one part of making the system reliable.</p>
+          <p>First, we constrain what an agent can do. The tool dispatcher validates arguments and checks authorization, and capability envelopes can restrict operations by role. For example, an acceptance judge is blocked from shell execution and file writes. Session confinement provides an additional tool-level restriction when configured.</p>
+          <p>Second, we protect the actions themselves. Agents editing our shared tree need file-lock ownership. Mail tools check workspace and personal-data access, and sending a saved draft checks that its recipients haven't changed. Human review belongs before consequential actions, with application checks to preserve what was reviewed.</p>
+          <p>Third, we bound execution and verify results. Operator budget checks constrain scans, and gateway admission controls concurrency against provider capacity. Before code is promoted, a green checkpoint tests an isolated candidate. Decision records and work-item evidence help us trace what happened and verify the result.</p>
+          <p><span class="kicker">The principle is to enforce important boundaries outside the model and test the actual side effect.</span> If an agent attempts a forbidden operation, I want evidence that it was blocked, not just a reassuring answer. Coverage depends on configuration and execution route; privileged exemptions and native shell access still need explicit attention.”</p>
+        </div>
+        <div class="short">
+          <p class="eyebrow">30-second version</p>
+          <p>“In Papercusp, we combine tool authorization and role restrictions, file locks around shared edits, checks on consequential actions, runtime budgets, and a test gate before code promotion. We also record decisions and completion evidence. The common principle is that critical checks happen outside the model, and we verify what the action actually did. I distinguish controls that exist from how completely they're configured.”</p>
+        </div>
+        <dl class="probes">
+          <dt>“Give me one concrete example.”</dt>
+          <dd>An acceptance judge's role envelope denies shell execution and file writes, so its role cannot quietly turn an evaluation into an implementation change. The check is at dispatch, separate from the prompt describing its job.</dd>
+          <dt>“Do those guardrails guarantee safety?”</dt>
+          <dd>No. They reduce specific risks. Test denied and permitted actions, check the execution path and policy configuration, and distinguish deterministic enforcement from fallible model-based review.</dd>
+        </dl>
+        <p class="src"><b>Papercusp anchors</b><a href="#g-permissions">G1: authorization and locks</a> · <a href="#g-injection">G2: session confinement</a> · <a href="#g-tenancy">G3: data access</a> · <a href="#g-approval">G4: reviewed actions</a> · <a href="#g-limits">G5: budgets</a> · <a href="#g-evaluation">G6: test gate</a> · <a href="#g-audit">G7: decision and completion evidence</a>. Each card names its source and limitations.</p>
       </div>
     </div>
 
@@ -1528,7 +1596,11 @@
           <dt>“What would prove the cutover is real?”</dt>
           <dd>Run an allowed command through the managed tool; verify its native counterpart is unavailable on launch and resume. Then test unauthorized writes, secret reads, egress, child-process cleanup, and operator-down recovery. Test generic dispatch and PTY input too—not only the top-level tool name.</dd>
         </dl>
-        <p class="src"><b>Papercusp anchor</b><a href="#native-execution">Source-checked mappings, live settings, and limitations below</a> · <a href="#q-security">Q10: corrected security answer</a>. This is not a claim that a complete cross-client confinement drill was performed during interview preparation.</p>
+        <div class="short feature-example">
+          <p class="eyebrow">Papercusp example · capability envelopes + file locks</p>
+          <p>“An acceptance judge has a role envelope that denies shell execution and file writes. A worker editing the shared tree has to own the file lock first. Those are checks outside the model: deciding an edit is a good idea doesn't grant permission to make it. The caveat is that role envelopes have privileged exemptions, and native execution needs its own containment.”</p>
+        </div>
+        <p class="src"><b>Source</b><code>packages/operator-core/lib/capability-envelope/policy.ts</code> · <code>packages/operator-core/lib/agent-tools/locks/acquire.ts</code> · <a href="#native-execution">Dated live settings and limitations</a> · <a href="#q-security">Q10</a>.</p>
       </div>
     </div>
 
@@ -1595,7 +1667,11 @@
           <dt>“Is a trusted MCP server's result safe?”</dt>
           <dd>Authenticated transport proves who served it, not that a user-authored field inside it is trustworthy. Tool descriptions and connector updates also deserve review.</dd>
         </dl>
-        <p class="src"><b>Reading</b><a href="https://developers.openai.com/api/docs/guides/agent-builder-safety" target="_blank" rel="noreferrer">OpenAI: Safety in building agents</a>. Use the risk guidance, not an assumption that a filter eliminates injection.</p>
+        <div class="short feature-example">
+          <p class="eyebrow">Papercusp example · session confinement</p>
+          <p>“If retrieved text convinces a confined agent to call a forbidden tool, the server still denies it. Papercusp's session confinement checks named tools without taking the caller's privilege as an input, and covers indirect calls through <code>tools:invoke</code>. It contains tool misuse even when the model follows the hostile instruction. It doesn't detect every injection or guarantee that every session has confinement configured.”</p>
+        </div>
+        <p class="src"><b>Source</b><code>packages/operator-core/lib/capability-envelope/session-confinement.ts</code> and its tests · <a href="#native-execution">Configuration caveats</a>. <b>Reading</b><a href="https://developers.openai.com/api/docs/guides/agent-builder-safety" target="_blank" rel="noreferrer">Safety in building agents</a>.</p>
       </div>
     </div>
 
@@ -1615,7 +1691,11 @@
           <dt>“What about shared agency accounts?”</dt>
           <dd>Separate agency membership from client-brand access. Switching the active brand must not grant access to every brand the agency serves.</dd>
         </dl>
-        <p class="src"><b>Scope</b>Enterprise design answer, not a claim that Papercusp has passed a customer multi-tenant security audit. See <a href="creatoriq-agentic-experience-prep-standalone.html#guardrail-matrix">the CreatorIQ risk matrix</a> for an applied test.</p>
+        <div class="short feature-example">
+          <p class="eyebrow">Papercusp example · workspace + personal-data authorization</p>
+          <p>“Papercusp's mail tools require a concrete workspace from the execution context, reject a wildcard workspace, and check personal-mail access before using the connector. That makes the scope an application check rather than a tenant name in a prompt. I'd extend the same principle across retrieval, caches and resumed jobs; this example alone doesn't prove complete enterprise tenant isolation.”</p>
+        </div>
+        <p class="src"><b>Source</b><code>packages/operator-core/lib/agent-tools/mail/send.ts</code> · <code>send-draft.ts</code>. <b>Scope</b>No claim of a customer multi-tenant security audit. <a href="creatoriq-agentic-experience-prep-standalone.html#guardrail-matrix">Applied risk matrix</a>.</p>
       </div>
     </div>
 
@@ -1635,7 +1715,11 @@
           <dt>“Can an agent approve another agent?”</dt>
           <dd>It may perform a review, but cannot satisfy a policy requiring an authorized human. Separate the reviewer signal from the permission to execute.</dd>
         </dl>
-        <p class="src"><b>Reading</b><a href="https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html" target="_blank" rel="noreferrer">OWASP AI Agent Security</a> · <a href="https://docs.langchain.com/oss/python/langgraph/interrupts" target="_blank" rel="noreferrer">LangGraph interrupts</a> for durable pause/resume. Approval binding is an application responsibility.</p>
+        <div class="short feature-example">
+          <p class="eyebrow">Papercusp example · reviewed mail drafts</p>
+          <p>“<code>mail:send-draft</code> takes a saved draft ID and the expected recipients; it doesn't accept replacement subject or body text. If the recipients changed, it refuses. That's a concrete check against sending somewhere different from what was reviewed. It is not a complete approval binding: for a high-risk action I'd also bind the reviewed content, version, approver and expiry.”</p>
+        </div>
+        <p class="src"><b>Source</b><code>packages/operator-core/lib/agent-tools/mail/send-draft.ts</code>. <b>Reading</b><a href="https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html" target="_blank" rel="noreferrer">OWASP AI Agent Security</a> · <a href="https://docs.langchain.com/oss/python/langgraph/interrupts" target="_blank" rel="noreferrer">Durable pause/resume</a>.</p>
       </div>
     </div>
 
@@ -1655,7 +1739,11 @@
           <dt>“What if a long job is still making progress?”</dt>
           <dd>Distinguish an idle timeout from an overall deadline. Progress can renew liveness, but must not silently waive the customer's spend or time policy.</dd>
         </dl>
-        <p class="src"><b>Papercusp connection</b><a href="#n-capacity">N8: rate limits and cost</a> and <a href="#n-processes">N4: process control</a>. The per-run envelope above is a proposed enterprise design, not a new measured capacity claim.</p>
+        <div class="short feature-example">
+          <p class="eyebrow">Papercusp example · shared budget state</p>
+          <p>“Papercusp stores its operator daily cap and recorded spend in Postgres, and updates spend transactionally so concurrent scans don't lose each other's charges. The scan path checks that cap; the inference gateway separately controls admission against provider capacity. That separates money policy from concurrency. Recorded usage arrives after a call, so I wouldn't sell this as a strict, prepaid ceiling for every agent run.”</p>
+        </div>
+        <p class="src"><b>Source</b><code>packages/operator-core/lib/operator-budget.ts</code> (<code>checkBudget</code>, <code>recordSpend</code>) · <a href="#n-capacity">N8: gateway admission</a> · <a href="#n-processes">N4: process control</a>. The enterprise per-run envelope remains proposed.</p>
       </div>
     </div>
 
@@ -1675,7 +1763,11 @@
           <dt>“Would you pick a 99% threshold?”</dt>
           <dd>Not without the denominator, severity, and business risk. Zero cross-tenant leaks in a finite suite is a release condition, not an estimate that the live risk is zero.</dd>
         </dl>
-        <p class="src"><b>Papercusp anchor</b><a href="#q-testing">Q2: test the detector</a> and <a href="#q-ai-eval">Q8: evaluating AI output</a>. Read the existing evidence before attributing a specific evaluation system or outcome to yourself.</p>
+        <div class="short feature-example">
+          <p class="eyebrow">Papercusp example · confinement tests + green checkpoint</p>
+          <p>“Papercusp has regression tests for session confinement, including tool-name spellings that could otherwise bypass a deny rule. Its green checkpoint tests an isolated candidate before promotion to <code>main</code>. I'd pair the denial cases with permitted calls and assert whether the handler ran. The release gate enforces the test verdict; it doesn't turn a finite safety suite into a guarantee about every attack.”</p>
+        </div>
+        <p class="src"><b>Source</b><code>packages/operator-core/lib/capability-envelope/session-confinement.test.ts</code> · <a href="#q-cicd">Q1: promotion gate</a> · <a href="#q-testing">Q2: test the detector</a> · <a href="#q-ai-eval">Q8: model evaluation</a>.</p>
       </div>
     </div>
 
@@ -1695,7 +1787,11 @@
           <dt>“What if the mandatory audit record cannot be written?”</dt>
           <dd>Don't execute a protected side effect without the required durable record. Keep operational telemetry failures separate from a policy-mandated audit failure.</dd>
         </dl>
-        <p class="src"><b>Papercusp connection</b><a href="#q-observability">Q7: observability</a> and <a href="#q-disagreement">Q9: durable decisions</a>. A versioned decision and action receipt explain behavior more reliably than a plausible post-hoc narrative.</p>
+        <div class="short feature-example">
+          <p class="eyebrow">Papercusp example · decision ledger + completion evidence</p>
+          <p>“Papercusp separates the decision ledger's action records from disposition records: what executed versus what was considered, deferred or proposed for approval. Work-item completion also carries the tests, result and verification evidence. That gives an investigator something to check besides the agent's final story. The ledger has its own configuration and coverage; I wouldn't claim every native action is captured or that logging alone makes the system compliant.”</p>
+        </div>
+        <p class="src"><b>Source</b><code>packages/operator-core/lib/decision-ledger/disposition.ts</code> · <code>packages/operator-core/lib/agent-tools/work_items/complete.ts</code> · <a href="#q-observability">Q7</a> · <a href="#q-disagreement">Q9</a>.</p>
       </div>
     </div>
 
@@ -1715,8 +1811,255 @@
           <dt>“What does the user see?”</dt>
           <dd>A clear stopped/partial/unknown-outcome state, what completed, what did not, and the next safe action—not a success toast because a request was accepted.</dd>
         </dl>
-        <p class="src"><b>Papercusp connection</b><a href="#n-incident">N9: incident response</a>. <a href="creatoriq-agentic-experience-prep-standalone.html#system-design">CreatorIQ practice</a> applies this to a duplicate-outreach timeout.</p>
+        <div class="short feature-example">
+          <p class="eyebrow">Papercusp example · pinned releases + compensating cleanup</p>
+          <p>“Papercusp deploys from a pinned release checkout, separate from the agents' shared editing tree, with a rollback path if the new release fails. For long-running work, its durable workflows and workspace-host lifecycle runner address cleanup after a restart. That's two different recovery mechanisms: restore a known code version, and reconcile or compensate side effects. Neither can unsend an email.”</p>
+        </div>
+        <p class="src"><b>Source</b><a href="#q-cicd">Q1: pinned deployment and rollback</a> · <a href="#sagas">Saga cleanup: DBOS and workspace-host source mappings</a> · <a href="#n-incident">N9: incident response</a>.</p>
       </div>
+    </div>
+  </section>
+
+<section id="enterprise-agents">
+    <div class="sec-head">
+      <p class="eyebrow">Part 3b · enterprise agent deployment · added 8 Oct 2026</p>
+      <h2>The standard questions behind every enterprise agent rollout</h2>
+    </div>
+    <div class="stack">
+      <p>G1–G8 go deep on individual controls. These eight come <em>before</em> them: the questions any panel asks someone who will deploy agents inside a company. What “guardrails” means as a system, which standards you'd hold it to, whose identity the agent acts under, where the data goes, how you stop it inventing facts, what memory does to all of that, when not to build an agent, and how you change one safely once it's live.</p>
+      <div class="note crit">
+        <p class="eyebrow">How a guardrails answer goes wrong</p>
+        <p>The usual miss is answering with <strong>one layer</strong> (“we have a moderation filter”, “the system prompt tells it not to”) or listing product names with no structure. The interviewer wants to hear a <strong>model of the system</strong>. Use this four-step outline for any guardrail question, then go to the specific card:</p>
+        <ol>
+          <li><strong>Name the layers.</strong> Input, output, tool and action, runtime, and people and process.</li>
+          <li><strong>Separate detecting from enforcing.</strong> Classifiers and LLM judges <em>detect</em>. Permissions, schemas, budgets, and approvals <em>enforce</em>.</li>
+          <li><strong>Give one concrete example.</strong> The hostile input, the control that fires, and the side effect you checked did not happen.</li>
+          <li><strong>State the limit.</strong> What it doesn't catch, and what you monitor because of that.</li>
+        </ol>
+        <p><span class="kicker">Guardrails are a stack of layers; the permission boundary is the one that has to hold when the model is fooled.</span></p>
+      </div>
+      <div class="note warn">
+        <p class="eyebrow">Experience versus design</p>
+        <p>These are <strong>proposed spoken answers</strong> for enterprise scenarios, not claims that you shipped each control at an employer. The Papercusp examples connect them to mechanisms in the tree; they don't imply complete enterprise coverage. The standards facts were checked against public sources on 8 October 2026. Re-check regulatory dates before the interview.</p>
+      </div>
+    </div>
+
+    <div class="qcard enterprise-card" id="e-layers">
+      <div class="qbar"><span class="idx">E1 · Guardrail layers</span><span class="new">new</span><span class="timing">Most likely opener</span></div>
+      <div class="qbody">
+        <p class="prompt">What guardrails would you put on an agent we deploy internally?</p>
+        <div class="beats"><span class="beat">input →</span><span class="beat">output →</span><span class="beat">tool &amp; action →</span><span class="beat">runtime →</span><span class="beat">people &amp; process</span></div>
+        <div class="draft">
+          <p>“I think of guardrails as five layers, and the key distinction is which ones <em>detect</em> problems and which ones <em>enforce</em> limits.</p>
+          <p><strong>Input:</strong> authenticate the user, check the request is within the agent's allowed scope, and screen for jailbreaks, prompt injection, and sensitive data before it reaches the model. <strong>Output:</strong> validate the structure against a schema, check facts against sources where they matter, and filter PII, secrets, and policy violations before anything is shown or stored. <strong>Tool and action:</strong> a per-agent tool allowlist, argument validation, least-privilege credentials, and approval for high-impact actions. <strong>Runtime:</strong> limits on steps, spend, time, and rate, plus a kill switch the workers enforce. <strong>People and process:</strong> an accountable owner, red-teaming before launch, and monitoring and an incident process after.</p>
+          <p>The input and output layers are mostly classifiers: a safety model, a managed service like Bedrock Guardrails or Azure Prompt Shields, or an LLM judge. They're probabilistic. <span class="kicker">I assume some attacks get past the detectors, so the tool and runtime layers must hold even when the model is completely fooled.</span> Timing matters too. A check that runs alongside the agent only detects; a check that must finish before the side effect can actually block it. In the OpenAI Agents SDK, for example, input guardrails run concurrently by default, so a tripwire can fire after a tool has already run. Anything protecting a write should run in blocking mode or sit at the tool itself.”</p>
+        </div>
+        <dl class="probes">
+          <dt>“If the guardrail service is down, do you fail open or fail closed?”</dt>
+          <dd>It depends on the action's risk. A read-only answer can continue with a warning; a write, send, or export fails closed. Alert on guardrail outages separately, because a skipped check looks the same as a passing one.</dd>
+          <dt>“How do you know the guardrails aren't blocking legitimate work?”</dt>
+          <dd>Track the false-block rate alongside the catch rate. Have people review a sample of blocked requests and measure task completion. A guardrail tuned only on attacks gradually starts refusing everything.</dd>
+        </dl>
+        <div class="short feature-example">
+          <p class="eyebrow">Papercusp example · map the layers to real controls</p>
+          <p>“In Papercusp, I can point to role capability envelopes and session confinement at the tool boundary, file locks around shared edits, operator budget checks at runtime, and a green checkpoint before code promotion. The decision ledger provides governance evidence. Those are concrete enforcing and recording mechanisms. They don't establish a complete input/output filtering system, and their configuration and privileged exemptions matter.”</p>
+        </div>
+        <p class="src"><b>Papercusp anchors</b><a href="#g-permissions">G1: permissions and locks</a> · <a href="#g-injection">G2: confinement</a> · <a href="#g-limits">G5: budget</a> · <a href="#g-evaluation">G6: checkpoint</a> · <a href="#g-audit">G7: ledger</a>. <b>Reading</b><a href="https://openai.github.io/openai-agents-python/guardrails/" target="_blank" rel="noreferrer">Agents SDK guardrails</a> · <a href="https://github.com/NVIDIA/NeMo-Guardrails" target="_blank" rel="noreferrer">NeMo Guardrails</a>.</p>
+      </div>
+    </div>
+
+    <div class="qcard enterprise-card" id="e-standards">
+      <div class="qbar"><span class="idx">E2 · Standards</span><span class="new">new</span><span class="timing">“Industry standard” question</span></div>
+      <div class="qbody">
+        <p class="prompt">Which industry standards or frameworks would you use to assess an agent's risk?</p>
+        <div class="beats"><span class="beat">threat list →</span><span class="beat">risk program →</span><span class="beat">management system →</span><span class="beat">regulation →</span><span class="beat">map to controls</span></div>
+        <div class="draft">
+          <p>“I use them at different levels, because they answer different questions.</p>
+          <p>For the threat model: the <strong>OWASP Top 10 for LLM Applications 2025</strong> and the newer <strong>OWASP Top 10 for Agentic Applications</strong>, published in December 2025. The LLM list treats the model as a component: prompt injection, sensitive information disclosure, improper output handling, excessive agency, unbounded consumption. The agentic list treats the model as an actor: goal hijack, tool misuse, identity and privilege abuse, memory poisoning, insecure communication between agents, cascading failures, rogue agents. For red-team planning, MITRE ATLAS catalogs attacker techniques against AI systems.</p>
+          <p>For the risk program: the <strong>NIST AI Risk Management Framework</strong> (Govern, Map, Measure, Manage) and its Generative AI Profile, NIST AI 600-1. If the company wants something certifiable, <strong>ISO/IEC 42001</strong> is the AI management-system standard, the way ISO 27001 is for information security. Regulation depends on where it's used. The <strong>EU AI Act</strong> classifies uses like hiring and credit decisions as high-risk, and requires telling people when they're talking to an AI. <span class="kicker">A framework helps you find risks; it isn't evidence you've controlled them.</span> So I map each risk we accept to a specific control and a test. That mapping is what I'd take to a security review.”</p>
+        </div>
+        <dl class="probes">
+          <dt>“What does ‘excessive agency’ mean?”</dt>
+          <dd>OWASP LLM06: the agent has more functionality, permissions, or autonomy than its task needs. Fix it by removing tools, narrowing credentials, and requiring approval for high-impact actions. The agentic list calls the principle “least agency.”</dd>
+          <dt>“Where does the EU AI Act stand on timing?”</dt>
+          <dd>Prohibited practices and AI-literacy duties have applied since 2 Feb 2025, and general-purpose model duties since Aug 2025. The Article 50 transparency duties, including telling people they're talking to an AI, apply from 2 Aug 2026. The 2026 Digital Omnibus pushed stand-alone high-risk (Annex III) obligations back to 2 Dec 2027, and those for AI built into regulated products (Annex I) to Aug 2028. They were delayed, not removed, and whether a use counts as high-risk is a decision for legal.</dd>
+        </dl>
+        <p class="src"><b>Reading</b><a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noreferrer">OWASP LLM Top 10 (2025)</a> · <a href="https://genai.owasp.org/" target="_blank" rel="noreferrer">OWASP GenAI Security Project</a> (Agentic Top 10, ASI01–ASI10) · <a href="https://doi.org/10.6028/NIST.AI.600-1" target="_blank" rel="noreferrer">NIST AI 600-1</a> · <a href="https://www.iso.org/standard/81230.html" target="_blank" rel="noreferrer">ISO/IEC 42001:2023</a> · <a href="https://atlas.mitre.org/" target="_blank" rel="noreferrer">MITRE ATLAS</a> · <a href="https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/" target="_blank" rel="noreferrer">Gibson Dunn on the AI Act Omnibus</a>. Not legal advice; confirm dates on the day.</p>
+      </div>
+    </div>
+
+    <div class="note" id="e-crosswalk">
+      <p class="eyebrow">Risk → control crosswalk · use it as the E2 follow-up</p>
+      <h3>From an OWASP item to a test you can show</h3>
+      <p>When they ask “how would you address that?”, give the row: the risk, what it looks like in a real enterprise agent, the control, and the test that proves it held. IDs are from the OWASP LLM Top 10 (2025) and the OWASP Agentic Top 10 (ASI).</p>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Agent risks mapped to controls and tests">
+        <table class="mechanism-table">
+          <thead><tr><th scope="col">Risk</th><th scope="col">What it looks like</th><th scope="col">Control</th><th scope="col">Test that proves it</th></tr></thead>
+          <tbody>
+            <tr><td>Prompt injection / goal hijack <br><code>LLM01 · ASI01</code></td><td>A shared doc or inbound email tells the agent to export a customer list</td><td>Retrieved content is treated as data, not instructions; tool allowlist; outbound-data limits</td><td>Plant the instruction; assert no export or send happened (<a href="#g-injection">G2</a>)</td></tr>
+            <tr><td>Excessive agency / tool misuse <br><code>LLM06 · ASI02</code></td><td>A “summarize tickets” agent can also close or delete them</td><td>Remove unneeded tools; read-only credentials; approval for writes</td><td>Call the forbidden tool directly; the server refuses it, whatever the prompt says</td></tr>
+            <tr><td>Identity &amp; privilege abuse <br><code>ASI03</code></td><td>The agent's service account can read every mailbox</td><td>Act on behalf of the user; effective permission = user ∩ agent; short-lived scoped tokens</td><td>User A's run requests User B's resource (<a href="#e-identity">E3</a>)</td></tr>
+            <tr><td>Sensitive info disclosure / system prompt leakage <br><code>LLM02 · LLM07</code></td><td>PII in a reply, log, or trace; an API key pasted into the system prompt</td><td>Minimize and redact before the model; output DLP; no secrets in prompts</td><td>Seed fake “canary” PII and secrets; scan outputs, logs, and traces (<a href="#e-data">E4</a>)</td></tr>
+            <tr><td>Improper output handling <br><code>LLM05</code></td><td>Model output passed straight into SQL, HTML, or a shell</td><td>Treat output as untrusted input: parameterize, encode, sandbox</td><td>Return a payload containing injection characters; assert it has no effect</td></tr>
+            <tr><td>Memory &amp; context poisoning <br><code>ASI06 · LLM08</code></td><td>A poisoned note or document persists and steers later runs</td><td>Record the source of every memory; limit what can write to memory; expiry; per-tenant vector stores</td><td>Write a hostile memory as one user; another user's run never retrieves it (<a href="#e-memory">E6</a>)</td></tr>
+            <tr><td>Misinformation / over-trust <br><code>LLM09 · ASI09</code></td><td>A confident but wrong policy answer that an employee acts on</td><td>Ground answers in the system of record; citations; an “I don't know” path; show sources in the UI</td><td>Ask questions the corpus can't answer; expect the agent to say so (<a href="#e-grounding">E5</a>)</td></tr>
+            <tr><td>Unbounded consumption / cascading failures <br><code>LLM10 · ASI08</code></td><td>A retry loop spreads across agents, burns budget, and floods an API</td><td>Budgets, rate limits, circuit breakers, kill switch</td><td>Make a dependency fail; assert retries stay bounded and the run stops cleanly (<a href="#g-limits">G5</a>)</td></tr>
+            <tr><td>Supply chain <br><code>LLM03 · ASI04</code></td><td>A third-party MCP server or plugin quietly changes its tool descriptions</td><td>Pin versions; review tool descriptions; keep an inventory of models and tools (an AI-BOM); least privilege per connector</td><td>Compare tool manifests on each update; block changes nobody has reviewed</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="qcard enterprise-card" id="e-identity">
+      <div class="qbar"><span class="idx">E3 · Agent identity</span><span class="new">new</span><span>Very likely for enterprise roles</span></div>
+      <div class="qbody">
+        <p class="prompt">Should the agent use its own service account, or act as the user?</p>
+        <div class="beats"><span class="beat">on behalf of the user →</span><span class="beat">intersect permissions →</span><span class="beat">short-lived scoped tokens →</span><span class="beat">never in context</span></div>
+        <div class="draft">
+          <p>“For anything that touches a user's data, the agent should act <em>on behalf of</em> that user. Its effective permission is then the intersection of what the user may do and what this agent may do. A shared, powerful service account is the classic confused-deputy setup: the agent can be talked into using privileges the requesting user never had.</p>
+          <p>In practice that means delegated OAuth: an on-behalf-of or token-exchange flow (RFC 8693) that issues short-lived tokens scoped to this agent and this resource, held on the server. The model never sees a credential. It names an action, and the tool layer attaches the token. The MCP authorization spec takes the same approach: each token is bound to a specific server through resource indicators, and a server must not pass a client's token through to an upstream API.</p>
+          <p>Some agents do need their own identity. A nightly reconciliation job has no user behind it. That should be a registered non-human identity with an owner, minimal scopes, credential rotation, and its own audit trail. <span class="kicker">Every agent action should be traceable to both the agent and the person it acted for.</span>”</p>
+        </div>
+        <dl class="probes">
+          <dt>“What if the user's access is revoked in the middle of a run?”</dt>
+          <dd>Short token lifetimes, plus a fresh check before each side effect. A long-running job must reauthorize when it resumes, not rely on the permission it had when it was queued (<a href="#g-tenancy">G3</a>).</dd>
+          <dt>“How do you keep track of all the agents?”</dt>
+          <dd>Treat them like workload identities: a registry of each agent with its owner, scopes, connectors, and version. Suspend any agent without an owner; you can't govern what you can't list.</dd>
+        </dl>
+        <p class="src"><b>Reading</b><a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/security-considerations" target="_blank" rel="noreferrer">MCP authorization: security considerations</a> (resource indicators, no token passthrough) · <a href="https://www.rfc-editor.org/rfc/rfc8693" target="_blank" rel="noreferrer">RFC 8693 token exchange</a>. Papercusp: <a href="#g-tenancy">G3</a>, where the server determines the caller's scope and the model doesn't choose its tenant.</p>
+      </div>
+    </div>
+
+    <div class="qcard enterprise-card" id="e-data">
+      <div class="qbar"><span class="idx">E4 · Sensitive data</span><span class="new">new</span><span>Asked by every security reviewer</span></div>
+      <div class="qbody">
+        <p class="prompt">How do you handle sensitive data, both inside the agent and with the model provider?</p>
+        <div class="beats"><span class="beat">classify →</span><span class="beat">minimize →</span><span class="beat">check the contract →</span><span class="beat">track every copy</span></div>
+        <div class="draft">
+          <p>“I start with data classification: which fields the agent actually needs, and which kinds of data (health, financial, credentials, customer PII) may go to which model. Then I minimize: retrieve only the records the task needs, and redact or tokenize identifiers before they reach the prompt where the task allows it.</p>
+          <p>With the provider, it's a contract question rather than a model question. I check whether inputs can be used for training, how long they're kept for abuse monitoring, whether zero data retention or regional processing is available, and, for US health data, whether there's a Business Associate Agreement. I'd confirm all of that in the actual agreement rather than quote a default from memory.</p>
+          <p>Then I track every copy. <span class="kicker">Prompts, traces, eval sets, caches, vector indexes, and agent memory are all new stores of the same personal data.</span> They need the same access controls, retention, and deletion. A right-to-erasure request has to reach the embeddings and memory, not just the source table. And no secrets go in a system prompt. OWASP lists system prompt leakage separately because people treat prompts as a safe place for keys.”</p>
+        </div>
+        <dl class="probes">
+          <dt>“Would you self-host a model for privacy?”</dt>
+          <dd>Only if the risk or the contract requires it. It removes the third-party processor but adds patching, capacity, and evaluation work. A provider offering zero retention and regional processing often meets the same requirement.</dd>
+          <dt>“How do you stop PII leaking in the output?”</dt>
+          <dd>Output DLP for known patterns and seeded canary values, plus authorization on what was retrieved in the first place. A redaction filter can't fix a retrieval step that fetched someone else's record.</dd>
+        </dl>
+        <p class="src"><b>Reading</b><a href="https://genai.owasp.org/llm-top-10/" target="_blank" rel="noreferrer">OWASP LLM02 and LLM07</a>. Provider data terms differ by plan and change over time; check the specific vendor agreement rather than citing a default.</p>
+      </div>
+    </div>
+
+    <div class="qcard enterprise-card" id="e-grounding">
+      <div class="qbar"><span class="idx">E5 · Hallucination</span><span class="new">new</span><span>Near-universal</span></div>
+      <div class="qbody">
+        <p class="prompt">How do you keep an enterprise agent from making things up?</p>
+        <div class="beats"><span class="beat">look it up, don't generate →</span><span class="beat">cite →</span><span class="beat">allow “I don't know” →</span><span class="beat">validate before acting</span></div>
+        <div class="draft">
+          <p>“First, anything that matters is looked up, not generated: prices, policy text, account status, IDs. The agent calls a tool against the system of record and quotes the result. Retrieved answers carry citations that point to the exact passage, and I check that the passage actually supports the claim.</p>
+          <p>Second, a real way to say ‘I don't know’. If retrieval finds nothing relevant, the right answer is ‘I couldn't find that’ plus a handoff. I test that explicitly with questions whose answers aren't in the corpus. Otherwise the evaluation rewards confident guessing.</p>
+          <p>Third, <span class="kicker">a made-up argument to a tool is more dangerous than a made-up sentence.</span> Before any action, check that generated IDs exist, belong to this user's scope, and match the thing the user meant. Offline, I measure groundedness with an LLM judge calibrated against human labels. And the UI shows people the source, because over-trusting the agent is its own risk in the OWASP agentic list.”</p>
+        </div>
+        <dl class="probes">
+          <dt>“Doesn't RAG eliminate hallucination?”</dt>
+          <dd>No. It turns the problem into retrieval quality plus faithful use of what was retrieved. Measure both: did we fetch the right passage, and does the answer stay within it?</dd>
+          <dt>“How do you trust an LLM judge?”</dt>
+          <dd>Calibrate it on a human-labelled sample, report how often it agrees with people, re-check when the judge model or rubric changes, and use deterministic checks wherever a fixed rule can decide.</dd>
+        </dl>
+        <p class="src"><b>Papercusp anchor</b><a href="#q-ai-eval">Q8: evaluating AI output</a>. Papercusp's agent rules require finding the code that <em>writes</em> a number before reporting it. That's the same discipline applied to the agents' own claims.</p>
+      </div>
+    </div>
+
+    <div class="qcard enterprise-card" id="e-memory">
+      <div class="qbar"><span class="idx">E6 · Agent memory</span><span class="new">new</span><span>Likely for agent roles</span></div>
+      <div class="qbody">
+        <p class="prompt">What can go wrong with long-term agent memory, and how do you govern it?</p>
+        <div class="beats"><span class="beat">poisoning →</span><span class="beat">leakage →</span><span class="beat">staleness →</span><span class="beat">drift →</span><span class="beat">provenance</span></div>
+        <div class="draft">
+          <p>“Memory turns one bad input into a lasting one. There are four failure modes. <strong>Poisoning:</strong> a hostile document or user writes a ‘fact’ that steers later runs. <strong>Leakage:</strong> a memory written for one user or tenant is retrieved for another. <strong>Staleness:</strong> a fact stops being true and keeps being served. <strong>Drift:</strong> summaries of summaries lose their caveats and their source.</p>
+          <p>So every memory records who wrote it, from what source, for which scope, and when it expires. Writes are restricted, so a retrieved web page can't write to long-term memory directly. Retrieval is filtered by tenant and user before ranking.</p>
+          <p>In Papercusp we traced the drift case end to end. An agent wrote a note to itself: don't close this item until the UI check is done. After several context compactions it was carried forward as ‘the owner set an explicit gate.’ <span class="kicker">Summarization had manufactured an instruction out of the agent's own note.</span> The fix was mechanical provenance. Every turn is stamped as typed by the owner or generated by an agent, carried instructions must be tagged with their source, and a standing fact has to declare how long it lasts when it's written.”</p>
+        </div>
+        <dl class="probes">
+          <dt>“Should users be able to see and delete what the agent remembers?”</dt>
+          <dd>Yes. Visible, editable memory builds appropriate trust, and it's how you honor deletion requests. Deletion has to reach derived copies such as embeddings and summaries.</dd>
+          <dt>“When do you use memory and when do you use retrieval?”</dt>
+          <dd>Retrieve from the system of record when the fact has an owner. Keep memory for preferences and context that exist nowhere else; a memory that duplicates a database becomes a stale copy.</dd>
+        </dl>
+        <p class="src"><b>Papercusp anchor</b>packages/operator-core/lib/turn-provenance/ (owner-typed vs agent-generated stamps) · <code>facts:assert</code> requires a declared lifetime (agent-tools/facts/assert.ts) · the WI-3532 trace in Papercusp's compaction rules. Confirm your own part in that fix before telling it in the first person. Reading: OWASP ASI06.</p>
+      </div>
+    </div>
+
+    <div class="qcard enterprise-card" id="e-architecture">
+      <div class="qbar"><span class="idx">E7 · Architecture</span><span class="new">new</span><span>Very likely</span></div>
+      <div class="qbody">
+        <p class="prompt">When would you use a fixed workflow, a single agent, or multiple agents?</p>
+        <div class="beats"><span class="beat">simplest thing that works →</span><span class="beat">agent for open-ended work →</span><span class="beat">multi-agent for parallel work →</span><span class="beat">coordination cost</span></div>
+        <div class="draft">
+          <p>“I start with the simplest thing that works. If the steps are known, it's a workflow: code calls the model for specific steps like classify, extract, or draft. That's cheaper, testable, and predictable. I use an agent, where the model chooses the next step and tool, only when the path really can't be known in advance, like open-ended research or troubleshooting.</p>
+          <p>Multiple agents are worth the cost when the work splits into independent parallel parts or doesn't fit in one context window. Anthropic reported that in their research system, single agents used about four times the tokens of a chat and multi-agent systems about fifteen times, so the task has to justify that. Tightly coupled work, like several agents editing the same code, usually doesn't parallelize well.</p>
+          <p>Running about a hundred agents on one Papercusp branch taught me that <span class="kicker">coordination is the real cost of multiple agents.</span> You need explicit ownership, claims and file locks, so two agents don't do the same work. And a message from another agent is data, not authority. Papercusp stamps every turn as typed by the owner or generated by an agent, so an agent can't mistake a peer's text for the owner's instruction. Without that, one agent's mistake spreads to the others.”</p>
+        </div>
+        <dl class="probes">
+          <dt>“Which framework would you use?”</dt>
+          <dd>I'd choose on durability and control, not demos: pause and resume that survives restarts (for approvals), tracing, typed tool contracts, and offline testing. LangGraph, the OpenAI Agents SDK, and similar tools all work. I'd avoid any layer that hides the prompts and tool calls I need to evaluate.</dd>
+          <dt>“How do agents hand off work safely?”</dt>
+          <dd>Through a durable record (a ticket with state, owner, and evidence), not a chat message that scrolls away. The receiving agent re-checks permissions; a handoff never carries the sender's privileges.</dd>
+        </dl>
+        <p class="src"><b>Reading</b><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noreferrer">Anthropic: Building effective agents</a> (workflows vs agents) · <a href="https://www.anthropic.com/engineering/built-multi-agent-research-system" target="_blank" rel="noreferrer">Anthropic: multi-agent research system</a> (token multiples). Papercusp: <a href="#n-system-design">N2</a> and <a href="#q-concurrency">Q4</a>.</p>
+      </div>
+    </div>
+
+    <div class="qcard enterprise-card" id="e-llmops">
+      <div class="qbar"><span class="idx">E8 · Monitoring &amp; rollout</span><span class="new">new</span><span class="timing">Name canary and blue/green explicitly</span></div>
+      <div class="qbody">
+        <p class="prompt">How do you monitor an agent in production, and how do you roll out a new model or prompt safely?</p>
+        <div class="beats"><span class="beat">version everything →</span><span class="beat">regression gate →</span><span class="beat">shadow → canary →</span><span class="beat">watch outcomes →</span><span class="beat">one-step rollback</span></div>
+        <div class="draft">
+          <p>“I treat the model, prompt, tool definitions, and policy as one versioned release, pinned to a specific model snapshot so a provider update can't change behavior without our knowing. Every change runs an offline regression suite (the core tasks plus every past incident) and must not get worse on safety cases, even if average quality improves.</p>
+          <p>The rollout is staged. First <strong>shadow mode</strong>: the new version runs on real traffic but doesn't act. Then a <strong>canary</strong>: a small share of traffic, with stop criteria agreed in advance. Then wider release. <strong>Blue/green</strong> deployment or a feature flag gives a one-step rollback, and the kill switch uses the same mechanism.</p>
+          <p>In production I watch outcomes, not just uptime: task success, escalation and handoff rate, guardrail trip rate and false-block rate, tool error rate, cost per <em>successful</em> task, and p95 latency, all broken down by version. Traces record each model call and tool call. OpenTelemetry has GenAI semantic conventions for this, though they're still at Development status. <span class="kicker">An agent can be fully available and quietly wrong, so I feed a sample of live runs into the same evals that gate releases.</span>”</p>
+        </div>
+        <dl class="probes">
+          <dt>“What tells you a canary has failed?”</dt>
+          <dd>Thresholds agreed in advance on safety and outcome metrics: any unsafe action, a rise in escalations, or higher cost per successful task, compared with the control group at the same time, not with last week.</dd>
+          <dt>“How is this different from deploying normal software?”</dt>
+          <dd>Two things: non-determinism and changes upstream that nobody announces. The same input can give different output, so you test across many runs, not one. And you pin models and re-evaluate them, because the provider can change them.</dd>
+        </dl>
+        <p class="src"><b>Papercusp anchor</b><a href="#q-cicd">Q1: CI/CD</a> (main only advances on a green suite) · feature flags as kill switches, with every default-off flag registered with a reason · <a href="#m1-ops-7">OPS7: monitoring</a>. Reading: <a href="https://github.com/open-telemetry/semantic-conventions-genai" target="_blank" rel="noreferrer">OpenTelemetry GenAI semantic conventions</a>.</p>
+      </div>
+    </div>
+
+    <div class="note" id="e-vocab">
+      <p class="eyebrow">Vocabulary to know cold</p>
+      <h3>Terms a panel will use without defining</h3>
+      <p>If one of these comes up and you hesitate, it reads as unfamiliarity with the field. One sentence each is enough.</p>
+      <dl class="probes">
+        <dt>Excessive agency (OWASP LLM06)</dt>
+        <dd>The agent has more functionality, permissions, or autonomy than its task needs.</dd>
+        <dt>Least agency</dt>
+        <dd>Give an agent the minimum autonomy as well as the minimum privilege. It's the organizing idea of the OWASP agentic list.</dd>
+        <dt>Confused deputy</dt>
+        <dd>A privileged component tricked into using its authority for a caller who doesn't have that authority.</dd>
+        <dt>Human-in-the-loop vs human-on-the-loop</dt>
+        <dd>A person approves each action, versus a person supervises and can step in.</dd>
+        <dt>Tripwire</dt>
+        <dd>A guardrail result that stops the run (the OpenAI Agents SDK's term).</dd>
+        <dt>Groundedness (faithfulness)</dt>
+        <dd>Whether an answer is supported by the sources it was given.</dd>
+        <dt>LLM-as-a-judge</dt>
+        <dd>A model grading outputs against a rubric. Only useful once it's calibrated against human labels.</dd>
+        <dt>Red teaming</dt>
+        <dd>Deliberately attacking your own system to find failures before attackers or users do.</dd>
+        <dt>Shadow mode / canary</dt>
+        <dd>Run a new version without letting it act, versus let it act for a small share of traffic with stop criteria.</dd>
+        <dt>Zero data retention (ZDR)</dt>
+        <dd>A provider option not to store prompts and outputs beyond processing the request.</dd>
+        <dt>AI-BOM</dt>
+        <dd>An inventory of the models, datasets, prompts, tools, and connectors in a system, like a software bill of materials.</dd>
+        <dt>Kill switch</dt>
+        <dd>A control, enforced by the runtime rather than the UI, that immediately stops an agent or tool version.</dd>
+      </dl>
     </div>
   </section>
 
@@ -2471,7 +2814,7 @@
 </section>
 
   <footer>
-    <p><b>Papercusp Answer Bank</b> — reusable, employer-neutral. Part 1 revises the fourteen standard questions; Part 2 adds fourteen grounded in a specific mechanism; Part 3 adds eight guardrails questions; Part 4 is rapid-fire plus delivery; Part 5 answers micro1's published AI Engineer and MLOps Engineer practice-track questions, each with its source quoted. Part 6 (SG1–SG12, plus rapid-fire) covers saga cleanup that survives restarts, grounded in the DBOS workflows and the workspace-host lifecycle runner; checked against the tree on 22 September 2026.</p>
+    <p><b>Papercusp Answer Bank</b> — reusable, employer-neutral. Part 1 revises the fourteen standard questions; Part 2 adds fourteen grounded in a specific mechanism; Part 3 has a general guardrails answer plus eight questions about individual controls; Part 4 is rapid-fire plus delivery; Part 5 answers micro1's published AI Engineer and MLOps Engineer practice-track questions, each with its source quoted. Part 6 (SG1–SG12, plus rapid-fire) covers saga cleanup that survives restarts, grounded in the DBOS workflows and the workspace-host lifecycle runner; checked against the tree on 22 September 2026.</p>
     <p>New: <a href="creatoriq-agentic-experience-prep-standalone.html">CreatorIQ · Senior Full-stack Engineer (Agentic Experience)</a> — governance, MCP, agent discovery, and a creator-shortlisting design exercise.</p>
     <p>Every figure was re-checked against the tree on 3 September 2026. Numbers drift — the commit count and the backlog counts especially — so re-verify anything you plan to lead with rather than trusting this file's date.</p>
     <p>Companion: <a href="mcp-cicd-study-faq-standalone.html">MCP + CI/CD Study FAQ</a> for the CI/CD deep dive · <a href="twg-recruiter-screen-standalone.html">TWG Global</a> and <a href="rtx-hirevue-prep-standalone.html">RTX Screen</a>, <a href="kaseya-codesignal-mle-core-standalone.html">Kaseya CodeSignal</a> and <a href="experian-sova-assessment-standalone.html">Experian / Sova</a> and <a href="roblox-assessments-standalone.html">Roblox Games</a> for company-specific prep.</p>
