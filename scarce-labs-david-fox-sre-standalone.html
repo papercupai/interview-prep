@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="SCARCE Labs call with founder and CEO David Fox, Friday 16 October 2026: the Infrastructure / DevOps / SRE seat that also governs what the Orchestra agents may do unassisted. Company brief, the Store Wolf thresholds story checked against code, a governance design, a 90-day plan for the estate, the rollback story they asked for, and diligence questions.">
+<title>SCARCE Labs · David Fox · Infra, SRE &amp; Agent Governance | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f8f9; --surface: #fff; --soft: #eef2f3;
+    --ink: #10181c; --muted: #55646c; --accent: #14666e;
+    --warn: #8a5d05; --warn-soft: #f7edd6;
+    --rule: #dde4e7; --rule-strong: #c3cfd3;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0d1417; --surface: #141e22; --soft: #1a262b;
+      --ink: #e6edef; --muted: #93a3aa; --accent: #4fb3bc;
+      --warn: #d9a43a; --warn-soft: #33290f;
+      --rule: #24333a; --rule-strong: #35474f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .65rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; overflow-wrap: anywhere; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table { width: 100%; min-width: 40rem; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; padding: .9rem 1rem; color: var(--muted); }
+  th, td { text-align: left; vertical-align: top; padding: .9rem 1rem; border-top: 1px solid var(--rule); }
+  th { background: var(--soft); font: 600 .85rem/1.5 var(--display); }
+  td:first-child { width: 24%; font-family: var(--display); font-weight: 600; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .source { margin-top: .7rem; color: var(--muted); font-size: .88rem; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    details, .card { break-inside: avoid; }
+    details > div { display: block; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Founder call · Infrastructure / DevOps / SRE + agent governance · Checked 14 Oct 2026</p>
+      <h1>SCARCE Labs · David Fox</h1>
+      <p class="lead">The seat: own the production estate, and design how the agents running on it are governed: what they may do on their own, and what a person has to ratify. David brought up your Store Wolf autonomy thresholds by name, so that story opens the call. Make it true, specific, and checked against the code.</p>
+      <p class="source"><a href="https://scarcelabs.ai/">scarcelabs.ai</a> · <a href="https://freehire.me/jobs/infrastructure-devops-sre-engineer-scarce-labs-inc-scarce-labs-36yly43m">The Infrastructure / DevOps / SRE posting (Wellfound mirror)</a> · <a href="https://wellfound.com/company/scarce-labs/jobs">Wellfound jobs</a></p>
+    </div>
+    <aside class="hero-card" aria-label="Call facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>When</dt><dd>Fri 16 Oct 2026, 1:30–2:30 p.m. EDT. David: “plan on an hour.” He said he would send the invite link.</dd></div>
+        <div><dt>With</dt><dd>David Fox, Founder &amp; CEO (<a href="mailto:dfox@scarcelabs.ai">dfox@scarcelabs.ai</a>).</dd></div>
+        <div><dt>The seat</dt><dd>Infrastructure, DevOps &amp; SRE, plus the agent-governance design. Works with Manish Pande, Platform &amp; Agentic lead.</dd></div>
+        <div><dt>Stage</dt><dd>Seed round in progress; “the seat begins at its close.”</dd></div>
+        <div><dt>Posted package</dt><dd>$170k–$180k + 0.25%–1.0% equity, remote (US time zones). “Cash compensation calibrated at financing.”</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#history">How we got here</a><a href="#company">Company in a minute</a>
+    <a href="#seat">What the seat is</a><a href="#pitch">Your opener</a>
+    <a href="#thresholds">The thresholds story</a><a href="#governance">Governance design</a>
+    <a href="#estate">The estate, 90 days</a><a href="#rollback">Rollback story</a>
+    <a href="#answers">Likely questions</a><a href="#ask">Your questions</a>
+    <a href="#rehearse">Before the call</a><a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="history">
+      <p class="eyebrow">01 · Three months, two seats</p>
+      <h2>How we got here, and how to open</h2>
+      <p class="section-lead">This is the second role David has pitched. Know the timeline so you can respond to the change of seat gracefully and then go straight to substance.</p>
+      <div class="steps">
+        <div class="step"><span class="when">Jul 15</span><div><h3>First outreach</h3><p>David praised the Store Wolf production systems (“millions of SKUs, complex real-time optimization under commercial constraints”) and papercusp.com. He offered a <em>Senior Agentic / Systems</em> seat beside an existing agentic lead: production multi-agent architecture, shared state and reliability for Orchestra.</p></div></div>
+        <div class="step"><span class="when">Jul 20–21</span><div><h3>Scheduling fell through</h3><p>He proposed Tuesday and asked which time zone you were in. The call never happened. You followed up twice and sent new windows (EST).</p></div></div>
+        <div class="step"><span class="when">Oct</span><div><h3>Re-engineered role</h3><p>He apologised (“that's on me”) and pitched a different seat: <strong>Infrastructure, DevOps and SRE</strong>, “owning the production estate and designing how the agents that run on it are governed.” He cited your Store Wolf thresholds for when systems could act unassisted. Seed round in progress; the seat starts when it closes.</p></div></div>
+        <div class="step"><span class="when">Fri 16 Oct</span><div><h3>This call</h3><p>An hour, set by David. Expect him to pitch the architecture and the vision, then probe ownership and judgement. Leave time for your diligence questions; you'd be joining before the money closes.</p></div></div>
+      </div>
+      <div class="note"><strong>Opening line:</strong> “Thanks for coming back to this, and no apology needed. The way you've reshaped the seat is closer to what I actually do: running production systems and deciding what automation is allowed to do by itself.” Then let him talk. Don't relitigate July.</div>
+    </section>
+
+    <section id="company">
+      <p class="eyebrow">02 · What they say they are</p>
+      <h2>Tokenized trophy real estate with an agent layer</h2>
+      <p class="section-lead">Almost everything below comes from SCARCE's own website, job ads and David's social profile. I found no independent press, no announced financing and no filings. Treat it as the pitch you'll hear, and test it with your questions.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">The product</span>
+          <h3>Institutional rails for ultra-luxury homes</h3>
+          <p>The posting describes institutional-grade infrastructure for tokenized ultra-luxury real estate: compliant security-token rails plus a production agent orchestration layer, <strong>Orchestra</strong>, built for family offices, RIAs and sophisticated allocators. Completed assets are issued as “Programmable Allocations™” so institutional capital can manage real-estate exposure like a portfolio instrument.</p>
+          <p>Older listings describe two token classes, <em>SCARCE Master</em> and <em>SCARCE Series</em>, offered to different investor groups in sequence.</p>
+        </div>
+        <div class="card">
+          <span class="tag">The first deal</span>
+          <h3>Palisades Legacy I LP</h3>
+          <p>Company materials name a launch counterparty: a $50M Delaware fund underwriting a 25-parcel rebuild pipeline in Pacific Palisades, with each finished home tokenized as a SCARCE Series token. David lists himself as founder of that fund as well as Aprisa LLC and SCARCE Labs, so the two are related parties.</p>
+          <p class="source">Ask how conflicts between the fund and the platform are governed. That's a fair question, not an accusation.</p>
+        </div>
+        <div class="card">
+          <span class="tag">The team</span>
+          <h3>Small and pre-close</h3>
+          <p>Wellfound lists 1–10 people. Manish Pande is the Platform &amp; Agentic lead (likely the “strong technical lead for the agentic function” from July). The posting says the On-Chain engineer and Security/GRC seats also begin at the close. The site footer now says Menlo Park, California. Postings list Austin, LA, Miami, NYC and the Bay Area, or remote.</p>
+        </div>
+        <div class="card">
+          <span class="tag">The positioning shift</span>
+          <h3>“We build the door. We will run the door.”</h3>
+          <p>The homepage now reads only: “The rail for U.S. luxury residential real estate.” Earlier search snapshots titled it “Institutional Liquidity &amp; Intelligence Infrastructure,” and older ads called Orchestra “the world's most advanced multi-agent AI orchestration layer.” The re-scoped role fits the new emphasis on operating the rail.</p>
+        </div>
+      </div>
+      <details>
+        <summary>Domain vocabulary to have ready (general, not claims about SCARCE)</summary>
+        <div>
+          <ul>
+            <li><strong>Security token:</strong> a token that is a security under US law. Offerings typically rely on an exemption such as Reg D 506(c) (accredited investors, verified) or Reg A+. Secondary trading needs a registered venue, usually an ATS run by a broker-dealer.</li>
+            <li><strong>Transfer agent:</strong> the registered party that keeps the official ownership record. Whether the chain or the transfer agent's books are the record of truth is a key architecture question.</li>
+            <li><strong>Books and records:</strong> regulated parties have retention rules (e.g. SEC Rule 17a-4 for broker-dealers, Rule 204-2 for advisers). That is why “audit trail” here means immutable, retained and producible on request, not just “we log things.”</li>
+            <li><strong>Custody and keys:</strong> who holds the keys to mint, burn and transfer, and whether they use MPC or multisig. Agents should never hold signing authority alone.</li>
+            <li><strong>Allocator expectations:</strong> family offices and RIAs usually ask vendors for SOC 2 Type II, documented incident response, and evidence of access reviews.</li>
+          </ul>
+          <p class="source">Use these to ask good questions. Don't assert which exemption, chain or partners SCARCE uses; find out.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="seat">
+      <p class="eyebrow">03 · Read the posting, then the email</p>
+      <h2>Two halves of one job</h2>
+      <p class="section-lead">The posting covers the estate. David's October email adds governance. The posting's own definition of success ties them together: <em>“Auditability is what success looks like.”</em></p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Half one · The estate</span>
+          <h3>What you'd own (posting)</h3>
+          <ul>
+            <li>Cloud infrastructure design and build (AWS preferred)</li>
+            <li>CI/CD, environments, deployment automation</li>
+            <li>Observability, alerting, incident response</li>
+            <li>Reliability and performance of agent orchestration, data pipelines and APIs</li>
+            <li>Security hardening and secrets management, with the GRC lead</li>
+            <li>Infrastructure as code and reproducible environments</li>
+            <li>Production readiness for regulated financial workflows</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Half two · Governance</span>
+          <h3>What David added</h3>
+          <p>“Designing how the agents that run on it are governed: what they may do on their own, and what a person has to ratify.”</p>
+          <p>That's a policy and enforcement problem, not a model problem. Who can act, with what blast radius, under which evidence, with what record. It's the same problem Papercusp solves for coding agents, and Store Wolf solved for buying and bidding.</p>
+        </div>
+        <div class="card">
+          <span class="tag">The bar</span>
+          <h3>“The only one responsible”</h3>
+          <p>“The seat needs the person who has been the only one responsible for a production estate.” Store Wolf ran with a two-engineer team, and you own Papercusp's operations. Lead with ownership: you got paged, you made the call, you fixed the class.</p>
+          <p class="source">Also wanted: containers and orchestration (Kubernetes or ECS), fintech/crypto/regulated experience (a plus), and bonus exposure to blockchain nodes, indexers and agentic/LLM systems.</p>
+        </div>
+      </div>
+      <div class="note"><strong>Expect the rollback question.</strong> The posting asks applicants for “a short note on a rollback executed under pressure: what broke, what you rolled back, and what you changed afterward.” Even if you never applied through Wellfound, assume David asks it. <a href="#rollback">Prepare it below.</a></div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">04 · About 75 seconds</p>
+      <h2>Your opener: production ownership plus bounded autonomy</h2>
+      <p class="section-lead">This draft uses only material from your verified prep and the code checked on this page. Keep the order; use your own words.</p>
+      <div class="card">
+        <p>“For twelve years I built and ran Store Wolf, an automated commerce business with a two-engineer team. I owned the software end to end: catalogue and product matching, pricing, buying, advertising, fulfilment, and keeping it running. A lot of that system acted on money by itself. It priced, bid and bought without a person in the loop. The real engineering question was always where automation is allowed to act alone, inside what limits, and what goes to a human.</p>
+        <p>More recently I've built Papercusp, a platform that runs about a hundred AI coding agents on one codebase. It's the same question with agents. Tools are denied by default unless they declare a permission gate. Some capabilities no autonomous role can use at all. Risky actions need explicit human sign-off. And ‘done’ needs evidence that someone other than the author checks. I also run its production side: the release gate, deploys, rollback, and incident follow-up.</p>
+        <p>Your seat combines the two: run an estate where mistakes cost real money, and decide what Orchestra may do unassisted. I'd like to understand what Orchestra does today, and which decisions you already know must stay human.”</p>
+      </div>
+      <p class="source">Sources: <a href="thomson-reuters-cocounsel-lead-standalone.html">your Store Wolf introduction (Thomson Reuters prep)</a>, <a href="papercusp-answer-bank-standalone.html#n-overview">N1 · Overview</a>, <a href="papercusp-answer-bank-standalone.html#g-permissions">G1 · Permission boundary</a>, <a href="papercusp-answer-bank-standalone.html#q-cicd">Q1 · CI/CD</a>. Papercusp is in alpha with one operator. Don't imply outside users.</p>
+    </section>
+
+    <section id="thresholds">
+      <p class="eyebrow">05 · The hook he chose</p>
+      <h2>“Setting the thresholds for when your systems could act unassisted”</h2>
+      <p class="section-lead">David is remembering something you told him or wrote. Before Friday, decide which system and which numbers you mean. Here is what the Store Wolf code actually shows, read on 14 Oct 2026, with the caveats an interviewer could find.</p>
+      <div class="table-wrap">
+        <table>
+          <caption>Bounded automation visible in <code>storewolf-central-server</code></caption>
+          <thead><tr><th scope="col">System</th><th scope="col">What the code does</th><th scope="col">Caveat before you claim it</th></tr></thead>
+          <tbody>
+            <tr><td>Automated purchasing<br><code>Services/Purchaser</code></td><td><code>purchase({TEST, maxSpend, minSalesPerWeek})</code>: a spend cap and a TEST (dry-run) mode. Candidates are filtered out below an estimated 1 sale/week, when a cheaper item can stand in for them (score gap of 0.25 or less), and when they're near-duplicates within 15% similarity. Survivors are ranked, then picked one per similarity group until the budget is spent.</td><td>As checked in, <code>pickBest</code> never adds to <code>totalSpend</code>, so the loop can't terminate. Present Purchaser as the policy you designed unless you know which version ran live.</td></tr>
+            <tr><td>Ad bidding<br><code>Services/Advertiser</code></td><td>Asymmetric steps: when the current bid is above the suggested bid, drop all the way to it at once; when below, move only 20% of the way. ACoS targets rise in bounded steps up to a hard ceiling of 50%. Daily budgets per campaign type ($100 for most types, $50 for audience campaigns).</td><td><code>adjustCampaignObjWithSuggestions</code> stubs the current bid with <code>Math.random()</code> “for testing.” It's a simulation harness around the policy. Say which piece actually managed live spend.</td></tr>
+            <tr><td>Matching that drives buying<br><code>Matcher</code> / <code>Transformer</code></td><td>Matching was treated as entity resolution, so every match was auditable to the attribute that drove it. Humans owned the exceptions: manual spec overrides by group id and an ops-curated blacklist.</td><td>No precision or recall was ever measured. Ground truth was operator corrections. <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">Storewolf section</a>.</td></tr>
+            <tr><td>The economics behind the limits</td><td>A false-positive match meant buying or listing the wrong item: real money plus marketplace account health. A false negative was only a missed opportunity. That asymmetry is why the system was conservative where errors cost money.</td><td>From your verified ServiceNow prep. This is the principle; add the real dollar caps if you remember them.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:1rem">
+        <span class="tag">Spoken draft · about 90 seconds</span>
+        <h3>The principle, then the mechanism, then what you'd change</h3>
+        <p>“The rule I ended up with was: autonomy in proportion to how reversible the action is and what a mistake costs. A wrong match meant we bought or listed the wrong item. That costs money and marketplace account health, while a missed match only costs an opportunity. So the system was allowed to act alone inside an envelope, and anything outside it went to a person.</p>
+        <p>Concretely: purchasing ran under a hard spend cap with a dry-run mode, and dropped anything we couldn't expect to sell at least weekly or that was too close to an item we already had. For ad bids the steps were deliberately asymmetric: cut spend immediately, raise it slowly, with a hard ceiling on the cost-of-sale target. Exceptions were human: operators could override a product's specs or blacklist it, and the system had to respect that.</p>
+        <p>What I'd do differently, and what I'd bring to Orchestra: make those thresholds <em>earned</em>, not guessed. Measure how often the human would have made the same call, widen autonomy only on evidence, and narrow it automatically after an incident. I'd also build the labelled set I never had, so the threshold is a measured precision, not a feel.”</p>
+        <p class="source">Replace “hard spend cap” with your actual figures if you have them. If David remembers a different mechanism (repricing floors, order-volume limits, account-health stops), use your real one; the structure still works.</p>
+      </div>
+      <div class="note"><strong>Don't oversell:</strong> no LLM made these decisions at Store Wolf. It was rules, ranking and a gradient-boosted pricing model. That's a strength here: deterministic, inspectable limits around automated decisions are exactly what an agent governance layer needs.</div>
+    </section>
+
+    <section id="governance">
+      <p class="eyebrow">06 · Be ready to whiteboard</p>
+      <h2>Governing Orchestra: who may act, within what limits, recorded how</h2>
+      <p class="section-lead">A proposed design, not a claim about SCARCE's system. Ask what Orchestra's agents actually do first, then fit the tiers to their workflows.</p>
+      <div class="table-wrap">
+        <table>
+          <caption>Autonomy tiers for agent actions in a regulated asset platform</caption>
+          <thead><tr><th scope="col">Tier</th><th scope="col">Examples</th><th scope="col">Control</th></tr></thead>
+          <tbody>
+            <tr><td>0 · Observe</td><td>Read market and property data, compute valuations, draft reports and allocation proposals.</td><td>Automatic. Scoped read credentials, with every read attributed to an agent identity.</td></tr>
+            <tr><td>1 · Reversible internal</td><td>Update internal models, open tickets, schedule jobs, prepare filings for review.</td><td>Automatic with an audit record before and after. Rate limits and a kill switch the workers enforce.</td></tr>
+            <tr><td>2 · Bounded external</td><td>Routine investor notices from approved templates; rebalancing within pre-approved bands; data-room updates.</td><td>Automatic only inside an envelope (amounts, counterparties, templates). Anything outside goes to tier 3. Envelopes are versioned policy.</td></tr>
+            <tr><td>3 · Ratified</td><td>Money movement, token mint, burn or transfer, cap-table changes, KYC/AML decisions, new counterparties, bespoke investor communication.</td><td>A human approves the exact payload. The approval is bound to that version and expires. The approver's authority is re-checked at execution. Two people for mint and burn.</td></tr>
+            <tr><td>Never</td><td>Holding signing keys, editing the audit log, changing its own permissions or policy, disabling monitoring.</td><td>A structural deny no role can override. Keys stay in custody (MPC/HSM); agents request signatures, they never hold them.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid" style="margin-top:1rem">
+        <div class="card">
+          <span class="tag">Enforcement</span>
+          <h3>Policy at the point of action</h3>
+          <p>Every agent action goes through one dispatcher that checks identity, tier, envelope and approval before it runs, and denies by default. Prompts are not a control. Agents get their own identities and short-lived credentials (separate IAM roles), never shared keys.</p>
+          <p class="source">Papercusp parallel: default-deny for tools with no declared gate, a per-role allowlist, a per-principal capability check, and a protected floor (raw secret reads, process kills) no autonomous role can use. <a href="papercusp-answer-bank-standalone.html#g-permissions">G1</a>.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Ratification</span>
+          <h3>Approval that means something</h3>
+          <p>The approver sees the exact action, the reason, the cost and the blast radius. Approval binds to that payload; if the agent changes it, the approval lapses. A resumed job must not repeat the write. Approve, edit, reject and cancel are all first-class options.</p>
+          <p class="source"><a href="papercusp-answer-bank-standalone.html#g-approval">G4 · Human control</a>. Papercusp's own default: agents propose and ask before executing unless an explicit, registered “auto” grant is on, and forcing a deploy past a red gate needs explicit owner sign-off.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Auditability</span>
+          <h3>A chain from intent to receipt</h3>
+          <p>Record a durable event before execution and a correlated outcome after: actor, agent and policy versions, inputs (or references), decision, approval, tool result. Denied attempts are recorded too. Logs are write-once (e.g. CloudTrail plus S3 Object Lock), access-controlled and retained per the regime. An uncertain timeout stays uncertain until reconciled.</p>
+          <p class="source"><a href="papercusp-answer-bank-standalone.html#g-audit">G7 · Governance</a>.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Earned autonomy</span>
+          <h3>Thresholds that move on evidence</h3>
+          <p>An action class can be promoted from “ratify” to “automatic within an envelope” after N ratified decisions with a high agreement rate and a bounded worst case. It's demoted automatically after an incident or drift. That's the Store Wolf lesson turned into a process, and it gives the GRC lead a documented rationale for every autonomy level.</p>
+        </div>
+      </div>
+      <details>
+        <summary>When an agent has already acted wrongly</summary>
+        <div><p>Contain: suspend that agent version and revoke its credentials; the kill switch has to be enforced by workers, not just a UI button. Reconcile each in-flight action by its stable ID against the downstream receipt; a timeout doesn't tell you whether it happened. Compensate where the business allows (you can't un-send an investor email). Then preserve evidence, fix the originating defect, and add a test for the failure class. <a href="papercusp-answer-bank-standalone.html#g-recovery">G8 · Failure containment</a>.</p></div>
+      </details>
+      <details>
+        <summary>Non-deterministic agents still get SLOs</summary>
+        <div><p>Infrastructure SLOs (availability, latency) aren't enough for agents. Add outcome SLOs: share of proposals ratified unchanged, escalation rate, false-action rate. An agent that starts escalating everything is “healthy” on CPU and broken on every metric that matters. Gate agent releases like code: pinned model and prompt versions, an evaluation gate, a canary, a one-step rollback. <a href="lilly-agentic-reliability-platform-standalone.html">Lilly reliability prep</a> has the long version.</p></div>
+      </details>
+    </section>
+
+    <section id="estate">
+      <p class="eyebrow">07 · If he asks “what would you do first?”</p>
+      <h2>The estate: a seed-stage 90-day plan</h2>
+      <p class="section-lead">Be honest about which parts you've run and which you'd be building fresh. Your real infrastructure is the Store Wolf GCE rebuild and Papercusp's release pipeline. AWS estate ownership isn't established by your prep. That's the gap to name, then bridge.</p>
+      <div class="steps">
+        <div class="step"><span class="when">Days 0–30</span><div><h3>Foundations nobody has to redo</h3><p>An AWS Organization with separate accounts (management, security/log archive, prod, staging, an agent sandbox). SSO through IAM Identity Center; no long-lived keys. Infrastructure as code from day one (Terraform or CDK). CI/CD with GitHub OIDC into AWS. An org-wide CloudTrail into a locked log-archive bucket. GuardDuty, Security Hub and Config on. Secrets in Secrets Manager, encrypted under KMS keys with tight key policies.</p></div></div>
+        <div class="step"><span class="when">Days 30–60</span><div><h3>Run it like production</h3><p>ECS on Fargate before Kubernetes; a team this size shouldn't be running a control plane. RDS Postgres with point-in-time recovery and a tested restore. OpenTelemetry traces through the agent dispatcher. SLOs for the APIs and for agent outcomes. An on-call rotation, runbooks, and a blameless postmortem template. A deploy gate with automatic rollback.</p></div></div>
+        <div class="step"><span class="when">Days 60–90</span><div><h3>Prove it to an auditor</h3><p>A disaster-recovery drill with a measured recovery time. Access reviews. Evidence collected automatically for the GRC lead (SOC 2 is the usual allocator ask). For chain infrastructure: managed RPC with a fallback provider, a reconciliation job between the chain, the transfer agent's books and internal state, and alerts when they diverge.</p></div></div>
+      </div>
+      <div class="grid" style="margin-top:1rem">
+        <div class="card">
+          <span class="tag">Real ops you've done</span>
+          <h3>Store Wolf, rebuilt reproducibly (Sept 2026)</h3>
+          <p>A Packer image plus <code>provision-gce.sh</code> instead of a hand-built box. Sizing came from measurement: 462.5M MongoDB documents in 101 collections, ~502 GB logical and 141 GB on disk, which set the VM so the WiredTiger cache covered 39% of the index. Secrets come from GCP Secret Manager on every boot using the instance's own attached identity, and the fetch fails loudly, because a missing password made the server hang on a prompt nobody would answer. A shrink-only scanner blocks any deploy bundle carrying a new plaintext secret, and the live key stopped shipping in the bundle.</p>
+          <p class="source">From <code>deploy/provision-gce.sh</code>, <code>fetch-secrets.sh</code> and <code>known-plaintext-secrets.txt</code> comments and the git log. Confirm which parts you wrote yourself and which you directed.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Bridge the gap</span>
+          <h3>Same patterns, AWS names</h3>
+          <ul>
+            <li>Secret Manager + instance identity → Secrets Manager + ECS task role / EC2 instance profile (IMDSv2)</li>
+            <li>Packer image + provision script → AMI or container image + Terraform/CDK</li>
+            <li>Plaintext-secret ratchet → secret scanning in CI (e.g. gitleaks) with a shrink-only baseline</li>
+            <li>Release gate + auto-rollback → CodeDeploy/ECS blue-green with health checks</li>
+          </ul>
+          <p class="source">Store Wolf also <em>consumed</em> AWS (SQS/SNS for marketplace notifications, the S3 API). That isn't the same as owning an AWS estate. Say exactly that.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="rollback">
+      <p class="eyebrow">08 · They asked applicants for this</p>
+      <h2>A rollback executed under pressure</h2>
+      <p class="section-lead">Their exact prompt: “what broke, what you rolled back, and what you changed afterward.” Pick a real incident you personally ran. The structure matters as much as the drama.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Structure · 60–90 seconds</span>
+          <h3>Four beats</h3>
+          <ol>
+            <li><strong>What broke:</strong> the symptom, who or what was affected, and how you found out.</li>
+            <li><strong>The decision:</strong> why rollback rather than fix-forward. What you rolled back to, and how you knew that target was good.</li>
+            <li><strong>What the rollback couldn't undo:</strong> data written, messages sent, orders placed. How you reconciled them.</li>
+            <li><strong>What changed after:</strong> the guard that makes this class of failure fail loudly or roll back by itself next time.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <span class="tag">Candidate · Papercusp releases</span>
+          <h3>When the rollback itself failed</h3>
+          <p>Papercusp deploys green builds to a separate release checkout with a health check and automatic rollback. A known failure mode: when the dev-box restart was withheld, the <em>rollback</em> crash-looped on <code>MODULE_NOT_FOUND</code>. Recovery was to stop the service and redeploy without the drain. Afterwards the required setting was documented and the recovery steps written down. The lesson: rehearse rollback itself, because the rollback path is code too.</p>
+          <p class="source">Use this only if you were the one at the keyboard. Otherwise use a Store Wolf incident (a bad price push, a feed or listing change, a deploy) with real stakes.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Supporting · silent failure</span>
+          <h3>Six hours with nothing alarming</h3>
+          <p>Auto-commit stopped landing while its routine kept “firing,” so about a hundred files sat undeployable for about six hours. The watchdog was blind because it watched the release gate, not the commit step. Rules that came out of it: a watchdog must not depend on what it watches, and you choose the robust signal. <a href="papercusp-answer-bank-standalone.html#n-incident">N9 · Incident</a>.</p>
+        </div>
+      </div>
+      <div class="note"><strong>Regulated twist to volunteer:</strong> “In a financial workflow I'd separate code rollback from state. Reverting the service doesn't revert a token transfer or an investor notice. So every side effect needs an idempotency key and a reconciliation path, and schema changes go expand-then-contract so a code rollback never breaks the database.”</div>
+    </section>
+
+    <section id="answers">
+      <p class="eyebrow">09 · Founder questions · 30–90 seconds each</p>
+      <h2>Answers to rehearse</h2>
+      <p class="section-lead">Practice prompts, not a known script. Lead with the answer, give one example, stop.</p>
+      <details open>
+        <summary>Why this seat, now that it's infrastructure rather than agentic?</summary>
+        <div><p>“Because the hard part of agents in production is infrastructure and governance, not prompting. In Papercusp most of my effort went into the layer that decides what an agent may do, records what it did, and recovers when it's wrong. At Store Wolf it was limits around automated buying and bidding. Owning both the estate and the rules for autonomy is the version of this work where those decisions are actually enforced.”</p></div>
+      </details>
+      <details>
+        <summary>Have you been the only one responsible for a production estate?</summary>
+        <div><p>“Yes. At Store Wolf it was a two-engineer team, and I owned the software from inventory and pricing through fulfilment and day-to-day reliability. In September I rebuilt its deployment to be reproducible: a machine image, a provisioning script sized from measured data, secrets fetched from a secret manager under the machine's own identity, and a scanner that refuses to ship new plaintext secrets. On Papercusp I own the release gate, deploys and incident follow-up.”</p><p class="source">Have one sentence ready on on-call reality: what woke you up, and how often.</p></div>
+      </details>
+      <details>
+        <summary>How do you decide what an agent may do without a human?</summary>
+        <div><p>“By reversibility and cost of error, not by how confident the model sounds. Reads and drafts are automatic. Reversible internal changes are automatic with an audit trail. External effects are automatic only inside a versioned envelope. Money movement, token operations and investor-specific communication are ratified against the exact payload. Then I make the boundary move on evidence: promote an action class after enough ratified decisions agree, and demote it automatically after an incident.”</p></div>
+      </details>
+      <details>
+        <summary>What does auditability mean to you here?</summary>
+        <div><p>“That we can answer, for any action: who or what initiated it, under which policy version, what evidence it had, who approved it, and what actually happened downstream, including denied attempts. Write-once storage, restricted access, the retention the regime requires, and reconciliation between the chain, the transfer agent and our own records. If a regulator or an LP asks, we produce it, not reconstruct it.”</p></div>
+      </details>
+      <details>
+        <summary>AWS depth? Kubernetes?</summary>
+        <div><p>“My infrastructure has been mostly on GCP and bare Linux: the Store Wolf rebuild on GCE, Papercusp's pipeline on our own hosts. On AWS I've used SQS, SNS and S3 as a consumer, but I haven't owned an AWS estate end to end. The patterns transfer directly: identity-based secrets, reproducible images, infrastructure as code, gated deploys. At your size I'd pick ECS on Fargate over Kubernetes until there's a reason not to.”</p><p class="source">Honest and specific beats broad. If you hold any AWS certification or other real AWS work, add it.</p></div>
+      </details>
+      <details>
+        <summary>Fintech, crypto, regulated experience?</summary>
+        <div><p>“Not regulated finance directly. Store Wolf moved real money automatically under marketplace rules, where a bad decision cost cash and account standing. Papercusp is built around audit and evidence. I'd work closely with your GRC lead on the specific obligations, and design so the evidence is a by-product of normal operations rather than a quarterly scramble.”</p></div>
+      </details>
+      <details>
+        <summary>Blockchain nodes and indexers?</summary>
+        <div><p>“Not in production. I'd start with managed RPC providers and a fallback rather than running nodes, treat the indexer as a derived projection that can be rebuilt, and alert when on-chain state and the transfer agent's records diverge. Running our own nodes is a decision for when volume or trust requirements justify it.”</p></div>
+      </details>
+      <details>
+        <summary>Are you comfortable joining before the seed closes?</summary>
+        <div><p>“I'm interested, and I'd want to understand the round: target, lead, expected close, and what happens to the seat if it slips. I'd also want the cash and equity terms in writing for when it closes.” Be calm, not suspicious; he raised it himself.</p></div>
+      </details>
+      <details>
+        <summary>What compensation are you looking for?</summary>
+        <div><p>“The posting showed $170k to $180k plus 0.25% to 1% equity, with cash calibrated at financing. I'd like to understand how the seat changed when you re-scoped it, and where in the equity band an owner of both the estate and agent governance would sit.” Decide your own floor before the call.</p><p class="source">For context only: the earlier C-level agentic listing advertised up to 4.0% for exceptional candidates. It was a different seat, but it's a reference point if equity comes up.</p></div>
+      </details>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">10 · Pick five; diligence is part of the job</p>
+      <h2>Questions to ask David</h2>
+      <ol>
+        <li><strong>Orchestra today:</strong> “What does Orchestra run in production now, and which actions does it already take without a person?”</li>
+        <li><strong>The line:</strong> “Which decisions do you already know must always be ratified, and who ratifies them today?”</li>
+        <li><strong>Regulatory perimeter:</strong> “Which parts are SCARCE's own obligations and which sit with partners: broker-dealer, ATS, transfer agent, custodian? Which chain, and who holds the signing keys?”</li>
+        <li><strong>Who consumes the audit trail:</strong> “When you say auditability is success, who's the audience first: SEC examiners, auditors, LPs, allocators' due-diligence teams? Is SOC 2 on the roadmap?”</li>
+        <li><strong>The estate today:</strong> “What exists now: AWS accounts, CI/CD, monitoring? Am I inheriting something or starting clean?”</li>
+        <li><strong>Working with Manish:</strong> “Where does the platform and agentic lead's ownership end and mine begin, especially on the agent runtime?”</li>
+        <li><strong>The round:</strong> “Target size and lead, expected close date, and what happens to this seat if the close moves?”</li>
+        <li><strong>Related parties:</strong> “Palisades Legacy I is the first issuer and you founded both. How are conflicts between the fund and the platform governed?”</li>
+        <li><strong>Terms:</strong> “Cash at close, equity band and vesting, and is there a cliff or an acceleration provision?”</li>
+        <li><strong>Next step:</strong> “Who else would I meet, and what would you want to see from me next?”</li>
+      </ol>
+    </section>
+
+    <section id="rehearse">
+      <p class="eyebrow">11 · A 15-minute pass before 1:30</p>
+      <h2>Make it short, true and yours</h2>
+      <div class="steps">
+        <div class="step"><span class="when">0–4 min</span><div><h3>Pin the thresholds story</h3><p>Which Store Wolf system, which limits, which numbers. Decide what you'll say about the Purchaser and Advertiser caveats if he asks to see code.</p></div></div>
+        <div class="step"><span class="when">4–7 min</span><div><h3>Say the opener aloud</h3><p>75 seconds, no reading. Store Wolf ownership, then Papercusp governance, then the bridge to this seat.</p></div></div>
+        <div class="step"><span class="when">7–11 min</span><div><h3>Rollback story, four beats</h3><p>What broke, why rollback, what it couldn't undo, what changed. Then the AWS-gap answer, straight.</p></div></div>
+        <div class="step"><span class="when">11–15 min</span><div><h3>Choose questions and the close</h3><p>Five questions, at least two of them diligence. Close: “Based on what we've discussed, what would make you confident I'm the right owner for this seat, and what's the next step?”</p></div></div>
+      </div>
+      <div class="note"><strong>Keep beside you:</strong> the tier table, your three Store Wolf limits, the rollback beats, your comp floor, and the round questions. Check your calendar for David's invite link before 1:15.</div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">12 · Evidence and limits</p>
+      <h2>Where this prep came from</h2>
+      <ul>
+        <li><strong>David Fox's messages</strong> (Jul 15 and October, pasted 14 Oct 2026): both seat descriptions, the Store Wolf thresholds reference, the seed-round timing, and the Fri 16 Oct 1:30 p.m. Eastern time.</li>
+        <li><a href="https://freehire.me/jobs/infrastructure-devops-sre-engineer-scarce-labs-inc-scarce-labs-36yly43m">Infrastructure / DevOps / SRE Engineer posting</a> (Wellfound listing mirrored by freehire, posted 14 Sep 2026): responsibilities, ideal background, compensation, the rollback prompt and “Auditability is what success looks like.”</li>
+        <li><a href="https://scarcelabs.ai/">scarcelabs.ai</a> (read 14 Oct 2026): current positioning and the Menlo Park footer.</li>
+        <li><a href="https://wellfound.com/jobs/4171646-chief-agentic-officer-cao-scarce-labs-inc">Chief Agentic Officer listing</a>, <a href="https://www.growthtalent.org/jobs/product-marketing/scarce-labs/head-of-allocator-relations-family-office-gtm-scarce-labs-scarce-labs">allocator-relations listing</a>, <a href="https://wellfound.com/company/scarce-labs">Wellfound company page</a> and <a href="https://x.com/DCFox">David's X profile</a>: Orchestra language, token classes, Palisades Legacy I LP, team size and David's other ventures (via search results).</li>
+        <li><strong>Your code</strong>, read 14 Oct 2026: <code>storewolf-central-server/Services/Purchaser/Purchaser.js</code>, <code>Services/Advertiser/Advertiser.js</code> and <code>Config.js</code>, and <code>deploy/</code> (provision, secrets, bundle scanner).</li>
+        <li><a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a> (N1, N9, Q1, G1, G4, G7, G8) and the <a href="servicenow-staff-ml-interview-prep-standalone.html#stack">ServiceNow page's Storewolf section</a>: your engineering stories and their limits.</li>
+      </ul>
+      <p class="source">Company facts are self-reported; I found no independent coverage, financing announcement or filing. Regulatory vocabulary is general background, not a statement of SCARCE's structure. Confirm your personal role in each Store Wolf change before claiming it.</p>
+    </section>
+  </main>
+  <footer><p><a href="papercusp-answer-bank-standalone.html">← Papercusp Answer Bank</a> · SCARCE Labs founder-call prep · 14 October 2026.</p></footer>
+</div>
+</body>
+</html>

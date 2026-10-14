@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Farther Senior Software Engineer, Platform Security &amp; Reliability recruiter screen: company brief, the AWS security mandate, a tailored introduction, honest experience mapping, recruiter answers, three stories, and questions.">
+<title>Farther · Platform Security &amp; Reliability Recruiter Screen | Interview Prep</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f6f8f9; --surface: #fff; --soft: #eef2f3;
+    --ink: #10181c; --muted: #55646c; --accent: #14666e;
+    --warn: #8a5d05; --warn-soft: #f7edd6;
+    --rule: #dde4e7; --rule-strong: #c3cfd3;
+    --display: Archivo, "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0d1417; --surface: #141e22; --soft: #1a262b;
+      --ink: #e6edef; --muted: #93a3aa; --accent: #4fb3bc;
+      --warn: #d9a43a; --warn-soft: #33290f;
+      --rule: #24333a; --rule-strong: #35474f;
+    }
+  }
+  * { box-sizing: border-box; }
+  code { font: .88em/1.4 var(--mono); background: var(--soft); padding: .05rem .3rem; border-radius: 2px; overflow-wrap: anywhere; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
+  h2 { font-size: 1.45rem; }
+  h3 { font-size: 1.05rem; }
+  p { margin: 0; }
+  p + p { margin-top: .65rem; }
+  ul, ol { margin: 0; padding-left: 1.3rem; }
+  li + li { margin-top: .45rem; }
+  .wrap { width: min(100% - 2.5rem, 70rem); margin: auto; padding: 3rem 0 6rem; }
+  .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 30; padding: .6rem 1rem; background: var(--ink); color: var(--ground); }
+  .skip-link:focus { top: 1rem; }
+  nav.sitenav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .2rem; margin-top: -3rem; padding: .58rem .4rem; background: var(--ground); border-bottom: 1px solid var(--rule); font: 600 .82rem/1.5 var(--display); }
+  nav.sitenav a { padding: .3rem .58rem; border: 1px solid transparent; border-radius: 2px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav.sitenav a:hover { color: var(--accent); background: var(--soft); }
+  nav.sitenav a[aria-current="page"] { color: var(--accent); background: var(--surface); border-color: var(--rule-strong); }
+  nav.sitenav .sep { flex: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, .8fr); gap: 2rem; padding: 3rem 0 2rem; }
+  .eyebrow { color: var(--muted); font: 600 .7rem/1.5 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .hero h1 { margin: .6rem 0 1rem; }
+  .lead { max-width: 48rem; font-size: 1.1rem; }
+  .hero-card, .card, details { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .hero-card { align-self: start; padding: 1.2rem; }
+  .hero-card dl { margin: .5rem 0 0; }
+  .hero-card dl > div + div { border-top: 1px solid var(--rule); margin-top: .6rem; padding-top: .6rem; }
+  dt { font: 600 .72rem/1.5 var(--mono); text-transform: uppercase; color: var(--muted); }
+  dd { margin: .1rem 0 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: .55rem; padding: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .toc a { padding: .4rem .65rem; background: var(--soft); border-radius: 2px; font: 600 .8rem/1.4 var(--display); text-decoration: none; }
+  main section { padding: 2.4rem 0; border-top: 1px solid var(--rule); scroll-margin-top: 3.5rem; }
+  .section-lead { max-width: 50rem; margin: .6rem 0 1.3rem; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+  .card { padding: 1.1rem 1.2rem; }
+  .card h3 { margin-bottom: .5rem; }
+  .card + .card { margin-top: 1rem; }
+  .grid .card + .card { margin-top: 0; }
+  .tag { display: inline-block; margin-bottom: .45rem; padding: .1rem .45rem; background: var(--soft); border-radius: 2px; color: var(--accent); font: 600 .68rem/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .note { margin-top: 1rem; padding: .9rem 1.1rem; background: var(--warn-soft); border-left: 3px solid var(--warn); border-radius: 2px; }
+  .note strong { color: var(--warn); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table { width: 100%; min-width: 40rem; border-collapse: collapse; font-size: .95rem; }
+  caption { text-align: left; padding: .9rem 1rem; color: var(--muted); }
+  th, td { text-align: left; vertical-align: top; padding: .9rem 1rem; border-top: 1px solid var(--rule); }
+  th { background: var(--soft); font: 600 .85rem/1.5 var(--display); }
+  td:first-child { width: 24%; font-family: var(--display); font-weight: 600; }
+  .steps { display: grid; gap: .6rem; }
+  .step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .9rem 1.1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px; }
+  .when { font: 600 .8rem/1.5 var(--mono); color: var(--accent); }
+  .step h3 { margin-bottom: .25rem; }
+  details { margin-top: .7rem; }
+  details > summary { cursor: pointer; padding: .85rem 1.1rem; font: 600 1rem/1.4 var(--display); list-style-position: outside; }
+  details > summary::marker { color: var(--accent); }
+  details > div { padding: 0 1.1rem 1rem; }
+  details[open] > summary { border-bottom: 1px solid var(--rule); margin-bottom: .8rem; }
+  .source { margin-top: .7rem; color: var(--muted); font-size: .88rem; }
+  footer { padding-top: 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 1.4rem; padding-top: 2rem; }
+    .step { grid-template-columns: 1fr; gap: .2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    nav.sitenav, .toc, .skip-link { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    details, .card { break-inside: avoid; }
+    details > div { display: block; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <div id="sitenav"></div>
+  <script src="sitenav.js"></script>
+
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Recruiter screen · Greenhouse job 4570587005 · Checked 14 Oct 2026</p>
+      <h1>Farther · Platform Security &amp; Reliability</h1>
+      <p class="lead">Senior Software Engineer on the Infrastructure team, the group that owns the AWS foundation the rest of Farther builds on. It's a backend platform role with a security mandate. Lead with owning production systems and making the secure path the default. Be straight about AWS depth, because that's the question that decides this screen.</p>
+      <p class="source"><a href="https://job-boards.greenhouse.io/fartherfinance/jobs/4570587005">Official job posting</a> · Farther is an RIA (registered investment adviser) with its own in-house wealth platform.</p>
+    </div>
+    <aside class="hero-card" aria-label="Posting facts">
+      <p class="eyebrow">At a glance</p>
+      <dl>
+        <div><dt>Location</dt><dd>Hybrid · New York. Confirm the office-day cadence.</dd></div>
+        <div><dt>Team</dt><dd>Engineering › Infrastructure. Owns the AWS foundation.</dd></div>
+        <div><dt>Experience threshold</dt><dd>8+ years of software engineering with strong backend and platform depth.</dd></div>
+        <div><dt>Pay</dt><dd>Not in the posting text I fetched. Ask the recruiter for the range.</dd></div>
+        <div><dt>Call details</dt><dd>Recruiter screen expected soon; date, recruiter and length not yet known.</dd></div>
+      </dl>
+    </aside>
+  </header>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#brief">Role in a minute</a><a href="#pitch">Your introduction</a>
+    <a href="#fit">Experience map</a><a href="#answers">Recruiter answers</a>
+    <a href="#stories">Three stories</a><a href="#vocab">AWS vocabulary</a>
+    <a href="#ask">Your questions</a><a href="#rehearse">Before the call</a><a href="#sources">Sources</a>
+  </nav>
+
+  <main id="main">
+    <section id="brief">
+      <p class="eyebrow">01 · What you're interviewing for</p>
+      <h2>A wealth manager that builds its own platform</h2>
+      <p class="section-lead">Farther pairs human financial advisors with a proprietary platform for account opening, planning and portfolio management, built in-house rather than stitched from vendors. It raised a $150M Series D led by General Atlantic in May 2026, at a reported valuation of over $1B, and reports more than $23B in recruited assets.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Company</span>
+          <h3>Who runs it</h3>
+          <p>Co-founder and CEO Taylor Matthews; co-founder and CTO Brad Genser, previously an AI team lead in Goldman Sachs' private wealth business. Headquartered in New York. Earlier investors include CapitalG (Series C, Oct 2024), Bessemer, Khosla and Lightspeed. Farther acquired Crooked Tree Capital Advisors in January 2026.</p>
+          <p class="source">“$23B recruited assets” includes assets expected from joining advisors; it isn't the same as current AUM. Don't quote it as AUM.</p>
+        </div>
+        <div class="card">
+          <span class="tag">The mandate</span>
+          <h3>Own the patterns, make them the default</h3>
+          <ul>
+            <li><strong>Access:</strong> API authentication and authorization, IAM policy design, account and network boundaries, secrets. Least privilege, every grant traceable.</li>
+            <li><strong>Data protection:</strong> storage layout and segmentation, encryption in transit and at rest, KMS, retention.</li>
+            <li><strong>Detect early:</strong> GuardDuty, Security Hub, Config, CloudTrail; SLIs, SLOs and dashboards with CloudWatch, X-Ray and RUM.</li>
+            <li><strong>Compliance evidence:</strong> documented controls, automated evidence, audit logging.</li>
+            <li><strong>Platform:</strong> secure-by-default shared services on ECS, Lambda, SQS/SNS, RDS and S3; infrastructure as code; design reviews.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">What they stress</span>
+          <h3>AI fluency <em>with</em> ownership</h3>
+          <p>The posting asks for “fluent daily use of AI coding tools, paired with real ownership of the result: you can explain how anything you shipped works, defend the design choices, and say where it would fail.” That's your Papercusp story nearly word for word. Use it.</p>
+        </div>
+      </div>
+      <div class="note"><strong>Positioning:</strong> you've owned production platforms end to end and built enforcement into the system rather than relying on review. The honest gap is AWS estate ownership. Your infrastructure has been GCP and your own Linux hosts. Name it early and bridge it with specifics; a recruiter will pass along a precise answer, and a vague one gets you filtered out.</div>
+    </section>
+
+    <section id="pitch">
+      <p class="eyebrow">02 · About 60 seconds</p>
+      <h2>“Tell me about yourself”</h2>
+      <p class="section-lead">A draft built from your verified prep. Keep the sequence; make the words your own.</p>
+      <div class="card">
+        <p>“I've spent about thirteen years building and running production systems. For twelve of them I built Store Wolf, an automated commerce business with a two-engineer team. I owned the software from inventory and pricing through fulfilment and reliability, including systems that spent money on their own inside limits we set. Recently I rebuilt its deployment to be reproducible: a machine image, sizing from measured data, secrets pulled from a secret manager under the machine's own identity, and a gate that refuses to ship new plaintext secrets.</p>
+        <p>I've also built Papercusp, a platform that runs about a hundred AI coding agents on one codebase. Most of that work is security and reliability engineering: tools denied by default unless they declare a permission gate, capabilities no automated role can use, an audit trail for every claim and change, and a release gate with automatic rollback. I use AI tools every day, and I can explain and defend everything that ships.</p>
+        <p>Farther interests me because the platform is the product, and your Infrastructure team decides how access, data protection and monitoring work for everyone else. That's the work I want to do.”</p>
+      </div>
+      <p class="source">Background basis: <a href="thomson-reuters-cocounsel-lead-standalone.html">Store Wolf introduction</a>, <a href="papercusp-answer-bank-standalone.html#n-overview">N1 · Overview</a>, <a href="papercusp-answer-bank-standalone.html#g-permissions">G1 · Permission boundary</a>, and the Store Wolf <code>deploy/</code> scripts. Papercusp is in alpha with one operator; don't imply outside users.</p>
+      <div class="note"><strong>Short version:</strong> “I build and run production platforms, with a security focus: least privilege, secrets handled by identity, audit trails and gated releases. I've done it for my own commerce business and for an AI-agent platform, and I'd like to do it for Farther's AWS foundation.”</div>
+    </section>
+
+    <section id="fit">
+      <p class="eyebrow">03 · Strengths and facts to confirm</p>
+      <h2>Match the requirement to a concrete example</h2>
+      <p class="section-lead">Use direct experience where you have it. Where your prep has no evidence, say so and name the closest real work.</p>
+      <div class="table-wrap">
+        <table>
+          <caption>Experience mapping against the posting</caption>
+          <thead><tr><th scope="col">Requirement</th><th scope="col">Evidence you can give</th><th scope="col">Boundary to keep clear</th></tr></thead>
+          <tbody>
+            <tr><td>8+ years, backend and platform depth</td><td>Twelve years building Store Wolf's software; Papercusp's TypeScript and Postgres backend (920 migrations, durable workflows, ~650 tools).</td><td>Give a dated chronology. Business ownership isn't automatically engineering tenure; separate the two.</td></tr>
+            <tr><td>Deep hands-on AWS</td><td>Store Wolf consumed SQS, SNS and the S3 API. Its production deployment is on GCE (Packer image, provisioning script, Secret Manager).</td><td><strong>The gap.</strong> No AWS estate ownership in your prep. Say “GCP and Linux, with AWS as a consumer,” then map the patterns.</td></tr>
+            <tr><td>Cloud security ownership</td><td>Secrets fetched at boot under the VM's attached identity, not a shared credential; a shrink-only scanner that blocks new plaintext secrets; stopped a live key shipping in the bundle. Papercusp: default-deny tool gates and a protected capability floor.</td><td>Papercusp's controls are application-level authorization, not an AWS IAM audit. Don't call them IAM.</td></tr>
+            <tr><td>Infrastructure as code</td><td>Reproducible Store Wolf builds: Packer and a provisioning script sized from measured data (462.5M documents, ~502 GB logical).</td><td>Terraform/CDK/CloudFormation aren't established by your prep. If you've used one, say where.</td></tr>
+            <tr><td>Monitoring, SLIs/SLOs, alert design</td><td>The silent-failure incident: a watchdog must not depend on what it watches. Process provenance, delta-based CPU measurement. <a href="papercusp-answer-bank-standalone.html#n-incident">N9</a> · <a href="papercusp-answer-bank-standalone.html#q-observability">Q7</a>.</td><td>Formal SLO and error-budget programmes aren't in your prep. Describe the alerting you actually built.</td></tr>
+            <tr><td>TypeScript, Python or Scala</td><td>TypeScript (Papercusp, Store Wolf services); Python (Store Wolf's XGBoost scoring service).</td><td>Papercusp isn't Python. No Scala.</td></tr>
+            <tr><td>AI tools with ownership</td><td>Papercusp's whole design: evidence-gated “done,” grader independence, and a reflex to name the system's weaknesses (<a href="papercusp-answer-bank-standalone.html#n-weakness">N14</a>).</td><td>Strong. Keep it concrete, not philosophical.</td></tr>
+            <tr><td>Bonus: SRE, Postgres, regulated</td><td>Incident response and postmortem habits; production Postgres (migrations, advisory locks, durable state).</td><td>No fintech or regulated-industry employment. No Reg S-P/GLBA programme ownership. Show you know what they are.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="answers">
+      <p class="eyebrow">04 · Likely recruiter topics · 30–60 seconds each</p>
+      <h2>Answers to rehearse</h2>
+      <p class="section-lead">Practice prompts, not a confirmed Farther script. Answer first, add one example, let them follow up.</p>
+      <details open>
+        <summary>Why Farther, and why this team?</summary>
+        <div><p>“Two reasons. Farther builds its own platform, so infrastructure decisions directly shape what advisors and clients experience. And this team's job is to make access, data protection and monitoring the default for every other team. That's the part of engineering I enjoy most: building guardrails into the platform so other people move faster safely. Wealth management also raises the stakes in a way I find motivating: client data and money have to be handled correctly every time.”</p></div>
+      </details>
+      <details>
+        <summary>Why join a company after running your own business and projects?</summary>
+        <div><p>“I want to go deep on one important platform with a strong team, and spend my time on engineering rather than everything else a founder does. Running Store Wolf taught me to tie engineering decisions to business consequences. Building Papercusp taught me how to enforce standards across many contributors. Farther is at a scale where both matter.”</p></div>
+      </details>
+      <details>
+        <summary>How deep is your AWS experience?</summary>
+        <div><p>“Honestly, my production infrastructure has been on GCP and on Linux hosts I ran myself. On AWS I've built against SQS, SNS and S3, but I haven't owned an AWS account structure end to end. The security patterns I've implemented transfer directly. At Store Wolf, secrets are fetched at boot under the machine's own identity instead of a shared key; on AWS that's a task role with Secrets Manager. Builds are reproducible from an image and a script; on AWS that's an image plus Terraform or CDK. I'd ramp quickly, and I'd like to know how much AWS-specific depth you need on day one.”</p><p class="source">If you hold an AWS certification or have other real AWS work, lead with it. Don't round “consumer” up to “owner.”</p></div>
+      </details>
+      <details>
+        <summary>Tell me about securing a system you owned.</summary>
+        <div><p>“At Store Wolf the legacy configs carried plaintext secrets. I couldn't fix everything at once without blocking every deploy, so I added a scanner to the bundle build that refuses any file with a new secret-shaped value, with a baseline that can only shrink. I stopped the live key from shipping in the bundle, and moved runtime secrets into a secret manager fetched under the VM's own service account. That fetch fails loudly, because a silent failure left the server hanging on a password prompt.”</p><p class="source">Confirm which parts you wrote and which you directed before using “I.”</p></div>
+      </details>
+      <details>
+        <summary>Have you worked with compliance (SOC 2, Reg S-P, GLBA)?</summary>
+        <div><p>“Not in a regulated firm. I understand the shape: GLBA is the statute for protecting customer financial information, and for SEC-registered firms like an RIA it shows up as Reg S-P. The 2024 amendments added a written incident-response programme, oversight of service providers, and notifying affected customers within 30 days. My approach to compliance is the same as to reliability: automate the evidence so it's a by-product of normal operations, not a scramble before an audit.”</p></div>
+      </details>
+      <details>
+        <summary>How do you use AI coding tools?</summary>
+        <div><p>“Every day, heavily, and I own the result. I built a platform specifically to make AI-written work verifiable: who changed what, what tests proved it, and a reviewer who isn't the author. I can explain any design I've shipped, defend the trade-offs, and tell you where it would break. Your posting asks for exactly that, and it's how I work.”</p></div>
+      </details>
+      <details>
+        <summary>Are you comfortable with on-call and incident response?</summary>
+        <div><p>“Yes. I've been the person responsible when things broke. What I care about is fixing the class, not just the instance. My best example is a failure that went unnoticed for six hours because the watchdog depended on the system it was watching. I'd like to know the rotation and the typical page load.”</p></div>
+      </details>
+      <details>
+        <summary>What compensation are you looking for?</summary>
+        <div><p>“I didn't see a range in the posting. What's budgeted for this level in New York, and how are equity and bonus structured?” If pressed: “For this scope I'm targeting [your base range], depending on the full package.” Decide your number before the call.</p><p class="source">New York law requires pay ranges in job ads for roles performed there, so it's reasonable to ask for it directly.</p></div>
+      </details>
+      <details>
+        <summary>Hybrid in New York? Work authorization? Timeline?</summary>
+        <div><p>Ask about the cadence first: “How many office days does the Infrastructure team keep?” Then give your actual location and commute or relocation plan. Your existing prep records US citizenship with no sponsorship needed; confirm that's still accurate. On your search: mention current stages truthfully (“I'm in conversations with a few teams”) and ask about their timeline.</p></div>
+      </details>
+    </section>
+
+    <section id="stories">
+      <p class="eyebrow">05 · Pick one when asked · About 45 seconds</p>
+      <h2>Three stories that translate to platform security</h2>
+      <p class="section-lead">For a recruiter, keep each to the problem, what you did, and the lasting change. Save the depth for the engineers.</p>
+      <div class="card">
+        <span class="tag">Secrets · Least privilege</span>
+        <h3>Moving secrets out of the bundle without stopping deploys</h3>
+        <p>“Legacy configs carried plaintext secrets, and a hard block would have frozen every deploy. So I added a ratchet: the bundle build refuses any new secret-shaped value, the baseline of known files can only shrink, and runtime secrets come from a secret manager under the machine's own identity. The deploy kept moving while the exposure could only go down.”</p>
+        <p class="source">Store Wolf <code>deploy/</code>: <code>known-plaintext-secrets.txt</code>, <code>fetch-secrets.sh</code>, and the Sept 2026 commit that stopped shipping the live key.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Monitoring · Detective controls</span>
+        <h3>A failure nothing alarmed on for six hours</h3>
+        <p>“A background routine kept ‘running’ but stopped doing its job, and our watchdog didn't notice because it watched the wrong step. The fix was two rules: a watchdog must not depend on the thing it watches, and you alert on the outcome, not the activity. Same idea as detective controls: watch for drift from the standard, not just for errors.”</p>
+        <p class="source"><a href="papercusp-answer-bank-standalone.html#n-incident">N9 · Incident</a>.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Secure by default · Standards</span>
+        <h3>Default-deny, so the safe path is the easy one</h3>
+        <p>“In Papercusp, a tool that doesn't declare a permission gate is refused, not allowed by omission. Above that sit role allowlists, per-identity capability checks, and a floor no automated role can use, like reading raw secrets. New tools get the right posture without anyone remembering to add it. That's what I'd want for Farther's platform patterns: new services inherit least privilege by default.”</p>
+        <p class="source"><a href="papercusp-answer-bank-standalone.html#g-permissions">G1 · Permission boundary</a>. It's application authorization; don't call it AWS IAM.</p>
+      </div>
+    </section>
+
+    <section id="vocab">
+      <p class="eyebrow">06 · Ten minutes of reading, for the next round</p>
+      <h2>AWS security vocabulary from the posting</h2>
+      <p class="section-lead">A recruiter won't test these, but the next round will. Know what each one is for, in one sentence.</p>
+      <div class="grid">
+        <div class="card"><h3>Identity and access</h3><ul><li><strong>IAM Identity Center:</strong> SSO for people across accounts.</li><li><strong>Organizations + SCPs:</strong> guardrails no account can exceed.</li><li><strong>Permission boundaries:</strong> a cap on what a role can be granted.</li><li><strong>IAM Access Analyzer:</strong> finds external and unused access.</li></ul></div>
+        <div class="card"><h3>Data protection</h3><ul><li><strong>KMS:</strong> customer-managed keys, key policies, envelope encryption.</li><li><strong>S3:</strong> Block Public Access, bucket policies, Object Lock for write-once logs.</li><li><strong>Secrets Manager:</strong> rotation; access via task or instance roles.</li><li><strong>VPC endpoints:</strong> private paths to AWS services.</li></ul></div>
+        <div class="card"><h3>Detection and evidence</h3><ul><li><strong>CloudTrail:</strong> who called which API; an org trail to a log-archive account.</li><li><strong>GuardDuty:</strong> threat detection from logs.</li><li><strong>Config:</strong> resource drift against rules.</li><li><strong>Security Hub:</strong> aggregated findings against standards.</li><li><strong>CloudWatch, X-Ray, RUM:</strong> metrics, traces, real-user monitoring.</li></ul></div>
+      </div>
+    </section>
+
+    <section id="ask">
+      <p class="eyebrow">07 · Choose three or four</p>
+      <h2>Questions that resolve fit</h2>
+      <ol>
+        <li><strong>First six months:</strong> “What's the most important problem this engineer would own first: access patterns, data protection, monitoring, or compliance evidence?”</li>
+        <li><strong>Day-one depth:</strong> “How much hands-on AWS depth is required from the start, and which IaC tool does the team use?”</li>
+        <li><strong>Team:</strong> “How big is Infrastructure, who does it report to, and how does it work with security and compliance?”</li>
+        <li><strong>The requisition:</strong> “The posting first went up in May 2025. Has the role changed since then?”</li>
+        <li><strong>Hybrid:</strong> “How many office days does the team keep in New York?”</li>
+        <li><strong>Process:</strong> “What are the stages? Is there a system-design or AWS-specific round I should prepare for?”</li>
+        <li><strong>Package:</strong> “What's the range for this level, and how are equity and bonus structured?”</li>
+      </ol>
+      <p class="source">Save deep architecture questions for engineers, such as “how do you collect compliance evidence today, and where is it still manual?”</p>
+    </section>
+
+    <section id="rehearse">
+      <p class="eyebrow">08 · A 15-minute practice pass</p>
+      <h2>Make the answers short and defensible</h2>
+      <div class="steps">
+        <div class="step"><span class="when">0–4 min</span><div><h3>Settle the facts</h3><p>Engineering chronology with dates; any AWS work you can name; your role in the Store Wolf deploy changes; location; salary target; start date.</p></div></div>
+        <div class="step"><span class="when">4–7 min</span><div><h3>Say the introduction aloud</h3><p>Sixty seconds, no reading: production ownership, security by default, AI with ownership, why Farther.</p></div></div>
+        <div class="step"><span class="when">7–11 min</span><div><h3>Rehearse the AWS answer</h3><p>The honest boundary, then the pattern mapping, then a question about day-one depth. Then one 45-second story.</p></div></div>
+        <div class="step"><span class="when">11–15 min</span><div><h3>Practice the close</h3><p>Pick three questions. End with: “Is there anything in my background you'd want me to clarify before the next step?”</p></div></div>
+      </div>
+      <div class="note"><strong>Keep beside you:</strong> your chronology, the AWS answer, one story title, the pay question, and three questions to ask.</div>
+    </section>
+
+    <section id="sources">
+      <p class="eyebrow">09 · Evidence and limits</p>
+      <h2>Where this prep came from</h2>
+      <ul>
+        <li><a href="https://job-boards.greenhouse.io/fartherfinance/jobs/4570587005">Farther's posting, Greenhouse job 4570587005</a> (read via the Greenhouse API on 14 Oct 2026; first published 29 May 2025, updated 29 Sep 2026): role, team, requirements, bonus points and location. The content had no pay range.</li>
+        <li><a href="https://www.generalatlantic.com/media-article/farther-raises-150-million-series-d-led-by-general-atlantic-to-scale-intelligent-wealth-management/">General Atlantic: Farther raises $150M Series D</a> and <a href="https://fintech.global/2026/05/21/farther-raises-150m-series-d-led-by-general-atlantic/">FinTech Global coverage</a> (May 2026): round, valuation and recruited assets.</li>
+        <li><a href="https://www.farther.com/about-us">Farther About Us</a> and <a href="https://riabiz.com/a/2023/9/29/farthers-hot-week-includes-goldman-sachs-poach-and-31-million-vc-raise-after-in-house-rias-added-input-that-made-100-difference-in-buildout-mapping">RIABiz (2023)</a>: founders and in-house platform history (via search results).</li>
+        <li><strong>Your code:</strong> Store Wolf <code>deploy/</code> (provisioning, secrets, bundle scanner) and AWS SDK usage, read 14 Oct 2026; the <a href="papercusp-answer-bank-standalone.html">Papercusp Answer Bank</a> (N1, N9, N14, Q7, G1).</li>
+      </ul>
+      <p class="source">Company facts checked 14 October 2026. Recruiter identity, interview stages, office cadence and pay range remain to be confirmed. The Reg S-P summary is general background; confirm details before relying on them.</p>
+    </section>
+  </main>
+  <footer><p><a href="papercusp-answer-bank-standalone.html">← Papercusp Answer Bank</a> · Farther recruiter-screen prep · 14 October 2026. Related: <a href="scarce-labs-david-fox-sre-standalone.html">SCARCE Labs founder call</a>, which shares the infrastructure and security stories.</p></footer>
+</div>
+</body>
+</html>
